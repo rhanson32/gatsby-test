@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    width: 100vh;
+    height: 5rem;
+    background-color: green;
+    color: white;
+}
+
+.header {
+    width: 100%;
+    background-color: blue;
+    height: 4rem;
+    color: white;
+    line-height: 4rem;
+    font-size: 3rem;
+    padding: 1rem;
+}
