@@ -1,6 +1,6 @@
 import React from 'react';
 
-const axios = require('axios');
+const axios = require('../../node_modules/axios');
 
 class RuleItem extends React.Component {
 
