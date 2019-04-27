@@ -7,7 +7,7 @@ class RuleItem extends React.Component {
     toggleRule = () => {
         console.log(this.props);
 
-        axios.get('https://youthful-jones-9692d2.netlify.com/.netlift/functions/hello.js').then(
+        axios.get('https://youthful-jones-9692d2.netlify.com/.netlify/functions/hello.js').then(
             response => console.log(response)
         ).catch(err => console.log(err));
         // this.props.toggleRule(this.props.rule.Description);
