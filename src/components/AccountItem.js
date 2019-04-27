@@ -19,7 +19,7 @@ class AccountItem extends React.Component {
                     {this.props.item.RoleName}
                 </div>
                 <div className="account-buttons">
-                    <button onClick={this.removeAccount} className="right-button remove-button">Remove</button>
+                    <button onClick={this.removeAccount} className="remove-button">Remove</button>
                 </div>
             </div>
         )

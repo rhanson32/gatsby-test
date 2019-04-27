@@ -6,9 +6,9 @@ const Header = () => (
             Audit Cloud
         </div>
         <div className="header-menu">
-            <Link to="/rules/">Rules</Link>
-            <Link to="/">Home</Link>
-            <Link to="/accounts/">Accounts</Link>
+            <Link activeClassName="active-link" to="/rules/">Rules</Link>
+            <Link activeClassName="active-link" to="/">Home</Link>
+            <Link activeClassName="active-link" to="/accounts/">Accounts</Link>
         </div>  
     </div>
 );

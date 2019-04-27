@@ -13,13 +13,33 @@ h1 {
 .header {
     width: 100%;
     background-color: #0984e3;
-    height: 4rem;
+    height: 3rem;
     color: white;
-    line-height: 4rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-title {
+    line-height: 3rem;
     font-size: 3rem;
-    padding: 1rem;
+}
+
+.header-menu {
+    width: 50%;
     display: flex;
     justify-content: space-around;
+    font-size: 2rem;
+}
+
+.header-menu a {
+    text-decoration: none;
+    color: white;
+}
+
+.active-link {
+    color: red;
+    font-weight: 700;
 }
 
 .accounts {
@@ -28,7 +48,7 @@ h1 {
     padding: 2rem;
 }
 
-.account-list {
+.account-list, .rule-list {
     margin: 2rem auto;
     width: 80%;
     height: 10rem;
@@ -51,5 +71,58 @@ h1 {
     border: none;
     background-color: #e74c3c;
     color: white;
+    padding: 0.4rem 1rem;
+}
+
+.add-button {
+    background-color: #0984e3;
+    color: white;
+    border-radius: 3px;
+    padding: 0.4rem 1rem;
+    font-weight: 400;
+}
+
+.rule-header {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+
+.rule-detail {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.rule-description {
+    width: 60%;
+}
+
+.rule-category, .rule-provider {
+    width: 20%;
+}
+
+.rule-status {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.disabled-button, .enabled-button {
+    border-radius: 3px;
+    width: 5rem;
+}
+
+.enabled-button {
+    background-color: #27ae60;
+    color: #FFF;
+    padding: 0.2rem 0;
+    height: 2rem;
+}
+
+.disabled-button {
+    background-color: lightgray;
+    color: gray;
     padding: 0.2rem;
+    height: 2rem;
 }
