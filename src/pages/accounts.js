@@ -38,9 +38,7 @@ class Accounts extends React.Component {
                     <div className="account-list">
                     {
                         this.state.Accounts.map(account => {
-                            return (
-                                <AccountItem key={account.Id} item={account}/>
-                            )
+                            return <AccountItem key={account.Id} item={account} />
                         })
                     }
                     </div>
