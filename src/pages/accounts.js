@@ -36,11 +36,22 @@ class Accounts extends React.Component {
                 <Header />
                 <div className="accounts">
                     <div className="account-list">
-                    {
-                        this.state.Accounts.map(account => {
-                            return <AccountItem key={account.Id} item={account} />
-                        })
-                    }
+                        {
+                            this.state.Accounts.map(account => {
+                                return <AccountItem key={account.Id} item={account} />
+                            })
+                        }
+                        <div className="account-item">
+                            <div>
+                                &nbsp;
+                            </div>
+                            <div>
+                                &nbsp;
+                            </div>
+                            <div className="account-add">
+                                <button onClick={this.addAccount} className="add-button">Add Account</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
