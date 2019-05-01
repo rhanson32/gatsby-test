@@ -1,9 +1,6 @@
 import React from "react";
-import { connect } from 'redux';
 import AccountItem from '../components/AccountItem';
 import Header from '../components/Header';
-
-import { fetchData } from '../actions';
 
 class Accounts extends React.Component {
 
