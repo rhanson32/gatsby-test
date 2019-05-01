@@ -8,7 +8,7 @@ const ExternalHeader = () => (
         <div className="header-menu">
             <Link activeClassName="active-link" to="/features/">Features</Link>
             <Link activeClassName="active-link" to="/">Home</Link>
-            <Link activeClassName="active-link" to="/accounts/">Accounts</Link>
+            <Link activeClassName="active-link" to="/accounts/">Pricing</Link>
         </div>  
     </div>
 );

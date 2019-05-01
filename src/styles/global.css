@@ -146,3 +146,33 @@ h1 {
     padding: 0.2rem;
     height: 2rem;
 }
+
+.dashboard {
+    background-color: #EEE;
+    height: 100vh;
+    margin: 5em auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dashboard-header {
+   padding: 2rem auto;
+}
+
+.dashboard-item {
+    background-color: #FFF;
+    height: 50vh;
+    width: 50vh;
+    border: 1px solid #CCC;
+}
+
+.dashboard-header {
+    line-height: 3rem;
+    font-size: 2rem;
+    padding: 0 1rem;
+}
+
+.dashboard-main {
+    padding: 0.5rem 1rem;
+    border-top: 1px dotted gray;
+}
