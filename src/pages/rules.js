@@ -42,7 +42,8 @@ class Rules extends React.Component {
             Description: 'Description',
             Category: 'Category',
             Provider: 'Provider',
-            Status: 'Status'
+            Status: 'Status',
+            Header: true
         }
     };
     
@@ -51,19 +52,7 @@ class Rules extends React.Component {
             <div className="app">
                 <Header />
                 <div className="rule-list">
-                    <div className="rule-header">
-                        <div>
-                        {this.state.RuleHeader.Description}
-                        </div>
-                        <div>
-                            {this.state.RuleHeader.Category}
-                        </div>
-                        <div>
-                        {this.state.RuleHeader.Provider}
-                        </div>
-                        
-                        {this.state.RuleHeader.Status}
-                    </div>
+                    <RuleItem key={this.state.RuleHeader.Description} rule={this.state.RuleHeader} />
                     {this.state.Rules.map(rule => {
                         return (
                             <RuleItem key={rule.Description} rule={rule} />

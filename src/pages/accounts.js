@@ -26,7 +26,13 @@ class Accounts extends React.Component {
                 Provider: 'AWS',
                 RoleName: 'testRole4'
             }
-        ]
+        ],
+        AccountHeader: {
+            Id: 'Account ID',
+            Provider: 'Provider',
+            RoleName: 'Role Name',
+            Header: true
+        }
     };
 
     render() {
@@ -36,12 +42,13 @@ class Accounts extends React.Component {
                 <Header />
                 <div className="accounts">
                     <div className="account-list">
+                        <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
                         {
                             this.state.Accounts.map(account => {
                                 return <AccountItem key={account.Id} item={account} />
                             })
                         }
-                        <div className="account-item">
+                        <div>
                             <div>
                                 &nbsp;
                             </div>

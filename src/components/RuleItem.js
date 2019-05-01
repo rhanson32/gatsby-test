@@ -12,7 +12,7 @@ class RuleItem extends React.Component {
     }
     render() {
         return (
-            <div className="rule-item">
+            <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
                 <div className="rule-detail">
                     <div className="rule-description">
                         {this.props.rule.Description}
@@ -24,11 +24,23 @@ class RuleItem extends React.Component {
                         {this.props.rule.Provider}
                     </div>
                 </div>
-                <div className="rule-status">
-                    <button onClick={this.toggleRule} className={`${this.props.rule.Enabled === true ? 'enabled-button' : "disabled-button"}`}>
-                        {this.props.rule.Enabled ? "ON": "OFF"}
-                    </button>
-                </div>
+                {
+                    this.props.rule.Header && (
+                        <div className="rule-status">
+                            Status
+                        </div>
+                    )
+                }
+                {
+                    !this.props.rule.Header && (
+                        <div className="rule-status">
+                            <button onClick={this.toggleRule} className={`${this.props.rule.Enabled === true ? 'enabled-button' : "disabled-button"}`}>
+                                {this.props.rule.Enabled ? "ON": "OFF"}
+                            </button>
+                        </div>
+                    )
+                }
+                
                 
             </div>
         )
