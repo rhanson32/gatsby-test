@@ -10,7 +10,7 @@ class AccountItem extends React.Component {
         return (
             <div className="account-item">
                 <div>
-                    {this.props.item.Id}
+                    {this.props.item.AccountId}
                 </div>
                 <div>
                     {this.props.item.Provider}
