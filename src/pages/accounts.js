@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import AccountsPage from '../components/AccountsPage';
 import reducer from '../reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = compose;
 
 const store = createStore(
     reducer,
