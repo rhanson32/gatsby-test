@@ -13,9 +13,14 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
+    "aws-amplify": "^1.1.26",
+    "aws-sdk": "^2.448.0",
+    "axios": "^0.18.0",
     "gatsby": "^2.3.31",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "prettier": "^1.17.0"
