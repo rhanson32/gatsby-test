@@ -5,10 +5,6 @@ class RuleItem extends React.Component {
     toggleRule = () => {
         console.log(this.props);
 
-        fetch('https://youthful-jones-9692d2.netlify.com/.netlify/functions/hello').then(
-            response => console.log(response)
-        ).catch(err => console.log(err));
-        // this.props.toggleRule(this.props.rule.Description);
     }
     render() {
         return (

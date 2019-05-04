@@ -53,3 +53,21 @@ export const getAccounts = () => async dispatch => {
 export const removeAccount = () => async dispatch => {
 
 }
+
+export const getRules = () => async dispatch => {
+    let myRequest = {
+        body: {}
+    };
+    const accountResponse = await API.get('Accounts', '/rules', myRequest);
+    console.log(accountResponse);
+    const Items = accountResponse.map(item => {
+        return {
+            RuleId: item.RuleId.S,
+            Provider: item.Provider.S,
+            Category: item.Category.S,
+            Description: item.Description.S,
+            Status: item.Status.S
+        }
+    });
+    dispatch({ type: 'FETCH_RULES', payload: Items });
+}

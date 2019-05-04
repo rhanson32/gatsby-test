@@ -11,6 +11,18 @@ const accountReducer = (state = [], action) => {
 
 };
 
+const ruleReducer = (state = [], action) => {
+    switch(action.type)
+    {
+        case 'FETCH_RULES':
+            return [ ...action.payload ]
+        default:
+            return state;
+    }
+
+};
+
 export default combineReducers({
-    accounts: accountReducer
+    accounts: accountReducer,
+    rules: ruleReducer
 });

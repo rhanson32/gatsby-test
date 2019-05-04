@@ -1,17 +1,8 @@
 import React from "react";
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
 import Header from '../components/Header';
 import AccountsPage from '../components/AccountsPage';
-import reducer from '../reducers';
-
-const composeEnhancers = compose;
-
-const store = createStore(
-    reducer,
-    composeEnhancers(applyMiddleware(thunk))
-);
+import store from '../store';
 
 class Accounts extends React.Component {
 
