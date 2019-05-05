@@ -8,7 +8,7 @@ class AccountItem extends React.Component {
 
     render() {
         return (
-            <div className="account-item">
+            <div className={this.props.item.Header ? "account-header" : "account-item"}>
                 <div>
                     {this.props.item.AccountId}
                 </div>
@@ -18,9 +18,21 @@ class AccountItem extends React.Component {
                 <div>
                     {this.props.item.RoleName}
                 </div>
-                <div className="account-buttons">
-                    <button onClick={this.removeAccount} className="remove-button">Remove</button>
-                </div>
+                {
+                    !this.props.item.Header && (
+                        <div className="account-buttons">
+                            <button onClick={this.removeAccount} className="remove-button">Remove</button>
+                        </div>
+                    )
+                }
+                {
+                    this.props.item.Header && (
+                        <div>
+                            Action
+                        </div>
+                    )
+                }
+                
             </div>
         )
     }

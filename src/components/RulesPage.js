@@ -10,38 +10,6 @@ class RulesPage extends React.Component {
     }
 
     state = {
-        Rules: [
-            {
-                Description: 'Security Group rules open to 0.0.0.0/0',
-                Category: 'Security',
-                Provider: 'AWS',
-                Enabled: true
-            },
-            {
-                Description: 'Abandoned IAM Roles',
-                Category: 'Cleanup',
-                Provider: 'AWS',
-                Enabled: false
-            },
-            {
-                Description: 'Abandoned IAM Users',
-                Category: 'Cleanup',
-                Provider: 'AWS',
-                Enabled: true
-            },
-            {
-                Description: 'S3 Buckets without default encryption',
-                Category: 'Security',
-                Provider: 'AWS',
-                Enabled: false
-            },
-            {
-                Description: 'Unencrypted EBS volumes',
-                Category: 'Security',
-                Provider: 'AWS',
-                Enabled: false
-            }
-        ],
         RuleHeader: {
             Description: 'Description',
             Category: 'Category',

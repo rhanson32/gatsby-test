@@ -24,6 +24,7 @@ h1 {
     line-height: 3rem;
     font-size: 2.8rem;
     padding: 0 0.5rem;
+    width: 50%;
 }
 
 .header-menu {
@@ -40,8 +41,7 @@ h1 {
 }
 
 .active-link {
-    color: red;
-    font-weight: 700;
+    text-decoration: underline;
 }
 
 .accounts {
@@ -97,7 +97,7 @@ h1 {
     border: none;
 }
 
-.rule-header {
+.rule-header, .account-header {
     display: flex;
     justify-content: space-around;
     padding: 0.8rem 1rem;
@@ -150,7 +150,7 @@ h1 {
 .dashboard {
     background-color: #EEE;
     height: 100vh;
-    margin: 5em auto;
+    margin: auto;
     display: flex;
     justify-content: flex-start;
 }
@@ -164,6 +164,7 @@ h1 {
     height: 50vh;
     width: 50vh;
     border: 1px solid #CCC;
+    margin: 5rem auto;
 }
 
 .dashboard-header {
@@ -175,4 +176,24 @@ h1 {
 .dashboard-main {
     padding: 0.5rem 1rem;
     border-top: 1px dotted gray;
+}
+
+@media screen and (max-width: 600px) {
+
+    .header-title {
+        width: 100%;
+        text-align: center;
+        line-height: 5rem;
+        font-size: 4rem;
+    }
+
+    .header-menu {
+        width: 100%;
+    }
+
+    .header {
+        height: 8rem;
+        flex-wrap: wrap;
+    }
+
 }

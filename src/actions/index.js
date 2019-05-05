@@ -62,12 +62,43 @@ export const getRules = () => async dispatch => {
     console.log(accountResponse);
     const Items = accountResponse.map(item => {
         return {
+            CustomerId: item.CustomerId.S,
             RuleId: item.RuleId.S,
             Provider: item.Provider.S,
             Category: item.Category.S,
             Description: item.Description.S,
-            Status: item.Status.S
+            Enabled: item.Enabled.BOOL
         }
     });
     dispatch({ type: 'FETCH_RULES', payload: Items });
+}
+
+export const toggleRule = (id) => async (dispatch, getState) => {
+
+    const prevState = getState();
+
+    let newRule = prevState.rules.filter(rule => rule.RuleId === id).map(rule => {
+            return {
+                ...rule,
+                Enabled: !rule.Enabled
+            }
+    });
+
+    console.log(newRule);
+
+    dispatch({ type: 'TOGGLE_RULE', payload: newRule[0] });
+
+    let myRequest = {
+        body: newRule[0]
+    }
+
+    const ruleResponse = await API.put('Accounts', '/rules', myRequest);
+    console.log(ruleResponse);
+}
+
+export const toggleAddAccount = () => async (dispatch, getState) => {
+    const prevState = getState();
+    console.log(prevState);
+
+    dispatch({type: 'TOGGLE_ADD_ACCOUNT', payload: !prevState.flags.AddAccount })
 }

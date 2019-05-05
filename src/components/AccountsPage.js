@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AccountItem from '../components/AccountItem';
-import { postAccount, getAccounts } from '../actions';
+import AddAccount from '../components/AddAccount';
+import { postAccount, getAccounts, toggleAddAccount } from '../actions';
 
 class Accounts extends React.Component {
     componentDidMount() {
@@ -20,7 +21,7 @@ class Accounts extends React.Component {
     };
 
     addAccount = () => {
-        this.setState({ AddAccount: true });  
+        this.props.toggleAddAccount();
     }
 
     submitAccount = () => {
@@ -40,12 +41,7 @@ class Accounts extends React.Component {
                         })
                     }
                     {
-                        this.state.AddAccount && (
-                            <div>
-                                Adding Account...
-                            <button onClick={this.submitAccount}>Submit</button>
-                            </div>
-                        )
+                        this.props.Flags.AddAccount && <AddAccount />
                     }
                     <div>
                         <div>
@@ -55,7 +51,7 @@ class Accounts extends React.Component {
                             &nbsp;
                         </div>
                         {
-                            !this.state.AddAccount && (
+                            !this.props.Flags.AddAccount && (
                                 <div className="account-add">
                                     <button onClick={this.addAccount} className="add-button">Add Account</button>
                                 </div>
@@ -71,8 +67,9 @@ class Accounts extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        Accounts: state.accounts
+        Accounts: state.accounts,
+        Flags: state.flags
     }
 }
 
-export default connect(mapStateToProps, { getAccounts })(Accounts);
+export default connect(mapStateToProps, { getAccounts, toggleAddAccount })(Accounts);

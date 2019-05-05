@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { toggleRule } from '../actions';
 
 class RuleItem extends React.Component {
 
-    toggleRule = () => {
+    toggleRule = (id) => {
         console.log(this.props);
+        this.props.toggleRule(this.props.rule.RuleId);
 
     }
     render() {
@@ -35,12 +39,10 @@ class RuleItem extends React.Component {
                             </button>
                         </div>
                     )
-                }
-                
-                
+                }    
             </div>
         )
     }
 }
 
-export default RuleItem;
+export default connect(null, { toggleRule })(RuleItem);
