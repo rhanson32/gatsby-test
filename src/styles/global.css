@@ -50,6 +50,34 @@ h1 {
     width: 30%;
 }
 
+.feature-header-title {
+    margin: 6rem auto 1rem auto;
+    width: 30%;
+    font-size: 2rem;
+}
+
+.feature-header-description {
+    width: 60%;
+    margin: 2rem auto;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+}
+
+.feature-items {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto 3rem;
+}
+
+.feature-item {
+    width: 50%;
+    margin: 2rem auto;
+}
+
+.feature-item-header {
+    margin: 0.5rem 0;
+}
+
 .external-menu {
     display: flex;
     justify-content: center;
@@ -74,8 +102,8 @@ h1 {
 
 .splash-title {
     position: absolute;
-    top: 35%;
-    left: 15%;
+    top: 30%;
+    left: 10%;
     background: transparent;
     color: #103c42;
     font-size: 4rem;
@@ -83,8 +111,8 @@ h1 {
 
 .splash-subtitle {
     position: absolute;
-    top: 50%;
-    left: 15%;
+    top: 45%;
+    left: 10%;
 }
 
 .accounts {

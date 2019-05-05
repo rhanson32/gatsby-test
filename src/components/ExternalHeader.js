@@ -6,7 +6,7 @@ const ExternalHeader = () => (
             Purify Cloud
         </div>
         <div className="external-menu">
-            <Link activeClassName="active-link" to="/features/">Why PurifyCloud?</Link>
+            <Link activeClassName="active-link" to="/features/">Why Purify?</Link>
             <Link activeClassName="active-link" to="/">Home</Link>
             <Link activeClassName="active-link" to="/accounts/">Pricing</Link>
         </div>  
