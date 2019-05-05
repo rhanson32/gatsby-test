@@ -1,0 +1,5 @@
+{
+    "tableName": "dynamotest",
+    "partitionKeyName": "AccountId",
+    "partitionKeyType": "N"
+}

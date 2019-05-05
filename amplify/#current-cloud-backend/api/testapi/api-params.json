@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/items",
+            "lambdaFunction": "lambdaapi",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "testapi",
+    "apiName": "gatsbytestc2382f4d",
+    "functionArns": [
+        {
+            "lambdaFunction": "lambdaapi"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "gatsbytest-20190502210739-authRole",
+        "unAuthRoleName": "gatsbytest-20190502210739-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "lambdaapi",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

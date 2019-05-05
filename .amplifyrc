@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "gatsbytest-20190502210739-authRole",
+            "UnauthRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "gatsbytest-20190502210739-deployment",
+            "UnauthRoleName": "gatsbytest-20190502210739-unauthRole",
+            "StackName": "gatsbytest-20190502210739",
+            "StackId": "arn:aws:cloudformation:us-east-1:890086005471:stack/gatsbytest-20190502210739/3aa67090-6d48-11e9-b46c-0a55ab548dc0"
+        }
+    }
+}

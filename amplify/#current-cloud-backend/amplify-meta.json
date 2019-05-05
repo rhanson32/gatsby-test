@@ -1,0 +1,90 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "gatsbytest-20190502210739-authRole",
+			"UnauthRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "gatsbytest-20190502210739-deployment",
+			"UnauthRoleName": "gatsbytest-20190502210739-unauthRole",
+			"StackName": "gatsbytest-20190502210739",
+			"StackId": "arn:aws:cloudformation:us-east-1:890086005471:stack/gatsbytest-20190502210739/3aa67090-6d48-11e9-b46c-0a55ab548dc0"
+		}
+	},
+	"storage": {
+		"dynamotest": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/storage/dynamotest-cloudformation-template.json",
+				"logicalId": "storagedynamotest"
+			},
+			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"output": {
+				"PartitionKeyName": "AccountId",
+				"Region": "us-east-1",
+				"Arn": "arn:aws:dynamodb:us-east-1:890086005471:table/dynamotest",
+				"PartitionKeyType": "N",
+				"Name": "dynamotest"
+			},
+			"lastPushDirHash": "jJfUgLNVOrmQwBh5+lHE+mJdFjE="
+		}
+	},
+	"function": {
+		"lambdaapi": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "dynamotest",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"lastBuildTimeStamp": "2019-05-03T02:12:32.019Z",
+			"lastPackageTimeStamp": "2019-05-03T02:12:40.814Z",
+			"distZipFilename": "lambdaapi-1556849552-latest-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/function/lambdaapi-cloudformation-template.json",
+				"logicalId": "functionlambdaapi"
+			},
+			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"output": {
+				"Region": "us-east-1",
+				"Arn": "arn:aws:lambda:us-east-1:890086005471:function:lambdaapi",
+				"Name": "lambdaapi"
+			},
+			"lastPushDirHash": "8BsIgGr7ds0hXfCjRgrlNn7wWlc="
+		}
+	},
+	"api": {
+		"testapi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "lambdaapi",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/api/testapi-cloudformation-template.json",
+				"logicalId": "apitestapi"
+			},
+			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"output": {
+				"ApiName": "testapi",
+				"RootUrl": "https://i667omprzj.execute-api.us-east-1.amazonaws.com/Prod"
+			},
+			"lastPushDirHash": "nMbZiivUAwTEs0rbR6c9bnBfTtg="
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+    "projectName": "gatsbytest",
+    "projectPath": "/Users/laurenhanson/Documents/react-projects/gatsby-test",
+    "defaultEditor": "code",
+    "frontendHandler": {
+        "javascript": "/Users/laurenhanson/.npm-global/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "build",
+            "BuildCommand": "npm run-script build",
+            "StartCommand": "npm run-script start"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/Users/laurenhanson/.npm-global/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}

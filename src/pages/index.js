@@ -1,10 +1,10 @@
 import React from "react";
-import Header from '../components/Header';
-import Dashboard from "../components/Dashboard";
+import Splash from "../components/Splash";
+import Features from '../components/Features';
 
 export default () => (
   <div className="app">
-    <Header />
-    <Dashboard />
+    <Splash />
+    <Features />
   </div>
 )
