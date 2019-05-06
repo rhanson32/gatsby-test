@@ -76,6 +76,7 @@ h1 {
 
 .feature-item-header {
     margin: 0.5rem 0;
+    font-size: 1.6rem;
 }
 
 .external-menu {
@@ -98,6 +99,12 @@ h1 {
 
 .active-link {
     text-decoration: underline;
+}
+
+.site-map {
+    width: 100vw;
+    height: 50vh;
+    background-color: #F2F2f2;
 }
 
 .splash-title {
@@ -251,7 +258,16 @@ h1 {
 
 .splash {
     background-image: url(../../static/buildings.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
+}
+
+.feature-focus {
+    background-color: #DEDEDE;
+    height: 50vh;
+    padding: 1rem 3rem;
+    margin: 3rem auto;
 }
 
 @media screen and (max-width: 600px) {
@@ -270,6 +286,37 @@ h1 {
     .header {
         height: 8rem;
         flex-wrap: wrap;
+    }
+
+    .feature-header-title {
+        width: 80%;
+        font-size: x-large;
+    }
+
+    .feature-header-description {
+        width: 80%;
+    }
+
+    .feature-item {
+        width: 100%;
+    }
+
+    .splash {
+        height: 70vh;
+    }
+
+    .external-title {
+        line-height: 2rem;
+        font-size: 1.8rem;
+        padding: 0 0.5rem;
+        width: 30%;
+    }
+
+    .external-menu {
+        display: flex;
+        justify-content: center;
+        font-size: 1rem;
+        line-height: 1.2rem;
     }
 
 }

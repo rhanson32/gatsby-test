@@ -3,13 +3,13 @@ import React from 'react';
 const FeatureItem = (props) => (
     <div className="feature-item">
         <div>
-            Feature Icon
+            {props.icon || "yes"}
         </div>
         <div className="feature-item-header">
             {props.title}
         </div>
         <div>
-            Feature description
+            {props.description}
         </div>
     </div>
 );
