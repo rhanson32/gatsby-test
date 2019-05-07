@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-const FeatureFocus = () => (
+const FeatureFocus = (props) => (
     <div className="feature-focus">
-        Feature Focus
+        {props.title}
     </div>
 );
 
