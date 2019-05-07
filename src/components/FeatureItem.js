@@ -3,7 +3,7 @@ import React from 'react';
 const FeatureItem = (props) => (
     <div className="feature-item">
         <div>
-            {props.icon || "yes"}
+            {props.icon}
         </div>
         <div className="feature-item-header">
             {props.title}
