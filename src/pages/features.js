@@ -7,7 +7,7 @@ import ActionCall from '../components/ActionCall';
 import SiteMap from '../components/SiteMap';
 
 const Features = () => (
-    <div>
+    <div className="app">
         <ExternalHeader />
         <FeatureHeader />
         <FeatureFocus title="Pre-built Rule Sets" />

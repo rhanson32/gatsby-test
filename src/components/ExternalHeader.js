@@ -3,12 +3,12 @@ import { Link } from 'gatsby';
 const ExternalHeader = () => (
     <div className="external-header">
         <div className="external-title">
-            Purify Cloud
+            
+            <Link activeClassName="active-link" to="/">Purify Cloud</Link>
         </div>
         <div className="external-menu">
             <Link activeClassName="active-link" to="/features/">Why Purify?</Link>
-            <Link activeClassName="active-link" to="/">Home</Link>
-            <Link activeClassName="active-link" to="/accounts/">Pricing</Link>
+            <Link activeClassName="active-link" to="/pricing/">Pricing</Link>
         </div>  
     </div>
 );
