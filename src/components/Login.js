@@ -38,10 +38,11 @@ class Login extends React.Component {
   render() {
     if (isLoggedIn()) navigate('/app/dashboard')
     return (
-      <div>
-        <h1>Sign In</h1>
+      <div className="login-screen">
+        
         {this.state.error && <Error errorMessage={this.state.error}/>}
-        <div style={styles.formContainer}>
+        <div className="login-form">
+          <div className="login-header">Sign In</div>
          <input
             onChange={this.handleUpdate}
             placeholder='Username'

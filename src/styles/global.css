@@ -75,11 +75,43 @@ h1 {
 .feature-items {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
     margin: auto 3rem;
 }
 
-.feature-item {
+.sign-up-link {
+    padding: 0 1rem;
+    background-color: #27ae60;
+}
+
+.login-screen {
     width: 50%;
+    margin: auto;
+}
+
+.login-header {
+    background-color: #0984e3;
+    text-align: center;
+    line-height: 4rem;
+    height: 4rem;
+    width: 100%;
+    color: white;
+    font-size: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #0984e3;
+}
+
+.login-form input {
+    width: 80%;
+}
+
+.feature-item {
+    width: 45%;
     margin: 2rem auto;
 }
 

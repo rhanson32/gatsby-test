@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby'
 
 const SiteMap = () => (
     <div className="site-map">
@@ -7,7 +8,7 @@ const SiteMap = () => (
                 Product
             </div>
             <div className="site-map-item-link">
-                Why Purify
+                <Link to="/app/features">Why Purify</Link>
             </div>
             <div className="site-map-item-link">
                 Pricing

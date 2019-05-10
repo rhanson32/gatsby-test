@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Header from './Header'
+
 class Dashboard extends React.Component {
 
     render() {
         return (
+            <div>
+                <Header />
             <div className="dashboard">
                 <div className="dashboard-item">
                     <div className="dashboard-header">
@@ -60,6 +64,7 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         )
     } 
