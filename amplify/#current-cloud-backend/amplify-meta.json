@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/storage/dynamotest-cloudformation-template.json",
 				"logicalId": "storagedynamotest"
 			},
-			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"lastPushTimeStamp": "2019-05-08T01:42:27.786Z",
 			"output": {
 				"PartitionKeyName": "AccountId",
 				"Region": "us-east-1",
@@ -52,7 +52,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/function/lambdaapi-cloudformation-template.json",
 				"logicalId": "functionlambdaapi"
 			},
-			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"lastPushTimeStamp": "2019-05-08T01:42:27.787Z",
 			"output": {
 				"Region": "us-east-1",
 				"Arn": "arn:aws:lambda:us-east-1:890086005471:function:lambdaapi",
@@ -79,12 +79,33 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/api/testapi-cloudformation-template.json",
 				"logicalId": "apitestapi"
 			},
-			"lastPushTimeStamp": "2019-05-03T02:16:17.149Z",
+			"lastPushTimeStamp": "2019-05-08T01:42:27.788Z",
 			"output": {
 				"ApiName": "testapi",
 				"RootUrl": "https://i667omprzj.execute-api.us-east-1.amazonaws.com/Prod"
 			},
 			"lastPushDirHash": "nMbZiivUAwTEs0rbR6c9bnBfTtg="
+		}
+	},
+	"auth": {
+		"cognitoPurify": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/auth/cognitoPurify-cloudformation-template.yml",
+				"logicalId": "authcognitoPurify"
+			},
+			"lastPushTimeStamp": "2019-05-08T01:42:27.790Z",
+			"output": {
+				"AppClientSecret": "3r4t7ksk7cjfktesd0qj3g5qv9amu1s2guvr3pj7kati5j3keiu",
+				"UserPoolId": "us-east-1_c6P2ZVC6M",
+				"AppClientIDWeb": "4ri1refqbfoev6an37h19onb9j",
+				"AppClientID": "60hfcduf1n9qfii52l6m5c1m1f",
+				"IdentityPoolId": "us-east-1:593d52ae-0e06-4627-acde-2f77873aae2c",
+				"IdentityPoolName": "identityPurify",
+				"UserPoolName": "purifyUserPool"
+			},
+			"lastPushDirHash": "vM/R6XyxTqp1PsfuvcqYsbQNIPE="
 		}
 	}
 }

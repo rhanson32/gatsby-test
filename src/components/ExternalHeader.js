@@ -9,6 +9,7 @@ const ExternalHeader = () => (
         <div className="external-menu">
             <Link activeClassName="active-link" to="/features/">Why Purify?</Link>
             <Link activeClassName="active-link" to="/pricing/">Pricing</Link>
+            <Link to="/app/dashboard">Log In</Link>
         </div>  
     </div>
 );

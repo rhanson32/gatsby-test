@@ -286,7 +286,23 @@ h1 {
 }
 
 .dashboard-header {
-   padding: 2rem auto;
+   margin: 0 auto;
+   text-align: center;
+   flex-grow: 1;
+}
+
+.dashboard-main {
+    flex-grow: 7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
+
+.dashboard-footer {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
 }
 
 .dashboard-item {
@@ -294,7 +310,10 @@ h1 {
     height: 50vh;
     width: 50vh;
     border: 1px solid #CCC;
-    margin: 5rem auto;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .dashboard-header {

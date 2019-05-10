@@ -7,10 +7,57 @@ class Dashboard extends React.Component {
             <div className="dashboard">
                 <div className="dashboard-item">
                     <div className="dashboard-header">
-                        Metric ABC
+                        Security
                     </div>
                     <div className="dashboard-main">
-                        Some example text here.
+                        <div className="dashboard-metric">
+                            95%
+                        </div>
+                        
+                    </div>
+                    <div className="dashboard-footer">
+                        <div>
+                            Passing
+                        </div>
+                        <div>
+                            95 / 100
+                        </div>
+                    </div>
+                </div>
+                <div className="dashboard-item">
+                    <div className="dashboard-header">
+                        Waste
+                    </div>
+                    <div className="dashboard-main">
+                        <div className="dashboard-metric">
+                                95%
+                        </div>
+                    </div>
+                    <div className="dashboard-footer">
+                        <div>
+                            Passing
+                        </div>
+                        <div>
+                            95 / 100
+                        </div>
+                    </div>
+                </div>
+                <div className="dashboard-item">
+                    <div className="dashboard-header">
+                        Misconfiguration
+                    </div>
+                    <div className="dashboard-main">
+                        <div className="dashboard-metric">
+                            95%
+                        </div>
+                    </div>
+                    <div className="dashboard-footer">
+                        <div>
+                            View Violations
+                        </div>
+                        <div>
+                            95 / 100
+                        </div>
                     </div>
                 </div>
             </div>

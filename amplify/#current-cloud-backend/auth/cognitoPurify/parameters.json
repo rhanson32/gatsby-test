@@ -1,0 +1,57 @@
+{
+    "identityPoolName": "identityPurify",
+    "allowUnauthenticatedIdentities": true,
+    "thirdPartyAuth": false,
+    "lambdaLogPolicy": "cognitoPurify_lambda_log_policy",
+    "openIdLambdaRoleName": "cognitoPurify_openid_lambda_role",
+    "openIdRolePolicy": "cognitoPurify_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "cognitoPurify_openid_lambda_iam_policy",
+    "openIdLogPolicy": "cognitoPurify_openid_lambda_log_policy",
+    "userPoolName": "purifyUserPool",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "cognitoPurify_sns-role",
+    "roleExternalId": "cognitoPurify_role_external_id",
+    "policyName": "cognitoPurify-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers",
+        "Requires Symbols"
+    ],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "cognitoPurify_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "cognitoPurify_totp_lambda_role",
+    "mfaLambdaLogPolicy": "cognitoPurify_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "cognitoPurify_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "cognitoPurify_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "cognitoPurify_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "cognitoPurify_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "cognitoPurify_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "useDefault": "manual",
+    "authSelections": "identityPoolAndUserPool",
+    "resourceName": "cognitoPurify",
+    "unAuthRoleName": "gatsbytest-20190502210739-unauthRole",
+    "authRoleName": "gatsbytest-20190502210739-authRole",
+    "unAuthRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-unauthRole",
+    "authRoleArn": "arn:aws:iam::890086005471:role/gatsbytest-20190502210739-authRole"
+}

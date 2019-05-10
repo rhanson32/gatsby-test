@@ -1,7 +1,5 @@
 import Amplify, { API } from 'aws-amplify';
 
-const AWS = require('aws-sdk');
-
 Amplify.configure({
     API: {
         endpoints: [
@@ -12,16 +10,6 @@ Amplify.configure({
         ]
     }
 });
-
-export const fetchData = async (dispatch) => {
-    const dynamo = new AWS.DynamoDB();
-
-    const response = await dynamo.scan({
-        TableName: 'Slimcloud_Accounts'
-    }).promise();
-
-    response.then(data => console.log(data));
-}
 
 export const postAccount = (item) => async dispatch => {
     let myRequest = {

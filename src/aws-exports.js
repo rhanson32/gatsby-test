@@ -15,7 +15,11 @@ const awsmobile = {
             "endpoint": "https://i667omprzj.execute-api.us-east-1.amazonaws.com/Prod",
             "region": "us-east-1"
         }
-    ]
+    ],
+    "aws_cognito_identity_pool_id": "us-east-1:593d52ae-0e06-4627-acde-2f77873aae2c",
+    "aws_cognito_region": "us-east-1",
+    "aws_user_pools_id": "us-east-1_c6P2ZVC6M",
+    "aws_user_pools_web_client_id": "4ri1refqbfoev6an37h19onb9j"
 };
 
 
