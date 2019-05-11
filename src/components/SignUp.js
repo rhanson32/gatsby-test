@@ -1,6 +1,5 @@
 import React from "react"
-import { navigate} from "@reach/router"
-import { Link } from 'gatsby'
+import { navigate } from "@reach/router"
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 
@@ -24,9 +23,9 @@ class SignUp extends React.Component {
     }
   
     signUp = async() => {
-      const { username, password, email, phone_number } = this.state
+      const { username, password, email, phone_number, company_name } = this.state
       try {
-        await Auth.signUp({ username, password, attributes: { email, phone_number }})
+        await Auth.signUp({ username, password, attributes: { email, phone_number, company_name }})
         this.setState({ stage: 1 })
       } catch (err) {
         this.setState({ error: err })
@@ -48,18 +47,17 @@ class SignUp extends React.Component {
 
       render() {
         return (
-          <div>
-            <h1>Sign Up</h1>
+          <div className="signup-screen">
+            <div className="signup-header">Sign Up</div>
             {
               this.state.stage === 0 && (
-                <div style={styles.formContainer}>
+                <div className="signup-form">
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <input
                     onChange={this.handleUpdate}
                     placeholder='Username'
                     name='username'
                     value={this.state.username}
-                    style={styles.input}
                   />
                   <input
                 onChange={this.handleUpdate}
@@ -74,17 +72,21 @@ class SignUp extends React.Component {
                 placeholder='Email'
                 name='email'
                 value={this.state.email}
-                style={styles.input}
               />
               <input
                 onChange={this.handleUpdate}
                 placeholder='Phone Number'
                 name='phone_number'
                 value={this.state.phone_number}
-                style={styles.input}
               />
-              <div style={styles.button} onClick={this.signUp}>
-                <span style={styles.buttonText}>Sign Up</span>
+              <input
+                onChange={this.handleUpdate}
+                placeholder='Company Name'
+                name='company_name'
+                value={this.state.company_name}
+              />
+              <div className="signup-button" onClick={this.signUp}>
+                <span className="signup-button-text">Sign Up</span>
               </div>
             </div>
           )
@@ -98,15 +100,13 @@ class SignUp extends React.Component {
                 placeholder='Authorization Code'
                 name='authCode'
                 value={this.state.authCode}
-                style={styles.input}
               />
-              <div style={styles.button} onClick={this.confirmSignUp}>
-                <span style={styles.buttonText}>Confirm Sign Up</span>
+              <div className="signup-button" onClick={this.confirmSignUp}>
+                <span className="signup-button-text">Confirm Sign Up</span>
               </div>
             </div>
           )
         }
-        <Link to="/app/login">Sign In</Link>
       </div>
     )
   }

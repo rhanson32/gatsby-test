@@ -15,7 +15,7 @@ const Header = () => (
         <div className="header-menu">
             <Link activeClassName="active-link" to="/app/rules">Rules</Link>
             <Link activeClassName="active-link" to="/app/dashboard">Dashboard</Link>
-            <Link activeClassName="active-link" to="/accounts">Accounts</Link>
+            <Link activeClassName="active-link" to="/app/accounts">Accounts</Link>
             {
                 isLoggedIn() && (
                 <p

@@ -39,16 +39,14 @@ class Login extends React.Component {
     if (isLoggedIn()) navigate('/app/dashboard')
     return (
       <div className="login-screen">
-        
         {this.state.error && <Error errorMessage={this.state.error}/>}
         <div className="login-form">
-          <div className="login-header">Sign In</div>
+          <div className="login-header">PurifyCloud</div>
          <input
             onChange={this.handleUpdate}
             placeholder='Username'
             name='username'
             value={this.state.username}
-            style={styles.input}
           />
           <input
             onChange={this.handleUpdate}
@@ -56,10 +54,9 @@ class Login extends React.Component {
             name='password'
             value={this.state.password}
             type='password'
-            style={styles.input}
           />
-          <div style={styles.button} onClick={this.login}>
-            <span style={styles.buttonText}>Sign In</span>
+          <div className="login-button" onClick={this.login}>
+            <span className="login-button-text">Sign In</span>
           </div>
         </div>
         <Link to="/app/signup">Sign Up</Link><br />
@@ -67,21 +64,6 @@ class Login extends React.Component {
     )
   }
 }
-
-const styles = {
-    input: {
-      height: 40, margin: '10px 0px', padding: 7
-    },
-    formContainer: {
-      display: 'flex', flexDirection: 'column'
-    },
-    button: {
-      backgroundColor: 'rebeccapurple', padding: '15px 7px', cursor: 'pointer', textAlign: 'center', marginBottom: 10
-    },
-    buttonText: {
-      color: 'white'
-    }
-  }
   
 export default Login
   

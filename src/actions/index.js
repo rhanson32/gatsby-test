@@ -15,7 +15,7 @@ export const postAccount = (item) => async dispatch => {
     let myRequest = {
         body: {}
     };
-    API.post('Accounts', '/accounts', myRequest).then(
+    API.post('Accounts', '/accounts/', myRequest).then(
         response => {
             console.log(response);
     }).catch(err => console.log(err));
@@ -26,7 +26,7 @@ export const getAccounts = () => async dispatch => {
     let myRequest = {
         body: {}
     };
-    const accountResponse = await API.get('Accounts', '/accounts', myRequest);
+    const accountResponse = await API.get('Accounts', '/accounts', myRequest).catch(err => console.log(err));
     console.log(accountResponse);
     const Items = accountResponse.Items.map(item => {
         return {

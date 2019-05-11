@@ -36,11 +36,17 @@ h1 {
 
 .external-header {
     width: 100%;
-    background-color: transparent;
+    background-color: #a0d9f7;
     height: 3rem;
     color: #103c42;
     display: flex;
     justify-content: flex-start;
+}
+
+.pricing-header {
+    margin: 2rem;
+    font-size: 2rem;
+    width: 100%;
 }
 
 .external-title {
@@ -84,12 +90,44 @@ h1 {
     background-color: #27ae60;
 }
 
-.login-screen {
-    width: 50%;
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 60%;
     margin: auto;
+    border: 1px solid gray;
 }
 
-.login-header {
+.pricing-card-header {
+    height: 20%;
+    font-size: 3rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pricing-card-price {
+    height: 40%;
+    font-size: 3.5rem;
+    padding: 10%;
+}
+
+.pricing-card-description {
+    font-size: 1.8rem;
+    height: 20%;
+}
+
+.login-screen {
+    background: #005C97;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-header, .signup-header {
     background-color: #0984e3;
     text-align: center;
     line-height: 4rem;
@@ -104,10 +142,36 @@ h1 {
     flex-direction: column;
     align-items: center;
     border: 1px solid #0984e3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    background-color: white;
 }
 
-.login-form input {
+.login-form input, .signup-form input {
     width: 80%;
+    height: 3rem;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.login-button, .signup-button {
+    width: 50%;
+    height: 4rem;
+    background-color: purple;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.login-button-text, .signup-button-text {
+    font-size: 2rem;
+    color: white;
 }
 
 .feature-item {
@@ -382,8 +446,27 @@ h1 {
         font-size: 4rem;
     }
 
+    .external-header {
+        height: 6rem;
+        flex-wrap: wrap;
+    }
+
+    
+
     .header-menu {
         width: 100%;
+    }
+
+    .login-form {
+        width: 90%;
+    }
+
+    .pricing-card {
+        width: 80%;
+    }
+
+    .pricing-card-header {
+        font-size: 4rem;
     }
 
     .header {
@@ -438,10 +521,11 @@ h1 {
     }
 
     .external-title {
-        line-height: 2rem;
-        font-size: 1.6rem;
+        line-height: 3rem;
+        font-size: 2.6rem;
         padding: 0 0.5rem;
-        width: 40%;
+        width: 100%;
+        text-align: center;
     }
 
     .external-title a {
@@ -450,10 +534,11 @@ h1 {
 
     .external-menu {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
+        align-items: center;
         font-size: 1rem;
         line-height: 1.2rem;
-        width: 60%;
+        width: 100%;
     }
 
     .external-menu a {
