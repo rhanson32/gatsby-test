@@ -1,0 +1,27 @@
+{
+    "paths": [
+        {
+            "name": "/accounts",
+            "lambdaArn": "arn:aws:lambda:us-east-1:890086005471:function:getAccounts",
+            "lambdaFunction": "getAccounts",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "purifyApi",
+    "apiName": "gatsbytestfa839459",
+    "functionArns": [
+        {
+            "lambdaFunction": "getAccounts",
+            "lambdaArn": "arn:aws:lambda:us-east-1:890086005471:function:getAccounts"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "gatsbytest-20190502210739-authRole",
+        "unAuthRoleName": "gatsbytest-20190502210739-unauthRole"
+    },
+    "dependsOn": []
+}

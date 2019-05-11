@@ -1,5 +1,6 @@
 import React from 'react';
 import ExternalHeader from './ExternalHeader';
+import SiteMap from './SiteMap'
 
 const Pricing = () => (
     <div>
@@ -23,10 +24,11 @@ const Pricing = () => (
                     <li>Real-time Dashboard</li>
                 </ul>
             </div>
-            <div>
-
+            <div className="pricing-card-footer">
+                Select
             </div>
         </div>
+        <SiteMap />
     </div>
 );
 

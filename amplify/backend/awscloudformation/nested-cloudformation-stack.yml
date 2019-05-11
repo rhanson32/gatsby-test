@@ -109,24 +109,11 @@
 				}
 			}
 		},
-		"apitestapi": {
+		"apipurifyApi": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/api/testapi-cloudformation-template.json",
-				"Parameters": {
-					"functionlambdaapiName": {
-						"Fn::GetAtt": [
-							"functionlambdaapi",
-							"Outputs.Name"
-						]
-					},
-					"functionlambdaapiArn": {
-						"Fn::GetAtt": [
-							"functionlambdaapi",
-							"Outputs.Arn"
-						]
-					}
-				}
+				"TemplateURL": "https://s3.amazonaws.com/gatsbytest-20190502210739-deployment/amplify-cfn-templates/api/purifyApi-cloudformation-template.json",
+				"Parameters": {}
 			}
 		},
 		"authcognitoPurify": {

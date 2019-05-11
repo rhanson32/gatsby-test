@@ -16,15 +16,15 @@ const Header = () => (
             <Link activeClassName="active-link" to="/app/rules">Rules</Link>
             <Link activeClassName="active-link" to="/app/dashboard">Dashboard</Link>
             <Link activeClassName="active-link" to="/app/accounts">Accounts</Link>
+            <Link activeClassName="active-link" to="/app/support">Support</Link>
             {
                 isLoggedIn() && (
-                <p
-                onClick={
-                () => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('eror:', err))
-                }
-                style={styles.link}
-            >Sign Out</p>
-                    )
+                    <a
+                      onClick={
+                      () => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))
+                      }
+                    >Sign Out</a>
+                )
             }
         </div>  
     </div>

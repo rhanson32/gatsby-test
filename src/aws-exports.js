@@ -11,8 +11,8 @@ const awsmobile = {
     ],
     "aws_cloud_logic_custom": [
         {
-            "name": "testapi",
-            "endpoint": "https://i667omprzj.execute-api.us-east-1.amazonaws.com/Prod",
+            "name": "purifyApi",
+            "endpoint": "https://2m3rb89u7h.execute-api.us-east-1.amazonaws.com/Prod",
             "region": "us-east-1"
         }
     ],

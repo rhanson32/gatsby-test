@@ -11,7 +11,7 @@ const SiteMap = () => (
                 <Link to="/app/features">Why Purify</Link>
             </div>
             <div className="site-map-item-link">
-                Pricing
+                <Link to="/app/pricing">Pricing</Link>
             </div>
         </div>
         <div className="site-map-item">

@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import AccountItem from '../components/AccountItem';
-import AddAccount from '../components/AddAccount';
+import AccountItem from './AccountItem';
+import Header from './Header'
+import AddAccount from './AddAccount';
 import { postAccount, getAccounts, toggleAddAccount } from '../actions';
 
 class Accounts extends React.Component {
@@ -32,6 +33,8 @@ class Accounts extends React.Component {
     render() {
         console.log(this.props);
         return (
+            <div>
+                <Header />
             <div className="accounts">
                 <div className="account-list">
                     <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
@@ -60,6 +63,7 @@ class Accounts extends React.Component {
                         
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

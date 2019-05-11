@@ -12,8 +12,7 @@ const accountReducer = (state = [], action) => {
 };
 
 const ruleReducer = (state = [], action) => {
-    console.log(state);
-    console.log(action);
+
     switch(action.type)
     {
         case 'FETCH_RULES':
@@ -24,6 +23,17 @@ const ruleReducer = (state = [], action) => {
             return state;
     }
 
+};
+
+const featureReducer = (state = [], action) => {
+
+    switch(action.type)
+    {
+        case 'FETCH_FEATURES':
+            return [ ...action.payload ]
+        default:
+            return state;
+    }
 };
 
 const flagReducer = (state = { AddAccount: false }, action) => {
@@ -39,5 +49,6 @@ const flagReducer = (state = { AddAccount: false }, action) => {
 export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
-    flags: flagReducer
+    flags: flagReducer,
+    features: featureReducer
 });

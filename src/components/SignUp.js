@@ -7,7 +7,7 @@ const initialState = {
   username: ``,
   password: ``,
   email: '',
-  phone_number: '',
+  company: '',
   authCode: '',
   stage: 0,
   error: ''
@@ -23,9 +23,9 @@ class SignUp extends React.Component {
     }
   
     signUp = async() => {
-      const { username, password, email, phone_number, company_name } = this.state
+      const { username, password, email, company } = this.state
       try {
-        await Auth.signUp({ username, password, attributes: { email, phone_number, company_name }})
+        await Auth.signUp({ username, password, attributes: { email, "custom:company" : company }})
         this.setState({ stage: 1 })
       } catch (err) {
         this.setState({ error: err })
@@ -46,12 +46,13 @@ class SignUp extends React.Component {
       }
 
       render() {
+        console.log(this.state)
         return (
           <div className="signup-screen">
-            <div className="signup-header">Sign Up</div>
             {
               this.state.stage === 0 && (
                 <div className="signup-form">
+                  <div className="signup-header">Sign Up</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <input
                     onChange={this.handleUpdate}
@@ -75,15 +76,9 @@ class SignUp extends React.Component {
               />
               <input
                 onChange={this.handleUpdate}
-                placeholder='Phone Number'
-                name='phone_number'
-                value={this.state.phone_number}
-              />
-              <input
-                onChange={this.handleUpdate}
                 placeholder='Company Name'
-                name='company_name'
-                value={this.state.company_name}
+                name='company'
+                value={this.state.company}
               />
               <div className="signup-button" onClick={this.signUp}>
                 <span className="signup-button-text">Sign Up</span>
@@ -93,7 +88,7 @@ class SignUp extends React.Component {
         }
         {
           this.state.stage === 1 && (
-            <div style={styles.formContainer}>
+            <div className="signup-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
               <input
                 onChange={this.handleUpdate}

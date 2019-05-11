@@ -1,21 +1,15 @@
-import Amplify, { API } from 'aws-amplify';
+import axios from 'axios';
 
-Amplify.configure({
-    API: {
-        endpoints: [
-            {
-                name: "Accounts",
-                endpoint: "https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test"
-            }
-        ]
-    }
+const purify = axios.create({
+    baseURL: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test',
+    timeout: 4000
 });
 
 export const postAccount = (item) => async dispatch => {
     let myRequest = {
         body: {}
     };
-    API.post('Accounts', '/accounts/', myRequest).then(
+    purify.post('/accounts', myRequest).then(
         response => {
             console.log(response);
     }).catch(err => console.log(err));
@@ -26,9 +20,9 @@ export const getAccounts = () => async dispatch => {
     let myRequest = {
         body: {}
     };
-    const accountResponse = await API.get('Accounts', '/accounts', myRequest).catch(err => console.log(err));
+    const accountResponse = await purify.get('/accounts', myRequest).catch(err => console.log(err));
     console.log(accountResponse);
-    const Items = accountResponse.Items.map(item => {
+    const Items = accountResponse.data.Items.map(item => {
         return {
             AccountId: item.AccountId.S,
             Provider: item.Provider.S,
@@ -42,13 +36,29 @@ export const removeAccount = () => async dispatch => {
 
 }
 
+export const getFeatures = () => async dispatch => {
+    let myRequest = {
+        body: {}
+    };
+    const featureResponse = await purify.get('/features', myRequest);
+    console.log(featureResponse);
+    const Items = featureResponse.data.Items.map(item => {
+        return {
+            FeatureId: item.FeatureId.S,
+            Title: item.Title.S,
+            Description: item.Description.S,
+        }
+    });
+    dispatch({ type: 'FETCH_FEATURES', payload: Items });
+}
+
 export const getRules = () => async dispatch => {
     let myRequest = {
         body: {}
     };
-    const accountResponse = await API.get('Accounts', '/rules', myRequest);
+    const accountResponse = await purify.get('/rules', myRequest);
     console.log(accountResponse);
-    const Items = accountResponse.map(item => {
+    const Items = accountResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
             RuleId: item.RuleId.S,
@@ -80,7 +90,7 @@ export const toggleRule = (id) => async (dispatch, getState) => {
         body: newRule[0]
     }
 
-    const ruleResponse = await API.put('Accounts', '/rules', myRequest);
+    const ruleResponse = await purify.put('/rules', myRequest);
     console.log(ruleResponse);
 }
 

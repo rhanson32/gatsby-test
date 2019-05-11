@@ -6,35 +6,21 @@
     "Parameters": {
         
     
-    
-          "functionlambdaapiName": {
-            "Type": "String",
-            "Default": "functionlambdaapiName"
-          },
-        
-          
-          "functionlambdaapiArn": {
-            "Type": "String",
-            "Default": "functionlambdaapiArn"
-          }
-        
-          
-          
         },
     
     "Resources": {
         
         
-      "gatsbytestc2382f4d": {
+      "gatsbytestfa839459": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "gatsbytestc2382f4d",
+          "Name": "gatsbytestfa839459",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "gatsbytestc2382f4d"
+              "title": "gatsbytestfa839459"
             },
             "host": {
                 "Fn::Join": [
@@ -54,7 +40,7 @@
             ],
             "paths": {
               
-              "/items": {
+              "/accounts": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -137,11 +123,8 @@
                               "Ref": "AWS::Region"
                             },
                             ":lambda:path/2015-03-31/functions/",
-                            
-                            {
-                                
-                                "Ref": "functionlambdaapiArn"
-                            },
+                             
+                            "arn:aws:lambda:us-east-1:890086005471:function:getAccounts", 
                             
                             "/invocations"
                           ]
@@ -153,7 +136,7 @@
                   }
                 }
               },
-              "/items/{proxy+}": {
+              "/accounts/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -236,11 +219,8 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
-                          {
-                            
-                            "Ref": "functionlambdaapiArn"
-                          },
+                           
+                            "arn:aws:lambda:us-east-1:890086005471:function:getAccounts",
                           
                           "/invocations"
                         ]
@@ -296,14 +276,10 @@
                   
         
         
-        "functionlambdaapiPermissiongatsbytestc2382f4d": {
+        "functiongetAccountsPermissiongatsbytestfa839459": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionlambdaapiName"
-                    },
-                    
+                "FunctionName":  "arn:aws:lambda:us-east-1:890086005471:function:getAccounts", 
                     "Action": "lambda:InvokeFunction",
                 "Principal": "apigateway.amazonaws.com",
                 "SourceArn": {
@@ -320,7 +296,7 @@
                             },
                             ":",
                             {
-                                "Ref": "gatsbytestc2382f4d"
+                                "Ref": "gatsbytestfa839459"
                             },
                             "/*/*/*"
                         ]
@@ -333,13 +309,13 @@
         
         
         
-      "DeploymentAPIGWgatsbytestc2382f4d": {
+      "DeploymentAPIGWgatsbytestfa839459": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
           "StageName": "Prod",
           "RestApiId": {
-            "Ref": "gatsbytestc2382f4d"
+            "Ref": "gatsbytestfa839459"
           }
         }
       }
@@ -347,11 +323,11 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "gatsbytestc2382f4d"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/Prod"]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "gatsbytestfa839459"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/Prod"]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "testapi"
+          "Value": "purifyApi"
         }
     }
   }
