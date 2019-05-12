@@ -12,6 +12,7 @@ import Features from '../components/Features'
 import Home from '../components/Home'
 import Pricing from '../components/Pricing'
 import SupportPage from '../components/SupportPage'
+import Settings from '../components/Settings'
 
 import store from '../store'
 
@@ -22,6 +23,7 @@ const App = () => (
             <PrivateRoute path="/app/dashboard" component={Dashboard} />
             <PrivateRoute path="/app/rules" component={RulesPage} />
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
+            <PrivateRoute path="/app/settings" component={Settings} />
             <PrivateRoute path="/app/support" component={SupportPage} />
             <Login path="/app/login" />
             <SignUp path="/app/signup" />

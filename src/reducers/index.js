@@ -36,6 +36,17 @@ const featureReducer = (state = [], action) => {
     }
 };
 
+const userReducer = (state = {}, action) => {
+
+    switch(action.type)
+    {
+        case 'STORE_USER':
+            return action.payload
+        default:
+            return state;
+    }
+};
+
 const flagReducer = (state = { AddAccount: false }, action) => {
     switch(action.type)
     {
@@ -50,5 +61,6 @@ export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
     flags: flagReducer,
-    features: featureReducer
+    features: featureReducer,
+    user: userReducer
 });

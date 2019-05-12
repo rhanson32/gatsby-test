@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleAddAccount } from '../actions';
+import { toggleAddAccount, postAccount } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
@@ -14,6 +14,7 @@ class AddAccount extends React.Component {
     }
 
     submitAccount = () => {
+        this.props.postAccount();
         this.props.toggleAddAccount();
     }
 
@@ -36,4 +37,4 @@ class AddAccount extends React.Component {
     }
 }
 
-export default connect(null, { toggleAddAccount })(AddAccount);
+export default connect(null, { toggleAddAccount, postAccount })(AddAccount);

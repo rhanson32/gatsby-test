@@ -52,6 +52,18 @@ export const getFeatures = () => async dispatch => {
     dispatch({ type: 'FETCH_FEATURES', payload: Items });
 }
 
+export const saveUser = (user) => async dispatch => {
+
+    console.log(user)
+    if(user && user["custom:company"])
+    {
+        const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
+        console.log(customerResponse)
+        user.customerId = customerResponse.data[0].CustomerId.S
+    }
+    dispatch({ type: 'STORE_USER', payload: user })
+}
+
 export const validateCompany = async (user) => {
     console.log(user);
     let myRequest = {

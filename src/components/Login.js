@@ -1,9 +1,11 @@
 import React from "react"
-import { Link } from 'gatsby'
+
 import { navigate } from '@reach/router'
 import { setUser, isLoggedIn } from '../utils/auth'
+import { connect } from 'react-redux'
 import Error from './Error'
 import { Auth } from 'aws-amplify'
+import { saveUser } from '../actions'
 
 class Login extends React.Component {
   state = {
@@ -23,11 +25,15 @@ class Login extends React.Component {
     try {
       await Auth.signIn(username, password)
       const user = await Auth.currentAuthenticatedUser()
+      console.log(user);
+      
       const userInfo = {
         ...user.attributes,
         username: user.username
       }
+
       setUser(userInfo)
+      this.props.saveUser(userInfo)
       navigate("/app/dashboard")
     } catch (err) {
       this.setState({ error: err })
@@ -64,5 +70,5 @@ class Login extends React.Component {
   }
 }
   
-export default Login
+export default connect(null, { saveUser })(Login)
   

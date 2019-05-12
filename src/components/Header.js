@@ -16,30 +16,19 @@ const Header = () => (
             <Link activeClassName="active-link" to="/app/rules">Rules</Link>
             <Link activeClassName="active-link" to="/app/dashboard">Dashboard</Link>
             <Link activeClassName="active-link" to="/app/accounts">Accounts</Link>
+            <Link activeClassName="active-link" to="/app/settings">Settings</Link>
             <Link activeClassName="active-link" to="/app/support">Support</Link>
             {
                 isLoggedIn() && (
-                    <a
+                    <div
                       onClick={
                       () => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))
                       }
-                    >Sign Out</a>
+                    >Sign Out</div>
                 )
             }
         </div>  
     </div>
 );
-
-const styles = {
-    headerTitle: {
-      color: 'white',
-      textDecoration: 'none',
-    },
-    link: {
-      cursor: 'pointer',
-      color: 'white',
-      textDecoration: 'underline'
-    }
-  }
 
 export default Header;

@@ -36,6 +36,13 @@ class Accounts extends React.Component {
             <div>
                 <Header />
             <div className="accounts">
+                {
+                    this.props.Accounts.length === 0 && (
+                        <div>
+                            Please add a master account
+                        </div>
+                    )
+                }
                 <div className="account-list">
                     <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
                     {
