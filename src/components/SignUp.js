@@ -2,6 +2,7 @@ import React from "react"
 import { navigate } from "@reach/router"
 import Error from './Error'
 import { Auth } from 'aws-amplify'
+import { validateCompany } from '../actions'
 
 const initialState = {
   username: ``,
@@ -14,6 +15,7 @@ const initialState = {
 }
 
 class SignUp extends React.Component {
+
     state = initialState
   
     handleUpdate = (event) => {
@@ -26,6 +28,7 @@ class SignUp extends React.Component {
       const { username, password, email, company } = this.state
       try {
         await Auth.signUp({ username, password, attributes: { email, "custom:company" : company }})
+        await validateCompany(this.state)
         this.setState({ stage: 1 })
       } catch (err) {
         this.setState({ error: err })
@@ -46,7 +49,6 @@ class SignUp extends React.Component {
       }
 
       render() {
-        console.log(this.state)
         return (
           <div className="signup-screen">
             {
@@ -66,7 +68,6 @@ class SignUp extends React.Component {
                 name='password'
                 value={this.state.password}
                 type='password'
-                style={styles.input}
               />
               <input
                 onChange={this.handleUpdate}
@@ -106,20 +107,5 @@ class SignUp extends React.Component {
     )
   }
 }
-
-const styles = {
-    input: {
-      height: 40, margin: '10px 0px', padding: 7
-    },
-    formContainer: {
-      display: 'flex', flexDirection: 'column'
-    },
-    button: {
-      backgroundColor: 'rebeccapurple', padding: '15px 7px', cursor: 'pointer', textAlign: 'center', marginBottom: 10
-    },
-    buttonText: {
-      color: 'white'
-    }
-  }
   
 export default SignUp

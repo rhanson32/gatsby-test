@@ -46,9 +46,12 @@ h1 {
 }
 
 .pricing-header {
-    margin: 2rem;
-    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
     width: 100%;
+    height: 10rem;
 }
 
 .external-title {

@@ -52,6 +52,33 @@ export const getFeatures = () => async dispatch => {
     dispatch({ type: 'FETCH_FEATURES', payload: Items });
 }
 
+export const validateCompany = async (user) => {
+    console.log(user);
+    let myRequest = {
+        body:   { 
+                    email: user.email, 
+                    company: user.company,
+                    userName: user.username
+                }
+    };
+
+    let postResponse;
+
+    let queryString = '?company=' + user.company;
+    const customerResponse = await purify.get('/customers' + queryString, myRequest)
+    console.log(customerResponse);
+
+    if(customerResponse.data.length === 0)
+    {
+        postResponse = await purify.put('/customers', myRequest)
+        console.log(postResponse);
+    }
+    else
+    {
+        console.log("Company already exists. No further action needed.")
+    }
+};
+
 export const getRules = () => async dispatch => {
     let myRequest = {
         body: {}

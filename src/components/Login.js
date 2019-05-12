@@ -59,7 +59,6 @@ class Login extends React.Component {
             <span className="login-button-text">Sign In</span>
           </div>
         </div>
-        <Link to="/app/signup">Sign Up</Link><br />
       </div>
     )
   }
