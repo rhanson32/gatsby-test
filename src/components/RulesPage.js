@@ -7,14 +7,15 @@ import { getRules } from '../actions';
 
 class RulesPage extends React.Component {
     componentDidMount() {
-        this.props.getRules();
+        console.log(this.props)
+        this.props.getRules(this.props.User.customerId);
     }
 
     state = {
         RuleHeader: {
             Description: 'Description',
             Category: 'Category',
-            Provider: 'Provider',
+            Name: 'Name',
             Status: 'Status',
             Header: true
         }
@@ -28,7 +29,7 @@ class RulesPage extends React.Component {
                 <RuleItem key={this.state.RuleHeader.Description} rule={this.state.RuleHeader} />
                 {this.props.Rules.map(rule => {
                     return (
-                        <RuleItem key={rule.Description} rule={rule} />
+                        <RuleItem key={rule.ruleId} rule={rule} />
                     )
                 })}
             </div>
@@ -39,7 +40,8 @@ class RulesPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        Rules: state.rules
+        Rules: state.rules,
+        User: state.user
     }
 }
 

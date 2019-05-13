@@ -57,10 +57,21 @@ const flagReducer = (state = { AddAccount: false }, action) => {
     }
 }
 
+const settingsReducer = (state = { }, action) => {
+    switch(action.type)
+    {
+        case 'FETCH_SETTINGS':
+            return action.payload
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
     flags: flagReducer,
     features: featureReducer,
-    user: userReducer
+    user: userReducer,
+    settings: settingsReducer
 });

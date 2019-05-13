@@ -21,7 +21,7 @@ class RuleItem extends React.Component {
                         {this.props.rule.Category}
                     </div>
                     <div className="rule-provider">
-                        {this.props.rule.Provider}
+                        {this.props.rule.Name}
                     </div>
                 </div>
                 {

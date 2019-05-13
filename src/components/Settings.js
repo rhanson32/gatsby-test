@@ -1,7 +1,15 @@
 import React from 'react'
 import Header from './Header'
+import { connect } from 'react-redux'
+import { getSettings } from '../actions'
 
-const Settings = () => (
+class Settings extends React.Component {
+    componentDidMount() {
+        this.props.getSettings()
+    }
+
+    render() {
+    return (
     <div className="settings-page">
         <Header />
         <div className="settings-header">
@@ -28,6 +36,8 @@ const Settings = () => (
             </div>
         </div>
     </div>
-);
+    )
+    }
+}
 
-export default Settings;
+export default connect(null, { getSettings })(Settings);

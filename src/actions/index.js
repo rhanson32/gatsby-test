@@ -36,6 +36,24 @@ export const removeAccount = () => async dispatch => {
 
 }
 
+export const getSettings = (customerId) => async dispatch => {
+    let myRequest = {
+        body: { customerId }
+    }
+    const response = await purify.get('/settings', myRequest)
+    console.log(response)
+    const settings =  {
+        Providers: response.data[0].Providers.L.map(provider => {
+            return {
+                Name: provider.M.Name.S,
+                Enabled: provider.M.Enabled.BOOL
+            }
+        })
+    }
+
+    dispatch({ type: 'FETCH_SETTINGS', payload: settings })
+}
+
 export const getFeatures = () => async dispatch => {
     let myRequest = {
         body: {}
@@ -54,7 +72,6 @@ export const getFeatures = () => async dispatch => {
 
 export const saveUser = (user) => async dispatch => {
 
-    console.log(user)
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
@@ -91,17 +108,19 @@ export const validateCompany = async (user) => {
     }
 };
 
-export const getRules = () => async dispatch => {
-    let myRequest = {
-        body: {}
-    };
-    const accountResponse = await purify.get('/rules', myRequest);
-    console.log(accountResponse);
-    const Items = accountResponse.data.map(item => {
+export const getRules = (CustomerId) => async dispatch => {
+    console.log(CustomerId)
+    const rulesResponse = await purify.get('/rules', {
+        params: {
+            id: CustomerId
+        }
+    });
+    console.log(rulesResponse);
+    const Items = rulesResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
             RuleId: item.RuleId.S,
-            Provider: item.Provider.S,
+            Name: item.Name.S,
             Category: item.Category.S,
             Description: item.Description.S,
             Enabled: item.Enabled.BOOL
