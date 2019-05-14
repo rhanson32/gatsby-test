@@ -655,6 +655,10 @@ h1 {
         font-size: 4rem;
     }
 
+    .pricing-header, .pricing-overlay {
+        height: 60vh;
+    }
+
     .header {
         height: 8rem;
         flex-wrap: wrap;
@@ -724,7 +728,7 @@ h1 {
         align-items: center;
         font-size: 1rem;
         line-height: 1.2rem;
-        width: 100%;
+        width: 50%;
     }
 
     .external-menu a {
@@ -733,5 +737,24 @@ h1 {
 
     .signup-form {
         width: 90%;
+    }
+
+    .right-menu {
+        width: 50%;
+        font-size: 1rem;
+        align-items: center;
+    }
+
+    body {
+        margin-top: 5rem;
+    }
+
+    .right-menu a {
+        margin: 0;
+    }
+
+    .site-map-logo, .site-map-item {
+        font-size: 0.8rem;
+        font-size: 700;
     }
 }
