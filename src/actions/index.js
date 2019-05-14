@@ -110,11 +110,7 @@ export const validateCompany = async (user) => {
 
 export const getRules = (CustomerId) => async dispatch => {
     console.log(CustomerId)
-    const rulesResponse = await purify.get('/rules', {
-        params: {
-            id: CustomerId
-        }
-    });
+    const rulesResponse = await purify.get('/rules=?id=' + CustomerId)
     console.log(rulesResponse);
     const Items = rulesResponse.data.map(item => {
         return {

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { saveUser } from '../actions'
+import ExternalHeader from './ExternalHeader'
 
 class Login extends React.Component {
   state = {
@@ -45,9 +46,11 @@ class Login extends React.Component {
     if (isLoggedIn()) navigate('/app/dashboard')
     return (
       <div className="login-screen">
+        <ExternalHeader />
         {this.state.error && <Error errorMessage={this.state.error}/>}
         <div className="login-form">
           <div className="login-header">PurifyCloud</div>
+          {this.state.error && <Error errorMessage={this.state.error}/>}
          <input
             onChange={this.handleUpdate}
             placeholder='Username'

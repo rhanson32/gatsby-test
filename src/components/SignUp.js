@@ -3,6 +3,7 @@ import { navigate } from "@reach/router"
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
+import ExternalHeader from './ExternalHeader'
 
 const initialState = {
   username: ``,
@@ -51,6 +52,7 @@ class SignUp extends React.Component {
       render() {
         return (
           <div className="signup-screen">
+            <ExternalHeader />
             {
               this.state.stage === 0 && (
                 <div className="signup-form">

@@ -5,8 +5,12 @@ import SiteMap from './SiteMap'
 const Pricing = () => (
     <div>
         <ExternalHeader />
+        <div className="pricing-overlay">
+            <div className="pricing-overlay-text">
+                Plans and Pricing
+            </div>
+        </div>
         <div className="pricing-header">
-            Pricing
         </div>
         <div className="pricing-card">
             <div className="pricing-card-header">

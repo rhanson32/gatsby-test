@@ -3,6 +3,9 @@ import { Link } from 'gatsby'
 
 const SiteMap = () => (
     <div className="site-map">
+        <div className="site-map-logo">
+        PurifyCloud
+        </div>
         <div className="site-map-item">
             <div className="site-map-item-header">
                 Product
