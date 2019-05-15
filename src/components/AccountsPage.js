@@ -10,6 +10,9 @@ class Accounts extends React.Component {
     componentDidMount() {
         this.props.getAccounts();
     }
+    componentDidUpdate() {
+    
+    }
 
     state = {
         AccountHeader: {

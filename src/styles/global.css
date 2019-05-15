@@ -45,7 +45,7 @@ h1 {
     position: fixed;
     top: 0%;
     z-index: 999;
-    width: 100%;
+    width: 100vw;
     background-color: #a0d9f7;
     height: 3rem;
     color: #103c42;
@@ -736,6 +736,20 @@ h1 {
 
     .feature-item-header {
         margin: 1rem auto;
+    }
+
+    .feature-focus {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .feature-focus-text {
+        width: 100%;
+    }
+
+    .feature-focus-header {
+        margin: 1rem 0;
+        font-size: 1.7rem;
     }
 
     .splash {

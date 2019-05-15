@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import Header from './Header'
+import { getCurrentUser } from '../actions'
 
 class Dashboard extends React.Component {
+    componentDidMount() {
+        this.props.getCurrentUser()
+    }
 
     render() {
         return (
@@ -70,4 +75,10 @@ class Dashboard extends React.Component {
     } 
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+    return {
+        User: state.user
+    }
+}
+
+export default connect(mapStateToProps, { getCurrentUser })(Dashboard);

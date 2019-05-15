@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
     baseURL: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test',
-    timeout: 4000
+    timeout: 5000
 });
 
 export const postAccount = (item, customerId) => async dispatch => {
@@ -85,6 +86,20 @@ export const saveUser = (user) => async dispatch => {
         user.customerId = customerResponse.data[0].CustomerId.S
     }
     dispatch({ type: 'STORE_USER', payload: user })
+}
+
+export const getCurrentUser = () => async dispatch => {
+    const user = await Auth.currentAuthenticatedUser()
+    console.log(user)
+    const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"]);
+    console.log(customerResponse)
+    const userInfo = {
+        ...user.attributes,
+        CustomerId: customerResponse.data[0].CustomerId.S,
+        Key: customerResponse.data[0].ApiKey.S
+    }
+
+    dispatch({ type: 'STORE_USER', payload: userInfo })
 }
 
 export const validateCompany = async (user) => {
