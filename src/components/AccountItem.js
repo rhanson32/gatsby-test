@@ -9,13 +9,13 @@ class AccountItem extends React.Component {
     render() {
         return (
             <div className={this.props.item.Header ? "account-header" : "account-item"}>
-                <div>
+                <div className="account-item-field">
                     {this.props.item.AccountId}
                 </div>
-                <div>
+                <div className="account-item-field">
                     {this.props.item.Provider}
                 </div>
-                <div>
+                <div className="account-item-field">
                     {this.props.item.RoleName}
                 </div>
                 {
@@ -27,7 +27,7 @@ class AccountItem extends React.Component {
                 }
                 {
                     this.props.item.Header && (
-                        <div>
+                        <div className="account-item-field">
                             Action
                         </div>
                     )

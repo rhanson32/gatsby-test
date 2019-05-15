@@ -176,6 +176,7 @@ h1 {
 
 .sign-up-link a {
     color: white;
+    
 }
 
 .feature-focus {
@@ -183,6 +184,7 @@ h1 {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    height: auto;
 }
 
 .feature-focus-text {
@@ -209,16 +211,17 @@ h1 {
 .pricing-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    width: 60%;
-    margin: auto;
-    border: 1px solid gray;
+    justify-content: flex-start;
+    height: 42rem;
+    width: 45%;
+    margin: 4rem auto;
+    border: 1px #EEE;
+    box-shadow: 0px 0px 8px 12px #F3F3F3;
 }
 
 .pricing-card-header {
     font-size: 2rem;
-    line-height: 4rem;
+    height: 6rem;
     font-weight: 700;
     margin: 0 auto;
     display: flex;
@@ -231,23 +234,26 @@ h1 {
 }
 
 .pricing-card-price {
-    height: 40%;
+    height: 18rem;
     font-size: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #DEDEDE;
+    background-color: #E9E9E9;
+    font-weight: 700;
 }
 
 .pricing-card-description {
-    font-size: 1.8rem;
-    height: 30%;
+    font-size: 1.6rem;
+    height: 14rem;
     display: flex;
     justify-content: center;
+    padding: 2rem;
 }
 
 .pricing-card-description ul li {
     list-style-type: circle;
+    width: 100%;
 }
 
 .pricing-card-footer {
@@ -256,6 +262,7 @@ h1 {
     font-size: 3rem;
     background-color: purple;
     color: white;
+    height: 4rem;
 }
 
 .login-screen, .signup-screen {
@@ -328,7 +335,7 @@ h1 {
     color: white;
 }
 
-.login-link a {
+.login-link a:link, .login-link a:visited {
     color: black;
 }
 
@@ -362,6 +369,10 @@ h1 {
     border: none;
     padding: 0.5rem 1rem;
     font-size: 1.2rem;
+    border-radius: 3px;
+    background-color: green;
+    color: white;
+    padding: 0.5rem 2rem;
 }
 
 .external-menu {
@@ -393,7 +404,7 @@ h1 {
 .splash-title {
     position: absolute;
     top: 25%;
-    left: 40%;
+    left: 42%;
     background: transparent;
     color: #103c42;
     font-size: 4rem;
@@ -401,8 +412,10 @@ h1 {
 
 .splash-subtitle {
     position: absolute;
-    top: 40%;
+    top: 42%;
     left: 30%;
+    font-size: 2rem;
+    line-height: 3rem;
 }
 
 .site-map {
@@ -413,7 +426,6 @@ h1 {
     width: 100vw;
     height: 30vh;
     background-color: #F2F2f2;
-    margin-top: 2rem;
     border-top: 1px solid darkgray;
 }
 
@@ -457,6 +469,10 @@ h1 {
     background-color: #F4F4F4;
 }
 
+.accounts-header {
+    margin: 2rem;
+}
+
 .account-list, .rule-list {
     margin: 5rem auto;
     width: 80%;
@@ -481,6 +497,27 @@ h1 {
 
 .account-item:first-child {
     border-top: 1px solid #CCC;
+}
+
+.account-item-field {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.account-item-field input {
+    width: 90%;
+    padding-left: 2rem;
+}
+
+.account-item-field select {
+    width: 50%;
+}
+
+.account-item-buttons {
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .rule-item:first-child {
@@ -667,7 +704,7 @@ h1 {
     .feature-header-title {
         width: 90%;
         font-size: 1.7rem;
-        margin: 3rem auto 1rem auto;
+        margin: 9rem auto 1rem auto;
         text-align: center;
     }
 
@@ -756,5 +793,9 @@ h1 {
     .site-map-logo, .site-map-item {
         font-size: 0.8rem;
         font-size: 700;
+    }
+
+    .pricing-card-price {
+        font-size: 3rem;
     }
 }

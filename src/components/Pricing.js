@@ -17,7 +17,7 @@ const Pricing = () => (
                 Standard
             </div>
             <div className="pricing-card-price">
-                $0 (Beta)
+                Free (beta)
             </div>
             <div className="pricing-card-description">
                 <ul>

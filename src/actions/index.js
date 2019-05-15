@@ -5,9 +5,15 @@ const purify = axios.create({
     timeout: 4000
 });
 
-export const postAccount = (item) => async dispatch => {
+export const postAccount = (item, customerId) => async dispatch => {
+
+    console.log(item)
+    console.log(customerId)
     let myRequest = {
-        body: {}
+        body: {
+            ...item,
+            CustomerId: customerId
+        }
     };
     purify.post('/accounts', myRequest).then(
         response => {

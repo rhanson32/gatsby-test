@@ -5,7 +5,9 @@ import { toggleAddAccount, postAccount } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
-        AccountId: ""
+        id: '',
+        provider: 'AWS',
+        role: ''
     };
 
     handleChangeAccount = (event) => {
@@ -13,9 +15,19 @@ class AddAccount extends React.Component {
         this.setState({ AccountId: event.target.value });
     }
 
+    handleUpdate = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        })
+      }
+
     submitAccount = () => {
-        this.props.postAccount();
-        this.props.toggleAddAccount();
+        if(this.state.id && this.state.role)
+        {
+            this.props.postAccount(this.state, this.props.user.customerId);
+            this.props.toggleAddAccount();
+        }
+        
     }
 
     cancelAccount = () => {
@@ -25,16 +37,29 @@ class AddAccount extends React.Component {
     render() {
         return (
             <div className="account-item">
-                <input value={this.state.AccountId} onChange={this.handleChangeAccount} placeholder="25237483438"></input>
-                <select>
-                    <option value="AWS">AWS</option>
-                </select>
-                <input placeholder="arn-example"></input>
-                <button onClick={this.submitAccount}>Submit</button>
-                <button onClick={this.cancelAccount}>Cancel</button>
+                <div className="account-item-field">
+                    <input name="id" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="25237483438"></input>
+                </div>
+                <div className="account-item-field">
+                    <select>
+                        <option name="provider" value="AWS">AWS</option>
+                    </select>
+                </div>
+                <div className="account-item-field">
+                    <input name="role" onChange={this.handleUpdate} placeholder="Role ARN"></input>
+                </div>
+                <div className="account-item-buttons">
+                    <button className="add-button" onClick={this.submitAccount}>Submit</button>
+                </div>
             </div>
         )
     }
 }
 
-export default connect(null, { toggleAddAccount, postAccount })(AddAccount);
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, { toggleAddAccount, postAccount })(AddAccount);
