@@ -305,14 +305,23 @@ h1 {
 
 .signup-form {
     width: 50%;
+    margin-top: 3rem;
 }
 
-.login-form input, .signup-form input {
+.login-form input {
     width: 80%;
     height: 3rem;
     margin: 1rem 0;
     font-size: 1.5rem;
     padding: 0.5rem;
+}
+
+.signup-form input {
+    width: 80%;
+    height: 2.5rem;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
 }
 
 .login-button, .signup-button {
