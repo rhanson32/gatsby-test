@@ -95,8 +95,8 @@ export const getCurrentUser = () => async dispatch => {
     console.log(customerResponse)
     const userInfo = {
         ...user.attributes,
-        CustomerId: customerResponse.data[0].CustomerId.S,
-        Key: customerResponse.data[0].ApiKey.S
+        CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
+        Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None"
     }
 
     dispatch({ type: 'STORE_USER', payload: userInfo })
@@ -131,7 +131,7 @@ export const validateCompany = async (user) => {
 
 export const getRules = (CustomerId) => async dispatch => {
     console.log(CustomerId)
-    const rulesResponse = await purify.get('/rules=?id=' + CustomerId)
+    const rulesResponse = await purify.get('/rules?id=' + CustomerId)
     console.log(rulesResponse);
     const Items = rulesResponse.data.map(item => {
         return {

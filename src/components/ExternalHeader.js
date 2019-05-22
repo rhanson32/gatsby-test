@@ -6,8 +6,9 @@ const ExternalHeader = () => (
             <Link activeClassName="active-link" to="/">PurifyCloud</Link>
         </div>
         <div className="external-menu">
-            <Link activeClassName="active-link" to="/app/features/">Why Purify?</Link>
-            <Link activeClassName="active-link" to="/app/pricing/">Pricing</Link>      
+            <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
+            <Link activeClassName="active-link" to="/app/pricing">Pricing</Link> 
+            <Link activeClassName="active-link" to="/app/docs">Docs</Link>       
         </div>  
         <div className="right-menu">
             <Link className="login-link" to="/app/login">Log In</Link>

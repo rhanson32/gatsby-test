@@ -16,6 +16,15 @@ class Settings extends React.Component {
             Settings
         </div>
         <div className="settings-main">
+            <div className="settings-switch">
+                Operating Mode
+                <button>
+                    Monitor
+                </button>
+                <button>
+                    Remediate
+                </button>
+            </div>
             <div className="settings-provider">
                 <div className="settings-provider-header">
                     Cloud Providers
@@ -25,10 +34,10 @@ class Settings extends React.Component {
                         AWS
                     </div>
                     <div className="settings-provider-option-select">
-                        <button>
+                        <button className="add-button">
                             ON
                         </button>
-                        <button>
+                        <button className="remove-button">
                             OFF
                         </button>
                     </div>

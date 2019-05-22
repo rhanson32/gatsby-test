@@ -13,6 +13,7 @@ import Home from '../components/Home'
 import Pricing from '../components/Pricing'
 import SupportPage from '../components/SupportPage'
 import Settings from '../components/Settings'
+import Docs from '../components/Docs';
 
 import store from '../store'
 
@@ -29,6 +30,7 @@ const App = () => (
             <SignUp path="/app/signup" />
             <Features path="/app/features" />
             <Pricing path="/app/pricing" />
+            <Docs path="/app/docs" />
         </Router>
     </Provider>
     

@@ -92,6 +92,109 @@ h1 {
     color: #FFF;
 }
 
+.settings-switch {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.settings-switch button {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.support-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5rem 10%;
+    padding: 3rem;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+}
+
+.support-form-title {
+    font-size: 2rem;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.support-form form {
+    width: 100%;
+}
+
+.support-form label {
+    line-height: 2.4rem;
+    font-size: 1.4rem;
+}
+
+.form-input {
+    width: 100%;
+}
+
+.form-input input {
+    width: 100%;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+}
+
+.form-headline {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-description {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.support-textarea {
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.support-form button {
+    margin: 1rem;
+}
+
+.form-textarea {
+    height: 8rem;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 0 0.5rem;
+}
+
+.docs-menu {
+    width: 20%;
+    padding: 1.5rem 0.5rem;
+    height: 100vh;
+    background-color: #DDD;
+}
+
+.docs-menu-item {
+    width: 100%;
+    padding: 1rem;  
+    font-size: 1.2rem;
+}
+
+.add-ticket {
+    width: 100%;
+    padding: 10rem;
+}
+
 .external-title {
     line-height: 3rem;
     font-size: 2.8rem;
@@ -125,6 +228,7 @@ h1 {
 
 .settings-provider-header {
     width: 30%;
+    font-size: 2rem;
 }
 
 .settings-provider-option {
@@ -135,6 +239,7 @@ h1 {
 
 .settings-provider-option-header {
     padding: 4rem 0;
+    font-size: 2rem;
 }
 
 .settings-provider-option-select button {
@@ -344,7 +449,7 @@ h1 {
     color: white;
 }
 
-.login-link a:link, .login-link a:visited {
+.login-link {
     color: black;
 }
 
@@ -750,6 +855,7 @@ h1 {
     .feature-focus-header {
         margin: 1rem 0;
         font-size: 1.7rem;
+        width: 100%;
     }
 
     .splash {
