@@ -68,6 +68,16 @@ const settingsReducer = (state = { }, action) => {
     }
 }
 
+const menuReducer = (state = { }, action) => {
+    switch(action.type)
+    {
+        case 'TOGGLE_MENU': 
+            return { selected: action.payload }
+        default: 
+            return { selected: 'General' };
+    }
+}
+
 export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
@@ -75,5 +85,6 @@ export default combineReducers({
     features: featureReducer,
     user: userReducer,
     settings: settingsReducer,
-    form: formReducer
+    form: formReducer,
+    menu: menuReducer
 });

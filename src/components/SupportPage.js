@@ -1,11 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
+import { fetchTickets } from '../actions'
 
 import Header from './Header'
 
 class SupportPage extends React.Component {
     state = {
         ticketSubmitted: false
+    }
+
+    componentDidMount() {
+        this.props.fetchTickets()
     }
 
     addTicket = () => {
@@ -39,13 +45,17 @@ class SupportPage extends React.Component {
                     !this.state.ticketSubmitted && (
                         <SupportForm onSubmit={this.submit} />
                     )
-                }
-                
-                
+                }    
             </div>
         )
     }
     
 }
 
-export default SupportPage;
+const mapStateToProps = state => {
+    return {
+        tickets: state.tickets
+    }
+}
+
+export default connect(mapStateToProps, { fetchTickets } )(SupportPage);

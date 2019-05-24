@@ -175,3 +175,13 @@ export const toggleAddAccount = () => async (dispatch, getState) => {
 
     dispatch({type: 'TOGGLE_ADD_ACCOUNT', payload: !prevState.flags.AddAccount })
 }
+
+export const toggleSettingsMenu = (menu) => async dispatch => {
+        dispatch({ type: 'TOGGLE_MENU', payload: menu })
+}
+
+export const fetchTickets = () => async dispatch => {
+    const ticketResponse = await purify.get('/tickets');
+
+    console.log(ticketResponse);
+}

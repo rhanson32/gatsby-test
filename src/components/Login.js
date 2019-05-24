@@ -21,12 +21,18 @@ class Login extends React.Component {
     })
   }
 
+  handleKeyPress = event => {
+    if(event.key === 'Enter')
+    {
+      this.login()
+    }
+  }
+
   login = async() => {
     const { username, password } = this.state
     try {
       await Auth.signIn(username, password)
       const user = await Auth.currentAuthenticatedUser()
-      console.log(user);
       
       const userInfo = {
         ...user.attributes,
@@ -56,6 +62,7 @@ class Login extends React.Component {
             placeholder='Username'
             name='username'
             value={this.state.username}
+            onKeyPress={this.handleKeyPress}
           />
           <input
             onChange={this.handleUpdate}
@@ -63,6 +70,7 @@ class Login extends React.Component {
             name='password'
             value={this.state.password}
             type='password'
+            onKeyPress={this.handleKeyPress}
           />
           <div className="login-button" onClick={this.login}>
             <span className="login-button-text">Sign In</span>
