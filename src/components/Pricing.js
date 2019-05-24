@@ -3,7 +3,7 @@ import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap'
 
 const Pricing = () => (
-    <div>
+    <div className="pricing-page">
         <ExternalHeader />
         <div className="pricing-overlay">
             <div className="pricing-overlay-text">
@@ -14,15 +14,14 @@ const Pricing = () => (
         </div>
         <div className="pricing-card">
             <div className="pricing-card-header">
-                Standard
+                Free
             </div>
             <div className="pricing-card-price">
-                Free (beta)
+                Free always
             </div>
             <div className="pricing-card-description">
                 <ul>
-                    <li>100+ Standard Rules</li>
-                    <li>Automated remediation</li>
+                    <li>10 Standard Rules</li>
                     <li>Unlimited accounts</li>
                     <li>Email Notification</li>
                     <li>Real-time Dashboard</li>
@@ -32,6 +31,25 @@ const Pricing = () => (
                 Select
             </div>
         </div>
+        <div className="pricing-card">
+            <div className="pricing-card-header">
+                Standard
+            </div>
+            <div className="pricing-card-price">
+                Free (during beta)
+            </div>
+            <div className="pricing-card-description">
+                Everything in Free tier, plus
+                <ul>
+                    <li>100+ Standard Rules</li>
+                    <li>Automated remediation</li>
+                </ul>
+            </div>
+            <div className="pricing-card-footer">
+                Select
+            </div>
+        </div>
+        
         <SiteMap />
     </div>
 );

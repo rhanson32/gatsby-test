@@ -8,10 +8,13 @@ class Docs extends React.Component {
         return (
             <div>
                 <ExternalHeader />
-                <DocsMenu />
-                <div>
-                    Test text
+                <div className="docs-main">
+                    <DocsMenu />
+                    <div className="docs-content">
+                        This is some content that I want to display
+                    </div>
                 </div>
+                
             </div>
         )
     }

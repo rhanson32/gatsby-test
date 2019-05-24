@@ -104,6 +104,24 @@ class Settings extends React.Component {
                     </div>
                 )
             }
+            {
+                this.props.menu.selected === 'User' && (
+                    <div className="settings-card">
+                        <div className="settings-card-title">
+                            User Settings
+                        </div>
+                        <div className="settings-switch">
+                            Theme
+                            <button className="enabled-button">
+                                Light
+                            </button>
+                            <button className="disabled-button">
+                                Dark
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
             
         </div>
     </div>

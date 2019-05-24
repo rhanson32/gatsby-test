@@ -14,6 +14,10 @@ h1 {
     color: white;
 }
 
+.mobile-menu-button {
+    visibility: hidden;
+}
+
 .header {
     width: 100%;
     background: #667db6;  /* fallback for old browsers */
@@ -234,8 +238,8 @@ h1 {
 }
 
 .docs-menu {
-    width: 20%;
-    padding: 1.5rem 0.5rem;
+    width: 15%;
+    padding: 5rem 0.5rem;
     height: 100vh;
     background-color: #DDD;
 }
@@ -244,6 +248,11 @@ h1 {
     width: 100%;
     padding: 1rem;  
     font-size: 1.2rem;
+}
+
+.docs-main {
+    display: flex;
+    flex-direction: row;
 }
 
 .add-ticket {
@@ -367,6 +376,11 @@ h1 {
 .feature-focus-description {
     font-size: 1.5rem;
     color: #777;
+}
+
+.pricing-page {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .pricing-card {
@@ -935,6 +949,7 @@ h1 {
 
     .feature-focus-text {
         width: 100%;
+        flex-shrink: 0;
     }
 
     .feature-focus-header {
@@ -977,13 +992,24 @@ h1 {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        font-size: 1rem;
-        line-height: 1.2rem;
-        width: 50%;
+        flex-wrap: wrap;
+        font-size: 1.5rem;
+        line-height: 1.8rem;
+        width: 100%;
+        padding: 0;
+        margin: 0;
     }
 
     .external-menu a {
-        margin: 0.4rem 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px gray solid;
+        background-color: white;
+    }
+
+    .external menu a:hover {
+        background-color: #EEE;
     }
 
     .signup-form {
@@ -991,7 +1017,7 @@ h1 {
     }
 
     .right-menu {
-        width: 50%;
+        width: 100%;
         font-size: 1rem;
         align-items: center;
     }
@@ -1011,5 +1037,20 @@ h1 {
 
     .pricing-card-price {
         font-size: 3rem;
+    }
+
+    .docs-menu {
+        width: 100vw;
+        height: auto;
+    }
+
+    .docs-main {
+        flex-wrap: wrap;
+    }
+
+    .mobile-menu-button {
+       visibility: visible;
+       border: none;
+       background-color: rgba(0, 0, 0, 0.0);
     }
 }

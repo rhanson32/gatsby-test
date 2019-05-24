@@ -11,6 +11,10 @@ class SettingsMenu extends React.Component {
         this.props.toggleSettingsMenu('AWS');
     }
 
+    toggleUserMenu = () => {
+        this.props.toggleSettingsMenu('User');
+    }
+
     render() {
         return (
             <div className="settings-menu">
@@ -19,6 +23,9 @@ class SettingsMenu extends React.Component {
                 </div>
                 <div className="settings-menu-item">
                     <button onClick={this.toggleAWSMenu}>AWS</button>
+                </div>
+                <div className="settings-menu-item">
+                    <button onClick={this.toggleUserMenu}>User</button>
                 </div>
             </div>
         )
