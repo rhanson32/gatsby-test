@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
-import { fetchTickets } from '../actions'
+import SupportList from './SupportList';
+import { fetchTickets, postTicket } from '../actions'
 
 import Header from './Header'
 
 class SupportPage extends React.Component {
     state = {
-        ticketSubmitted: false
+        ticketSubmitted: true
     }
 
     componentDidMount() {
@@ -20,30 +21,45 @@ class SupportPage extends React.Component {
         })
     }
 
+    viewTickets = () => {
+        this.setState({ 
+            ticketSubmitted: true
+        })
+    }
+
     submit = values => {
         // print the form values to the console
         console.log(values)
         this.setState({
             ticketSubmitted: true
         })
+        this.props.postTicket(values);
       }
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 <Header />
                 {
                     this.state.ticketSubmitted && (
                         <div className="add-ticket">
-                            <button onClick={this.addTicket}>
-                                Submit another ticket
+                            <button className="add-button" onClick={this.addTicket}>
+                                Create Support Ticket
                             </button>
+                            
+                            <SupportList items={this.props.tickets} />
                         </div>
                     )
                 }
                 {
                     !this.state.ticketSubmitted && (
-                        <SupportForm onSubmit={this.submit} />
+                        <div>
+                            <button className="add-button" onClick={this.viewTickets}>
+                                View My Tickets
+                            </button>
+                            <SupportForm onSubmit={this.submit} />
+                        </div>
                     )
                 }    
             </div>
@@ -58,4 +74,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTickets } )(SupportPage);
+export default connect(mapStateToProps, { fetchTickets, postTicket } )(SupportPage);

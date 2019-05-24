@@ -1,10 +1,10 @@
 import React from 'react'
 import Header from './Header'
 import SettingsMenu from './SettingsMenu';
-import AddAccount from './AddAccount';
+import AWSAccount from './AWSAccount';
 import AccountItem from './AccountItem';
 import { connect } from 'react-redux'
-import { getSettings } from '../actions'
+import { getSettings, toggleAWS } from '../actions'
 
 class Settings extends React.Component {
 
@@ -22,6 +22,10 @@ class Settings extends React.Component {
         this.props.getSettings()
     }
 
+    toggleAWSState = () => {
+        this.props.toggleAWS()
+    }
+
     render() {
         console.log(this.props);
     return (
@@ -35,17 +39,20 @@ class Settings extends React.Component {
             {
                 this.props.menu.selected === 'General' && (
                     <div className="settings-card">
+                        <div className="settings-card-title">
+                            General Settings
+                        </div>
                         <div className="settings-switch">
                             Operating Mode
-                            <button>
+                            <button className="enabled-button">
                                 Monitor
                             </button>
-                            <button>
+                            <button className="disabled-button">
                                 Remediate
                             </button>
                         </div>
                         <div className="settings-switch">
-                            API Key:
+                            API Key: Show
                         </div>
                     </div>
                 )
@@ -53,28 +60,43 @@ class Settings extends React.Component {
             {
                 this.props.menu.selected === 'AWS' && (
                     <div className="settings-card">
-                        <div className="settings-provider">
-                            <div className="settings-provider-option">
-                                <div className="settings-provider-option-header">
-                                    AWS Settings
-                                </div>
-                                <div className="settings-provider-option-select">
-                                    Enabled:
-                                    <button className={this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) ? 'enabled-button': 'disabled-button'}>
-                                        ON
+                        <div className="settings-card-title">
+                            AWS Settings
+                        </div>
+                        <div className="settings-left-side">
+                            Status:
+                        </div>
+                        <div className="settings-switch">
+                            {
+                                this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
+                                    <button className="enabled-button" onClick={this.toggleAWSState}>
+                                        Enabled
                                     </button>
-                                    <button className={this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === false) ? 'enabled-button': 'disabled-button'}>
-                                        OFF
+                                )
+                            }
+                            {
+                                this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === false) !== undefined && (
+                                    <button className="disabled-button" onClick={this.toggleAWSState}>
+                                        Disabled
                                     </button>
-                                </div>
-                            </div>
+                                )
+                            }
                         </div>
                         {
                             this.props.accounts.length === 0 && (
-                                <div>
-                                    Master account:
+                                <div className="settings-left-side">
+                                Master account:
+                                </div>
+                            )
+                        }
+                        {
+                             this.props.accounts.length === 0 && (
+                                <div className="settings-switch">
+                                    
+                                    <div className="account-list">
                                     <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
-                                    <AddAccount />
+                                    <AWSAccount />
+                                    </div>
                                 </div>
                             )
                         }
@@ -97,4 +119,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getSettings })(Settings);
+export default connect(mapStateToProps, { getSettings, toggleAWS })(Settings);

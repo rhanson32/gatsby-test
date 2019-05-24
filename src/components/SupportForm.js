@@ -1,6 +1,19 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
+const validate = values => {
+  const errors = {}
+  if (!values.headline) {
+    errors.headline = 'Required'
+  }
+  if (!values.description) {
+    errors.description = 'Required'
+  } 
+  
+  return errors
+}
+
+
 const SupportForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props
   return (
@@ -39,5 +52,6 @@ const SupportForm = props => {
 }
 
 export default reduxForm({
-  form: 'support' // a unique identifier for this form
+  form: 'support', // a unique identifier for this form
+  validate
 })(SupportForm)

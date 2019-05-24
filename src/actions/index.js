@@ -6,6 +6,21 @@ const purify = axios.create({
     timeout: 5000
 });
 
+export const postTicket = (values) => async dispatch => {
+    console.log(values)
+    let myRequest = {
+        body: {
+            ...values,
+            CustomerId: '3432332'
+        }
+    };
+
+    purify.post('/tickets', myRequest).then(
+        response => {
+            console.log(response);
+    }).catch(err => console.log(err));
+}
+
 export const postAccount = (item, customerId) => async dispatch => {
 
     console.log(item)
@@ -13,7 +28,8 @@ export const postAccount = (item, customerId) => async dispatch => {
     let myRequest = {
         body: {
             ...item,
-            CustomerId: customerId
+            CustomerId: customerId || 'Admin1',
+            Type: 'Master'
         }
     };
     purify.post('/accounts', myRequest).then(
@@ -169,6 +185,25 @@ export const toggleRule = (id) => async (dispatch, getState) => {
     console.log(ruleResponse);
 }
 
+export const toggleAWS = () => async (dispatch, getState) => {
+    console.log(getState().settings);
+    const newValue = getState().settings.Providers.map(provider => {
+        if(provider.Name === 'AWS')
+        {
+            return {
+                Name: 'AWS',
+                Enabled: !provider.Enabled
+            }
+        }
+        else
+        {
+            return provider
+        }
+    });
+    console.log(newValue);
+    dispatch({ type: 'TOGGLE_AWS', payload: newValue });
+}
+
 export const toggleAddAccount = () => async (dispatch, getState) => {
     const prevState = getState();
     console.log(prevState);
@@ -184,4 +219,15 @@ export const fetchTickets = () => async dispatch => {
     const ticketResponse = await purify.get('/tickets');
 
     console.log(ticketResponse);
+
+    const items = ticketResponse.data.map(item => {
+        return { 
+            CustomerId: item.CustomerId.S,
+            TicketId: item.TicketId.S,
+            Headline: (item.Headline && item.Headline.S) || "None",
+            Description: (item.Description && item.Description.S) || "None"
+        }
+    });
+
+    dispatch({ type: 'FETCH_TICKETS', payload: items })
 }

@@ -58,23 +58,35 @@ const flagReducer = (state = { AddAccount: false }, action) => {
     }
 }
 
-const settingsReducer = (state = { }, action) => {
+const ticketReducer = (state = [], action) => {
     switch(action.type)
     {
-        case 'FETCH_SETTINGS':
-            return action.payload
+        case 'FETCH_TICKETS':
+            return [ ...action.payload ]
         default:
             return state;
     }
 }
 
-const menuReducer = (state = { }, action) => {
+const settingsReducer = (state = { }, action) => {
+    switch(action.type)
+    {
+        case 'FETCH_SETTINGS':
+            return action.payload
+        case 'TOGGLE_AWS':
+            return { ...state, Providers: action.payload }
+        default:
+            return state;
+    }
+}
+
+const menuReducer = (state = { selected: 'General' }, action) => {
     switch(action.type)
     {
         case 'TOGGLE_MENU': 
             return { selected: action.payload }
         default: 
-            return { selected: 'General' };
+            return state;
     }
 }
 
@@ -86,5 +98,6 @@ export default combineReducers({
     user: userReducer,
     settings: settingsReducer,
     form: formReducer,
-    menu: menuReducer
+    menu: menuReducer,
+    tickets: ticketReducer
 });
