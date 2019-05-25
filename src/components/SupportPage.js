@@ -41,27 +41,18 @@ class SupportPage extends React.Component {
         return (
             <div>
                 <Header />
-                {
-                    this.state.ticketSubmitted && (
-                        <div className="add-ticket">
-                            <button className="add-button" onClick={this.addTicket}>
-                                Create Support Ticket
-                            </button>
-                            
-                            <SupportList items={this.props.tickets} />
-                        </div>
-                    )
-                }
-                {
-                    !this.state.ticketSubmitted && (
-                        <div>
-                            <button className="add-button" onClick={this.viewTickets}>
-                                View My Tickets
-                            </button>
-                            <SupportForm onSubmit={this.submit} />
-                        </div>
-                    )
-                }    
+                <div className="support-screen">
+                    <div className="support-headers">
+                        <button className={this.state.ticketSubmitted ? "inactive-support-header support-header" : "support-header"} onClick={this.addTicket}>
+                            New Request
+                        </button>
+                        <button className={!this.state.ticketSubmitted ? "inactive-support-header support-header" : "support-header"} onClick={this.viewTickets}>
+                            My Requests
+                        </button>
+                    </div>
+                    {this.state.ticketSubmitted && <SupportList items={this.props.tickets} />} 
+                    {!this.state.ticketSubmitted && <SupportForm onSubmit={this.submit} />}
+                </div>  
             </div>
         )
     }

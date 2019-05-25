@@ -16,7 +16,7 @@ const SupportList = (props) => (
         {
             props.items.map(item => {
                 return (
-                    <div key={item.TicketId.S} className="support-list-item">
+                    <div key={item.TicketId} className="support-list-item">
                         <div className="support-list-attribute">
                             {item.TicketId}
                         </div>

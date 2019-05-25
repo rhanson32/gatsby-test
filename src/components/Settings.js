@@ -42,17 +42,23 @@ class Settings extends React.Component {
                         <div className="settings-card-title">
                             General Settings
                         </div>
-                        <div className="settings-switch">
+                        <div className="settings-left-side">
                             Operating Mode
-                            <button className="enabled-button">
-                                Monitor
-                            </button>
-                            <button className="disabled-button">
-                                Remediate
-                            </button>
                         </div>
                         <div className="settings-switch">
-                            API Key: Show
+                            <button className="enabled-button">
+                                Remediate
+                            </button>
+                            <button className="disabled-button">
+                                Monitor
+                            </button>
+                            
+                        </div>
+                        <div className="settings-left-side">
+                            API Key
+                        </div>
+                        <div className="settings-switch">
+                            Show
                         </div>
                     </div>
                 )
@@ -64,7 +70,7 @@ class Settings extends React.Component {
                             AWS Settings
                         </div>
                         <div className="settings-left-side">
-                            Status:
+                            Status
                         </div>
                         <div className="settings-switch">
                             {
@@ -84,23 +90,31 @@ class Settings extends React.Component {
                         </div>
                         {
                             this.props.accounts.length === 0 && (
-                                <div className="settings-left-side">
+                                <div className="settings-card-title">
                                 Master account:
                                 </div>
                             )
                         }
                         {
                              this.props.accounts.length === 0 && (
-                                <div className="settings-switch">
-                                    
+                                <div className="settings-card-title">
                                     <div className="account-list">
-                                    <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
+                                    <div className="account-header">
+                                        <div className="account-item-field">
+                                            Account ID
+                                        </div>
+                                        <div className="account-item-field">
+                                            Role Name
+                                        </div>
+                                        <div className="account-item-field">
+                                            &nbsp;  
+                                        </div>
+                                    </div>
                                     <AWSAccount />
                                     </div>
                                 </div>
                             )
-                        }
-                        
+                        }     
                     </div>
                 )
             }
@@ -110,8 +124,10 @@ class Settings extends React.Component {
                         <div className="settings-card-title">
                             User Settings
                         </div>
-                        <div className="settings-switch">
+                        <div className="settings-left-side">
                             Theme
+                        </div>
+                        <div className="settings-switch">
                             <button className="enabled-button">
                                 Light
                             </button>

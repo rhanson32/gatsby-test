@@ -19,7 +19,7 @@ const SupportForm = props => {
   return (
     <form className="support-form" onSubmit={handleSubmit}>
         <div className="support-form-title">
-            Submit a support request
+            Submit a Support Request
         </div>
       <div className="form-headline">
         <label>Headline</label>
@@ -28,7 +28,7 @@ const SupportForm = props => {
             name="headline"
             component="input"
             type="text"
-            placeholder="Headline"
+            placeholder="Brief summary of the issue"
             
           />
         </div>
@@ -36,16 +36,17 @@ const SupportForm = props => {
       <div className="form-description">
         <label>Description</label>
         <div className="support-textarea">
-          <Field className="form-textarea" name="description" component="textarea" />
+          <Field className="form-textarea" name="description" component="textarea" placeholder="Detailed account of the issue" />
         </div>
       </div>
-      <div>
-        <button className="add-button" type="submit" disabled={pristine || submitting}>
-          Submit
-        </button>
+      <div className="support-form-buttons">
         <button className="remove-button" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
         </button>
+        <button className="add-button" type="submit" disabled={pristine || submitting}>
+          Submit
+        </button>
+        
       </div>
     </form>
   )
