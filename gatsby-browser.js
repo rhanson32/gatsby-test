@@ -8,6 +8,7 @@
 
 import Auth from '@aws-amplify/auth'
 import { setUser } from './src/utils/auth'
+import 'normalize.css';
 import "./src/styles/global.css"
 
 export const onRouteUpdate = (state, page, pages) => {

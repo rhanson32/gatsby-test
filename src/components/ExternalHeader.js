@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import MobileMenu from './MobileMenu';
 class ExternalHeader extends React.Component {
     state = {
         mobileVisible: false
@@ -19,7 +20,6 @@ class ExternalHeader extends React.Component {
                     </button>
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>
                 </div>
-
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
                     <Link activeClassName="active-link" to="/app/pricing">Pricing</Link> 
@@ -29,6 +29,7 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
                 </div>
+                <MobileMenu />
             </div>
         )
     }

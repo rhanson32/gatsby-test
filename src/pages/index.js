@@ -1,19 +1,27 @@
 import React from "react";
 
-import Splash from "../components/Splash";
-import FeatureSummary from "../components/FeatureSummary";
-import SiteMap from "../components/SiteMap";
-import '../styles/global.css';
+import App from '../components/App';
 
-import Amplify from 'aws-amplify'
-import config from '../aws-exports'
-Amplify.configure(config)
+import Amplify from 'aws-amplify';
+
+Amplify.configure({
+    Auth: {
+        
+        // REQUIRED - Amazon Cognito Region
+        region: 'us-east-1',
+
+        // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolId: 'us-east-1_wMiZuxWyI',
+
+        // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+        userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'
+    }
+});
+
 
 const IndexPage = () => (
     <div>
-      <Splash />
-      <FeatureSummary />
-      <SiteMap />
+      <App />
     </div>
 )
 

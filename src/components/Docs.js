@@ -1,6 +1,7 @@
 import React from 'react';
 import DocsMenu from './DocsMenu';
 import ExternalHeader from './ExternalHeader';
+import GettingStarted from './GettingStarted';
 
 class Docs extends React.Component {
 
@@ -10,9 +11,7 @@ class Docs extends React.Component {
                 <ExternalHeader />
                 <div className="docs-main">
                     <DocsMenu />
-                    <div className="docs-content">
-                        This is some content that I want to display
-                    </div>
+                    <GettingStarted />
                 </div>
                 
             </div>

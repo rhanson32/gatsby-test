@@ -8,22 +8,23 @@ import Header from './Header'
 
 class SupportPage extends React.Component {
     state = {
-        ticketSubmitted: true
+        ticketSubmitted: true,
+        showTickets: true
     }
 
     componentDidMount() {
         this.props.fetchTickets()
     }
 
-    addTicket = () => {
+    showForm = () => {
         this.setState({ 
-            ticketSubmitted: false
+            showTickets: false
         })
     }
 
-    viewTickets = () => {
+    showTickets = () => {
         this.setState({ 
-            ticketSubmitted: true
+            showTickets: true
         })
     }
 
@@ -43,15 +44,15 @@ class SupportPage extends React.Component {
                 <Header />
                 <div className="support-screen">
                     <div className="support-headers">
-                        <button className={this.state.ticketSubmitted ? "inactive-support-header support-header" : "support-header"} onClick={this.addTicket}>
+                        <button className={this.state.showTickets ? "inactive-support-header" : "support-header"} onClick={this.showForm}>
                             New Request
                         </button>
-                        <button className={!this.state.ticketSubmitted ? "inactive-support-header support-header" : "support-header"} onClick={this.viewTickets}>
+                        <button className={this.state.showTickets ? "support-header" : "inactive-support-header" } onClick={this.showTickets}>
                             My Requests
                         </button>
                     </div>
-                    {this.state.ticketSubmitted && <SupportList items={this.props.tickets} />} 
-                    {!this.state.ticketSubmitted && <SupportForm onSubmit={this.submit} />}
+                    {this.state.showTickets && <SupportList items={this.props.tickets} />} 
+                    {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                 </div>  
             </div>
         )

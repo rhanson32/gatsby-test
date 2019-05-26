@@ -138,6 +138,7 @@ export const validateCompany = async (user) => {
     {
         postResponse = await purify.put('/customers', myRequest)
         console.log(postResponse);
+        
     }
     else
     {

@@ -18,14 +18,14 @@ class Features extends React.Component {
         return (
             <div>
                 <ExternalHeader />
-                <FeatureHeader />
+                {this.props.features.length > 0 && <FeatureHeader />}
                 {
                     this.props.features.map(feature => {
                         return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} />
                     })
                 }
-                <ActionCall />
-                <SiteMap />
+                {this.props.features.length > 0 && <ActionCall />}
+                {this.props.features.length > 0 && <SiteMap />}
             </div>
         )
     }  

@@ -24,7 +24,7 @@ h1 {
     background: #667db6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 3rem;
+    height: 6vh;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -51,12 +51,15 @@ h1 {
     top: 0%;
     z-index: 999;
     width: 100vw;
-    background-color: #a0d9f7;
     height: 3rem;
+    background-color: white;
     color: #103c42;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 0.5rem 0;
+    line-height: 2rem;
+    border-bottom: 1px solid #BBB;
 }
 
 .right-menu {
@@ -122,27 +125,32 @@ h1 {
 
 .settings-menu {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     width: 25%;
-    height: 60vh;
     background-color: #F9F9F9;
     border-radius: 4px;
+    margin: 0 20%;
 }
 
 .settings-main {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .settings-card {
     background-color: #F9F9f9;
     width: 60%;
     padding: 2rem;
-    margin-bottom: 10rem;
+    margin: 0 20%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
     flex-wrap: wrap;
+    height: 50vh;
+    border: 1px solid #DDD;
 }
 
 .settings-card-title {
@@ -157,7 +165,11 @@ h1 {
     font-size: 2rem;
     display: flex;
     justify-content: center;
-    
+    border: 1px #CCC solid;
+    margin: 0 0.2rem;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #DDD;
 }
 
 .settings-menu-item button {
@@ -187,13 +199,15 @@ h1 {
 
 .support-form-title {
     font-size: 2rem;
-    padding: 2rem 0;
+    padding: 1rem 0;
     margin-bottom: 2rem;
     background-color: #FAFAFA;
     width: 100%;
     display: flex;
     justify-content: center;
-    border: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
 }
 
 .support-form form {
@@ -222,6 +236,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin-top: 2rem;
 }
 
 .form-description {
@@ -251,12 +266,12 @@ h1 {
 }
 
 .support-screen {
-    padding: 2rem;
+    padding: 4rem 0;
     background-color: #F2F3F3;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     height: 90vh;
 }
 
@@ -298,13 +313,15 @@ h1 {
     display: flex;
     flex-direction: column;
     background-color: #F3F3F3;
+    height: 100vh;
 }
 
 .settings-header {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 4rem 0;
+    align-items: center;
+    height: 20vh;
     font-size: 3rem;
 }
 
@@ -337,9 +354,9 @@ h1 {
 }
 
 .feature-header-title {
-    margin: 6rem auto 1rem auto;
+    margin: 10rem auto 1rem auto;
     width: 60%;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
 }
 
 .feature-header-description {
@@ -382,7 +399,6 @@ h1 {
 }
 
 .feature-focus-text {
-    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -390,6 +406,8 @@ h1 {
 
 .feature-focus-image {
     width:50%;
+    background-image: url(../../static/buildings.jpg);
+    height: 20rem;
 }
 
 .feature-focus-header {
@@ -412,7 +430,7 @@ h1 {
     flex-direction: column;
     justify-content: flex-start;
     height: 42rem;
-    width: 45%;
+    width: 30%;
     margin: 4rem auto;
     border: 1px #EEE;
     box-shadow: 0px 0px 8px 12px #F3F3F3;
@@ -434,12 +452,12 @@ h1 {
 
 .pricing-card-price {
     height: 18rem;
-    font-size: 6rem;
+    font-size: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #E9E9E9;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .pricing-card-description {
@@ -562,13 +580,13 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height: 30vh;
     background-color: purple;
 }
 
 .action-header {
     color: white;
-    line-height: 3rem;
+    line-height: 4rem;
     font-size: 3rem;
     margin-bottom: 1rem;
 }
@@ -747,17 +765,27 @@ h1 {
 
 .support-headers {
     width: 70%;
+    border-top: 1px solid #ddd;
 }
 
 .support-header {
     width: 50%;
     height: 4rem;
     font-size: 2rem;
+    border: none;
+}
+
+.support-header button {
+    border: none;
 }
 
 .inactive-support-header {
     color: #999;
     background-color: #EEE;
+    width: 50%;
+    height: 4rem;
+    font-size: 2rem;
+    border: 1px solid #DDD;
 }
 
 .add-button {
@@ -891,6 +919,8 @@ h1 {
     width: 70%;
     background-color: #FFF;
     padding: 2rem 0;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
 }
 
 .support-list-item {
@@ -1086,9 +1116,46 @@ h1 {
         flex-wrap: wrap;
     }
 
+    .external-menu, .right-menu {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
     .mobile-menu-button {
        visibility: visible;
        border: none;
        background-color: rgba(0, 0, 0, 0.0);
+    }
+}
+
+@media screen and (min-width: 600px) {
+
+    .feature-focus-text {
+        width: 50%;
+    }
+
+    .mobile-menu-button {
+        width: 0;
+    }
+
+    .mobile-menu {
+        visibility: hidden;
+        height: 0;
+        width: 0;
+    }
+
+    .pricing-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100vw;
     }
 }

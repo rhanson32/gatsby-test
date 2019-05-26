@@ -26,9 +26,9 @@ class SignUp extends React.Component {
     }
   
     signUp = async() => {
-      const { username, password, email, company } = this.state
+      const { password, email, company } = this.state
       try {
-        await Auth.signUp({ username, password, attributes: { email, "custom:company" : company }})
+        await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }})
         await validateCompany(this.state)
         this.setState({ stage: 1 })
       } catch (err) {
@@ -38,9 +38,9 @@ class SignUp extends React.Component {
     }
 
     confirmSignUp = async() => {
-        const { username, authCode } = this.state
+        const { email, authCode } = this.state
         try {
-          await Auth.confirmSignUp(username, authCode)
+          await Auth.confirmSignUp(email, authCode)
           alert('Successfully signed up!')
           navigate("/app/login")
         } catch (err) {
@@ -60,23 +60,17 @@ class SignUp extends React.Component {
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <input
                     onChange={this.handleUpdate}
-                    placeholder='Username'
-                    name='username'
-                    value={this.state.username}
+                    placeholder='Email'
+                    name='email'
+                    value={this.state.email}
                   />
                   <input
-                onChange={this.handleUpdate}
-                placeholder='Password'
-                name='password'
-                value={this.state.password}
-                type='password'
-              />
-              <input
-                onChange={this.handleUpdate}
-                placeholder='Email'
-                name='email'
-                value={this.state.email}
-              />
+                    onChange={this.handleUpdate}
+                    placeholder='Password'
+                    name='password'
+                    value={this.state.password}
+                    type='password'
+                  />
               <input
                 onChange={this.handleUpdate}
                 placeholder='Company Name'

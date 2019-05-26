@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './Header'
 import SettingsMenu from './SettingsMenu';
 import AWSAccount from './AWSAccount';
-import AccountItem from './AccountItem';
 import { connect } from 'react-redux'
 import { getSettings, toggleAWS } from '../actions'
 
@@ -15,7 +14,8 @@ class Settings extends React.Component {
             RoleName: 'Role Name',
             Header: true
         },
-        AddAccount: false
+        AddAccount: false,
+        Menu: 'General'
     };
 
     componentDidMount() {

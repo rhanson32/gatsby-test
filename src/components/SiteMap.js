@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 const SiteMap = () => (
     <div className="site-map">
         <div className="site-map-logo">
-        PurifyCloud
+        <Link to="/">PurifyCloud</Link>
         </div>
         <div className="site-map-item">
             <div className="site-map-item-header">
@@ -24,6 +24,9 @@ const SiteMap = () => (
             <div className="site-map-item-link">
                 Docs
             </div>
+            <div className="site-map-item-link">
+                &nbsp;
+            </div>
         </div>
         <div className="site-map-item">
             <div className="site-map-item-header">
@@ -31,6 +34,9 @@ const SiteMap = () => (
             </div>
             <div className="site-map-item-link">
                 About Us
+            </div>
+            <div className="site-map-item-link">
+                &nbsp;
             </div>
         </div>
     </div>
