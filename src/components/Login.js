@@ -59,7 +59,7 @@ class Login extends React.Component {
           {this.state.error && <Error errorMessage={this.state.error}/>}
          <input
             onChange={this.handleUpdate}
-            placeholder='Username'
+            placeholder='Email'
             name='username'
             value={this.state.username}
             onKeyPress={this.handleKeyPress}

@@ -41,12 +41,10 @@ const Pricing = () => (
                 </div>
                 <div className="pricing-card-description">
                     Everything in Free tier, plus:
-                    <p>
                         <ul>
                             <li>100+ Standard Rules</li>
                             <li>Automated remediation</li>
                         </ul>
-                    </p>
                 </div>
                 <div className="pricing-card-footer">
                     Select

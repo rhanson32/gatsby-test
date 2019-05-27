@@ -354,7 +354,7 @@ h1 {
 }
 
 .feature-header-title {
-    margin: 10rem auto 1rem auto;
+    margin: 8rem auto 1rem auto;
     width: 60%;
     font-size: 3.5rem;
 }
@@ -379,10 +379,15 @@ h1 {
 }
 
 .sign-up-link {
-    padding: 0.1rem 1rem;
-    background-color: #27ae60;
-    border-radius: 15px;
+    padding: 0 1rem;
+    background-color: #00b894;
+    border-radius: 10px;
     color: white;
+}
+
+.external-title a:link, .external-title a:visited {
+    color: black;
+    text-decoration: none;
 }
 
 .sign-up-link a {
@@ -393,7 +398,7 @@ h1 {
 .feature-focus {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     height: auto;
 }
@@ -517,7 +522,7 @@ h1 {
 }
 
 .login-form {
-    width: 60%;
+    width: 50%;
 }
 
 .signup-form {
@@ -580,8 +585,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 30vh;
-    background-color: purple;
+    height: 40vh;
+    background-color: #6c5ce7;
 }
 
 .action-header {
@@ -638,10 +643,10 @@ h1 {
 
 .splash-subtitle {
     position: absolute;
-    top: 42%;
-    left: 30%;
+    top: 22%;
+    left: 25%;
     font-size: 2rem;
-    line-height: 3rem;
+    line-height: 120%;;
 }
 
 .site-map {
@@ -665,6 +670,11 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.site-map-logo a:link, .site-map-logo a:visited {
+    text-decoration: none;
+    color: black;
 }
 
 .site-map-item {
@@ -985,7 +995,7 @@ h1 {
     .feature-header-title {
         width: 90%;
         font-size: 1.7rem;
-        margin: 9rem auto 1rem auto;
+        margin: 8rem auto 1rem auto;
         text-align: center;
     }
 
@@ -1139,7 +1149,7 @@ h1 {
 @media screen and (min-width: 600px) {
 
     .feature-focus-text {
-        width: 50%;
+        width: 46%;
     }
 
     .mobile-menu-button {
@@ -1157,5 +1167,12 @@ h1 {
         flex-wrap: wrap;
         justify-content: center;
         width: 100vw;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .splash-subtitle {
+        font-size: 4rem;
+        line-height: 120%;
     }
 }

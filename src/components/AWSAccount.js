@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleAddAccount, postAccount } from '../actions';
+import { toggleAddAccount, postAccount, getCurrentUser } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
@@ -9,6 +9,10 @@ class AddAccount extends React.Component {
         provider: 'AWS',
         role: ''
     };
+
+    componentDidMount() {
+        this.props.getCurrentUser();
+    }
 
     handleChangeAccount = (event) => {
         console.log(event.target.value);
@@ -24,7 +28,7 @@ class AddAccount extends React.Component {
     submitAccount = () => {
         if(this.state.id && this.state.role)
         {
-            this.props.postAccount(this.state, this.props.user.customerId);
+            this.props.postAccount(this.state, this.props.user.CustomerId);
             this.props.toggleAddAccount();
         }
         
@@ -58,4 +62,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { toggleAddAccount, postAccount })(AddAccount);
+export default connect(mapStateToProps, { toggleAddAccount, postAccount, getCurrentUser })(AddAccount);

@@ -3,7 +3,7 @@ import Header from './Header'
 import SettingsMenu from './SettingsMenu';
 import AWSAccount from './AWSAccount';
 import { connect } from 'react-redux'
-import { getSettings, toggleAWS } from '../actions'
+import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions'
 
 class Settings extends React.Component {
 
@@ -18,8 +18,10 @@ class Settings extends React.Component {
         Menu: 'General'
     };
 
-    componentDidMount() {
+    componentDidMount = async () => {
+        await this.props.getCurrentUser()
         this.props.getSettings()
+        this.props.getAccounts(this.props.user.CustomerId)
     }
 
     toggleAWSState = () => {
@@ -27,7 +29,6 @@ class Settings extends React.Component {
     }
 
     render() {
-        console.log(this.props);
     return (
     <div className="settings-page">
         <Header />
@@ -74,7 +75,7 @@ class Settings extends React.Component {
                         </div>
                         <div className="settings-switch">
                             {
-                                this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
+                                this.props.settings && this.props.settings.Providers && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
                                     <button className="enabled-button" onClick={this.toggleAWSState}>
                                         Enabled
                                     </button>
@@ -149,8 +150,9 @@ const mapStateToProps = state => {
     return {
         menu: state.menu,
         settings: state.settings,
-        accounts: state.accounts
+        accounts: state.accounts,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps, { getSettings, toggleAWS })(Settings);
+export default connect(mapStateToProps, { getSettings, toggleAWS, getAccounts, getCurrentUser })(Settings);

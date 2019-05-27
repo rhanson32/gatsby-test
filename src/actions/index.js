@@ -39,24 +39,21 @@ export const postAccount = (item, customerId) => async dispatch => {
     dispatch({ type: 'ADD_ACCOUNT', payload: item });
 }
 
-export const getAccounts = () => async dispatch => {
+export const getAccounts = (id) => async dispatch => {
+    console.log(id);
     let myRequest = {
         body: {}
     };
-    const accountResponse = await purify.get('/accounts', myRequest).catch(err => console.log(err));
+    const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
     console.log(accountResponse);
     const Items = accountResponse.data.Items.map(item => {
         return {
             AccountId: item.AccountId.S,
             Provider: item.Provider.S,
-            RoleName: item.RoleName.S
+            RoleName: (item.Role && item.Role.S) || 'None'
         }
     });
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
-}
-
-export const removeAccount = () => async dispatch => {
-
 }
 
 export const getSettings = (customerId) => async dispatch => {

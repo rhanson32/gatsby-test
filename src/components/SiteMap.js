@@ -22,7 +22,7 @@ const SiteMap = () => (
                 Resources
             </div>
             <div className="site-map-item-link">
-                Docs
+                <Link to="/app/docs">Docs</Link>
             </div>
             <div className="site-map-item-link">
                 &nbsp;
