@@ -24,9 +24,6 @@ const SiteMap = () => (
             <div className="site-map-item-link">
                 <Link to="/app/docs">Docs</Link>
             </div>
-            <div className="site-map-item-link">
-                &nbsp;
-            </div>
         </div>
         <div className="site-map-item">
             <div className="site-map-item-header">
@@ -34,9 +31,6 @@ const SiteMap = () => (
             </div>
             <div className="site-map-item-link">
                 About Us
-            </div>
-            <div className="site-map-item-link">
-                &nbsp;
             </div>
         </div>
     </div>

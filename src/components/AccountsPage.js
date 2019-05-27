@@ -4,11 +4,18 @@ import { connect } from 'react-redux';
 import AccountItem from './AccountItem';
 import Header from './Header'
 import AddAccount from './AddAccount';
-import { postAccount, getAccounts, toggleAddAccount } from '../actions';
+import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 
 class Accounts extends React.Component {
-    componentDidMount() {
-        this.props.getAccounts();
+    componentDidMount = async () => {
+        if(!this.props.user || !this.props.user.CustomerId)
+        {
+            await this.props.getCurrentUser()
+        }
+        if(this.props.user && this.props.user.CustomerId)
+        {
+            this.props.getAccounts(this.props.user.CustomerId);
+        }      
     }
     componentDidUpdate() {
     
@@ -95,8 +102,9 @@ class Accounts extends React.Component {
 const mapStateToProps = state => {
     return {
         Accounts: state.accounts,
-        Flags: state.flags
+        Flags: state.flags,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps, { getAccounts, toggleAddAccount })(Accounts);
+export default connect(mapStateToProps, { getAccounts, toggleAddAccount, getCurrentUser })(Accounts);

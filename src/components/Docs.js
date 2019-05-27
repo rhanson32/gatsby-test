@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import DocsMenu from './DocsMenu';
 import ExternalHeader from './ExternalHeader';
 import GettingStarted from './GettingStarted';
+import MobileMenu from './MobileMenu';
 
 class Docs extends React.Component {
 
@@ -9,6 +11,7 @@ class Docs extends React.Component {
         return (
             <div>
                 <ExternalHeader />
+                {this.props.mobile.mobileMenu && <MobileMenu />}
                 <div className="docs-main">
                     <DocsMenu />
                     <GettingStarted />
@@ -19,4 +22,10 @@ class Docs extends React.Component {
     }
 }
 
-export default Docs;
+const mapStateToProps = state => {
+    return {
+        mobile: state.mobile
+    }
+}
+
+export default connect(mapStateToProps, null)(Docs);

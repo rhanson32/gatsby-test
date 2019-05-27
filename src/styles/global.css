@@ -51,7 +51,7 @@ h1 {
     top: 0%;
     z-index: 999;
     width: 100vw;
-    height: 3rem;
+    height: 3.5rem;
     background-color: white;
     color: #103c42;
     display: flex;
@@ -66,6 +66,7 @@ h1 {
     width: 20%;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     font-size: 1.5rem; 
     line-height: 2rem;
 }
@@ -303,10 +304,15 @@ h1 {
     font-size: 2.8rem;
     padding: 0 0.5rem;
     width: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 0.5rem;
 }
 
 .external-title a {
     text-decoration: none;
+    color: #333333;
 }
 
 .settings-page {
@@ -354,7 +360,7 @@ h1 {
 }
 
 .feature-header-title {
-    margin: 8rem auto 1rem auto;
+    margin: 6rem auto 4rem auto;
     width: 60%;
     font-size: 3.5rem;
 }
@@ -379,14 +385,14 @@ h1 {
 }
 
 .sign-up-link {
-    padding: 0 1rem;
+    padding: 0.2rem 1rem;
     background-color: #00b894;
     border-radius: 10px;
     color: white;
 }
 
 .external-title a:link, .external-title a:visited {
-    color: black;
+    color: #333;
     text-decoration: none;
 }
 
@@ -407,22 +413,24 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
 .feature-focus-image {
-    width:50%;
+    width:48%;
     background-image: url(../../static/buildings.jpg);
     height: 20rem;
 }
 
 .feature-focus-header {
     font-size: 2.5rem;
-    color: darkblue;
+    color: #333;
 }
 
 .feature-focus-description {
     font-size: 1.5rem;
     color: #777;
+    width: 90%;
 }
 
 .pricing-page {
@@ -463,14 +471,20 @@ h1 {
     align-items: center;
     background-color: #E9E9E9;
     font-weight: 400;
+    padding: 0 1rem;
 }
 
 .pricing-card-description {
     font-size: 1.6rem;
     height: 14rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
+}
+
+.pricing-card-description ul {
+    padding: 0 0.5rem;
 }
 
 .pricing-card-description ul li {
@@ -587,6 +601,7 @@ h1 {
     align-items: center;
     height: 40vh;
     background-color: #6c5ce7;
+    margin: 4rem 0 0 0;
 }
 
 .action-header {
@@ -594,6 +609,7 @@ h1 {
     line-height: 4rem;
     font-size: 3rem;
     margin-bottom: 1rem;
+    width: 90%;
 }
 
 .action-button {
@@ -601,7 +617,7 @@ h1 {
     padding: 0.5rem 1rem;
     font-size: 1.2rem;
     border-radius: 3px;
-    background-color: green;
+    background-color: #00b894;
     color: white;
     padding: 0.5rem 2rem;
 }
@@ -609,6 +625,7 @@ h1 {
 .external-menu {
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 1.5rem;
     line-height: 2rem;
     width: 40%;
@@ -642,22 +659,23 @@ h1 {
 }
 
 .splash-subtitle {
-    position: absolute;
-    top: 22%;
-    left: 25%;
-    font-size: 2rem;
-    line-height: 120%;;
+    font-size: 1.8rem;
+    line-height: 140%;
+    width: 75%;
+    margin-top: 4rem;
+    color: #333;
 }
 
 .site-map {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     width: 100vw;
-    height: 30vh;
+    height: auto;
     background-color: #F2F2f2;
     border-top: 1px solid darkgray;
+    padding: 2rem 0;
 }
 
 .header-menu a, .header-menu p {
@@ -666,7 +684,8 @@ h1 {
 
 .site-map-logo {
     font-size: 3rem;
-    font-size: 700;
+    font-weight: 700;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -680,9 +699,8 @@ h1 {
 .site-map-item {
     display: flex;
     flex-direction: column;
-    width: 10%;
-    height: 80%;
-    justify-content: center;
+    width: 20%;
+    justify-content: flex-start;
 }
 
 .site-map-item-header {
@@ -916,13 +934,15 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
 .feature-focus {
     background-color: #fff;
     height: 50vh;
-    padding: 1rem 3rem;
-    margin: auto;
+    margin: 4rem auto 2rem auto;
 }
 
 .support-list {
@@ -961,11 +981,13 @@ h1 {
     }
 
     .external-header {
-        height: 6rem;
+        height: 4rem;
         flex-wrap: wrap;
     }
 
-    
+    .action-header {
+        font-size: 2.5rem;
+    }
 
     .header-menu {
         width: 100%;
@@ -993,9 +1015,9 @@ h1 {
     }
 
     .feature-header-title {
-        width: 90%;
-        font-size: 1.7rem;
-        margin: 8rem auto 1rem auto;
+        width: 85%;
+        font-size: 1.6rem;
+        margin: 4rem auto 1rem auto;
         text-align: center;
     }
 
@@ -1021,8 +1043,7 @@ h1 {
     }
 
     .feature-focus {
-        width: 100%;
-        padding: 1rem;
+        width: 95%;
     }
 
     .feature-focus-text {
@@ -1030,10 +1051,14 @@ h1 {
         flex-shrink: 0;
     }
 
+    .feature-focus-image {
+        width: 90%;
+    }
+
     .feature-focus-header {
         margin: 1rem 0;
-        font-size: 1.7rem;
-        width: 100%;
+        font-size: 1.5rem;
+        width: 90%;
     }
 
     .splash {
@@ -1048,10 +1073,8 @@ h1 {
     }
 
     .splash-subtitle {
-        top: 20%;
-        left: 30%;
-        font-size: 1rem;
-        width: 60%;
+        font-size: 1.5rem;
+        width: 70%;
     }
 
     .external-title {
@@ -1059,6 +1082,7 @@ h1 {
         font-size: 2.6rem;
         padding: 0 0.5rem;
         width: 100%;
+        justify-content: center;
         text-align: center;
     }
 
@@ -1137,12 +1161,25 @@ h1 {
         flex-direction: column;
         width: 100%;
         align-items: center;
+        background-color: white;
+        border-bottom: 1px solid #CCC;
+        padding: 0.5rem 0;
+    }
+
+    .mobile-menu a:link, .mobile-menu a:visited {
+        text-decoration: none;
+        color: black;
+        line-height: 3.5rem;
+        font-size: 1.5rem;
     }
 
     .mobile-menu-button {
        visibility: visible;
        border: none;
        background-color: rgba(0, 0, 0, 0.0);
+       position: fixed;
+       top: 2%;
+       left: 4%;
     }
 }
 

@@ -12,7 +12,6 @@ const FeatureFocus = (props) => (
             </div>
         </div>
         <div className="feature-focus-image">
-            
         </div>
     </div>
 );

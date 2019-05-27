@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { connect } from 'react-redux';
+import { showMobile } from '../actions';
+class MobileMenu extends React.Component {
 
-const MobileMenu = () => (
-    <div className="mobile-menu">
-        <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
-        <Link activeClassName="active-link" to="/app/pricing">Pricing</Link> 
-        <Link activeClassName="active-link" to="/app/docs">Docs</Link>  
-        <Link className="login-link" to="/app/login">Log In</Link>
-        <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
-    </div>
-)
+    toggleMobile = () => {
+        this.props.showMobile()
+    }
 
-export default MobileMenu;
+    render() {
+        return (
+            <div className="mobile-menu">
+                <Link activeClassName="active-link" to="/app/features" onClick={this.toggleMobile}>Why Purify?</Link>
+                <Link activeClassName="active-link" to="/app/pricing" onClick={this.toggleMobile}>Pricing</Link> 
+                <Link activeClassName="active-link" to="/app/docs" onClick={this.toggleMobile}>Docs</Link>  
+                <Link className="login-link" to="/app/login" onClick={this.toggleMobile}>Log In</Link>
+                <Link className="sign-up-link" to="/app/signup" onClick={this.toggleMobile}>Sign Up</Link>
+            </div>
+        )
+    }
+}
+
+export default connect(null, { showMobile })(MobileMenu);

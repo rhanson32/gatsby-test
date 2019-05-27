@@ -1,22 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'gatsby';
-import MobileMenu from './MobileMenu';
+import { FaBars } from 'react-icons/fa';
+import { showMobile } from '../actions';
+
 class ExternalHeader extends React.Component {
-    state = {
-        mobileVisible: false
-    }
 
     toggleMobile = () => {
-        this.setState({
-            mobileVisible: !this.state.mobileVisible
-        })
+        this.props.showMobile()
     }
     render() {
         return (
             <div className="external-header">
                 <div className="external-title">
                     <button className="mobile-menu-button" onClick={this.toggleMobile}>
-                        Mobile
+                        <FaBars />
                     </button>
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>
                 </div>
@@ -29,10 +27,9 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
                 </div>
-                <MobileMenu />
             </div>
         )
     }
 }
 
-export default ExternalHeader;
+export default connect(null, { showMobile })(ExternalHeader);

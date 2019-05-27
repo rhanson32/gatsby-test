@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import ExternalHeader from './ExternalHeader'
-import FeatureHeader from './FeatureHeader'
-import FeatureFocus from './FeatureFocus'
-import ActionCall from './ActionCall'
-import SiteMap from './SiteMap'
+import ExternalHeader from './ExternalHeader';
+import FeatureHeader from './FeatureHeader';
+import FeatureFocus from './FeatureFocus';
+import ActionCall from './ActionCall';
+import SiteMap from './SiteMap';
+import MobileMenu from './MobileMenu';
 
 import { getFeatures } from '../actions';
 
@@ -18,6 +19,7 @@ class Features extends React.Component {
         return (
             <div>
                 <ExternalHeader />
+                {this.props.mobile.mobileMenu && <MobileMenu />}
                 {this.props.features.length > 0 && <FeatureHeader />}
                 {
                     this.props.features.map(feature => {
@@ -33,7 +35,8 @@ class Features extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        features: state.features
+        features: state.features,
+        mobile: state.mobile
     }
 };
 

@@ -41,10 +41,8 @@ export const postAccount = (item, customerId) => async dispatch => {
 
 export const getAccounts = (id) => async dispatch => {
     console.log(id);
-    let myRequest = {
-        body: {}
-    };
-    const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
+
+    const accountResponse = await purify.get('/accounts?id=' + id).catch(err => console.log(err));
     console.log(accountResponse);
     const Items = accountResponse.data.Items.map(item => {
         return {
@@ -228,4 +226,10 @@ export const fetchTickets = () => async dispatch => {
     });
 
     dispatch({ type: 'FETCH_TICKETS', payload: items })
+}
+
+export const showMobile = () => async (dispatch, getState) => {
+    const state = getState();
+    console.log(state);
+    dispatch({ type: 'TOGGLE_MOBILE', payload: !state.mobile.mobileMenu });
 }

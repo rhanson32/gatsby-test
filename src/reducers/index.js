@@ -90,6 +90,16 @@ const menuReducer = (state = { selected: 'General' }, action) => {
     }
 }
 
+const mobileReducer = (state = { mobileMenu: false }, action) => {
+    switch(action.type)
+    {
+        case 'TOGGLE_MOBILE': 
+            return { mobileMenu: action.payload }
+        default: 
+            return state;
+    }
+}
+
 export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
@@ -99,5 +109,6 @@ export default combineReducers({
     settings: settingsReducer,
     form: formReducer,
     menu: menuReducer,
-    tickets: ticketReducer
+    tickets: ticketReducer,
+    mobile: mobileReducer
 });

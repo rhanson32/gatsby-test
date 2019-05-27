@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { saveUser } from '../actions'
-import ExternalHeader from './ExternalHeader'
+import ExternalHeader from './ExternalHeader';
+import MobileMenu from './MobileMenu';
 
 class Login extends React.Component {
   state = {
@@ -53,7 +54,7 @@ class Login extends React.Component {
     return (
       <div className="login-screen">
         <ExternalHeader />
-        {this.state.error && <Error errorMessage={this.state.error}/>}
+        {this.props.mobile.mobileMenu && <MobileMenu />}
         <div className="login-form">
           <div className="login-header">PurifyCloud</div>
           {this.state.error && <Error errorMessage={this.state.error}/>}
@@ -80,6 +81,12 @@ class Login extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+      mobile: state.mobile
+  }
+}
   
-export default connect(null, { saveUser })(Login)
+export default connect(mapStateToProps, { saveUser })(Login)
   
