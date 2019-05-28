@@ -17,22 +17,23 @@ import Docs from '../components/Docs';
 
 import store from '../store'
 
-const App = ({ children }) => (
+const App = () => (
     <Provider store={store}>
         <Router>
-            <PrivateRoute path="app/dashboard" component={Dashboard} />
+            <Home path="/" />
+            <PrivateRoute path="/app/dashboard" component={Dashboard} />
             <PrivateRoute path="/app/rules" component={RulesPage} />
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
             <PrivateRoute path="/app/settings" component={Settings} />
             <PrivateRoute path="/app/support" component={SupportPage} />
-            <Login path="app/login" />
-            <SignUp path="app/signup" />
+            <Login path="/app/login" />
+            <SignUp path="/app/signup" />
             <Features path="/app/features" />
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
-            <Home path="/" />
         </Router>
     </Provider>
+    
   )
   
-  export default App;
+  export default App
