@@ -19,7 +19,7 @@ const ruleReducer = (state = [], action) => {
         case 'FETCH_RULES':
             return [ ...action.payload ]
         case 'TOGGLE_RULE':
-            return [ ...state.filter(rule => rule.RuleId !== action.payload.RuleId), ...action.payload ]
+            return [ ...action.payload ]
         default:
             return state;
     }

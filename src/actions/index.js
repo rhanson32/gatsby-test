@@ -141,7 +141,10 @@ export const validateCompany = async (user) => {
     }
 };
 
-export const getRules = (CustomerId) => async dispatch => {
+export const getRules = (user) => async dispatch => {
+
+    console.log(user);
+    const { CustomerId } = user;
     console.log(CustomerId)
     const rulesResponse = await purify.get('/rules?id=' + CustomerId)
     console.log(rulesResponse);
@@ -161,28 +164,44 @@ export const getRules = (CustomerId) => async dispatch => {
 export const toggleRule = (id) => async (dispatch, getState) => {
 
     const prevState = getState();
-
-    let newRule = prevState.rules.filter(rule => rule.RuleId === id).map(rule => {
-            return {
-                ...rule,
-                Enabled: !rule.Enabled
-            }
-    });
-
-    console.log(newRule);
-
-    dispatch({ type: 'TOGGLE_RULE', payload: newRule[0] });
-
     let myRequest = {
-        body: newRule[0]
+        body: null
     }
 
-    const ruleResponse = await purify.put('/rules', myRequest);
-    console.log(ruleResponse);
+    let newRules = prevState.rules.map(rule => {
+
+            if(rule.RuleId === id)
+            {
+                myRequest.body = {
+                    ...rule,
+                    Enabled: !rule.Enabled
+                };
+                purify.put('/rules', myRequest);
+                return {
+                    ...rule,
+                    Enabled: !rule.Enabled
+                }
+            }
+            else 
+            {
+                return rule
+            }   
+    });
+
+    console.log(newRules);
+
+    dispatch({ type: 'TOGGLE_RULE', payload: newRules });
+
+    
+
+    // const ruleResponse = await purify.put('/rules', myRequest);
+    // console.log(ruleResponse);
 }
 
 export const toggleAWS = () => async (dispatch, getState) => {
     console.log(getState().settings);
+    const customerId = getState().user.CustomerId;
+    console.log(customerId);
     const newValue = getState().settings.Providers.map(provider => {
         if(provider.Name === 'AWS')
         {
@@ -197,7 +216,16 @@ export const toggleAWS = () => async (dispatch, getState) => {
         }
     });
     console.log(newValue);
+    let myRequest = {
+        body: {
+            customerId,
+            Setting: "Providers",
+            NewValue: newValue
+        }
+    }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
+    const settingsUpdateResponse = await purify.put('/settings', myRequest);
+    console.log(settingsUpdateResponse);
 }
 
 export const toggleAddAccount = () => async (dispatch, getState) => {

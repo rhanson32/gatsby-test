@@ -744,7 +744,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     background-color: #FFF;
-    height: 2rem;
     line-height: 2rem;
     font-size: 1.2rem;
 }
@@ -847,6 +846,9 @@ h1 {
 
 .rule-description {
     width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .rule-category, .rule-provider {
@@ -904,13 +906,13 @@ h1 {
 .dashboard-footer {
     flex-grow: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .dashboard-item {
     background-color: #FFF;
     height: 50vh;
-    width: 50vh;
+    width: 30%;
     border: 1px solid #CCC;
     margin: 2rem auto;
     display: flex;
@@ -921,7 +923,14 @@ h1 {
 .dashboard-header {
     line-height: 3rem;
     font-size: 2rem;
-    padding: 0 1rem;
+    background-color: #00b894;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
 }
 
 .dashboard-main {

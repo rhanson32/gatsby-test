@@ -3,27 +3,18 @@ import { connect } from 'react-redux';
 
 import RuleItem from './RuleItem';
 import Header from './Header'
-import { saveUser, getRules } from '../actions';
-import { Auth } from 'aws-amplify'
+import { saveUser, getRules, getCurrentUser } from '../actions';
 
 class RulesPage extends React.Component {
-    componentDidMount() {
+    componentDidMount = async () => {
         console.log(this.props)
-        if(!this.props.User.userName)
+        if(!this.props.User.email)
         {
-            Auth.currentAuthenticatedUser().then(user => {
-                const userInfo = {
-                    ...user.attributes,
-                    username: user.username
-                  }
-                  console.log(userInfo)
-                this.props.saveUser(userInfo).then(data => {
-                    this.props.getRules(this.props.User.customerId);
-                }).catch(err => console.log(err))
-            }).catch(err => console.log("Unable to fetch current user."))
+            await this.props.getCurrentUser()
+            this.props.getRules(this.props.User)
         }
         else {
-            this.props.getRules(this.props.User.customerId);
+            this.props.getRules(this.props.User);
         }
         
     }
@@ -39,6 +30,7 @@ class RulesPage extends React.Component {
     };
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <Header />
@@ -62,4 +54,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveUser, getRules })(RulesPage);
+export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser })(RulesPage);
