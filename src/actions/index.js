@@ -83,6 +83,7 @@ export const getFeatures = () => async dispatch => {
             FeatureId: item.FeatureId.S,
             Title: item.Title.S,
             Description: item.Description.S,
+            Image: item.Image.S || "None"
         }
     });
     dispatch({ type: 'FETCH_FEATURES', payload: Items });

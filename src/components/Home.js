@@ -4,8 +4,12 @@ import Splash from './Splash';
 import Features from './Features';
 import ExternalHeader from './ExternalHeader';
 import MobileMenu from './MobileMenu';
+import { getFeatures } from '../actions';
 
 class Home extends React.Component {
+    componentDidMount() {
+        this.props.getFeatures()
+    }
 
     render() {
         return (
@@ -25,4 +29,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, { getFeatures })(Home);

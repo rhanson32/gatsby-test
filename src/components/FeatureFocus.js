@@ -12,6 +12,7 @@ const FeatureFocus = (props) => (
             </div>
         </div>
         <div className="feature-focus-image">
+            <img src={props.image} alt={props.title} />
         </div>
     </div>
 );

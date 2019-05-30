@@ -28,9 +28,10 @@ class SignUp extends React.Component {
     signUp = async() => {
       const { password, email, company } = this.state
       try {
+        this.setState({ error: null });
         await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }})
-        await validateCompany(this.state)
         this.setState({ stage: 1 })
+        await validateCompany(this.state)
       } catch (err) {
         this.setState({ error: err })
         console.log('error signing up...', err)
@@ -41,7 +42,7 @@ class SignUp extends React.Component {
         const { email, authCode } = this.state
         try {
           await Auth.confirmSignUp(email, authCode)
-          alert('Successfully signed up!')
+          alert('Successfully signed up! Click OK to go to the login screen.')
           navigate("/app/login")
         } catch (err) {
           this.setState({ error: err })
@@ -56,7 +57,7 @@ class SignUp extends React.Component {
             {
               this.state.stage === 0 && (
                 <div className="signup-form">
-                  <div className="signup-header">Sign Up</div>
+                  <div className="signup-header">Welcome to PurifyCloud</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <input
                     onChange={this.handleUpdate}
@@ -77,9 +78,9 @@ class SignUp extends React.Component {
                 name='company'
                 value={this.state.company}
               />
-              <div className="signup-button" onClick={this.signUp}>
+              <button className="signup-button" onClick={this.signUp}>
                 <span className="signup-button-text">Sign Up</span>
-              </div>
+              </button>  
             </div>
           )
         }

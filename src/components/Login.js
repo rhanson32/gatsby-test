@@ -73,9 +73,9 @@ class Login extends React.Component {
             type='password'
             onKeyPress={this.handleKeyPress}
           />
-          <div className="login-button" onClick={this.login}>
+          <button className="login-button" onClick={this.login}>
             <span className="login-button-text">Sign In</span>
-          </div>
+          </button>
         </div>
       </div>
     )

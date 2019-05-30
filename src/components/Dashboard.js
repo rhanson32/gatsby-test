@@ -69,6 +69,14 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className="dashboard-category">
+                    <div className="dashboard-category-header">
+                        Security
+                    </div>
+                    <div className="dashboard-category-item">
+                        S3 Encryption
+                    </div>
+                </div>
             </div>
             </div>
         )
