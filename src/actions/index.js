@@ -107,6 +107,7 @@ export const getCurrentUser = () => async dispatch => {
     console.log(customerResponse)
     const userInfo = {
         ...user.attributes,
+        IdToken: user.signInUserSession.idToken.jwtToken,
         CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
         Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None"
     }
@@ -144,10 +145,16 @@ export const validateCompany = async (user) => {
 
 export const getRules = (user) => async dispatch => {
 
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: user.IdToken
+        }
+    }
     console.log(user);
     const { CustomerId } = user;
     console.log(CustomerId)
-    const rulesResponse = await purify.get('/rules?id=' + CustomerId)
+    const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
     console.log(rulesResponse);
     const Items = rulesResponse.data.map(item => {
         return {
@@ -162,12 +169,18 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
-export const toggleRule = (id) => async (dispatch, getState) => {
+export const toggleRule = (id, user) => async (dispatch, getState) => {
 
+    console.log(user)
     const prevState = getState();
     let myRequest = {
-        body: null
+        body: { },
+        headers: {
+            Authorization: user.IdToken
+        }
     }
+
+    console.log(myRequest);
 
     let newRules = prevState.rules.map(rule => {
 
@@ -177,7 +190,8 @@ export const toggleRule = (id) => async (dispatch, getState) => {
                     ...rule,
                     Enabled: !rule.Enabled
                 };
-                purify.put('/rules', myRequest);
+                console.log(myRequest);
+                purify.put('/rules', myRequest).catch(err => console.log(err));
                 return {
                     ...rule,
                     Enabled: !rule.Enabled
@@ -190,13 +204,7 @@ export const toggleRule = (id) => async (dispatch, getState) => {
     });
 
     console.log(newRules);
-
     dispatch({ type: 'TOGGLE_RULE', payload: newRules });
-
-    
-
-    // const ruleResponse = await purify.put('/rules', myRequest);
-    // console.log(ruleResponse);
 }
 
 export const toggleAWS = () => async (dispatch, getState) => {

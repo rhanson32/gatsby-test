@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { toggleRule } from '../actions';
 
 class RuleItem extends React.Component {
@@ -10,7 +10,7 @@ class RuleItem extends React.Component {
 
     toggleRule = (id) => {
         console.log(this.props);
-        this.props.toggleRule(this.props.rule.RuleId);
+        this.props.toggleRule(this.props.rule.RuleId, this.props.user);
 
     }
 
@@ -20,35 +20,17 @@ class RuleItem extends React.Component {
         });
     }
     render() {
+        console.log(this.props);
         return (
             <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
-                <div className="rule-detail">
-                    <div className="rule-description">
-                        <div>
-                            {this.props.rule.Name}{" "}
-                            <button onClick={this.toggleDescription}>Click Me</button>
-                        </div>
-                        {
-                            this.state.showDescription && (
-                                <div>
-                                    {this.props.rule.Description}
-                                </div>
-                            )
-                        }
-                        
-                        
-                    </div>
-                    <div className="rule-category">
-                        {this.props.rule.Category}
-                    </div>
+                <div className="rule-name">
+                    {this.props.rule.Name}{"  "}
+                    {!this.state.showDescription && <button className="rule-arrow" onClick={this.toggleDescription}><IoIosArrowDown /></button>}
+                    {this.state.showDescription && <button className="rule-arrow    " onClick={this.toggleDescription}><IoIosArrowUp /></button>}
                 </div>
-                {
-                    this.props.rule.Header && (
-                        <div className="rule-status">
-                            Status
-                        </div>
-                    )
-                }
+                <div className="rule-category">
+                    {this.props.rule.Category}
+                </div>
                 {
                     !this.props.rule.Header && (
                         <div className="rule-status">
@@ -57,10 +39,31 @@ class RuleItem extends React.Component {
                             </button>
                         </div>
                     )
-                }    
+                } 
+                {
+                    this.state.showDescription && (
+                        <div className="rule-description">
+                            {this.props.rule.Description}
+                        </div>
+                    )
+                }  
+                {
+                    this.props.rule.Header && (
+                        <div className="rule-status">
+                            Status
+                        </div>
+                    )
+                }
+                   
             </div>
         )
     }
 }
 
-export default connect(null, { toggleRule })(RuleItem);
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, { toggleRule })(RuleItem);

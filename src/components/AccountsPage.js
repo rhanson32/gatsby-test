@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import Loading from './Loading';
 import AccountItem from './AccountItem';
 import Header from './Header'
 import AddAccount from './AddAccount';
@@ -45,55 +45,36 @@ class Accounts extends React.Component {
         return (
             <div>
                 <Header />
-            <div className="accounts">
-                {
-                    this.props.Accounts.length === 0 && (
-                        <div className="account-list">
-                            <div className="accounts-header">
-                                <h2>Master account required</h2>
-                                <p>Please enter the Master account of your AWS Organization. This account will be used to discover the rest of the accounts in your organization.</p>
-                                <br />
-                                <p>Note: In order for Purify to access the account, you will first need to create an IAM role that allows cross-account access. Learn more here.</p>
-                            </div>
-                            
-                            <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
-                            <AddAccount />
-                        </div>
-                    )
-                }
-                {
-                    this.props.Accounts.length !== 0 && (
-                        <div className="account-list">
-                            <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
-                            {
-                                this.props.Accounts.map(account => {
-                                    return <AccountItem key={account.AccountId} item={account} />
-                                })
-                            }
-                            {
-                                this.props.Flags.AddAccount && <AddAccount />
-                            }
-                            <div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
+                <div className="accounts">
+                    {
+                        this.props.Accounts.length === 0 && (
+                            <Loading type="spokes" color="333"/>
+                        )
+                    }
+                    {
+                        this.props.Accounts.length !== 0 && (
+                            <div className="account-list">
+                                <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
                                 {
-                                    !this.props.Flags.AddAccount && (
-                                        <div className="account-add">
-                                            <button onClick={this.addAccount} className="add-button">Add Account</button>
-                                        </div>
-                                    )
+                                    this.props.Accounts.map(account => {
+                                        return <AccountItem key={account.AccountId} item={account} />
+                                    })
                                 }
-                                
+                                {
+                                    this.props.Flags.AddAccount && <AddAccount />
+                                }
+                                <div>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    )
-                }
-                
-            </div>
+                        )
+                    }
+                </div>
             </div>
         )
     }

@@ -19,29 +19,29 @@ class RulesPage extends React.Component {
         
     }
 
-    state = {
-        RuleHeader: {
-            Description: 'Description',
-            Category: 'Category',
-            Name: 'Name',
-            Status: 'Status',
-            Header: true
-        }
-    };
-
     render() {
         console.log(this.props);
         return (
             <div>
                 <Header />
-            <div className="rule-list">
-                <RuleItem key={this.state.RuleHeader.Description} rule={this.state.RuleHeader} />
-                {this.props.Rules.map(rule => {
-                    return (
-                        <RuleItem key={rule.ruleId} rule={rule} />
-                    )
-                })}
-            </div>
+                <div className="rule-list">
+                    <div className="rule-header">
+                        <div className="rule-name">
+                            Name
+                        </div>
+                        <div className="rule-category">
+                            Category
+                        </div>
+                        <div className="rule-status">
+                            Status
+                        </div>
+                    </div>
+                    {this.props.Rules.map((rule, index) => {
+                        return (
+                            <RuleItem key={index} rule={rule} />
+                        )
+                    })}
+                </div>
             </div>
         )
     }

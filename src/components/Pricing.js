@@ -20,11 +20,13 @@ class Pricing extends React.Component {
                 </div>
                 <div className="pricing-cards">
                     <div className="pricing-card">
+                    </div>
+                    <div className="pricing-card">
                         <div className="pricing-card-header">
-                            Free
+                            Always Free
                         </div>
                         <div className="pricing-card-price">
-                            Free always
+                            $0 / month
                         </div>
                         <div className="pricing-card-description">
                             <ul>
@@ -35,7 +37,9 @@ class Pricing extends React.Component {
                             </ul>
                         </div>
                         <div className="pricing-card-footer">
-                            Select
+                            <button className="pricing-card-button">
+                                Choose Free
+                            </button>
                         </div>
                     </div>
                     <div className="pricing-card">
@@ -43,7 +47,7 @@ class Pricing extends React.Component {
                             Standard
                         </div>
                         <div className="pricing-card-price">
-                            Free (limited time)
+                            $0 / month <br />(while in beta)
                         </div>
                         <div className="pricing-card-description">
                             <p>Everything in Free tier, plus:</p>
@@ -53,7 +57,9 @@ class Pricing extends React.Component {
                                 </ul>
                         </div>
                         <div className="pricing-card-footer">
-                            Select
+                            <button className="pricing-card-button">
+                                Buy Standard
+                            </button>
                         </div>
                     </div>
                 </div>

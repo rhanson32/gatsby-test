@@ -4,10 +4,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body {
-    margin-top: 3rem;
-}
-
 h1 {
     width: 100vh;
     height: 5rem;
@@ -387,7 +383,7 @@ h1 {
 .sign-up-link {
     padding: 0.2rem 1rem;
     background-color: #00b894;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
 }
 
@@ -417,7 +413,7 @@ h1 {
 }
 
 .feature-focus-image {
-    width:48%;
+    width:40%;
     height: 20rem;
 }
 
@@ -448,9 +444,8 @@ h1 {
     justify-content: flex-start;
     height: 42rem;
     width: 30%;
-    margin: 4rem auto;
-    border: 1px #EEE;
-    box-shadow: 0px 0px 8px 12px #F3F3F3;
+    border: 1px solid #EEE;
+    padding: 1rem;
 }
 
 .pricing-card-header {
@@ -469,13 +464,18 @@ h1 {
 
 .pricing-card-price {
     height: 18rem;
-    font-size: 4rem;
+    font-size: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #E9E9E9;
     font-weight: 400;
     padding: 0 1rem;
+}
+
+.pricing-card-button {
+    width: 80%;
+    background-color: purple;
+    color: white;
 }
 
 .pricing-card-description {
@@ -499,8 +499,7 @@ h1 {
 .pricing-card-footer {
     display: flex;
     justify-content: center;
-    font-size: 3rem;
-    background-color: purple;
+    font-size: 2rem;
     color: white;
     height: 4rem;
 }
@@ -586,6 +585,10 @@ h1 {
 
 .login-link {
     color: black;
+}
+
+.external-menu a:hover {
+    color: #999;
 }
 
 .feature-item {
@@ -727,6 +730,7 @@ h1 {
     display: flex;
     flex-direction: column;
     background-color: #F4F4F4;
+    height: 100vh;
 }
 
 .accounts-header {
@@ -748,7 +752,7 @@ h1 {
     border-right: 1px solid #CCC;
     padding: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     background-color: #FFF;
     line-height: 2rem;
     font-size: 1.2rem;
@@ -769,8 +773,22 @@ h1 {
     padding-left: 2rem;
 }
 
+.pricing-cards {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0px 8px 12px #F3F3F3;
+    border: 1px #EEE;
+    margin: 4rem auto;
+    width: 80%;
+}
+
 .account-item-field select {
     width: 50%;
+}
+
+.rule-arrow {
+    border: none;
 }
 
 .account-item-buttons {
@@ -779,8 +797,26 @@ h1 {
     justify-content: space-around;
 }
 
+.loading-spinner {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rule-item {
+    flex-wrap: wrap;
+}
+
 .rule-item:first-child {
     border-top: 1px solid #CCC;
+}
+
+.rule-description {
+    margin: 1rem 0.5rem;
+    color: #555;
 }
 
 .error-item {
@@ -836,7 +872,7 @@ h1 {
 
 .rule-header, .account-header {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     padding: 0.8rem 1rem;
     background-color: #0984e3;
     line-height: 2rem;
@@ -847,22 +883,18 @@ h1 {
 .rule-detail {
     display: flex;
     justify-content: space-between;
-    width: 80%;
 }
 
-.rule-description {
-    width: 60%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
+.rule-name {
+    width: 50%;
 }
 
 .rule-category, .rule-provider {
-    width: 20%;
+    width: 25%;
 }
 
 .rule-status {
-    width: 20%;
+    width: 25%;
     display: flex;
     justify-content: center;
 }
@@ -915,10 +947,15 @@ h1 {
     justify-content: space-around;
 }
 
+.dashboard-page {
+    margin: 0;
+    padding: 0;
+}
+
 .dashboard-item {
     background-color: #FFF;
-    height: 50vh;
-    width: 30%;
+    height: 20rem;
+    width: 20rem;
     border: 1px solid #CCC;
     margin: 2rem auto;
     display: flex;
@@ -1062,7 +1099,7 @@ h1 {
     }
 
     .feature-focus-text {
-        width: 100%;
+        width: 90%;
         flex-shrink: 0;
     }
 
@@ -1201,7 +1238,7 @@ h1 {
 @media screen and (min-width: 600px) {
 
     .feature-focus-text {
-        width: 46%;
+        width: 40%;
     }
 
     .mobile-menu-button {
@@ -1216,15 +1253,12 @@ h1 {
 
     .pricing-cards {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100vw;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .splash-subtitle {
         font-size: 4rem;
-        line-height: 120%;
+        line-height: 160%;
     }
 }
