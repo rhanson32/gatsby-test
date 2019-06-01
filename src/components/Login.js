@@ -4,10 +4,24 @@ import { navigate } from '@reach/router'
 import { setUser, isLoggedIn } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
-import { Auth } from 'aws-amplify'
+import Amplify, { Auth } from 'aws-amplify'
 import { saveUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import MobileMenu from './MobileMenu';
+
+Amplify.configure({
+  Auth: {
+      
+      // REQUIRED - Amazon Cognito Region
+      region: 'us-east-1',
+
+      // OPTIONAL - Amazon Cognito User Pool ID
+      userPoolId: 'us-east-1_wMiZuxWyI',
+
+      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+      userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'
+  }
+});
 
 class Login extends React.Component {
   state = {
