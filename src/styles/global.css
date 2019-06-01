@@ -356,16 +356,18 @@ h1 {
 }
 
 .feature-header-title {
-    margin: 6rem auto 4rem auto;
+    margin: 8rem auto 4rem auto;
     width: 60%;
     font-size: 3.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .feature-header-description {
     width: 60%;
     margin: 2rem auto;
-    font-size: 1.2rem;
-    line-height: 1.6rem;
+    font-size: 1.5rem;
+    line-height: 160%;
 }
 
 .feature-icon {
@@ -425,12 +427,14 @@ h1 {
 .feature-focus-header {
     font-size: 2.5rem;
     color: #333;
+    margin: 1rem;
 }
 
 .feature-focus-description {
     font-size: 1.5rem;
-    color: #777;
+    color: #555;
     width: 90%;
+    line-height: 140%;
 }
 
 .pricing-page {
@@ -470,6 +474,7 @@ h1 {
     align-items: center;
     font-weight: 400;
     padding: 0 1rem;
+    color: #103c42;
 }
 
 .pricing-card-button {
@@ -588,7 +593,7 @@ h1 {
 }
 
 .external-menu a:hover {
-    color: #999;
+    color: #777;
 }
 
 .feature-item {
@@ -885,6 +890,10 @@ h1 {
     justify-content: space-between;
 }
 
+.site-map-item a:hover {
+    color: #777;
+}
+
 .rule-name {
     width: 50%;
 }
@@ -993,7 +1002,6 @@ h1 {
 
 .feature-focus {
     background-color: #fff;
-    height: 50vh;
     margin: 4rem auto 2rem auto;
 }
 
@@ -1030,6 +1038,10 @@ h1 {
         text-align: center;
         line-height: 5rem;
         font-size: 4rem;
+    }
+
+    .feature-focus {
+        height: 50vh;
     }
 
     .external-header {
@@ -1235,18 +1247,19 @@ h1 {
     }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) and (max-width: 1200px) {
 
     .feature-focus-text {
         width: 40%;
     }
 
     .mobile-menu-button {
+        display: none;
         width: 0;
     }
 
     .mobile-menu {
-        visibility: hidden;
+        display: none;
         height: 0;
         width: 0;
     }
@@ -1254,11 +1267,36 @@ h1 {
     .pricing-cards {
         display: flex;
     }
+
+    .right-menu {
+        width: 25%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
     .splash-subtitle {
         font-size: 4rem;
         line-height: 160%;
+        margin-top: 8rem;
     }
+
+    .action-call {
+        height: 60vh;
+    }
+
+    .action-header {
+        line-height: 5rem;
+        font-size: 4rem;
+        margin: 2rem;
+    }
+
+    .action-button {
+        padding: 0.5rem 1.5rem;
+        font-size: 2rem;
+    }
+
+    .feature-focus-text {
+        width: 40%;
+    }
+
 }
