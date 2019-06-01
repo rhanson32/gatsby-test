@@ -6,10 +6,24 @@
 
 // You can delete this file if you're not using it
 
-import Auth from '@aws-amplify/auth'
+import Amplify, { Auth } from 'aws-amplify'
 import { setUser } from './src/utils/auth'
 import 'normalize.css';
 import "./src/styles/global.css"
+
+Amplify.configure({
+  Auth: {
+      
+      // REQUIRED - Amazon Cognito Region
+      region: 'us-east-1',
+
+      // OPTIONAL - Amazon Cognito User Pool ID
+      userPoolId: 'us-east-1_wMiZuxWyI',
+
+      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+      userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'
+  }
+});
 
 export const onRouteUpdate = (state, page, pages) => {
   Auth.currentAuthenticatedUser()
