@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import Splash from './Splash';
-import Features from './Features';
+import FeatureFocus from './FeatureFocus';
 import ExternalHeader from './ExternalHeader';
 import MobileMenu from './MobileMenu';
+import ActionCall from './ActionCall';
+import SiteMap from './SiteMap';
 import { getFeatures } from '../actions';
 
 class Home extends React.Component {
@@ -12,12 +14,27 @@ class Home extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <ExternalHeader />
                 {this.props.mobile.mobileMenu && <MobileMenu />}
                 <Splash />
-                <Features />
+                {
+                    this.props.features && this.props.features.map((feature, index) => {
+                        if(index % 2 === 0)
+                        {
+                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} image={feature.Image} />
+                        }
+                        else
+                        {
+                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} image={feature.Image} />
+                        }
+                        
+                    })
+                }
+                <ActionCall />
+                <SiteMap />
             </div>
         )
     }
@@ -25,7 +42,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        mobile: state.mobile
+        mobile: state.mobile,
+        features: state.features
     }
 }
 

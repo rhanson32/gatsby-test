@@ -37,9 +37,9 @@ class Pricing extends React.Component {
                             </ul>
                         </div>
                         <div className="pricing-card-footer">
-                            <button className="pricing-card-button">
+                            <a className="pricing-card-button">
                                 Choose Free
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div className="pricing-card">
@@ -57,9 +57,9 @@ class Pricing extends React.Component {
                                 </ul>
                         </div>
                         <div className="pricing-card-footer">
-                            <button className="pricing-card-button">
+                            <a className="pricing-card-button">
                                 Buy Standard
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

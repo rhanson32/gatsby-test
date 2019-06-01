@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'gatsby';
 import { FaBars } from 'react-icons/fa';
 import { showMobile } from '../actions';
+import MobileMenu from './MobileMenu';
 
 class ExternalHeader extends React.Component {
+    state = {
+        showMobile: false
+    }
 
     toggleMobile = () => {
         this.props.showMobile()
@@ -27,6 +31,7 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
                 </div>
+                {this.state.showMobile && <MobileMenu />}
             </div>
         )
     }

@@ -25,6 +25,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     padding: 0.2rem 0;
+    height: 3rem;
 }
 
 .header-title {
@@ -355,10 +356,16 @@ h1 {
     padding: 1rem;
 }
 
+.feature-header {
+    padding: 2rem 0;
+    background-color: #74b9ff;
+    opacity: 0.8;
+}
+
 .feature-header-title {
     margin: 8rem auto 4rem auto;
     width: 60%;
-    font-size: 3.5rem;
+    font-size: 4rem;
     display: flex;
     justify-content: center;
 }
@@ -366,7 +373,7 @@ h1 {
 .feature-header-description {
     width: 60%;
     margin: 2rem auto;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 160%;
 }
 
@@ -402,7 +409,7 @@ h1 {
 .feature-focus {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: auto;
 }
@@ -412,10 +419,11 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-right: 2rem;
 }
 
 .feature-focus-image {
-    width:40%;
+    width:30%;
     height: 20rem;
 }
 
@@ -479,8 +487,17 @@ h1 {
 
 .pricing-card-button {
     width: 80%;
-    background-color: purple;
+    background-color: #6c5ce7;
     color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pricing-card-footer a:hover {
+    background-color: #a29bfe;
 }
 
 .pricing-card-description {
@@ -659,6 +676,10 @@ h1 {
     color: white;
 }
 
+.header-menu a:hover {
+    color: #DDD;
+}
+
 .active-link {
     text-decoration: underline;
 }
@@ -751,7 +772,7 @@ h1 {
     height: 100vh;
 }
 
-.account-item, .rule-item {
+.account-item, .rule-item, .dashboard-category-item {
     border-bottom: 1px solid #CCC;
     border-left: 1px solid #CCC;
     border-right: 1px solid #CCC;
@@ -768,12 +789,23 @@ h1 {
 }
 
 .account-item-field {
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
 }
 
 .account-item-field input {
+    width: 90%;
+    padding-left: 2rem;
+}
+
+.account-item-field-large {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+.account-item-field-large input {
     width: 90%;
     padding-left: 2rem;
 }
@@ -875,7 +907,7 @@ h1 {
     height: 2rem;
 }
 
-.rule-header, .account-header {
+.rule-header, .account-header, .dashboard-category-header {
     display: flex;
     justify-content: flex-start;
     padding: 0.8rem 1rem;
@@ -930,10 +962,26 @@ h1 {
 
 .dashboard {
     background-color: #EEE;
-    height: 100vh;
     margin: auto;
     display: flex;
     justify-content: flex-start;
+}
+
+.dashboard-category {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-items: center;
+    background-color: #EEE;
+    margin-bottom: 2rem;
+}
+
+.dashboard-category-header {
+    width: 70%;
+}
+
+.dashboard-category-item {
+    width: 70%;
 }
 
 .dashboard-header {
@@ -959,6 +1007,8 @@ h1 {
 .dashboard-page {
     margin: 0;
     padding: 0;
+    background-color: #EEE;
+    height: 100vh;
 }
 
 .dashboard-item {
@@ -998,6 +1048,7 @@ h1 {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
+    margin-top: 3.5rem;
 }
 
 .feature-focus {
@@ -1296,6 +1347,10 @@ h1 {
     }
 
     .feature-focus-text {
+        width: 40%;
+    }
+
+    .login-form, .signup-form {
         width: 40%;
     }
 
