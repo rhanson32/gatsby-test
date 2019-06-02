@@ -455,9 +455,8 @@ h1 {
     flex-direction: column;
     justify-content: flex-start;
     height: 42rem;
-    width: 30%;
+    width: 33%;
     border: 1px solid #EEE;
-    padding: 1rem;
 }
 
 .pricing-card-header {
@@ -470,7 +469,8 @@ h1 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    color: darkblue;
+    color: #444;
+    background-color: #00b894;
 
 }
 
@@ -494,6 +494,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
 }
 
 .pricing-card-footer a:hover {
@@ -523,7 +525,6 @@ h1 {
     justify-content: center;
     font-size: 2rem;
     color: white;
-    height: 4rem;
 }
 
 .login-screen, .signup-screen {
@@ -764,7 +765,7 @@ h1 {
 }
 
 .account-list, .rule-list {
-    margin: 5rem auto;
+    margin: 3rem auto;
     width: 80%;
 }
 
@@ -1045,6 +1046,10 @@ h1 {
 .dashboard-main {
     padding: 0.5rem 1rem;
     border-top: 1px dotted gray;
+}
+
+.empty-list {
+    height: 50vh;
 }
 
 .splash {

@@ -51,7 +51,7 @@ class SupportPage extends React.Component {
                             My Requests
                         </button>
                     </div>
-                    {this.state.showTickets && <SupportList items={this.props.tickets} />} 
+                    {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
                     {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                 </div>  
             </div>

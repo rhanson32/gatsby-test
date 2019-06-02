@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SupportList = (props) => (
-    <div className="support-list">
+    <div className={props.count < 3 ? "support-list empty-list" : "support-list"}>
         <div className="support-list-item">
             <div className="support-list-attribute">
                 Ticket Number
