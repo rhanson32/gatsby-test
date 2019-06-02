@@ -856,6 +856,12 @@ h1 {
     color: #555;
 }
 
+.rules-bulk-switch {
+    display: flex;
+    margin: 2rem 6rem;
+    justify-content: flex-end;
+}
+
 .error-item {
     padding: 1rem;
     color: red;
@@ -942,14 +948,13 @@ h1 {
 
 .disabled-button, .enabled-button {
     border-radius: 3px;
-    width: 5rem;
     border: none;
 }
 
 .enabled-button {
     background-color: #27ae60;
     color: #FFF;
-    padding: 0.2rem 0;
+    padding: 0.2rem;
     height: 2rem;
 }
 
@@ -978,6 +983,8 @@ h1 {
 
 .dashboard-category-header {
     width: 70%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .dashboard-category-item {
@@ -1329,6 +1336,7 @@ h1 {
         font-size: 4rem;
         line-height: 160%;
         margin-top: 8rem;
+        width: 80%;
     }
 
     .action-call {

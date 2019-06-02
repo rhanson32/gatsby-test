@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import Header from './Header'
+import DashboardItem from './DashboardItem';
+import Header from './Header';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { getCurrentUser } from '../actions'
 
 class Dashboard extends React.Component {
@@ -14,73 +16,44 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                 <Header />
                 <div className="dashboard">
-                    <div className="dashboard-item">
-                        <div className="dashboard-header">
+                    <DashboardItem header="Security" percent="95" status="Passing" totals="95 / 100" />
+                    <DashboardItem header="Waste" percent="85" status="Passing" totals="85 / 100" />
+                    <DashboardItem header="Configuration" percent="77" status="Passing" totals="77 / 100" />
+                </div>
+                <div className="dashboard-category">
+                    <div className="dashboard-category-header">
+                        <div>
                             Security
                         </div>
-                        <div className="dashboard-main">
-                            <div className="dashboard-metric">
-                                95%
-                            </div>
-                            
+                        <div>
+                            23 of 25 rules compliant
                         </div>
-                        <div className="dashboard-footer">
-                            <div>
-                                Passing
-                            </div>
-                            <div>
-                                95 / 100
-                            </div>
+                        <div>
+                            <button className="rule-arrow">
+                                <IoIosArrowDown />
+                            </button>
                         </div>
-                    </div>
-                    <div className="dashboard-item">
-                        <div className="dashboard-header">
-                            Waste
-                        </div>
-                        <div className="dashboard-main">
-                            <div className="dashboard-metric">
-                                    95%
-                            </div>
-                        </div>
-                        <div className="dashboard-footer">
-                            <div>
-                                Passing
-                            </div>
-                            <div>
-                                95 / 100
-                            </div>
-                        </div>
-                    </div>
-                    <div className="dashboard-item">
-                        <div className="dashboard-header">
-                            Misconfiguration
-                        </div>
-                        <div className="dashboard-main">
-                            <div className="dashboard-metric">
-                                95%
-                            </div>
-                        </div>
-                        <div className="dashboard-footer">
-                            <div>
-                                View Violations
-                            </div>
-                            <div>
-                                95 / 100
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="dashboard-category">
-                    <div className="dashboard-category-header">
-                        Security
                     </div>
                     <div className="dashboard-category-item">
-                        S3 Encryption
+                        <div>
+                             S3 Encryption
+                        </div>
+                    
                     </div>
                 </div>
                 <div className="dashboard-category">
                     <div className="dashboard-category-header">
-                        Waste
+                        <div>
+                            Waste
+                        </div>
+                        <div>
+                            23 of 25 rules compliant
+                        </div>
+                        <div>
+                            <button className="rule-arrow">
+                                <IoIosArrowDown />
+                            </button>
+                        </div>
                     </div>
                     <div className="dashboard-category-item">
                         Unused Instances
@@ -88,7 +61,17 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="dashboard-category">
                     <div className="dashboard-category-header">
-                        Misconfiguration
+                        <div>
+                            Configuration
+                        </div>
+                        <div>
+                            23 of 25 rules compliant
+                        </div>
+                        <div>
+                            <button className="rule-arrow">
+                                <IoIosArrowDown />
+                            </button>
+                        </div>
                     </div>
                     <div className="dashboard-category-item">
                         Something, something, something
