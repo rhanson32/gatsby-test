@@ -30,15 +30,15 @@ class Features extends React.Component {
 
                         if(feature.Title.includes("Accounts"))
                         {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} image={accounts} />
+                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={accounts} />
                         }
                         else if(feature.Title.includes("Rule Sets"))
                         {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} image={checklist} />
+                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={checklist} />
                         }
                         else
                         {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} image={pay} />
+                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={pay} />
                         }
                         
                     })

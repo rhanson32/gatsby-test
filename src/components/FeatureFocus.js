@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const FeatureFocus = (props) => (
-    <div className="feature-focus">
+    <div className="feature-focus" style={{ backgroundColor: props.color }}>
         <div className="feature-focus-text">
             <div className="feature-focus-header">
                 {props.title}

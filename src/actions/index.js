@@ -39,10 +39,19 @@ export const postAccount = (item, customerId) => async dispatch => {
     dispatch({ type: 'ADD_ACCOUNT', payload: item });
 }
 
-export const getAccounts = (id) => async dispatch => {
+export const getAccounts = (id) => async (dispatch, getState) => {
     console.log(id);
 
-    const accountResponse = await purify.get('/accounts?id=' + id).catch(err => console.log(err));
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: getState().user.IdToken
+        }
+    }
+
+    console.log(getState());
+
+    const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
     console.log(accountResponse);
     const Items = accountResponse.data.Items.map(item => {
         return {
@@ -83,7 +92,8 @@ export const getFeatures = () => async dispatch => {
             FeatureId: item.FeatureId.S,
             Title: item.Title.S,
             Description: item.Description.S,
-            Image: item.Image.S || "None"
+            Image: item.Image.S || "None",
+            Color: item.FeatureBackground.S
         }
     });
     dispatch({ type: 'FETCH_FEATURES', payload: Items });

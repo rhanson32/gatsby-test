@@ -11,12 +11,10 @@ class Pricing extends React.Component {
             <div className="pricing-page">
                 <ExternalHeader />
                 {this.props.mobile.mobileMenu && <MobileMenu />}
-                <div className="pricing-overlay">
-                    <div className="pricing-overlay-text">
-                        Plans and Pricing
-                    </div>
-                </div>
                 <div className="pricing-header">
+                    <div className="pricing-overlay">
+                        <div className="pricing-header-text">Plans and Pricing</div>
+                    </div>
                 </div>
                 <div className="pricing-cards">
                     <div className="pricing-card">
