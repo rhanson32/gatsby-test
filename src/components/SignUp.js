@@ -1,5 +1,6 @@
 import React from "react"
 import { navigate } from "@reach/router"
+import { connect } from 'react-redux';
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
@@ -56,7 +57,7 @@ class SignUp extends React.Component {
             <ExternalHeader />
             {
               this.state.stage === 0 && (
-                <div className="signup-form">
+                <div className={this.props.mobileMenu ? "signup-form mobile-menu-showing" : "signup-form mobile-menu-hidden"}>
                   <div className="signup-header">Welcome to PurifyCloud</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <input
@@ -104,5 +105,11 @@ class SignUp extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    mobileMenu: state.mobile.mobileMenu
+  }
+}
   
-export default SignUp
+export default connect(mapStateToProps, null)(SignUp);

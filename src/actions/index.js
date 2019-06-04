@@ -6,14 +6,18 @@ const purify = axios.create({
     timeout: 5000
 });
 
-export const postTicket = (values) => async dispatch => {
+export const postTicket = (values, user) => async (dispatch, getState) => {
     console.log(values)
     let myRequest = {
         body: {
             ...values,
-            CustomerId: '3432332'
+            CustomerId: user.CustomerId
+        },
+        headers: {
+            Authorization: getState().user.IdToken
         }
     };
+    console.log(myRequest);
 
     purify.post('/tickets', myRequest).then(
         response => {
@@ -63,9 +67,12 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
 }
 
-export const getSettings = (customerId) => async dispatch => {
+export const getSettings = (customerId) => async (dispatch, getState) => {
     let myRequest = {
-        body: { customerId }
+        body: { customerId },
+        headers: {
+            Authorization: getState().user.IdToken
+        }
     }
     const response = await purify.get('/settings', myRequest)
     console.log(response)
@@ -99,11 +106,18 @@ export const getFeatures = () => async dispatch => {
     dispatch({ type: 'FETCH_FEATURES', payload: Items });
 }
 
-export const saveUser = (user) => async dispatch => {
+export const saveUser = (user) => async (dispatch, getState) => {
+
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: getState().user.IdToken
+        }
+    }
 
     if(user && user["custom:company"])
     {
-        const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
+        const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
         console.log(customerResponse)
         user.customerId = customerResponse.data[0].CustomerId.S
     }
@@ -113,6 +127,7 @@ export const saveUser = (user) => async dispatch => {
 export const getCurrentUser = () => async dispatch => {
     const user = await Auth.currentAuthenticatedUser()
     console.log(user)
+
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"]);
     console.log(customerResponse)
     const userInfo = {
@@ -138,7 +153,7 @@ export const validateCompany = async (user) => {
     let postResponse;
 
     let queryString = '?company=' + user.company;
-    const customerResponse = await purify.get('/customers' + queryString, myRequest)
+    const customerResponse = await purify.get('/customers' + queryString)
     console.log(customerResponse);
 
     if(customerResponse.data.length === 0)
@@ -258,8 +273,16 @@ export const toggleSettingsMenu = (menu) => async dispatch => {
         dispatch({ type: 'TOGGLE_MENU', payload: menu })
 }
 
-export const fetchTickets = () => async dispatch => {
-    const ticketResponse = await purify.get('/tickets');
+export const fetchTickets = () => async (dispatch, getState) => {
+
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: getState().user.IdToken
+        }
+    }
+
+    const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest);
 
     console.log(ticketResponse);
 

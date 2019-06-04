@@ -18,8 +18,7 @@ class Home extends React.Component {
         return (
             <div>
                 <ExternalHeader />
-                {this.props.mobile.mobileMenu && <MobileMenu />}
-                <Splash />
+                {this.props.features.length > 0  && <Splash mobileMenu={this.props.mobile.mobileMenu} />}
                 {
                     this.props.features && this.props.features.map((feature, index) => {
                         if(index % 2 === 0)
@@ -33,8 +32,8 @@ class Home extends React.Component {
                         
                     })
                 }
-                <ActionCall />
-                <SiteMap />
+                {this.props.features.length > 0  && <ActionCall />}
+                {this.props.features.length > 0  && <SiteMap />}
             </div>
         )
     }

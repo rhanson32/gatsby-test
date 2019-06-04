@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
 import SupportList from './SupportList';
-import { fetchTickets, postTicket } from '../actions'
+import { fetchTickets, postTicket, getCurrentUser } from '../actions'
 
 import Header from './Header'
 
@@ -12,8 +12,17 @@ class SupportPage extends React.Component {
         showTickets: true
     }
 
-    componentDidMount() {
-        this.props.fetchTickets()
+    componentDidMount = async () => {
+        if(!this.props.User.email)
+        {
+            await this.props.getCurrentUser()
+            this.props.fetchTickets()
+        }
+        else
+        {
+            this.props.fetchTickets()
+        }
+        
     }
 
     showForm = () => {
@@ -34,7 +43,7 @@ class SupportPage extends React.Component {
         this.setState({
             ticketSubmitted: true
         })
-        this.props.postTicket(values);
+        this.props.postTicket(values, this.props.User);
       }
 
     render() {
@@ -62,8 +71,9 @@ class SupportPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tickets: state.tickets
+        tickets: state.tickets,
+        User: state.user
     }
 }
 
-export default connect(mapStateToProps, { fetchTickets, postTicket } )(SupportPage);
+export default connect(mapStateToProps, { fetchTickets, postTicket, getCurrentUser } )(SupportPage);

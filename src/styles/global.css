@@ -11,8 +11,20 @@ h1 {
     color: white;
 }
 
+input  {
+    border: 1px solid #AAA;
+}
+
 .mobile-menu-button {
     visibility: hidden;
+}
+
+.mobile-menu-hidden {
+    margin-top: 3.5rem;
+}
+
+.mobile-menu-showing {
+    margin-top: 22rem;
 }
 
 .header {
@@ -546,7 +558,7 @@ h1 {
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding-top: 4rem;
 }
 
 .login-header, .signup-header {
@@ -564,12 +576,9 @@ h1 {
     flex-direction: column;
     align-items: center;
     border: 1px solid #0984e3;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 5px;
+    height: 60%;
 }
 
 .login-form {
@@ -578,7 +587,6 @@ h1 {
 
 .signup-form {
     width: 50%;
-    margin-top: 3rem;
 }
 
 .login-form input {
@@ -1070,7 +1078,6 @@ h1 {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    margin-top: 3.5rem;
 }
 
 .feature-focus {
@@ -1113,7 +1120,9 @@ h1 {
     }
 
     .feature-focus {
-        height: 50vh;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+        padding: 1rem 0;
     }
 
     .external-header {
@@ -1131,6 +1140,7 @@ h1 {
 
     .login-form {
         width: 90%;
+        height: 60%;
     }
 
     .pricing-card {
@@ -1178,13 +1188,14 @@ h1 {
         margin: 1rem auto;
     }
 
-    .feature-focus {
-        width: 95%;
+    .feature-focus-description {
+        margin: auto;
     }
 
     .feature-focus-text {
         width: 90%;
         flex-shrink: 0;
+        margin: 1rem;
     }
 
     .feature-focus-image {
@@ -1194,7 +1205,7 @@ h1 {
     .feature-focus-header {
         margin: 1rem 0;
         font-size: 1.5rem;
-        width: 90%;
+        font-weight: 700;
     }
 
     .splash {
@@ -1210,7 +1221,8 @@ h1 {
 
     .splash-subtitle {
         font-size: 1.5rem;
-        width: 70%;
+        width: 75%;
+        margin-top: 3rem;
     }
 
     .external-title {
@@ -1258,10 +1270,6 @@ h1 {
         width: 100%;
         font-size: 1rem;
         align-items: center;
-    }
-
-    body {
-        margin-top: 5rem;
     }
 
     .right-menu a {
@@ -1349,8 +1357,8 @@ h1 {
     .splash-subtitle {
         font-size: 4rem;
         line-height: 160%;
-        margin-top: 8rem;
-        width: 80%;
+        margin-top: 6rem;
+        width: 75%;
     }
 
     .action-call {
@@ -1376,4 +1384,19 @@ h1 {
         width: 40%;
     }
 
+    .site-map-item-header {
+        font-size: 1.7rem;
+    }
+
+    .site-map {
+        justify-content: center;
+    }
+
+    .site-map-item {
+        margin-right: 2rem;
+    }
+
+    .site-map-item-link {
+        font-size: 1.3rem;
+    }
 }

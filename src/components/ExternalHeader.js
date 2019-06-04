@@ -14,6 +14,7 @@ class ExternalHeader extends React.Component {
         this.props.showMobile()
     }
     render() {
+        console.log(this.props);
         return (
             <div className="external-header">
                 <div className="external-title">
@@ -31,10 +32,16 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
                 </div>
-                {this.state.showMobile && <MobileMenu />}
+                {this.props.mobileMenu && <MobileMenu />}
             </div>
         )
     }
 }
 
-export default connect(null, { showMobile })(ExternalHeader);
+const mapStateToProps = state => {
+    return {
+        mobileMenu: state.mobile.mobileMenu
+    }
+}
+
+export default connect(mapStateToProps, { showMobile })(ExternalHeader);

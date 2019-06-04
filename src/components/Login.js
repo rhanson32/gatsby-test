@@ -7,7 +7,6 @@ import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
 import { saveUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
-import MobileMenu from './MobileMenu';
 
 Amplify.configure({
   Auth: {
@@ -64,12 +63,12 @@ class Login extends React.Component {
   }
 
   render() {
-    if (isLoggedIn()) navigate('/app/dashboard')
+    console.log(this.props);
+    if (isLoggedIn()) navigate('/app/dashboard');
     return (
       <div className="login-screen">
         <ExternalHeader />
-        {this.props.mobile.mobileMenu && <MobileMenu />}
-        <div className="login-form">
+        <div className={this.props.mobileMenu ? "login-form mobile-menu-showing" : "login-form mobile-menu-hidden"}>
           <div className="login-header">PurifyCloud</div>
           {this.state.error && <Error errorMessage={this.state.error}/>}
          <input
@@ -98,7 +97,7 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-      mobile: state.mobile
+      mobileMenu : state.mobile.mobileMenu
   }
 }
   
