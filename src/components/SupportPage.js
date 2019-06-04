@@ -52,6 +52,8 @@ class SupportPage extends React.Component {
             <div>
                 <Header />
                 <div className="support-screen">
+                    {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
+                    {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                     <div className="support-headers">
                         <button className={this.state.showTickets ? "inactive-support-header" : "support-header"} onClick={this.showForm}>
                             New Request
@@ -60,8 +62,6 @@ class SupportPage extends React.Component {
                             My Requests
                         </button>
                     </div>
-                    {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
-                    {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                 </div>  
             </div>
         )

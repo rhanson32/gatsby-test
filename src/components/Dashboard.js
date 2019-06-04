@@ -4,11 +4,20 @@ import { connect } from 'react-redux'
 import DashboardItem from './DashboardItem';
 import Header from './Header';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { getCurrentUser } from '../actions'
+import { getCurrentUser, getRules } from '../actions'
 
 class Dashboard extends React.Component {
-    componentDidMount() {
-        this.props.getCurrentUser()
+    componentDidMount = async () => {
+        if(!this.props.User.email)
+        {
+            await this.props.getCurrentUser();
+            this.props.getRules(this.props.User);
+        }
+        else
+        {
+            this.props.getRules(this.props.User);
+        }
+        
     }
 
     render() {
@@ -34,12 +43,17 @@ class Dashboard extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="dashboard-category-item">
-                        <div>
-                             S3 Encryption
-                        </div>
-                    
-                    </div>
+                    {
+                        this.props.rules.filter(rule => rule.Category === "Security").map(rule => {
+                            return (
+                                <div className="dashboard-category-item">
+                                    <div>
+                                        {rule.Name}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
                 <div className="dashboard-category">
                     <div className="dashboard-category-header">
@@ -55,9 +69,17 @@ class Dashboard extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="dashboard-category-item">
-                        Unused Instances
-                    </div>
+                    {
+                        this.props.rules.filter(rule => rule.Category === "Waste").map(rule => {
+                            return (
+                                <div className="dashboard-category-item">
+                                    <div>
+                                        {rule.Name}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
                 <div className="dashboard-category">
                     <div className="dashboard-category-header">
@@ -73,9 +95,17 @@ class Dashboard extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="dashboard-category-item">
-                        Something, something, something
-                    </div>
+                    {
+                        this.props.rules.filter(rule => rule.Category === "Logging and Monitoring").map(rule => {
+                            return (
+                                <div className="dashboard-category-item">
+                                    <div>
+                                        {rule.Name}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         )
@@ -84,8 +114,9 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        User: state.user
+        User: state.user,
+        rules: state.rules
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules })(Dashboard);

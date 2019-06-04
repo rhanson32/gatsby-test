@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 
 class ActionCall extends React.Component {
 
@@ -8,9 +9,9 @@ class ActionCall extends React.Component {
                 <div className="action-header">
                     Try Purify for free
                 </div>
-                <button className="action-button">
+                <Link className="action-button" to="/app/signup">
                     Sign up
-                </button>
+                </Link>
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React from "react"
-
 import { navigate } from '@reach/router'
 import { setUser, isLoggedIn } from '../utils/auth'
 import { connect } from 'react-redux'

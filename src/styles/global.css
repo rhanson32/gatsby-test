@@ -68,7 +68,7 @@ input  {
     justify-content: space-between;
     padding: 0.5rem 0;
     line-height: 2rem;
-    border-bottom: 1px solid #BBB;
+    border-bottom: 1px solid #EEE;
 }
 
 .right-menu {
@@ -289,8 +289,8 @@ input  {
     padding: 4rem 0;
     background-color: #F2F3F3;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     height: 90vh;
 }
@@ -678,6 +678,7 @@ input  {
     background-color: #00b894;
     color: white;
     padding: 0.5rem 2rem;
+    text-decoration: none;
 }
 
 .external-menu {
@@ -853,6 +854,8 @@ input  {
 
 .rule-arrow {
     border: none;
+    color: white;
+    background-color: transparent;
 }
 
 .account-item-buttons {
@@ -903,12 +906,14 @@ input  {
 }
 
 .support-headers {
-    width: 70%;
     border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    width: 15%;
 }
 
 .support-header {
-    width: 50%;
+    width: 100%;
     height: 4rem;
     font-size: 2rem;
     border: none;
@@ -921,10 +926,11 @@ input  {
 .inactive-support-header {
     color: #999;
     background-color: #EEE;
-    width: 50%;
+    width: 100%;
     height: 4rem;
     font-size: 2rem;
     border: 1px solid #DDD;
+    margin: 2rem 0;
 }
 
 .add-button {
@@ -996,7 +1002,8 @@ input  {
     background-color: #EEE;
     margin: auto;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .dashboard-category {
@@ -1018,60 +1025,57 @@ input  {
     width: 70%;
 }
 
-.dashboard-header {
-   margin: 0 auto;
-   text-align: center;
-   flex-grow: 1;
-}
-
 .dashboard-main {
     flex-grow: 7;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
+    font-size: 1.2rem;
+    color: white;
 }
 
 .dashboard-footer {
     flex-grow: 1;
     display: flex;
     justify-content: space-around;
+    color: white;
 }
 
 .dashboard-page {
     margin: 0;
-    padding: 0;
+    padding-bottom: 2rem;
     background-color: #EEE;
-    height: 100vh;
 }
 
 .dashboard-item {
-    background-color: #FFF;
-    height: 20rem;
+    background-color: #00b894;
+    height: 10rem;
     width: 20rem;
     border: 1px solid #CCC;
-    margin: 2rem auto;
+    margin: 2rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    border-radius: 5px;
+    padding: 0 1.2rem;
 }
 
 .dashboard-header {
     line-height: 3rem;
     font-size: 2rem;
-    background-color: #00b894;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     color: white;
+    margin: 0 auto;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
 }
 
 .dashboard-main {
     padding: 0.5rem 1rem;
-    border-top: 1px dotted gray;
 }
 
 .empty-list {
@@ -1367,10 +1371,6 @@ input  {
         line-height: 160%;
         margin-top: 6rem;
         width: 75%;
-    }
-
-    .action-call {
-        height: 60vh;
     }
 
     .action-header {
