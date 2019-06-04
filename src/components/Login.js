@@ -63,7 +63,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (isLoggedIn()) navigate('/app/dashboard');
     return (
       <div className="login-screen">

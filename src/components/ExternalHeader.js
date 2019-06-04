@@ -14,7 +14,6 @@ class ExternalHeader extends React.Component {
         this.props.showMobile()
     }
     render() {
-        console.log(this.props);
         return (
             <div className="external-header">
                 <div className="external-title">

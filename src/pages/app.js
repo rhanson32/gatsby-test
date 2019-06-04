@@ -14,6 +14,7 @@ import Pricing from '../components/Pricing'
 import SupportPage from '../components/SupportPage'
 import Settings from '../components/Settings'
 import Docs from '../components/Docs';
+import NotFound from '../components/NotFound';
 
 import store from '../store'
 
@@ -31,6 +32,7 @@ const App = () => (
             <Features path="/app/features" />
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
+            <NotFound default />
         </Router>
     </Provider>
     
