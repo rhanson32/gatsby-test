@@ -53,15 +53,14 @@ export const getAccounts = (id) => async (dispatch, getState) => {
         }
     }
 
-    console.log(getState());
-
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
     console.log(accountResponse);
     const Items = accountResponse.data.Items.map(item => {
         return {
             AccountId: item.AccountId.S,
             Provider: item.Provider.S,
-            RoleName: (item.Role && item.Role.S) || 'None'
+            RoleName: (item.Role && item.Role.S) || 'None',
+            Type: item.Type.S || 'Secondary'
         }
     });
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });

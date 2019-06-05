@@ -7,6 +7,13 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { getCurrentUser, getRules } from '../actions'
 
 class Dashboard extends React.Component {
+
+    state = {
+        showSecurity: false,
+        showWaste: false,
+        showLogging: false
+    }
+
     componentDidMount = async () => {
         if(!this.props.User.email)
         {
@@ -17,7 +24,24 @@ class Dashboard extends React.Component {
         {
             this.props.getRules(this.props.User);
         }
-        
+    }
+
+    toggleSecurity = () => {
+        this.setState({
+            showSecurity: !this.state.showSecurity
+        })
+    }
+
+    toggleWaste = () => {
+        this.setState({
+            showWaste: !this.state.showWaste
+        })
+    }
+
+    toggleLogging = () => {
+        this.setState({
+            showLogging: !this.state.showLogging
+        })
     }
 
     render() {
@@ -39,12 +63,12 @@ class Dashboard extends React.Component {
                         </div>
                         <div>
                             <button className="rule-arrow">
-                                <IoIosArrowDown />
+                                <IoIosArrowDown onClick={this.toggleSecurity} />
                             </button>
                         </div>
                     </div>
                     {
-                        this.props.rules.filter(rule => rule.Category === "Security").map(rule => {
+                        this.state.showSecurity && this.props.rules.filter(rule => rule.Category === "Security").map(rule => {
                             return (
                                 <div className="dashboard-category-item">
                                     <div>
@@ -65,12 +89,12 @@ class Dashboard extends React.Component {
                         </div>
                         <div>
                             <button className="rule-arrow">
-                                <IoIosArrowDown />
+                                <IoIosArrowDown onClick={this.toggleWaste} />
                             </button>
                         </div>
                     </div>
                     {
-                        this.props.rules.filter(rule => rule.Category === "Waste").map(rule => {
+                        this.state.showWaste && this.props.rules.filter(rule => rule.Category === "Waste").map(rule => {
                             return (
                                 <div className="dashboard-category-item">
                                     <div>
@@ -91,12 +115,12 @@ class Dashboard extends React.Component {
                         </div>
                         <div>
                             <button className="rule-arrow">
-                                <IoIosArrowDown />
+                                <IoIosArrowDown onClick={this.toggleLogging} />
                             </button>
                         </div>
                     </div>
                     {
-                        this.props.rules.filter(rule => rule.Category === "Logging and Monitoring").map(rule => {
+                        this.state.showLogging && this.props.rules.filter(rule => rule.Category === "Logging and Monitoring").map(rule => {
                             return (
                                 <div className="dashboard-category-item">
                                     <div>

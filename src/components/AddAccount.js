@@ -41,11 +41,6 @@ class AddAccount extends React.Component {
                     <input name="id" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="25237483438"></input>
                 </div>
                 <div className="account-item-field">
-                    <select>
-                        <option name="provider" value="AWS">AWS</option>
-                    </select>
-                </div>
-                <div className="account-item-field">
                     <input name="role" onChange={this.handleUpdate} placeholder="Role ARN"></input>
                 </div>
                 <div className="account-item-buttons">

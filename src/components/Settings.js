@@ -3,6 +3,8 @@ import Header from './Header'
 import SettingsMenu from './SettingsMenu';
 import AWSAccount from './AWSAccount';
 import { connect } from 'react-redux'
+import AccountItem from './AccountItem';
+import AddAccount from './AddAccount';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions'
 
 class Settings extends React.Component {
@@ -96,6 +98,19 @@ class Settings extends React.Component {
                                 </div>
                             )
                         }
+                        <div className="account-list">
+                            <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
+                            {
+                                this.props.accounts.find(account => account.Type === 'Master') && this.props.accounts.filter(account => account.Type === 'Master').map(account => {
+                                    return <AccountItem key={account.AccountId} item={account} />
+                                })
+                            }
+                            {
+                                !this.props.accounts.find(account => account.Type === 'Master') && (
+                                    <AddAccount />
+                                )
+                            }
+                        </div>
                         {
                              this.props.accounts.length === 0 && (
                                 <div className="settings-card-title">

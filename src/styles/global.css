@@ -145,18 +145,17 @@ input  {
 
 .settings-menu {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
-    width: 25%;
+    width: 15%;
     background-color: #F9F9F9;
     border-radius: 4px;
-    margin: 0 20%;
 }
 
 .settings-main {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center;
     align-items: flex-start;
 }
 
@@ -164,12 +163,10 @@ input  {
     background-color: #F9F9f9;
     width: 60%;
     padding: 2rem;
-    margin: 0 20%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
     flex-wrap: wrap;
-    height: 50vh;
     border: 1px solid #DDD;
 }
 
@@ -291,7 +288,7 @@ input  {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     height: 90vh;
 }
 
@@ -338,7 +335,7 @@ input  {
     display: flex;
     flex-direction: column;
     background-color: #F3F3F3;
-    height: 100vh;
+    padding-bottom: 4rem;
 }
 
 .settings-header {
@@ -348,6 +345,7 @@ input  {
     align-items: center;
     height: 20vh;
     font-size: 3rem;
+    margin: 3rem 0;
 }
 
 .settings-provider {
@@ -906,7 +904,6 @@ input  {
 }
 
 .support-headers {
-    border-top: 1px solid #ddd;
     display: flex;
     flex-direction: column;
     width: 15%;
@@ -1099,9 +1096,8 @@ input  {
 .support-list {
     width: 70%;
     background-color: #FFF;
-    padding: 2rem 0;
-    border-left: 1px solid #DDD;
-    border-right: 1px solid #DDD;
+    padding: 1rem 0;
+    border: 1px solid #DDD;
 }
 
 .support-list-item {
@@ -1112,7 +1108,7 @@ input  {
     font-size: 1.5rem;
     border-bottom: 1px solid #DDD;
     background-color: white;
-    padding-left: 1rem;
+    margin: 1rem;
     color: #555;
 }
 

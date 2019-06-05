@@ -27,8 +27,7 @@ class Accounts extends React.Component {
             Provider: 'Provider',
             RoleName: 'Role Name',
             Header: true
-        },
-        AddAccount: false
+        }
     };
 
     addAccount = () => {
@@ -60,17 +59,6 @@ class Accounts extends React.Component {
                                         return <AccountItem key={account.AccountId} item={account} />
                                     })
                                 }
-                                {
-                                    this.props.Flags.AddAccount && <AddAccount />
-                                }
-                                <div>
-                                    <div>
-                                        &nbsp;
-                                    </div>
-                                    <div>
-                                        &nbsp;
-                                    </div>
-                                </div>
                             </div>
                         )
                     }
