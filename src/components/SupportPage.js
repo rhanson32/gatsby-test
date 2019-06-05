@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
 import SupportList from './SupportList';
-import { fetchTickets, postTicket, getCurrentUser } from '../actions'
+import { fetchTickets, postTicket, getCurrentUser } from '../actions';
+import { IoIosAdd } from 'react-icons/io';
 
 import Header from './Header'
 
@@ -55,11 +56,11 @@ class SupportPage extends React.Component {
                     {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
                     {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                     <div className="support-headers">
-                        <button className={this.state.showTickets ? "inactive-support-header" : "support-header"} onClick={this.showForm}>
-                            New Request
+                        <button className="add-button" onClick={this.showForm}>
+                            <IoIosAdd /> Create Case
                         </button>
                         <button className={this.state.showTickets ? "support-header" : "inactive-support-header" } onClick={this.showTickets}>
-                            My Requests
+                            My Cases
                         </button>
                     </div>
                 </div>  

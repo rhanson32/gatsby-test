@@ -10,6 +10,7 @@ import ActionCall from './ActionCall';
 import SiteMap from './SiteMap';
 import MobileMenu from './MobileMenu';
 import Loading from './Loading';
+import FeatureCard from './FeatureCard';
 
 import { getFeatures } from '../actions';
 
@@ -43,6 +44,26 @@ class Features extends React.Component {
                         
                     })
                 }
+                <div className="feature-cards">
+                {
+                    this.props.features.map((feature, index) => {
+
+                        if(feature.Title.includes("Accounts"))
+                        {
+                            return <FeatureCard key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={accounts} />
+                        }
+                        else if(feature.Title.includes("Rule Sets"))
+                        {
+                            return <FeatureCard key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={checklist} />
+                        }
+                        else
+                        {
+                            return <FeatureCard key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={pay} />
+                        }
+                        
+                    })
+                }
+                </div>
                 {this.props.features.length > 0 && <ActionCall />}
                 {this.props.features.length > 0 && <SiteMap />}
             </div>

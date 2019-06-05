@@ -16,6 +16,7 @@ const Header = () => (
             <Link activeClassName="active-link" to="/app/rules">Rules</Link>
             <Link activeClassName="active-link" to="/app/dashboard">Dashboard</Link>
             <Link activeClassName="active-link" to="/app/accounts">Accounts</Link>
+            <Link activeClassName="active-link" to="/app/users">Users</Link>
             <Link activeClassName="active-link" to="/app/settings">Settings</Link>
             <Link activeClassName="active-link" to="/app/support">Support</Link>
             {

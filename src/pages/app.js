@@ -15,6 +15,7 @@ import SupportPage from '../components/SupportPage'
 import Settings from '../components/Settings'
 import Docs from '../components/Docs';
 import NotFound from '../components/NotFound';
+import Users from '../components/Users';
 
 import store from '../store'
 
@@ -25,6 +26,7 @@ const App = () => (
             <PrivateRoute path="/app/dashboard" component={Dashboard} />
             <PrivateRoute path="/app/rules" component={RulesPage} />
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
+            <PrivateRoute path="/app/users" component={Users} />
             <PrivateRoute path="/app/settings" component={Settings} />
             <PrivateRoute path="/app/support" component={SupportPage} />
             <Login path="/app/login" />
