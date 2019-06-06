@@ -168,10 +168,10 @@ input  {
 }
 
 .feature-card {
-    width: 25%;
+    width: 23%;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    margin: 2%;
     padding: 2rem;
     border: 1px solid #DDD;
 }
@@ -1149,6 +1149,10 @@ input  {
 /* ------------------------ Media Queries ------------------------------- */
 
 @media screen and (max-width: 600px) {
+
+    .feature-card {
+        width: 100%;
+    }
 
     .header-title {
         width: 100%;
