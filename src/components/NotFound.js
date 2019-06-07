@@ -1,9 +1,12 @@
 import React from 'react'
+import ExternalHeader from './ExternalHeader';
+import SiteMap from './SiteMap';
 
 const NotFound = () => (
   <div className="not-found">
-    <h1>Page Not Found</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <ExternalHeader />
+    <h1>You have tried to access a page that does not exist. Use the links above to get back to civilization</h1>
+    <SiteMap />
   </div>
 )
 

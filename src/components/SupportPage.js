@@ -56,10 +56,10 @@ class SupportPage extends React.Component {
                     {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
                     {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                     <div className="support-headers">
-                        <button className="add-button" onClick={this.showForm}>
+                        <button className="add-button support-header" onClick={this.showForm}>
                             <IoIosAdd /> Create Case
                         </button>
-                        <button className={this.state.showTickets ? "support-header" : "inactive-support-header" } onClick={this.showTickets}>
+                        <button className="enabled-button support-header" onClick={this.showTickets}>
                             My Cases
                         </button>
                     </div>

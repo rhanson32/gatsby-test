@@ -47,7 +47,7 @@ class Accounts extends React.Component {
                 <div className="accounts">
                     {
                         this.props.Accounts.length === 0 && (
-                            <Loading type="spokes" color="333"/>
+                            <Loading type="spokes" color="33A" height={800} width={600} />
                         )
                     }
                     {

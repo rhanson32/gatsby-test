@@ -25,7 +25,7 @@ export const postTicket = (values, user) => async (dispatch, getState) => {
     }).catch(err => console.log(err));
 }
 
-export const postAccount = (item, customerId) => async dispatch => {
+export const postAccount = (item, customerId) => async (dispatch, getState) => {
 
     console.log(item)
     console.log(customerId)
@@ -34,6 +34,9 @@ export const postAccount = (item, customerId) => async dispatch => {
             ...item,
             CustomerId: customerId || 'Admin1',
             Type: 'Master'
+        },
+        headers: {
+            Authorization: getState().user.IdToken
         }
     };
     purify.post('/accounts', myRequest).then(
@@ -59,8 +62,9 @@ export const getAccounts = (id) => async (dispatch, getState) => {
         return {
             AccountId: item.AccountId.S,
             Provider: item.Provider.S,
-            RoleName: (item.Role && item.Role.S) || 'None',
-            Type: item.Type.S || 'Secondary'
+            Role: (item.Role && item.Role.S) || 'None',
+            Type: item.Type.S || 'Secondary',
+            RoleName: (item.RoleName && item.RoleName.S) || 'None'
         }
     });
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
@@ -110,7 +114,7 @@ export const saveUser = (user) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'jvtFUGnz5U3o1ZYNAMm9V6ELYaUthXTO9GcUSy6y'
         }
     }
 
@@ -125,9 +129,15 @@ export const saveUser = (user) => async (dispatch, getState) => {
 
 export const getCurrentUser = () => async dispatch => {
     const user = await Auth.currentAuthenticatedUser()
-    console.log(user)
+    console.log(user);
+    let myRequest = {
+        body: {},
+        headers: {
+            "x-api-key": 'jvtFUGnz5U3o1ZYNAMm9V6ELYaUthXTO9GcUSy6y'
+        }
+    }
 
-    const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"]);
+    const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
     console.log(customerResponse)
     const userInfo = {
         ...user.attributes,
@@ -143,10 +153,10 @@ export const validateCompany = async (user) => {
     console.log(user);
     let myRequest = {
         body:   { 
-                    email: user.email, 
-                    company: user.company,
-                    userName: user.username
-                }
+                email: user.email, 
+                company: user.company,
+                userName: user.username
+            }
     };
 
     let postResponse;
@@ -179,7 +189,7 @@ export const getRules = (user) => async dispatch => {
     const { CustomerId } = user;
     console.log(CustomerId)
     const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
-    console.log(rulesResponse);
+    console.log(rulesResponse.data);
     const Items = rulesResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
@@ -187,7 +197,12 @@ export const getRules = (user) => async dispatch => {
             Name: item.Name.S,
             Category: item.Category.S,
             Description: item.Description.S,
-            Enabled: item.Enabled.BOOL
+            Enabled: item.Enabled.BOOL,
+            Violations: item.Violations.L.map(violation => {
+                return {
+                    ViolationDate: violation.M.ViolationDate.S
+                }
+            })
         }
     });
     dispatch({ type: 'FETCH_RULES', payload: Items });
@@ -254,6 +269,9 @@ export const toggleAWS = () => async (dispatch, getState) => {
             customerId,
             Setting: "Providers",
             NewValue: newValue
+        },
+        headers: {
+            Authorization: getState().user.IdToken
         }
     }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });

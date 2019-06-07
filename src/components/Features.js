@@ -26,24 +26,6 @@ class Features extends React.Component {
                 {this.props.features.length === 0 && <Loading type="spokes" coloe="#777" />}
                 {this.props.mobile.mobileMenu && <MobileMenu />}
                 {this.props.features.length > 0 && <FeatureHeader />}
-                {
-                    this.props.features.map((feature, index) => {
-
-                        if(feature.Title.includes("Accounts"))
-                        {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={accounts} />
-                        }
-                        else if(feature.Title.includes("Rule Sets"))
-                        {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={checklist} />
-                        }
-                        else
-                        {
-                            return <FeatureFocus key={feature.FeatureId} title={feature.Title} description={feature.Description} color={feature.Color} image={pay} />
-                        }
-                        
-                    })
-                }
                 <div className="feature-cards">
                 {
                     this.props.features.map((feature, index) => {

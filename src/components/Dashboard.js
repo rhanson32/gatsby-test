@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                             Security
                         </div>
                         <div>
-                            23 of 25 rules compliant
+                            {this.props.rules.filter(rule => rule.Category === "Security").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Security").length} of {this.props.rules.filter(rule => rule.Category === "Security").length} rules compliant
                         </div>
                         <div>
                             <button className="rule-arrow">
@@ -73,6 +73,9 @@ class Dashboard extends React.Component {
                                 <div className="dashboard-category-item">
                                     <div>
                                         {rule.Name}
+                                    </div>
+                                    <div>
+                                        {rule.Violations.length === 0 ? "Compliant" : rule.Violations.length + " Violations" }
                                     </div>
                                 </div>
                             )

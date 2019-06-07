@@ -50,10 +50,16 @@ input  {
 .header-menu {
     width: 70%;
     display: flex;
-    justify-content: space-around;
-    font-size: 2rem;
+    justify-content: flex-end;
+    font-size: 1.5rem;
     line-height: 3rem;
 }
+
+.header-menu a {
+    padding: 0 0.8rem;
+}
+
+
 
 .external-header {
     position: fixed;
@@ -198,6 +204,7 @@ input  {
     align-items: flex-start;
     flex-wrap: wrap;
     border: 1px solid #DDD;
+    height: 60vh;
 }
 
 .settings-card-title {
@@ -338,6 +345,7 @@ input  {
 .docs-main {
     display: flex;
     flex-direction: row;
+    margin-top: 4rem;
 }
 
 .add-ticket {
@@ -373,9 +381,8 @@ input  {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20vh;
     font-size: 3rem;
-    margin: 3rem 0;
+    margin: 1rem 0;
 }
 
 .settings-provider {
@@ -754,7 +761,8 @@ input  {
     line-height: 140%;
     width: 75%;
     margin-top: 4rem;
-    color: #333;
+    color: white;
+    z-index: 200;
 }
 
 .site-map {
@@ -820,24 +828,49 @@ input  {
 }
 
 .account-list, .rule-list {
-    margin: 3rem auto;
     width: 80%;
+}
+
+.account-list {
+    margin: 3rem auto;
+}
+
+.rule-list {
+    margin: 1rem auto;
 }
 
 .app {
     height: 100vh;
 }
 
-.account-item, .rule-item, .dashboard-category-item {
+.users-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-item, .rule-item, .dashboard-category-item, .users-item {
     border-bottom: 1px solid #CCC;
     border-left: 1px solid #CCC;
     border-right: 1px solid #CCC;
     padding: 1rem;
     display: flex;
-    justify-content: flex-start;
     background-color: #FFF;
     line-height: 2rem;
     font-size: 1.2rem;
+}
+
+.users-list {
+    width: 70%;
+    margin: 3rem;
+}
+
+.account-item, .rule-item {
+    justify-content: flex-start;
+}
+
+.dashboard-category-item {
+    justify-content: space-between;
 }
 
 .account-item:first-child {
@@ -884,6 +917,13 @@ input  {
     border: none;
     color: white;
     background-color: transparent;
+    padding: 0 1rem;
+}
+
+.rule-arrow-dark {
+    color: #555;
+    border: none;
+    background-color: transparent;
 }
 
 .account-item-buttons {
@@ -916,8 +956,20 @@ input  {
 
 .rules-bulk-switch {
     display: flex;
-    margin: 2rem 6rem;
+    margin: 0 6rem;
+    padding: 1rem;
     justify-content: flex-end;
+}
+
+.rules-bulk-switch a {
+    padding: 1rem;
+    margin: 1rem;
+    border: 2px gray solid;
+}
+
+.rules-bulk-switch a:hover {
+    background-color: #00b894;
+    color: white;
 }
 
 .error-item {
@@ -940,10 +992,7 @@ input  {
 }
 
 .support-header {
-    width: 100%;
-    height: 4rem;
-    font-size: 2rem;
-    border: none;
+    margin: 1rem 0;
 }
 
 .support-header button {
@@ -973,11 +1022,12 @@ input  {
     height: 2rem;
 }
 
-.rule-header, .account-header, .dashboard-category-header {
+.rule-header, .account-header, .dashboard-category-header, .users-header {
     display: flex;
     justify-content: flex-start;
     padding: 0.8rem 1rem;
     background-color: #0984e3;
+    border: 1px solid #0984e3;
     line-height: 2rem;
     font-size: 1.4rem;
     color: #FFF;
@@ -1009,19 +1059,18 @@ input  {
 .disabled-button, .enabled-button {
     border-radius: 3px;
     border: none;
+    padding: 0 1.2rem;
 }
 
 .enabled-button {
     background-color: #27ae60;
     color: #FFF;
-    padding: 0.2rem;
     height: 2rem;
 }
 
 .disabled-button {
     background-color: lightgray;
     color: gray;
-    padding: 0.2rem;
     height: 2rem;
 }
 
@@ -1110,13 +1159,24 @@ input  {
 }
 
 .splash {
-    background-image: url(../../static/lighthouse.jpg);
+    background-image: url(../../static/optimization-gears.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: 85vh;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
+    z-index: 1;
+}
+
+.splash-overlay {
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+    background-color: #3d5878;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .feature-focus {
@@ -1154,6 +1214,10 @@ input  {
         width: 100%;
     }
 
+    .pricing-cards {
+        flex-wrap: wrap;
+    }
+
     .header-title {
         width: 100%;
         text-align: center;
@@ -1186,15 +1250,16 @@ input  {
     }
 
     .pricing-card {
-        width: 80%;
+        width: 95%;
     }
 
     .pricing-card-header {
-        font-size: 4rem;
+        font-size: 2rem;
     }
 
     .pricing-header, .pricing-overlay {
         height: 60vh;
+        font-size: 2rem;
     }
 
     .header {
@@ -1211,6 +1276,7 @@ input  {
 
     .feature-header-description {
         width: 80%;
+        font-size: 1rem;
     }
 
     .feature-icon {

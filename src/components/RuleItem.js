@@ -25,8 +25,8 @@ class RuleItem extends React.Component {
             <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
                 <div className="rule-name">
                     {this.props.rule.Name}{"  "}
-                    {!this.state.showDescription && <button className="rule-arrow" onClick={this.toggleDescription}><IoIosArrowDown /></button>}
-                    {this.state.showDescription && <button className="rule-arrow" onClick={this.toggleDescription}><IoIosArrowUp /></button>}
+                    {!this.state.showDescription && <button className="rule-arrow-dark" onClick={this.toggleDescription}><IoIosArrowDown /></button>}
+                    {this.state.showDescription && <button className="rule-arrow-dark" onClick={this.toggleDescription}><IoIosArrowUp /></button>}
                 </div>
                 <div className="rule-category">
                     {this.props.rule.Category}
