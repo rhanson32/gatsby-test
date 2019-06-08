@@ -2,10 +2,23 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form'
 
 const accountReducer = (state = [], action) => {
+
+    console.log(action.payload);
     switch(action.type)
     {
         case 'FETCH_ACCOUNTS':
             return [ ...action.payload ]
+        case 'UPDATE_ACCOUNT':
+            return state.map(account => {
+                    if(account.AccountId !== action.payload.AccountId)
+                    {
+                        return account
+                    }
+                    else
+                    {
+                        return action.payload
+                    }
+            })
         default:
             return state;
     }

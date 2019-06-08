@@ -32,7 +32,7 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
     let myRequest = {
         body: {
             ...item,
-            CustomerId: customerId || 'Admin1',
+            CustomerId: customerId,
             Type: 'Master'
         },
         headers: {
@@ -44,6 +44,29 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
             console.log(response);
     }).catch(err => console.log(err));
     dispatch({ type: 'ADD_ACCOUNT', payload: item });
+}
+
+export const updateAccount = (account, role) => async (dispatch, getState) => {
+    console.log(account);
+    console.log(role);
+
+    let RoleArn = 'arn:aws:iam::' + account.AccountId + ':role/' + role;
+
+    let myRequest = {
+        body: {
+            ...account,
+            RoleName: role,
+            Role: RoleArn
+        },
+        headers: {
+            Authorization: getState().user.IdToken
+        }
+    };
+
+    const response = await purify.put('/accounts', myRequest).catch(err => console.log(err));
+
+    console.log(response);
+    dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
 }
 
 export const getAccounts = (id) => async (dispatch, getState) => {
@@ -64,7 +87,8 @@ export const getAccounts = (id) => async (dispatch, getState) => {
             Provider: item.Provider.S,
             Role: (item.Role && item.Role.S) || 'None',
             Type: item.Type.S || 'Secondary',
-            RoleName: (item.RoleName && item.RoleName.S) || 'None'
+            RoleName: (item.RoleName && item.RoleName.S) || 'None',
+            CustomerId: item.CustomerId.S
         }
     });
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });

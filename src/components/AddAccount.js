@@ -24,7 +24,7 @@ class AddAccount extends React.Component {
     submitAccount = () => {
         if(this.state.id && this.state.role)
         {
-            this.props.postAccount(this.state, this.props.user.customerId);
+            this.props.postAccount(this.state, this.props.user.CustomerId);
             this.props.toggleAddAccount();
         }
         

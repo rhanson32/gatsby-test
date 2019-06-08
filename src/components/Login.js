@@ -25,7 +25,8 @@ class Login extends React.Component {
   state = {
     username: ``,
     password: ``,
-    error: ``
+    error: ``,
+    forgotPassword: false
   }
 
   handleUpdate = (event) => {
@@ -39,6 +40,12 @@ class Login extends React.Component {
     {
       this.login()
     }
+  }
+
+  forgotPassword = () => {
+    this.setState({
+      forgotPassword: true
+    })
   }
 
   login = async() => {
@@ -66,28 +73,50 @@ class Login extends React.Component {
     return (
       <div className="login-screen">
         <ExternalHeader />
-        <div className={this.props.mobileMenu ? "login-form mobile-menu-showing" : "login-form mobile-menu-hidden"}>
-          <div className="login-header">PurifyCloud</div>
-          {this.state.error && <Error errorMessage={this.state.error}/>}
-         <input
-            onChange={this.handleUpdate}
-            placeholder='Email'
-            name='username'
-            value={this.state.username}
-            onKeyPress={this.handleKeyPress}
-          />
-          <input
-            onChange={this.handleUpdate}
-            placeholder='Password'
-            name='password'
-            value={this.state.password}
-            type='password'
-            onKeyPress={this.handleKeyPress}
-          />
-          <button className="login-button" onClick={this.login}>
-            <span className="login-button-text">Sign In</span>
-          </button>
-        </div>
+        {
+          !this.state.forgotPassword && (
+            <div className={this.props.mobileMenu ? "login-form mobile-menu-showing" : "login-form mobile-menu-hidden"}>
+            <div className="login-header">PurifyCloud</div>
+            {this.state.error && <Error errorMessage={this.state.error}/>}
+           <input
+              onChange={this.handleUpdate}
+              placeholder='Email'
+              name='username'
+              value={this.state.username}
+              onKeyPress={this.handleKeyPress}
+            />
+            <input
+              onChange={this.handleUpdate}
+              placeholder='Password'
+              name='password'
+              value={this.state.password}
+              type='password'
+              onKeyPress={this.handleKeyPress}
+            />
+            <a onClick={this.forgotPassword}>
+              Forgot password? 
+            </a>
+            <button className="login-button" onClick={this.login}>
+              <span className="login-button-text">Sign In</span>
+            </button>
+          </div>
+          )
+        }
+        
+        {
+          this.state.forgotPassword && (
+            <div className="login-form mobile-menu-hidden">
+              <label>Email</label>
+              <input
+                onChange={this.handleUpdate}
+                placeholder='Username'
+                name='username'
+                value={this.state.username}
+                onKeyPress={this.handleKeyPress}
+              />
+            </div>
+          )
+        }
       </div>
     )
   }

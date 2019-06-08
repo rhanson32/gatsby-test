@@ -4,6 +4,7 @@ import Loading from './Loading';
 import AccountItem from './AccountItem';
 import Header from './Header'
 import AddAccount from './AddAccount';
+import EditAccount from './EditAccount';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 
 class Accounts extends React.Component {
@@ -56,7 +57,14 @@ class Accounts extends React.Component {
                                 <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
                                 {
                                     this.props.Accounts.map(account => {
-                                        return <AccountItem key={account.AccountId} item={account} />
+                                        if(account.RoleName !== "None")
+                                        {
+                                            return <AccountItem key={account.AccountId} item={account} />
+                                        }
+                                        else
+                                        {
+                                            return <EditAccount key={account.AccountId} item={account} />
+                                        }
                                     })
                                 }
                             </div>
