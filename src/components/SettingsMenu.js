@@ -16,16 +16,17 @@ class SettingsMenu extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="settings-menu">
                 <div className="settings-menu-item">
-                    <button name="General" onClick={this.toggleGeneralMenu}>General</button>
+                    <button className={this.props.menu === 'General' ? "orange-button" : 'clear-button'} name="General" onClick={this.toggleGeneralMenu}>General</button>
                 </div>
                 <div className="settings-menu-item">
-                    <button onClick={this.toggleAWSMenu}>AWS</button>
+                    <button className={this.props.menu === 'AWS' ? "orange-button" : 'clear-button'} onClick={this.toggleAWSMenu}>AWS</button>
                 </div>
                 <div className="settings-menu-item">
-                    <button onClick={this.toggleUserMenu}>User</button>
+                    <button className={this.props.menu === 'User' ? "orange-button" : 'clear-button'} onClick={this.toggleUserMenu}>User</button>
                 </div>
             </div>
         )

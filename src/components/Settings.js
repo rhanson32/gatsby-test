@@ -38,7 +38,7 @@ class Settings extends React.Component {
             Settings
         </div>
         <div className="settings-main">
-            <SettingsMenu />
+            <SettingsMenu menu={this.props.menu.selected}/>
             {
                 this.props.menu.selected === 'General' && (
                     <div className="settings-card">
@@ -50,12 +50,11 @@ class Settings extends React.Component {
                         </div>
                         <div className="settings-switch">
                             <button className="enabled-button">
-                                Remediate
-                            </button>
-                            <button className="disabled-button">
                                 Monitor
                             </button>
-                            
+                            <button className="disabled-button">
+                                Remediate
+                            </button>
                         </div>
                         <div className="settings-left-side">
                             API Key
