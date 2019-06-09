@@ -30,6 +30,13 @@ const SupportList = (props) => (
                 )
             })
         }
+        {
+            props.items.length === 0 && (
+                <div className="empty-ticket-list">
+                        no tickets have been submitted yet
+                </div>
+            )
+        }
     </div>
 )
 

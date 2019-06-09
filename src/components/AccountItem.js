@@ -16,7 +16,7 @@ class AccountItem extends React.Component {
                     {this.props.item.Provider}
                 </div>
                 <div className="account-item-field">
-                    {this.props.item.RoleName ? "Validated": ''}
+                    {this.props.item.RoleName ? "Valid": ''}
                 </div>
                 <div className="account-item-field-large">
                     {this.props.item.RoleName}

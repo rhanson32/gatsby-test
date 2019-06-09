@@ -45,22 +45,31 @@ class Settings extends React.Component {
                         <div className="settings-card-title">
                             General Settings
                         </div>
-                        <div className="settings-left-side">
-                            Operating Mode
+                        <div className="settings-row">
+                            <div className="settings-left-side">
+                                Operating Mode
+                            </div>
+                            <div className="settings-switch">
+                                <button className="enabled-button">
+                                    Monitor
+                                </button>
+                                <button className="disabled-button">
+                                    Remediate
+                                </button>
+                            </div>
                         </div>
-                        <div className="settings-switch">
-                            <button className="enabled-button">
-                                Monitor
+                        <div className="settings-row">
+                            <div className="settings-left-side">
+                                API Key
+                            </div>
+                            <div className="settings-switch">
+                                Show
+                            </div>
+                        </div>
+                        <div className="settings-row">
+                            <button className="remove-button">
+                                Cancel Purify
                             </button>
-                            <button className="disabled-button">
-                                Remediate
-                            </button>
-                        </div>
-                        <div className="settings-left-side">
-                            API Key
-                        </div>
-                        <div className="settings-switch">
-                            Show
                         </div>
                     </div>
                 )
@@ -71,24 +80,26 @@ class Settings extends React.Component {
                         <div className="settings-card-title">
                             AWS Settings
                         </div>
-                        <div className="settings-left-side">
-                            Status
-                        </div>
-                        <div className="settings-switch">
-                            {
-                                this.props.settings && this.props.settings.Providers && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
-                                    <button className="enabled-button" onClick={this.toggleAWSState}>
-                                        Enabled
-                                    </button>
-                                )
-                            }
-                            {
-                                this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === false) !== undefined && (
-                                    <button className="disabled-button" onClick={this.toggleAWSState}>
-                                        Disabled
-                                    </button>
-                                )
-                            }
+                        <div className="settings-row">
+                            <div className="settings-left-side">
+                                Status
+                            </div>
+                            <div className="settings-switch">
+                                {
+                                    this.props.settings && this.props.settings.Providers && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
+                                        <button className="enabled-button" onClick={this.toggleAWSState}>
+                                            Enabled
+                                        </button>
+                                    )
+                                }
+                                {
+                                    this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === false) !== undefined && (
+                                        <button className="disabled-button" onClick={this.toggleAWSState}>
+                                            Disabled
+                                        </button>
+                                    )
+                                }
+                            </div>
                         </div>
                         {
                             this.props.accounts.length === 0 && (
@@ -139,16 +150,18 @@ class Settings extends React.Component {
                         <div className="settings-card-title">
                             User Settings
                         </div>
-                        <div className="settings-left-side">
-                            Theme
-                        </div>
-                        <div className="settings-switch">
-                            <button className="enabled-button">
-                                Light
-                            </button>
-                            <button className="disabled-button">
-                                Dark
-                            </button>
+                        <div className="settings-row">
+                            <div className="settings-left-side">
+                                Theme
+                            </div>
+                            <div className="settings-switch">
+                                <button className="enabled-button">
+                                    Light
+                                </button>
+                                <button className="disabled-button">
+                                    Dark
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )
