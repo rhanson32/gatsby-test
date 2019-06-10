@@ -54,7 +54,23 @@ class Accounts extends React.Component {
                     {
                         this.props.Accounts.length !== 0 && (
                             <div className="account-list">
-                                <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
+                                <div className="account-header">
+                                    <div className="account-item-field">
+                                        Account ID
+                                    </div>
+                                    <div className="account-item-field">
+                                        Provider
+                                    </div>
+                                    <div className="account-item-field">
+                                        Status
+                                    </div>
+                                    <div className="account-item-field">
+                                        Role Name
+                                    </div>
+                                    <div className="account-item-field">
+                                        &nbsp;
+                                    </div>
+                                </div>
                                 {
                                     this.props.Accounts.map(account => {
                                         if(account.RoleName !== "None")

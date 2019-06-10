@@ -234,6 +234,7 @@ input  {
     justify-content: center;
     font-size: 1.4rem;
     padding: 0.5rem 0;
+    align-items: flex-start;
 }
 
 .settings-menu-item {
@@ -842,6 +843,13 @@ input  {
     height: 100vh;
 }
 
+.rules {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 .accounts-header {
     margin: 2rem;
 }
@@ -906,10 +914,22 @@ input  {
     justify-content: center;
 }
 
+.account-buttons {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.account-buttons button {
+    height: 2rem;
+}
+
 .account-item-field input {
     width: 90%;
-    padding-left: 2rem;
+    padding-left: 0.4rem;
+    height: 2rem;
 }
+
 
 .account-item-field-large {
     width: 40%;
@@ -918,8 +938,9 @@ input  {
 }
 
 .account-item-field-large input {
-    width: 90%;
-    padding-left: 2rem;
+    width: 70%;
+    padding: 0.4rem 0 0.4rem 1rem;
+    border-radius: 5px;
 }
 
 .pricing-cards {
@@ -977,17 +998,47 @@ input  {
     color: #555;
 }
 
+.filter-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem;
+    width: 20%;
+    color: #636e72;
+}
+
+.filters {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    color: #636e72; 
+}
+
+.filter {
+    margin: 0 1rem;
+}
+
+.filter-button {
+    padding: 1rem 2rem;
+    border: 1px solid #636e72;
+    border-radius: 5px;
+}
+
 .rules-bulk-switch {
     display: flex;
-    margin: 0 6rem;
-    padding: 1rem;
+    padding: 3rem;
     justify-content: flex-end;
+    width: 60%;
 }
 
 .rules-bulk-switch a {
     padding: 1rem;
     margin: 1rem;
-    border: 2px gray solid;
+    border: 1px #636e72 solid;
+    border-radius: 5px;
+    color: #636e72;
 }
 
 .rules-bulk-switch a:hover {
@@ -1114,6 +1165,7 @@ input  {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    width: 95%;
 }
 
 .dashboard-category {
@@ -1123,6 +1175,7 @@ input  {
     align-items: center;
     background-color: #EEE;
     margin-bottom: 2rem;
+    width: 100%;
 }
 
 .dashboard-category-header {
@@ -1132,7 +1185,7 @@ input  {
 }
 
 .dashboard-category-item {
-    width: 70%;
+    width: 80%;
 }
 
 .dashboard-main {
@@ -1151,10 +1204,44 @@ input  {
     color: white;
 }
 
+.left-menu {
+    width: 5%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.left-menu-item:first-child {
+    margin-top: 4rem;
+}
+
+.left-menu-item {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.left-menu-item a:hover {
+    color: red;
+}
+
+.left-menu-item a {
+    display: flex;
+    justify-content: center;
+}
+
 .dashboard-page {
     margin: 0;
     padding-bottom: 2rem;
     background-color: #EEE;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .dashboard-item {
@@ -1521,6 +1608,10 @@ input  {
 
     .dashboard-item {
         width: 25%;
+    }
+
+    .login-button-text, .signup-button-text {
+        font-size: 1.4rem;
     }
 }
 

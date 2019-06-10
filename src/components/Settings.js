@@ -104,43 +104,68 @@ class Settings extends React.Component {
                         {
                             this.props.accounts.length === 0 && (
                                 <div className="settings-card-title">
-                                Master account:
+                                    Master account:
                                 </div>
                             )
                         }
-                        <div className="account-list">
-                            <AccountItem key={this.state.AccountHeader.Id} item={this.state.AccountHeader} />
-                            {
-                                this.props.accounts.find(account => account.Type === 'Master') && this.props.accounts.filter(account => account.Type === 'Master').map(account => {
-                                    return <AccountItem key={account.AccountId} item={account} />
-                                })
-                            }
-                            {
-                                !this.props.accounts.find(account => account.Type === 'Master') && (
-                                    <AddAccount />
-                                )
-                            }
-                        </div>
                         {
                              this.props.accounts.length === 0 && (
                                 <div className="settings-card-title">
                                     <div className="account-list">
-                                    <div className="account-header">
-                                        <div className="account-item-field">
-                                            Account ID
+                                        <div className="account-header">
+                                            <div className="account-item-field-large">
+                                                Account ID
+                                            </div>
+                                            <div className="account-item-field-large">
+                                                Role Name
+                                            </div>
+                                            <div className="account-item-field">
+                                                &nbsp;  
+                                            </div>
                                         </div>
-                                        <div className="account-item-field">
-                                            Role Name
-                                        </div>
-                                        <div className="account-item-field">
-                                            &nbsp;  
-                                        </div>
-                                    </div>
-                                    <AWSAccount />
+                                        <AWSAccount />
                                     </div>
                                 </div>
                             )
-                        }     
+                        } 
+                        {
+                            this.props.accounts.find(account => account.Type === 'Master') && (
+                                <div className="account-list">
+                                    <div className="account-header">
+                                        <div>
+                                            <div className="account-item-field">
+                                                Account ID
+                                            </div>
+                                            <div className="account-item-field">
+                                                Provider
+                                            </div>
+                                            <div className="account-item-field">
+                                                Status
+                                            </div>
+                                            <div className="account-item-field">
+                                                Role Name
+                                            </div>
+                                            <div className="account-item-field">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {
+                                        this.props.accounts.find(account => account.Type === 'Master') && this.props.accounts.filter(account => account.Type === 'Master').map(account => {
+                                            return <AccountItem key={account.AccountId} item={account} />
+                                        })
+                                    }
+                                    {
+                                        !this.props.accounts.find(account => account.Type === 'Master') && (
+                                            <AddAccount />
+                                        )
+                                    }
+                                </div>
+                            )
+                        }
+                        
+                        
+                            
                     </div>
                 )
             }

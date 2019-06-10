@@ -27,7 +27,10 @@ class EditAccount extends React.Component {
                 <div className="account-item-field">
                     {this.props.item.Provider}
                 </div>
-                <div className="account-item-field-large">
+                <div className="account-item-field">
+                    {this.props.item.Status}
+                </div>
+                <div className="account-item-field">
                     <input
                     onChange={this.handleUpdate}
                     placeholder="Enter role name"

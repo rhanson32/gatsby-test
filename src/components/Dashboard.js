@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import DashboardItem from './DashboardItem';
+import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { getCurrentUser, getRules } from '../actions'
@@ -48,11 +49,12 @@ class Dashboard extends React.Component {
         return (
             <div className="dashboard-page">
                 <Header />
+                <LeftMenu />
                 <div className="dashboard">
                     <DashboardItem header="Security" percent="95" status="Passing" totals="95 / 100" />
                     <DashboardItem header="Waste" percent="85" status="Passing" totals="85 / 100" />
                     <DashboardItem header="Configuration" percent="77" status="Passing" totals="77 / 100" />
-                </div>
+                
                 <div className="dashboard-category">
                     <div className="dashboard-category-header">
                         <div>
@@ -133,6 +135,7 @@ class Dashboard extends React.Component {
                             )
                         })
                     }
+                </div>
                 </div>
             </div>
         )

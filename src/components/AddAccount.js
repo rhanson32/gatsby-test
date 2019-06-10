@@ -38,10 +38,10 @@ class AddAccount extends React.Component {
         return (
             <div className="account-item">
                 <div className="account-item-field">
-                    <input name="id" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="25237483438"></input>
+                    <input name="id" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="e.g. 25237483438"></input>
                 </div>
                 <div className="account-item-field">
-                    <input name="role" onChange={this.handleUpdate} placeholder="Role ARN"></input>
+                    <input name="role" onChange={this.handleUpdate} placeholder="Role Name"></input>
                 </div>
                 <div className="account-item-buttons">
                     <button className="add-button" onClick={this.submitAccount}>Submit</button>

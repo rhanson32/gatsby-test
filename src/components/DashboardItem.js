@@ -12,14 +12,13 @@ const DashboardItem = (props) => (
         </div>
         <div className="dashboard-main">
             You have 45 violations across your estate.
-            
         </div>
         <div className="dashboard-footer">
             <div>
-                {props.status}
+                &nbsp;
             </div>
             <div>
-                {props.totals}
+                &nbsp;
             </div>
         </div>
     </div>

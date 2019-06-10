@@ -88,7 +88,8 @@ export const getAccounts = (id) => async (dispatch, getState) => {
             Role: (item.Role && item.Role.S) || 'None',
             Type: item.Type.S || 'Secondary',
             RoleName: (item.RoleName && item.RoleName.S) || 'None',
-            CustomerId: item.CustomerId.S
+            CustomerId: item.CustomerId.S,
+            Status: item.Status.S
         }
     });
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
