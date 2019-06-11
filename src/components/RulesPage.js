@@ -5,11 +5,14 @@ import Loading from './Loading';
 import RuleItem from './RuleItem';
 import Header from './Header'
 import { saveUser, getRules, getCurrentUser } from '../actions';
+import LeftMenu from './LeftMenu';
 
 class RulesPage extends React.Component {
 
     state = {
-        showFilters: false
+        showFilters: false,
+        Category: "All",
+        Status: "All"
     }
 
     componentDidMount = async () => {
@@ -31,51 +34,66 @@ class RulesPage extends React.Component {
         })
     }
 
+    handleUpdate = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        })
+      }
+
     render() {
         console.log(this.props);
+        console.log(this.state);
         return (
-            <div>
+            <div className="rules-page">
                 <Header />
+                <LeftMenu />
                 <div className="rules">
                 {
                     this.props.Rules.length === 0 && (
                         <Loading type="spokes" color="333"/>
                     )
                 }
-                <div className="filter-menu">
-                    <a className="filter-button" onClick={this.toggleFilterMenu}>
-                        <IoMdFunnel />
-                        &nbsp; Filter
-                    </a>
-                    
+                <div className="rules-options">
+                    <div className="filter-menu">
+                        <a className={this.state.showFilters ? "filter-button button-selected" : "filter-button button-unselected"} onClick={this.toggleFilterMenu}>
+                            <IoMdFunnel />
+                            &nbsp; Filter
+                        </a>
+                    </div>
+                    {
+                        this.props.Rules.length !== 0 && (
+                            <div className="rules-bulk-switch">
+                                <a>Enable All Rules</a>
+                                <a>Disable All Rules</a>
+                            </div>
+                        )
+                    }
                 </div>
-                {
-                    this.props.Rules.length !== 0 && (
-                        <div className="rules-bulk-switch">
-                            <a>Enable All Rules</a>
-                            <a>Disable All Rules</a>
-                        </div>
-                    )
-                }
                 {
                     this.state.showFilters && (
                         <div className="filters">
-                            <label>Category:</label>
-                            <a className="filter">
-                                <select>
-                                    <option>Security</option>
-                                    <option>Waste</option>
-                                    <option>Configuration</option>
-                                </select>
-                            </a>
-                            <label>Status:</label>
-                            <a className="filter">
-                                <select>
-                                    <option>Monitor</option>
-                                    <option>Remediate</option>
-                                    <option>Off</option>
-                                </select>
-                            </a>
+                            <div className="filter-container">
+                                <label>CATEGORY</label>
+                                <a className="filter">
+                                    <select onChange={this.handleUpdate} name="Category">
+                                        <option value="All">All</option>
+                                        <option value="Security">Security</option>
+                                        <option value="Waste">Waste</option>
+                                        <option value="Configuration">Configuration</option>
+                                    </select>
+                                </a>
+                            </div>
+                            <div className="filter-container">
+                                <label>STATUS</label>
+                                <a className="filter">
+                                    <select onChange={this.handleUpdate} name="Status">
+                                        <option value="All">All</option>
+                                        <option value="Monitor">Monitor</option>
+                                        <option value="Remediate">Remediate</option>
+                                        <option value="Off">Off</option>
+                                    </select>
+                                </a>
+                            </div>
                         </div>
                     )
                 }
@@ -93,11 +111,26 @@ class RulesPage extends React.Component {
                                     Status
                                 </div>
                             </div>
-                            {this.props.Rules.map((rule, index) => {
-                                return (
-                                    <RuleItem key={index} rule={rule} />
-                                )
-                            })}
+                            {
+                                this.state.Category === "All" && this.props.Rules.map((rule, index) => {
+                                    return <RuleItem key={index} rule={rule} />
+                                })
+                            }
+                            {
+                                this.state.Category === "Security" && this.props.Rules.filter(rule => rule.Category === "Security").map((rule, index) => {
+                                    return <RuleItem key={index} rule={rule} />
+                                })
+                            }
+                            {
+                                this.state.Category === "Waste" && this.props.Rules.filter(rule => rule.Category === "Waste").map((rule, index) => {
+                                    return <RuleItem key={index} rule={rule} />
+                                })
+                            }
+                            {
+                                this.state.Category === "Configuration" && this.props.Rules.filter(rule => rule.Category === "Configuration").map((rule, index) => {
+                                    return <RuleItem key={index} rule={rule} />
+                                })
+                            }
                         </div>
                     )
                 }  

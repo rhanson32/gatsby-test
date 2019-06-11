@@ -132,7 +132,6 @@ class Settings extends React.Component {
                             this.props.accounts.find(account => account.Type === 'Master') && (
                                 <div className="account-list">
                                     <div className="account-header">
-                                        <div>
                                             <div className="account-item-field">
                                                 Account ID
                                             </div>
@@ -148,7 +147,7 @@ class Settings extends React.Component {
                                             <div className="account-item-field">
                                                 &nbsp;
                                             </div>
-                                        </div>
+                                    
                                     </div>
                                     {
                                         this.props.accounts.find(account => account.Type === 'Master') && this.props.accounts.filter(account => account.Type === 'Master').map(account => {

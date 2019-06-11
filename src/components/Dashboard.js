@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import DashboardItem from './DashboardItem';
 import LeftMenu from './LeftMenu';
 import Header from './Header';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowDown } from 'react-icons/io';
 import { getCurrentUser, getRules } from '../actions'
 
 class Dashboard extends React.Component {

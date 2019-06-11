@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import Loading from './Loading';
 import AccountItem from './AccountItem';
 import Header from './Header'
-import AddAccount from './AddAccount';
 import EditAccount from './EditAccount';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
+import LeftMenu from './LeftMenu';
 
 class Accounts extends React.Component {
     componentDidMount = async () => {
@@ -43,8 +43,9 @@ class Accounts extends React.Component {
     render() {
         console.log(this.props);
         return (
-            <div>
+            <div className="accounts-page">
                 <Header />
+                <LeftMenu />
                 <div className="accounts">
                     {
                         this.props.Accounts.length === 0 && (

@@ -78,7 +78,6 @@ input  {
 }
 
 .right-menu {
-    width: 20%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -163,6 +162,7 @@ input  {
 
 .clear-button {
     border: none;
+    background-color: transparent;
 }
 
 .settings-menu {
@@ -677,6 +677,7 @@ input  {
     justify-content: center;
     align-items: center;
     border-radius: 3px;
+    border: none;
 }
 
 .signup-button {
@@ -839,14 +840,27 @@ input  {
 .accounts {
     display: flex;
     flex-direction: column;
-    background-color: #F4F4F4;
+    background-color: #F3F3F3;
     height: 100vh;
+    width: 95%;
 }
 
 .rules {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    background-color: #F3F3F3;
+    width: 95%;
+}
+
+.rules-page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.accounts-page {
+    display: flex;
     flex-wrap: wrap;
 }
 
@@ -873,7 +887,9 @@ input  {
 .users-main {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    height: 100vh;
+    background-color: #F3F3F3;
 }
 
 .account-item, .rule-item, .dashboard-category-item, .users-item {
@@ -1002,33 +1018,67 @@ input  {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 3rem;
+    padding: 2rem 0 1rem 0;
     width: 20%;
     color: #636e72;
 }
 
 .filters {
-    width: 100%;
+    width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin: 1rem 0;
+    margin: 1rem auto;
     color: #636e72; 
+    padding: 0.5rem 0;
+}
+
+.button-selected {
+    background-color: rgba(116, 185, 255, 0.3);
+    border: none;
+    color: #0984e3;
+}
+
+.button-unselected {
+    background-color: #FFF;
+    border: 1px solid #AAA;
+}
+
+.rules-options {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .filter {
-    margin: 0 1rem;
+    margin: 0.4rem 0;
+    width: 100%;
 }
 
 .filter-button {
     padding: 1rem 2rem;
-    border: 1px solid #636e72;
+    border-radius: 5px;
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 1rem;
+    width: 25%;
+}
+
+.filter-container option, .filter-container select {
+    padding: 0.5rem;
+    width: 80%;
     border-radius: 5px;
 }
 
 .rules-bulk-switch {
     display: flex;
-    padding: 3rem;
+    padding: 2rem 0 1rem 0;
     justify-content: flex-end;
     width: 60%;
 }
@@ -1036,9 +1086,10 @@ input  {
 .rules-bulk-switch a {
     padding: 1rem;
     margin: 1rem;
-    border: 1px #636e72 solid;
+    border: 1px #AAA solid;
     border-radius: 5px;
     color: #636e72;
+    background-color: #FFF;
 }
 
 .rules-bulk-switch a:hover {
@@ -1160,8 +1211,8 @@ input  {
 }
 
 .dashboard {
-    background-color: #EEE;
-    margin: auto;
+    background-color: #F3F3F3;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -1179,13 +1230,13 @@ input  {
 }
 
 .dashboard-category-header {
-    width: 80%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
 }
 
 .dashboard-category-item {
-    width: 80%;
+    width: 90%;
 }
 
 .dashboard-main {
@@ -1211,10 +1262,11 @@ input  {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    height: 100vh;
 }
 
 .left-menu-item:first-child {
-    margin-top: 4rem;
+    margin-top: 6rem;
 }
 
 .left-menu-item {
@@ -1227,7 +1279,11 @@ input  {
 }
 
 .left-menu-item a:hover {
-    color: red;
+    color: purple;
+}
+
+.left-menu-item a:link, .left-menu-item a:visited {
+    color: #333;
 }
 
 .left-menu-item a {
@@ -1235,10 +1291,14 @@ input  {
     justify-content: center;
 }
 
+.left-menu-item svg {
+    width: 75%;
+}
+
 .dashboard-page {
     margin: 0;
     padding-bottom: 2rem;
-    background-color: #EEE;
+    background-color: #F3F3F3;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -1246,10 +1306,8 @@ input  {
 
 .dashboard-item {
     background-color: #00b894;
-    height: 10rem;
-    width: 20rem;
-    border: 1px solid #CCC;
-    margin: 2rem 1rem;
+    width: 27%;
+    margin: 2% 1%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -1582,6 +1640,10 @@ input  {
         width: 40%;
     }
 
+    .external-menu {
+        font-size: 1.3rem;
+    }
+
     .mobile-menu-button {
         display: none;
         width: 0;
@@ -1598,7 +1660,8 @@ input  {
     }
 
     .right-menu {
-        width: 25%;
+        width: 30%;
+        font-size: 1.2rem;
     }
 
     .header-menu {
@@ -1613,6 +1676,11 @@ input  {
     .login-button-text, .signup-button-text {
         font-size: 1.4rem;
     }
+
+    .external-title {
+        font-size: 2.3rem;
+        width: 25%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1621,6 +1689,11 @@ input  {
         line-height: 160%;
         margin-top: 6rem;
         width: 75%;
+    }
+
+    .mobile-menu-button {
+        display: none;
+        width: 0;
     }
 
     .action-header {
@@ -1632,6 +1705,10 @@ input  {
     .action-button {
         padding: 0.5rem 1.5rem;
         font-size: 2rem;
+    }
+
+    .left-menu-item svg {
+        width: 50%;
     }
 
     .feature-focus-text {
@@ -1656,5 +1733,9 @@ input  {
 
     .site-map-item-link {
         font-size: 1.3rem;
+    }
+
+    .right-menu {
+        margin-right: 1rem;
     }
 }
