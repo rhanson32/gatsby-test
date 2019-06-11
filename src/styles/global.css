@@ -539,9 +539,9 @@ input  {
 .pricing-card {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    height: 42rem;
+    justify-content: space-between;
     width: 33.3%;
+    height: 35rem;
     border: 1px solid #EEE;
 }
 
@@ -549,7 +549,7 @@ input  {
     font-size: 2rem;
     height: 6rem;
     font-weight: 700;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -561,7 +561,6 @@ input  {
 }
 
 .pricing-card-price {
-    height: 18rem;
     font-size: 2rem;
     display: flex;
     justify-content: center;
@@ -589,16 +588,17 @@ input  {
 }
 
 .pricing-card-description {
-    font-size: 1.6rem;
-    height: 14rem;
+    font-size: 1.4rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: space-around;
     padding: 2rem;
 }
 
 .pricing-card-description ul {
     padding: 0 0.5rem;
+    margin-top: 1rem;
 }
 
 .pricing-card-description ul li {
@@ -631,7 +631,7 @@ input  {
     height: 4rem;
     width: 100%;
     color: white;
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 .login-form, .signup-form {
@@ -641,7 +641,8 @@ input  {
     border: 1px solid #0984e3;
     background-color: white;
     border-radius: 5px;
-    height: 60%;
+    height: 50%;
+    margin-top: 10rem;
 }
 
 .login-form {
@@ -1389,8 +1390,46 @@ input  {
         width: 100%;
     }
 
+    .rules, .accounts {
+        width: 100%;
+    }
+
+    .rules-bulk-switch a {
+        margin: 0.5rem;
+    }
+
+    .rules-options {
+        width: 100%;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filter-menu {
+        width: 40%;
+    }
+
+    .filter-container {
+        width: 90%;
+    }
+
     .pricing-cards {
         flex-wrap: wrap;
+    }
+
+    .left-menu {
+        width: 100%;
+        flex-direction: row;
+        height: 8rem;
+    }
+
+    .left-menu-item:first-child {
+        margin-top: 0;
+    }
+
+    .dashboard-item {
+        width: 90%;
     }
 
     .header-title {
@@ -1445,7 +1484,7 @@ input  {
 
     .login-form {
         width: 90%;
-        height: 60%;
+        height: 50%;
     }
 
     .pricing-card {
@@ -1632,12 +1671,28 @@ input  {
        top: 2%;
        left: 4%;
     }
+
+    .account-list, .rule-list {
+        width: 95%;
+    }
+
+    .account-item, .rule-item, .dashboard-category-item, .users-item {
+        font-size: 0.8rem;
+    }
+
+    .account-header, .rule-header, .dashboard-category-header, .users-header {
+        font-size: 1rem;
+    }
 }
 
 @media screen and (min-width: 600px) and (max-width: 1200px) {
 
     .feature-focus-text {
         width: 40%;
+    }
+
+    .left-menu {
+        width: 10%;
     }
 
     .external-menu {

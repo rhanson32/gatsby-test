@@ -24,15 +24,20 @@ class Pricing extends React.Component {
                             Always Free
                         </div>
                         <div className="pricing-card-price">
-                            $0 / month
+                            $0
                         </div>
                         <div className="pricing-card-description">
-                            <ul>
-                                <li>10 Standard Rules</li>
-                                <li>Unlimited accounts</li>
-                                <li>Email Notification</li>
-                                <li>Real-time Dashboard</li>
-                            </ul>
+                            <div>
+                                &nbsp;
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>10 Standard Rules</li>
+                                    <li>Unlimited accounts</li>
+                                    <li>Email Notification</li>
+                                    <li>Real-time Dashboard</li>
+                                </ul>
+                            </div>
                         </div>
                         <div className="pricing-card-footer">
                             <a className="pricing-card-button">
@@ -45,14 +50,16 @@ class Pricing extends React.Component {
                             Standard
                         </div>
                         <div className="pricing-card-price">
-                            $0 / month <br />(while in beta)
+                            $0 (while in beta)
                         </div>
                         <div className="pricing-card-description">
-                            <p>Everything in Free tier, plus:</p>
+                            <div>Everything in Free tier, plus:</div>
+                            <div>
                                 <ul>
                                     <li>100+ Standard Rules</li>
                                     <li>Automated remediation</li>
                                 </ul>
+                            </div>
                         </div>
                         <div className="pricing-card-footer">
                             <a className="pricing-card-button">
