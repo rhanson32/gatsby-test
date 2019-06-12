@@ -17,7 +17,8 @@ class Settings extends React.Component {
             Header: true
         },
         AddAccount: false,
-        Menu: 'General'
+        Menu: 'General',
+        showKey: false
     };
 
     componentDidMount = async () => {
@@ -28,6 +29,12 @@ class Settings extends React.Component {
 
     toggleAWSState = () => {
         this.props.toggleAWS()
+    }
+
+    showKey = () => {
+        this.setState({
+            showKey: !this.state.showKey
+        })
     }
 
     render() {
@@ -63,13 +70,31 @@ class Settings extends React.Component {
                                 API Key
                             </div>
                             <div className="settings-switch">
-                                Show
+                                {
+                                    !this.state.showKey && (
+                                        <a onClick={this.showKey}>
+                                            Show
+                                        </a>
+                                    )
+                                }
+                                {
+                                     this.state.showKey && this.props.user.Key
+                                }
+                                {
+                                    this.state.showKey && (
+                                        <a onClick={this.showKey}>
+                                           &nbsp; Hide
+                                        </a>
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="settings-row">
-                            <button className="remove-button">
-                                Cancel Purify
-                            </button>
+                            <div className="cancel-account">
+                                <button className="remove-button">
+                                    Cancel My Account
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )
@@ -104,7 +129,7 @@ class Settings extends React.Component {
                         {
                             this.props.accounts.length === 0 && (
                                 <div className="settings-card-title">
-                                    Master account:
+                                    Enter the details of your AWS Master account, and we will automatically discover the rest of your AWS accounts.
                                 </div>
                             )
                         }

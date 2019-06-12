@@ -4,8 +4,13 @@ import DocsMenu from './DocsMenu';
 import ExternalHeader from './ExternalHeader';
 import GettingStarted from './GettingStarted';
 import MobileMenu from './MobileMenu';
+import Prerequisites from './Prerequisites';
+import SigningUp from './SigningUp';
 
 class Docs extends React.Component {
+    state = {
+        currentView: 'GettingStarted'
+    }
 
     render() {
         return (
@@ -14,7 +19,16 @@ class Docs extends React.Component {
                 {this.props.mobile.mobileMenu && <MobileMenu />}
                 <div className="docs-main">
                     <DocsMenu />
-                    <GettingStarted />
+                    {
+                        this.props.documentation === 'GettingStarted' && <GettingStarted />
+                    }
+                    {
+                        this.props.documentation === 'Prerequisites' && <Prerequisites />
+                    }
+                    {
+                        this.props.documentation === 'SigningUp' && <SigningUp />
+                    }
+                    
                 </div>
                 
             </div>
@@ -24,7 +38,8 @@ class Docs extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        mobile: state.mobile
+        mobile: state.mobile,
+        documentation: state.documentation
     }
 }
 

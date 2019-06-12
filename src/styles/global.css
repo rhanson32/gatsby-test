@@ -4,13 +4,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-h1 {
-    width: 100vh;
-    height: 5rem;
-    background-color: green;
-    color: white;
-}
-
 input  {
     border: 1px solid #AAA;
 }
@@ -53,6 +46,7 @@ input  {
     justify-content: flex-end;
     font-size: 1.5rem;
     line-height: 3rem;
+    margin-right: 1rem;
 }
 
 .header-menu a {
@@ -128,6 +122,7 @@ input  {
 .settings-row {
     width: 100%;
     display: flex;
+    margin: 1rem 0;
 }
 
 .settings-switch {
@@ -210,6 +205,13 @@ input  {
     font-size: 1rem;
 }
 
+.cancel-account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
 .feature-card .feature-focus-header {
     width: 100%;
 }
@@ -222,7 +224,6 @@ input  {
     align-items: flex-start;
     flex-wrap: wrap;
     border: 1px solid #DDD;
-    height: 60vh;
     border-radius: 10px;
     margin: 0.5rem 0;
     width: 100%;
@@ -243,8 +244,6 @@ input  {
     display: flex;
     justify-content: center;
     margin: 0.2rem;
-    width: 10rem;
-    
 }
 
 .settings-menu-item button {
@@ -353,19 +352,38 @@ input  {
     width: 15%;
     padding: 5rem 0.5rem;
     height: 100vh;
-    background-color: #DDD;
+    background-color: #2d3436;
 }
 
 .docs-menu-item {
-    width: 100%;
-    padding: 1rem;  
-    font-size: 1.2rem;
+    width: 90%;
+    padding: 1rem; 
+    color: #DDD;
 }
 
 .docs-main {
     display: flex;
     flex-direction: row;
     margin-top: 4rem;
+}
+
+.docs-section {
+    width: 85%;
+    padding: 3rem;
+    background-color: #F3F3F3;
+}
+
+.docs-section ul, .docs-section h2, .docs-section h3 {
+    margin: 2rem;
+    line-height: 140%;
+}
+
+.docs-section li {
+    margin: 0.5rem 0;
+}
+
+.docs-section p {
+    line-height: 140%;
 }
 
 .add-ticket {
@@ -1158,9 +1176,9 @@ input  {
 .rule-header, .account-header, .dashboard-category-header, .users-header {
     display: flex;
     justify-content: flex-start;
-    padding: 0.8rem 1rem;
-    background-color: #0984e3;
-    border: 1px solid #0984e3;
+    padding: 1.4rem 1rem;
+    background-color: rgba(9, 132, 227, 0.8);
+    border: 1px solid rgba(9, 132, 227, 0.8);
     line-height: 2rem;
     font-size: 1.4rem;
     color: #FFF;
@@ -1306,9 +1324,9 @@ input  {
 }
 
 .dashboard-item {
-    background-color: #00b894;
-    width: 27%;
-    margin: 2% 1%;
+    background-color: rgba(0, 184, 148, 0.75);
+    width: 25%;
+    margin: 4% 2%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -1398,6 +1416,10 @@ input  {
         margin: 0.5rem;
     }
 
+    .rules-bulk-switch {
+        width: 65%;
+    }
+
     .rules-options {
         width: 100%;
     }
@@ -1407,7 +1429,7 @@ input  {
     }
 
     .filter-menu {
-        width: 40%;
+        width: 35%;
     }
 
     .filter-container {
@@ -1685,14 +1707,28 @@ input  {
     }
 }
 
+/* -------------------------------------------------------------------- */
+
 @media screen and (min-width: 600px) and (max-width: 1200px) {
 
     .feature-focus-text {
         width: 40%;
     }
 
+    .feature-focus-header {
+        font-size: 2rem;
+    }
+
+    .feature-card {
+        width: 38%;
+    }
+
     .left-menu {
         width: 10%;
+    }
+
+    .settings-menu-item {
+        width: 10rem;
     }
 
     .external-menu {
@@ -1736,6 +1772,14 @@ input  {
         font-size: 2.3rem;
         width: 25%;
     }
+
+    .rules, .accounts, .dashboard {
+        width: 90%;
+    }
+
+    .left-menu-item svg {
+        width: 50%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1744,6 +1788,10 @@ input  {
         line-height: 160%;
         margin-top: 6rem;
         width: 75%;
+    }
+
+    .settings-menu-item {
+        width: 10rem;
     }
 
     .mobile-menu-button {

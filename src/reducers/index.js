@@ -3,7 +3,6 @@ import { reducer as formReducer } from 'redux-form'
 
 const accountReducer = (state = [], action) => {
 
-    console.log(action.payload);
     switch(action.type)
     {
         case 'FETCH_ACCOUNTS':
@@ -71,6 +70,17 @@ const flagReducer = (state = { AddAccount: false }, action) => {
     }
 }
 
+const documentationReducer = (state = 'Prerequisites', action) => {
+    console.log(action);
+    switch(action.type)
+    {
+        case 'CHANGE_PAGE':
+            return action.payload
+        default:
+            return state;
+    }
+}
+
 const ticketReducer = (state = [], action) => {
     switch(action.type)
     {
@@ -123,5 +133,6 @@ export default combineReducers({
     form: formReducer,
     menu: menuReducer,
     tickets: ticketReducer,
-    mobile: mobileReducer
+    mobile: mobileReducer,
+    documentation: documentationReducer
 });

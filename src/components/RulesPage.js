@@ -63,8 +63,8 @@ class RulesPage extends React.Component {
                     {
                         this.props.Rules.length !== 0 && (
                             <div className="rules-bulk-switch">
-                                <a>Enable All Rules</a>
-                                <a>Disable All Rules</a>
+                                <a>Enable All</a>
+                                <a>Disable All</a>
                             </div>
                         )
                     }

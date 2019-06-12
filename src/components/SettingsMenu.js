@@ -16,7 +16,6 @@ class SettingsMenu extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="settings-menu">
                 <div className="settings-menu-item">

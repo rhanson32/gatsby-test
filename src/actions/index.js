@@ -70,7 +70,6 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
 }
 
 export const getAccounts = (id) => async (dispatch, getState) => {
-    console.log(id);
 
     let myRequest = {
         body: {},
@@ -80,7 +79,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     }
 
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
-    console.log(accountResponse);
+    
     const Items = accountResponse.data.Items.map(item => {
         return {
             AccountId: item.AccountId.S,
@@ -103,7 +102,7 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
         }
     }
     const response = await purify.get('/settings', myRequest)
-    console.log(response)
+
     const settings =  {
         Providers: response.data[0].Providers.L.map(provider => {
             return {
@@ -153,8 +152,8 @@ export const saveUser = (user) => async (dispatch, getState) => {
 }
 
 export const getCurrentUser = () => async dispatch => {
-    const user = await Auth.currentAuthenticatedUser()
-    console.log(user);
+    const user = await Auth.currentAuthenticatedUser();
+
     let myRequest = {
         body: {},
         headers: {
@@ -344,4 +343,8 @@ export const showMobile = () => async (dispatch, getState) => {
     const state = getState();
     console.log(state);
     dispatch({ type: 'TOGGLE_MOBILE', payload: !state.mobile.mobileMenu });
+}
+
+export const showDocumentation = (page) => async dispatch => {
+    dispatch({ type: 'CHANGE_PAGE', payload: page});
 }
