@@ -6,6 +6,7 @@ import GettingStarted from './GettingStarted';
 import MobileMenu from './MobileMenu';
 import Prerequisites from './Prerequisites';
 import SigningUp from './SigningUp';
+import AddingUsers from './AddingUsers';
 
 class Docs extends React.Component {
     state = {
@@ -28,7 +29,9 @@ class Docs extends React.Component {
                     {
                         this.props.documentation === 'SigningUp' && <SigningUp />
                     }
-                    
+                    {
+                        this.props.documentation === 'AddingUsers' && <AddingUsers />
+                    }
                 </div>
                 
             </div>

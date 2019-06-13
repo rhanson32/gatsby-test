@@ -18,6 +18,18 @@ class Pricing extends React.Component {
                 </div>
                 <div className="pricing-cards">
                     <div className="pricing-card">
+                        <div className="pricing-card-header">
+
+                        </div>
+                        <div className="pricing-card-price">
+                            $0
+                        </div>
+                        <div className="pricing-card-description">
+
+                        </div>
+                        <div className="pricing-card-footer">
+
+                        </div>
                     </div>
                     <div className="pricing-card">
                         <div className="pricing-card-header">
@@ -27,17 +39,9 @@ class Pricing extends React.Component {
                             $0
                         </div>
                         <div className="pricing-card-description">
-                            <div>
-                                &nbsp;
-                            </div>
-                            <div>
-                                <ul>
-                                    <li>10 Standard Rules</li>
-                                    <li>Unlimited accounts</li>
-                                    <li>Email Notification</li>
-                                    <li>Real-time Dashboard</li>
-                                </ul>
-                            </div>
+                           <p>
+                               For companies that want to evaluate Purify for their business needs or may only care about a small number of controls.
+                           </p>
                         </div>
                         <div className="pricing-card-footer">
                             <a className="pricing-card-button">
@@ -53,18 +57,32 @@ class Pricing extends React.Component {
                             $0 (while in beta)
                         </div>
                         <div className="pricing-card-description">
-                            <div>Everything in Free tier, plus:</div>
-                            <div>
-                                <ul>
-                                    <li>100+ Standard Rules</li>
-                                    <li>Automated remediation</li>
-                                </ul>
-                            </div>
+                            <p>
+                                For companies that are ready to take advantage of the full suite of features that Purify offers on all of their accounts.
+                            </p>
                         </div>
                         <div className="pricing-card-footer">
                             <a className="pricing-card-button">
                                 Buy Standard
                             </a>
+                        </div>
+                    </div>
+                    <div className="pricing-feature-header">
+                        Accounts and Users
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Number of Users
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            5 Users
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Unlimited Users
                         </div>
                     </div>
                 </div>
