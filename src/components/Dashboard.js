@@ -62,87 +62,89 @@ class Dashboard extends React.Component {
                     <DashboardItem header="Waste" percent="85" status="Passing" totals="85 / 100" />
                     <DashboardItem header="Configuration" percent="77" status="Passing" totals="77 / 100" />
                 
-                <div className="dashboard-category">
-                    <div className="dashboard-category-header">
-                        <div>
-                            Security
+                    <div className="dashboard-categories">
+                        <div className="dashboard-category">
+                            <div className="dashboard-category-header">
+                                <div>
+                                    Security
+                                </div>
+                                <div>
+                                    {this.props.rules.filter(rule => rule.Category === "Security").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Security").length} of {this.props.rules.filter(rule => rule.Category === "Security").length} rules compliant
+                                </div>
+                                <div>
+                                    <button className="rule-arrow">
+                                        <IoIosArrowDown onClick={this.toggleSecurity} />
+                                    </button>
+                                </div>
+                            </div>
+                            {
+                                this.state.showSecurity && this.props.rules.filter(rule => rule.Category === "Security").map((rule, index) => {
+                                    return (
+                                        <div key={index} className="dashboard-category-item">
+                                            <div>
+                                                {rule.Name}
+                                            </div>
+                                            <div>
+                                                {rule.Violations.length === 0 ? "Compliant" : rule.Violations.length + " Violations" }
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
-                        <div>
-                            {this.props.rules.filter(rule => rule.Category === "Security").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Security").length} of {this.props.rules.filter(rule => rule.Category === "Security").length} rules compliant
+                        <div className="dashboard-category">
+                            <div className="dashboard-category-header">
+                                <div>
+                                    Waste
+                                </div>
+                                <div>
+                                {this.props.rules.filter(rule => rule.Category === "Waste").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Waste").length} of {this.props.rules.filter(rule => rule.Category === "Waste").length} rules compliant
+                                </div>
+                                <div>
+                                    <button className="rule-arrow">
+                                        <IoIosArrowDown onClick={this.toggleWaste} />
+                                    </button>
+                                </div>
+                            </div>
+                            {
+                                this.state.showWaste && this.props.rules.filter(rule => rule.Category === "Waste").map((rule, index) => {
+                                    return (
+                                        <div key={index} className="dashboard-category-item">
+                                            <div>
+                                                {rule.Name}
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
-                        <div>
-                            <button className="rule-arrow">
-                                <IoIosArrowDown onClick={this.toggleSecurity} />
-                            </button>
+                        <div className="dashboard-category">
+                            <div className="dashboard-category-header">
+                                <div>
+                                    Configuration
+                                </div>
+                                <div>
+                                {this.props.rules.filter(rule => rule.Category === "Configuration").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Configuration").length} of {this.props.rules.filter(rule => rule.Category === "Configuration").length} rules compliant
+                                </div>
+                                <div>
+                                    <button className="rule-arrow">
+                                        <IoIosArrowDown onClick={this.toggleConfiguration} />
+                                    </button>
+                                </div>
+                            </div>
+                            {
+                                this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === "Configuration").map((rule, index) => {
+                                    return (
+                                        <div key={index} className="dashboard-category-item">
+                                            <div>
+                                                {rule.Name}
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
-                    {
-                        this.state.showSecurity && this.props.rules.filter(rule => rule.Category === "Security").map((rule, index) => {
-                            return (
-                                <div key={index} className="dashboard-category-item">
-                                    <div>
-                                        {rule.Name}
-                                    </div>
-                                    <div>
-                                        {rule.Violations.length === 0 ? "Compliant" : rule.Violations.length + " Violations" }
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className="dashboard-category">
-                    <div className="dashboard-category-header">
-                        <div>
-                            Waste
-                        </div>
-                        <div>
-                        {this.props.rules.filter(rule => rule.Category === "Waste").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Waste").length} of {this.props.rules.filter(rule => rule.Category === "Waste").length} rules compliant
-                        </div>
-                        <div>
-                            <button className="rule-arrow">
-                                <IoIosArrowDown onClick={this.toggleWaste} />
-                            </button>
-                        </div>
-                    </div>
-                    {
-                        this.state.showWaste && this.props.rules.filter(rule => rule.Category === "Waste").map((rule, index) => {
-                            return (
-                                <div key={index} className="dashboard-category-item">
-                                    <div>
-                                        {rule.Name}
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className="dashboard-category">
-                    <div className="dashboard-category-header">
-                        <div>
-                            Configuration
-                        </div>
-                        <div>
-                        {this.props.rules.filter(rule => rule.Category === "Configuration").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Configuration").length} of {this.props.rules.filter(rule => rule.Category === "Configuration").length} rules compliant
-                        </div>
-                        <div>
-                            <button className="rule-arrow">
-                                <IoIosArrowDown onClick={this.toggleConfiguration} />
-                            </button>
-                        </div>
-                    </div>
-                    {
-                        this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === "Configuration").map((rule, index) => {
-                            return (
-                                <div key={index} className="dashboard-category-item">
-                                    <div>
-                                        {rule.Name}
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
                 </div>
             </div>
         )

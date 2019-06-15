@@ -60,12 +60,14 @@ class SignUp extends React.Component {
                 <div className={this.props.mobileMenu ? "signup-form mobile-menu-showing" : "signup-form mobile-menu-hidden"}>
                   <div className="signup-header">Welcome to PurifyCloud</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
+                  <label>Email</label>
                   <input
                     onChange={this.handleUpdate}
                     placeholder='Email'
                     name='email'
                     value={this.state.email}
                   />
+                  <label>Password</label>
                   <input
                     onChange={this.handleUpdate}
                     placeholder='Password'
@@ -73,16 +75,17 @@ class SignUp extends React.Component {
                     value={this.state.password}
                     type='password'
                   />
-              <input
-                onChange={this.handleUpdate}
-                placeholder='Company Name'
-                name='company'
-                value={this.state.company}
-              />
-              <button className="signup-button" onClick={this.signUp}>
-                <span className="signup-button-text">Sign Up</span>
-              </button>  
-            </div>
+                  <label>Company</label>
+                  <input
+                    onChange={this.handleUpdate}
+                    placeholder='Company Name'
+                    name='company'
+                    value={this.state.company}
+                  />
+                  <button className="signup-button" onClick={this.signUp}>
+                    <span className="signup-button-text">Sign Up</span>
+                  </button>  
+                </div>
           )
         }
         {

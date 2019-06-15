@@ -353,6 +353,6 @@ export const addUser = (user) => async dispatch => {
             ...user
         }
     }
-    const response = purify.post('/users', myRequest);
+    const response = await purify.post('/users', myRequest).catch(err => console.log(err));
     console.log(response);
 }

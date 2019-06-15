@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addUser } from '../actions';
 
 const generator = require('generate-password');
 
@@ -39,6 +41,7 @@ class AddUser extends React.Component {
             });
             console.log(password);
             console.log(this.state.email);
+            this.props.addUser({ email: this.state.email, password });
         }
     }
 
@@ -101,4 +104,4 @@ class AddUser extends React.Component {
     }
 }
 
-export default AddUser;
+export default connect(null, { addUser })(AddUser);

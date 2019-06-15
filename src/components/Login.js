@@ -97,36 +97,41 @@ class Login extends React.Component {
         {
           !this.state.forgotPassword && !this.state.acceptCode && (
             <div className={this.props.mobileMenu ? "login-form mobile-menu-showing" : "login-form mobile-menu-hidden"}>
-            <div className="login-header">PurifyCloud</div>
-            {this.state.error && <Error errorMessage={this.state.error}/>}
-           <input
-              onChange={this.handleUpdate}
-              placeholder='Email'
-              name='username'
-              value={this.state.username}
-              onKeyPress={this.handleKeyPress}
-            />
-            <input
-              onChange={this.handleUpdate}
-              placeholder='Password'
-              name='password'
-              value={this.state.password}
-              type='password'
-              onKeyPress={this.handleKeyPress}
-            />
-            <a onClick={this.forgotPassword}>
-              Forgot password? 
-            </a>
-            <button className="login-button" onClick={this.login}>
-              <span className="login-button-text">Sign In</span>
-            </button>
-          </div>
+              <div className="login-header">PurifyCloud</div>
+              {this.state.error && <Error errorMessage={this.state.error}/>}
+              <div className="login-container">
+              <label>Email</label>
+              <input
+                onChange={this.handleUpdate}
+                placeholder='Email'
+                name='username'
+                value={this.state.username}
+                onKeyPress={this.handleKeyPress}
+              />
+              <label>Password</label>
+              <input
+                onChange={this.handleUpdate}
+                placeholder='Password'
+                name='password'
+                value={this.state.password}
+                type='password'
+                onKeyPress={this.handleKeyPress}
+              />
+              <a onClick={this.forgotPassword}>
+                Forgot password? 
+              </a>
+              <button className="login-button" onClick={this.login}>
+                <span className="login-button-text">Sign In</span>
+              </button>
+              </div>
+            </div>
           )
         }
         
         {
           this.state.forgotPassword && (
-            <div className="login-form mobile-menu-hidden">
+            <div className="forgot-password-form mobile-menu-hidden">
+              <p>Enter your email below to set a new password.</p>
               <label>Email</label>
               <input
                 onChange={this.handleUpdate}
@@ -135,7 +140,7 @@ class Login extends React.Component {
                 value={this.state.username}
                 onKeyPress={this.handleKeyPress}
               />
-              <button onClick={this.requestPassword}>
+              <button className="add-button password-button" onClick={this.requestPassword}>
                 Submit
               </button>
             </div>
@@ -144,7 +149,8 @@ class Login extends React.Component {
         {
           this.state.acceptCode && (
             <div className="login-form mobile-menu-hidden">
-              <label>Email</label>
+              <p>Enter the confirmation code received by email and a new password to set.</p>
+              <label>Confirmation Code</label>
               <input
                 onChange={this.handleUpdate}
                 placeholder='Confirmation Code'
@@ -152,6 +158,9 @@ class Login extends React.Component {
                 value={this.state.code}
                 onKeyPress={this.handleKeyPress}
               />
+              <label>
+                New Password
+              </label>
               <input
                 onChange={this.handleUpdate}
                 placeholder='New password'

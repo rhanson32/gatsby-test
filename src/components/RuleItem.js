@@ -9,7 +9,7 @@ class RuleItem extends React.Component {
     }
 
     toggleRule = (id) => {
-        this.props.toggleRule(this.props.rule.RuleId, this.props.user);
+        this.props.toggleRule(this.props.rule.RuleId, this.props.user); 
     }
 
     toggleDescription = () => {

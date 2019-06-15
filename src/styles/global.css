@@ -710,15 +710,57 @@ input  {
     font-size: 1.4rem;
 }
 
+.login-container {
+    margin: 2rem 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login-container input {
+    width: 90%;
+}
+
 .login-form, .signup-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     border: 1px solid #0984e3;
     background-color: white;
     border-radius: 5px;
     height: 50%;
     margin-top: 10rem;
+    margin: auto;
+}
+
+.dashboard-categories {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+
+.forgot-password-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    height: 30%;
+    background-color: white;
+    padding: 2rem;
+    margin: auto;
+}
+
+.password-button {
+    width: 40%;
+}
+
+.forgot-password-form input {
+    height: 3rem;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
 }
 
 .login-form {
@@ -1294,6 +1336,7 @@ input  {
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     width: 95%;
 }
@@ -1402,6 +1445,7 @@ input  {
     justify-content: space-around;
     border-radius: 5px;
     padding: 0 1.2rem;
+    height: 10rem;
 }
 
 .dashboard-header {
