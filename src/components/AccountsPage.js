@@ -41,7 +41,6 @@ class Accounts extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="accounts-page">
                 <Header />

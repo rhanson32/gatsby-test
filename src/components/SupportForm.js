@@ -38,7 +38,7 @@ const SupportForm = props => {
       </div>
       <div className="support-form-buttons">
         <button className="remove-button" type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
+          Clear
         </button>
         <button className="add-button" type="submit" disabled={pristine || submitting}>
           Submit

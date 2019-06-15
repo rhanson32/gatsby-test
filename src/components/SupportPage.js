@@ -48,13 +48,15 @@ class SupportPage extends React.Component {
       }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <Header />
                 {
                     this.props.tickets && (
                         <div className="support-screen">
+                            <div className="support-screen-header">
+                                <h1>Support Center</h1>
+                            </div>
                             {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
                             {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
                             <div className="support-headers">

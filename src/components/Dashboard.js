@@ -12,7 +12,8 @@ class Dashboard extends React.Component {
     state = {
         showSecurity: false,
         showWaste: false,
-        showLogging: false
+        showLogging: false,
+        showConfiguration: false
     }
 
     componentDidMount = async () => {
@@ -45,6 +46,12 @@ class Dashboard extends React.Component {
         })
     }
 
+    toggleConfiguration = () => {
+        this.setState({
+            showConfiguration: !this.state.showConfiguration
+        })
+    }
+
     render() {
         return (
             <div className="dashboard-page">
@@ -70,9 +77,9 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                     {
-                        this.state.showSecurity && this.props.rules.filter(rule => rule.Category === "Security").map(rule => {
+                        this.state.showSecurity && this.props.rules.filter(rule => rule.Category === "Security").map((rule, index) => {
                             return (
-                                <div className="dashboard-category-item">
+                                <div key={index} className="dashboard-category-item">
                                     <div>
                                         {rule.Name}
                                     </div>
@@ -90,7 +97,7 @@ class Dashboard extends React.Component {
                             Waste
                         </div>
                         <div>
-                            23 of 25 rules compliant
+                        {this.props.rules.filter(rule => rule.Category === "Waste").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Waste").length} of {this.props.rules.filter(rule => rule.Category === "Waste").length} rules compliant
                         </div>
                         <div>
                             <button className="rule-arrow">
@@ -99,9 +106,9 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                     {
-                        this.state.showWaste && this.props.rules.filter(rule => rule.Category === "Waste").map(rule => {
+                        this.state.showWaste && this.props.rules.filter(rule => rule.Category === "Waste").map((rule, index) => {
                             return (
-                                <div className="dashboard-category-item">
+                                <div key={index} className="dashboard-category-item">
                                     <div>
                                         {rule.Name}
                                     </div>
@@ -116,18 +123,18 @@ class Dashboard extends React.Component {
                             Configuration
                         </div>
                         <div>
-                            23 of 25 rules compliant
+                        {this.props.rules.filter(rule => rule.Category === "Configuration").length - this.props.rules.filter(rule => rule.Violations.length !== 0 && rule.Category === "Configuration").length} of {this.props.rules.filter(rule => rule.Category === "Configuration").length} rules compliant
                         </div>
                         <div>
                             <button className="rule-arrow">
-                                <IoIosArrowDown onClick={this.toggleLogging} />
+                                <IoIosArrowDown onClick={this.toggleConfiguration} />
                             </button>
                         </div>
                     </div>
                     {
-                        this.state.showLogging && this.props.rules.filter(rule => rule.Category === "Logging and Monitoring").map(rule => {
+                        this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === "Configuration").map((rule, index) => {
                             return (
-                                <div className="dashboard-category-item">
+                                <div key={index} className="dashboard-category-item">
                                     <div>
                                         {rule.Name}
                                     </div>

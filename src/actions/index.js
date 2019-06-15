@@ -162,7 +162,7 @@ export const getCurrentUser = () => async dispatch => {
     }
 
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
-    console.log(customerResponse)
+
     const userInfo = {
         ...user.attributes,
         IdToken: user.signInUserSession.idToken.jwtToken,
@@ -209,11 +209,11 @@ export const getRules = (user) => async dispatch => {
             Authorization: user.IdToken
         }
     }
-    console.log(user);
+
     const { CustomerId } = user;
-    console.log(CustomerId)
+
     const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
-    console.log(rulesResponse.data);
+
     const Items = rulesResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
@@ -325,8 +325,6 @@ export const fetchTickets = () => async (dispatch, getState) => {
 
     const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest);
 
-    console.log(ticketResponse);
-
     const items = ticketResponse.data.map(item => {
         return { 
             CustomerId: item.CustomerId.S,
@@ -347,4 +345,14 @@ export const showMobile = () => async (dispatch, getState) => {
 
 export const showDocumentation = (page) => async dispatch => {
     dispatch({ type: 'CHANGE_PAGE', payload: page});
+}
+
+export const addUser = (user) => async dispatch => {
+    let myRequest = {
+        body: {
+            ...user
+        }
+    }
+    const response = purify.post('/users', myRequest);
+    console.log(response);
 }

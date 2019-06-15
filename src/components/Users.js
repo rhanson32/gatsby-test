@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import AddUser from './AddUser';
 
 class Users extends React.Component {
 
@@ -8,6 +9,9 @@ class Users extends React.Component {
             <div>
                 <Header />
                 <div className="users-main">
+                    <div>
+                        <h1>User List</h1>
+                    </div>
                     <div className="users-list">
                         <div className="users-header">
                             <div>
@@ -27,6 +31,10 @@ class Users extends React.Component {
                         </div>
                         
                     </div>
+                    <div>
+                        <h1>Add User</h1>
+                    </div>
+                    <AddUser />
                 </div>
                 
             </div>

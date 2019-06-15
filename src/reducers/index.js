@@ -71,7 +71,7 @@ const flagReducer = (state = { AddAccount: false }, action) => {
 }
 
 const documentationReducer = (state = 'Prerequisites', action) => {
-    console.log(action);
+    
     switch(action.type)
     {
         case 'CHANGE_PAGE':
@@ -91,7 +91,7 @@ const ticketReducer = (state = [], action) => {
     }
 }
 
-const settingsReducer = (state = { }, action) => {
+const settingsReducer = (state = { Providers: [ ] }, action) => {
     switch(action.type)
     {
         case 'FETCH_SETTINGS':

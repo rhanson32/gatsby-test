@@ -9,9 +9,7 @@ class RuleItem extends React.Component {
     }
 
     toggleRule = (id) => {
-        console.log(this.props);
         this.props.toggleRule(this.props.rule.RuleId, this.props.user);
-
     }
 
     toggleDescription = () => {
@@ -20,7 +18,6 @@ class RuleItem extends React.Component {
         });
     }
     render() {
-        console.log(this.props);
         return (
             <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
                 <div className="rule-name">

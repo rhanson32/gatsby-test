@@ -16,7 +16,6 @@ class RulesPage extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.props)
         if(!this.props.User.email)
         {
             await this.props.getCurrentUser()
@@ -41,8 +40,6 @@ class RulesPage extends React.Component {
       }
 
     render() {
-        console.log(this.props);
-        console.log(this.state);
         return (
             <div className="rules-page">
                 <Header />
