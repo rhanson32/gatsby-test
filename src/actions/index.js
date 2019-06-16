@@ -234,7 +234,6 @@ export const getRules = (user) => async dispatch => {
 
 export const toggleRule = (id, user) => async (dispatch, getState) => {
 
-    console.log(user)
     const prevState = getState();
     let myRequest = {
         body: { },
@@ -242,8 +241,6 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
             Authorization: user.IdToken
         }
     }
-
-    console.log(myRequest);
 
     let newRules = prevState.rules.map(rule => {
 
@@ -253,7 +250,7 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
                     ...rule,
                     Enabled: !rule.Enabled
                 };
-                console.log(myRequest);
+
                 purify.put('/rules', myRequest).catch(err => console.log(err));
                 return {
                     ...rule,
@@ -266,7 +263,6 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
             }   
     });
 
-    console.log(newRules);
     dispatch({ type: 'TOGGLE_RULE', payload: newRules });
 }
 

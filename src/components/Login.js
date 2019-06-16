@@ -132,6 +132,7 @@ class Login extends React.Component {
           this.state.forgotPassword && (
             <div className="forgot-password-form mobile-menu-hidden">
               <p>Enter your email below to set a new password.</p>
+              <div className="login-container">
               <label>Email</label>
               <input
                 onChange={this.handleUpdate}
@@ -143,17 +144,20 @@ class Login extends React.Component {
               <button className="add-button password-button" onClick={this.requestPassword}>
                 Submit
               </button>
+              </div>
             </div>
           )
         }
         {
           this.state.acceptCode && (
             <div className="login-form mobile-menu-hidden">
+              <div className="login-container">
               <p>Enter the confirmation code received by email and a new password to set.</p>
+              
               <label>Confirmation Code</label>
               <input
                 onChange={this.handleUpdate}
-                placeholder='Confirmation Code'
+                placeholder='291736'
                 name='code'
                 value={this.state.code}
                 onKeyPress={this.handleKeyPress}
@@ -169,9 +173,10 @@ class Login extends React.Component {
                 value={this.state.password}
                 onKeyPress={this.handleKeyPress}
               />
-              <button onClick={this.submitPassword}>
+              <button className="add-button" onClick={this.submitPassword}>
                 Submit
               </button>
+              </div>
             </div>
           )
         }

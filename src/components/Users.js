@@ -1,8 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from './Header';
 import AddUser from './AddUser';
+import { getCurrentUser } from '../actions';
 
 class Users extends React.Component {
+
+    componentDidMount = () => {
+        this.props.getCurrentUser()
+    }
 
     render() {
         return (
@@ -42,4 +48,4 @@ class Users extends React.Component {
     }
 }
 
-export default Users;
+export default connect(null, { getCurrentUser })(Users);

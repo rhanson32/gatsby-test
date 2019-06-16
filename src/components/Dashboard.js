@@ -85,7 +85,10 @@ class Dashboard extends React.Component {
                                                 {rule.Name}
                                             </div>
                                             <div>
-                                                {rule.Violations.length === 0 ? "Compliant" : rule.Violations.length + " Violations" }
+                                                {rule.Violations.length === 0 ? "Compliant" : "Violations: " + rule.Violations.length  }
+                                            </div>
+                                            <div>
+                                                {rule.Violations.length !== 0 ? "View Violations": ""}
                                             </div>
                                         </div>
                                     )
@@ -113,6 +116,12 @@ class Dashboard extends React.Component {
                                             <div>
                                                 {rule.Name}
                                             </div>
+                                            <div>
+                                                {rule.Violations.length === 0 ? "Compliant" : "Violations: " + rule.Violations.length  }
+                                            </div>
+                                            <div>
+                                                {rule.Violations.length !== 0 ? "View Violations": ""}
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -138,6 +147,12 @@ class Dashboard extends React.Component {
                                         <div key={index} className="dashboard-category-item">
                                             <div>
                                                 {rule.Name}
+                                            </div>
+                                            <div>
+                                                {rule.Violations.length === 0 ? "Compliant" : "Violations: " + rule.Violations.length  }
+                                            </div>
+                                            <div>
+                                                {rule.Violations.length !== 0 ? "View Violations": ""}
                                             </div>
                                         </div>
                                     )

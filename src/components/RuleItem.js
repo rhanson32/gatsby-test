@@ -8,8 +8,9 @@ class RuleItem extends React.Component {
         showDescription: false
     }
 
-    toggleRule = (id) => {
+    toggleRule = (event) => {
         this.props.toggleRule(this.props.rule.RuleId, this.props.user); 
+        console.log(event.target.name);
     }
 
     toggleDescription = () => {
@@ -31,9 +32,14 @@ class RuleItem extends React.Component {
                 {
                     !this.props.rule.Header && (
                         <div className="rule-status">
-                            <button onClick={this.toggleRule} className={`${this.props.rule.Enabled === true ? 'enabled-button' : "disabled-button"}`}>
-                                {this.props.rule.Enabled ? "ON": "OFF"}
-                            </button>
+                            <div className="button-group">
+                                <button name="off" onClick={this.toggleRule} className={this.props.rule.Enabled === true ? 'disabled-button' : "enabled-button"}>
+                                    OFF
+                                </button>
+                                <button name="monitor" onClick={this.toggleRule} className={this.props.rule.Enabled === true ? 'enabled-button' : "disabled-button"}>
+                                    Monitor
+                                </button>
+                            </div>
                         </div>
                     )
                 } 

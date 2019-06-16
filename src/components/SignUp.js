@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
-import ExternalHeader from './ExternalHeader'
+import ExternalHeader from './ExternalHeader';
+import { IoEmail } from 'react-icons/io';
 
 const initialState = {
   username: ``,
@@ -60,10 +61,11 @@ class SignUp extends React.Component {
                 <div className={this.props.mobileMenu ? "signup-form mobile-menu-showing" : "signup-form mobile-menu-hidden"}>
                   <div className="signup-header">Welcome to PurifyCloud</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
+                  <div className="signup-container">
                   <label>Email</label>
                   <input
                     onChange={this.handleUpdate}
-                    placeholder='Email'
+                    placeholder='you@yourcompany.com'
                     name='email'
                     value={this.state.email}
                   />
@@ -78,13 +80,14 @@ class SignUp extends React.Component {
                   <label>Company</label>
                   <input
                     onChange={this.handleUpdate}
-                    placeholder='Company Name'
+                    placeholder='YourCorp'
                     name='company'
                     value={this.state.company}
                   />
                   <button className="signup-button" onClick={this.signUp}>
                     <span className="signup-button-text">Sign Up</span>
-                  </button>  
+                  </button>
+                  </div>  
                 </div>
           )
         }

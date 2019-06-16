@@ -41,7 +41,7 @@ class AddUser extends React.Component {
             });
             console.log(password);
             console.log(this.state.email);
-            this.props.addUser({ email: this.state.email, password });
+            this.props.addUser({ email: this.state.email, password, company: this.props.user['custom:company'] });
         }
     }
 
@@ -104,4 +104,10 @@ class AddUser extends React.Component {
     }
 }
 
-export default connect(null, { addUser })(AddUser);
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, { addUser })(AddUser);
