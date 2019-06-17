@@ -37,7 +37,6 @@ const App = () => (
             <NotFound default />
         </Router>
     </Provider>
-    
   )
   
-  export default App
+  export default App;

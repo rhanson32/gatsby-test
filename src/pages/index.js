@@ -1,7 +1,7 @@
 import React from "react";
 
 import App from '../components/App';
-
+import { Helmet } from 'react-helmet';
 import Amplify from 'aws-amplify';
 
 Amplify.configure({
@@ -21,8 +21,12 @@ Amplify.configure({
 
 const IndexPage = () => (
     <div>
-      <App />
+        <App>
+            <Helmet>
+                <title>Clean up your cloud</title>
+            </Helmet>
+        </App>
     </div>
 )
 
-export default IndexPage
+export default IndexPage;

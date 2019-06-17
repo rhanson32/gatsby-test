@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import AddUser from './AddUser';
 import { getCurrentUser } from '../actions';
+import LeftMenu from './LeftMenu';
 
 class Users extends React.Component {
 
@@ -12,9 +13,11 @@ class Users extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="users-page">
                 <Header />
+                <LeftMenu />
                 <div className="users-main">
+               
                     <div>
                         <h1>User List</h1>
                     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IoMdFunnel } from 'react-icons/io';
-import { Button, Icon } from 'antd';
+import { Button, Table } from 'antd';
 import Loading from './Loading';
 import RuleItem from './RuleItem';
-import Header from './Header'
-import { saveUser, getRules, getCurrentUser } from '../actions';
+import Header from './Header';
+import TableHeader from './TableHeader';
+import { saveUser, getRules, getCurrentUser, toggleRule } from '../actions';
 import LeftMenu from './LeftMenu';
 
 class RulesPage extends React.Component {
@@ -28,6 +28,12 @@ class RulesPage extends React.Component {
         
     }
 
+    toggleRule = (event) => {
+        this.props.toggleRule(event.target.id, this.props.User); 
+        console.log(event.target.name);
+        console.log(event.target.id);
+    }
+
     toggleFilterMenu = () => {
         this.setState({
             showFilters: !this.state.showFilters
@@ -41,6 +47,72 @@ class RulesPage extends React.Component {
       }
 
     render() {
+        const dataSource = this.props.Rules.map((rule, index) => {
+            return {
+                key: index.toString(),
+                name: rule.Name,
+                category: rule.Category,
+                id: rule.RuleId,
+                state: rule.Enabled ? "Monitor" : "Off",
+                status:  <Button.Group>
+                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="large" onClick={this.toggleRule}>
+                    OFF
+                </Button>
+                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
+                    Monitor
+                </Button>
+            </Button.Group>,
+                description: rule.Description
+            }    
+        });
+          
+          const columns = [
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              key: 'name',
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Category',
+              dataIndex: 'category',
+              key: 'category',
+              filters: [
+                {
+                  text: 'Security',
+                  value: 'Security',
+                },
+                {
+                  text: 'Waste',
+                  value: 'Waste',
+                },
+                {
+                    text: 'Configuration',
+                    value: 'Configuration',
+                }
+              ],
+                onFilter: (value, record) => record.category.indexOf(value) === 0,
+                sorter: (a, b) => a.category.length - b.category.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Status',
+              dataIndex: 'status',
+              key: 'status',
+              filters: [
+                {
+                  text: 'Off',
+                  value: 'Off',
+                },
+                {
+                  text: 'Monitor',
+                  value: 'Waste',
+                }
+              ],
+              onFilter: (value, record) => record.state.indexOf(value) === 0
+            },
+          ];
         const ButtonGroup = Button.Group;
         return (
             <div className="rules-page">
@@ -53,11 +125,6 @@ class RulesPage extends React.Component {
                     )
                 }
                 <div className="rules-options">
-                    <div className="filter-menu">
-                        <Button size="large" icon="filter" onClick={this.toggleFilterMenu}>
-                            Filter
-                        </Button>
-                    </div>
                     {
                         this.props.Rules.length !== 0 && (
                             <div className="rules-bulk-switch">
@@ -69,71 +136,8 @@ class RulesPage extends React.Component {
                         )
                     }
                 </div>
-                {
-                    this.state.showFilters && (
-                        <div className="filters">
-                            <div className="filter-container">
-                                <label>CATEGORY</label>
-                                <a className="filter">
-                                    <select onChange={this.handleUpdate} name="Category">
-                                        <option value="All">All</option>
-                                        <option value="Security">Security</option>
-                                        <option value="Waste">Waste</option>
-                                        <option value="Configuration">Configuration</option>
-                                    </select>
-                                </a>
-                            </div>
-                            <div className="filter-container">
-                                <label>STATUS</label>
-                                <a className="filter">
-                                    <select onChange={this.handleUpdate} name="Status">
-                                        <option value="All">All</option>
-                                        <option value="Monitor">Monitor</option>
-                                        <option value="Remediate">Remediate</option>
-                                        <option value="Off">Off</option>
-                                    </select>
-                                </a>
-                            </div>
-                        </div>
-                    )
-                }
-                {
-                    this.props.Rules.length !== 0 && (
-                        <div className="rule-list">
-                            <div className="rule-header">
-                                <div className="rule-name">
-                                    Name
-                                </div>
-                                <div className="rule-category">
-                                    Category
-                                </div>
-                                <div className="rule-status">
-                                    Status
-                                </div>
-                            </div>
-                            {
-                                this.state.Category === "All" && this.props.Rules.map((rule, index) => {
-                                    return <RuleItem key={index} rule={rule} />
-                                })
-                            }
-                            {
-                                this.state.Category === "Security" && this.props.Rules.filter(rule => rule.Category === "Security").map((rule, index) => {
-                                    return <RuleItem key={index} rule={rule} />
-                                })
-                            }
-                            {
-                                this.state.Category === "Waste" && this.props.Rules.filter(rule => rule.Category === "Waste").map((rule, index) => {
-                                    return <RuleItem key={index} rule={rule} />
-                                })
-                            }
-                            {
-                                this.state.Category === "Configuration" && this.props.Rules.filter(rule => rule.Category === "Configuration").map((rule, index) => {
-                                    return <RuleItem key={index} rule={rule} />
-                                })
-                            }
-                        </div>
-                    )
-                }  
+                
+                <Table title={() => <TableHeader title="Rules" />} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} /> 
                 </div> 
             </div>
         )
@@ -147,4 +151,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser })(RulesPage);
+export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, toggleRule })(RulesPage);

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
+import LeftMenu from './LeftMenu';
 import SupportList from './SupportList';
 import { fetchTickets, postTicket, getCurrentUser } from '../actions';
 import { IoIosAdd } from 'react-icons/io';
@@ -49,8 +50,9 @@ class SupportPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="support-page">
                 <Header />
+                <LeftMenu />
                 {
                     this.props.tickets && (
                         <div className="support-screen">

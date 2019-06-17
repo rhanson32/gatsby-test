@@ -3,6 +3,12 @@ module.exports = {
     title: 'Gatsby Auth Starter AWS Amplify',
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-favicon',
+      options: {
+        logo: './static/Clouds-icon.png'
+      }
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-plugin-manifest`,

@@ -25,12 +25,11 @@ input  {
     background: #667db6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 6vh;
     color: white;
     display: flex;
     justify-content: space-between;
-    padding: 0.2rem 0;
-    height: 3rem;
+    padding: 0.4rem 0;
+    height: 4rem;
 }
 
 .header-title {
@@ -338,6 +337,10 @@ input  {
     padding: 0 0.5rem;
 }
 
+.user-name {
+    margin-right: 1rem;
+}
+
 .support-screen {
     padding: 4rem 0;
     background-color: #F2F3F3;
@@ -346,6 +349,7 @@ input  {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
+    width: 95%;
 }
 
 .support-screen-header {
@@ -1006,12 +1010,17 @@ input  {
     height: 100vh;
 }
 
+.support-page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .users-main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100vh;
+    width: 95%;
     background-color: #F3F3F3;
 }
 
@@ -1164,6 +1173,17 @@ input  {
     color: #0984e3;
 }
 
+.table-header {
+    background-color: #0984e3;
+    margin: 0;
+    padding: 1rem;
+    color: white;
+}
+
+th, td {
+    background-color: white;
+}
+
 .button-unselected {
     background-color: #FFF;
     border: 1px solid #AAA;
@@ -1174,6 +1194,7 @@ input  {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .filter {
@@ -1277,6 +1298,11 @@ input  {
 
 .large-button {
     height: 2rem;
+}
+
+.users-page {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .rule-header, .account-header, .dashboard-category-header, .users-header, .add-user-header {
