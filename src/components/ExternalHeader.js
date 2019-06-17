@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'gatsby';
+import { Button } from 'antd';
 import { FaBars } from 'react-icons/fa';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IoMdFunnel } from 'react-icons/io';
+import { Button, Icon } from 'antd';
 import Loading from './Loading';
 import RuleItem from './RuleItem';
 import Header from './Header'
@@ -40,6 +41,7 @@ class RulesPage extends React.Component {
       }
 
     render() {
+        const ButtonGroup = Button.Group;
         return (
             <div className="rules-page">
                 <Header />
@@ -52,16 +54,17 @@ class RulesPage extends React.Component {
                 }
                 <div className="rules-options">
                     <div className="filter-menu">
-                        <a className={this.state.showFilters ? "filter-button button-selected" : "filter-button button-unselected"} onClick={this.toggleFilterMenu}>
-                            <IoMdFunnel />
-                            &nbsp; Filter
-                        </a>
+                        <Button size="large" icon="filter" onClick={this.toggleFilterMenu}>
+                            Filter
+                        </Button>
                     </div>
                     {
                         this.props.Rules.length !== 0 && (
                             <div className="rules-bulk-switch">
-                                <a>Enable All</a>
-                                <a>Disable All</a>
+                                <ButtonGroup>
+                                    <Button size="large">Monitor All</Button>
+                                    <Button size="large">Remediate All</Button>
+                                </ButtonGroup>
                             </div>
                         )
                     }

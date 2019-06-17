@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { Button } from 'antd';
 import { toggleRule } from '../actions';
 
 class RuleItem extends React.Component {
@@ -19,6 +20,7 @@ class RuleItem extends React.Component {
         });
     }
     render() {
+        const ButtonGroup = Button.Group;
         return (
             <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
                 <div className="rule-name">
@@ -32,14 +34,15 @@ class RuleItem extends React.Component {
                 {
                     !this.props.rule.Header && (
                         <div className="rule-status">
-                            <div className="button-group">
-                                <button name="off" onClick={this.toggleRule} className={this.props.rule.Enabled === true ? 'disabled-button' : "enabled-button"}>
-                                    OFF
-                                </button>
-                                <button name="monitor" onClick={this.toggleRule} className={this.props.rule.Enabled === true ? 'enabled-button' : "disabled-button"}>
-                                    Monitor
-                                </button>
-                            </div>
+                                
+                                <ButtonGroup>
+                                    <Button style={{ backgroundColor: this.props.rule.Enabled ? "white" : "#27ae60", color: this.props.rule.Enabled ? "black" : "white" }} size="large" onClick={this.toggleRule}>
+                                        OFF
+                                    </Button>
+                                    <Button style={{ backgroundColor: this.props.rule.Enabled ? "#27ae60" : "white", color: this.props.rule.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
+                                        Monitor
+                                    </Button>
+                                </ButtonGroup>
                         </div>
                     )
                 } 

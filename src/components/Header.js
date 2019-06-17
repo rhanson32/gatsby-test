@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 
 import { navigate } from '@reach/router'
-
+import { Icon } from 'antd';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify'
 
@@ -19,6 +19,7 @@ const Header = () => (
             <Link activeClassName="active-link" to="/app/users">Users</Link>
             <Link activeClassName="active-link" to="/app/settings">Settings</Link>
             <Link activeClassName="active-link" to="/app/support">Support</Link>
+            <Icon type="user" />
             {
                 isLoggedIn() && (
                     <div

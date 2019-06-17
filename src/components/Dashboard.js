@@ -1,11 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Button, Card, Icon, Progress } from 'antd';
 
 import DashboardItem from './DashboardItem';
 import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { IoIosArrowDown } from 'react-icons/io';
-import { getCurrentUser, getRules } from '../actions'
+import { getCurrentUser, getRules } from '../actions';
+
+import 'antd/dist/antd.css';
 
 class Dashboard extends React.Component {
 
@@ -61,11 +64,19 @@ class Dashboard extends React.Component {
                     <DashboardItem header="Security" percent="95" status="Passing" totals="95 / 100" />
                     <DashboardItem header="Waste" percent="85" status="Passing" totals="85 / 100" />
                     <DashboardItem header="Configuration" percent="77" status="Passing" totals="77 / 100" />
-                
+                    <Card title="Security" headStyle={{ backgroundColor: "#27ae60" }}>
+                        <Progress type="circle" percent={50} />
+                    </Card>
+                    <Card title="Waste" headStyle={{ backgroundColor: "#27ae60" }}>
+                        <Progress type="circle" percent={70} />
+                    </Card>
+                    <Card title="Configuration" headStyle={{ backgroundColor: "#27ae60" }}>
+                        <Progress type="circle" percent={92} />
+                    </Card>
                     <div className="dashboard-categories">
                         <div className="dashboard-category">
                             <div className="dashboard-category-header">
-                                <div>
+                                    <div>
                                     Security
                                 </div>
                                 <div>
@@ -88,7 +99,7 @@ class Dashboard extends React.Component {
                                                 {rule.Violations.length === 0 ? "Compliant" : "Violations: " + rule.Violations.length  }
                                             </div>
                                             <div>
-                                                {rule.Violations.length !== 0 ? "View Violations": ""}
+                                                {rule.Violations.length !== 0 ? <Button>View Violations</Button> : ""}
                                             </div>
                                         </div>
                                     )
