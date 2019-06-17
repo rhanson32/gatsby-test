@@ -19,7 +19,7 @@ const Header = () => (
             <Link activeClassName="active-link" to="/app/users">Users</Link>
             <Link activeClassName="active-link" to="/app/settings">Settings</Link>
             <Link activeClassName="active-link" to="/app/support">Support</Link>
-            <Icon type="user" />
+            <div><Icon type="user" /></div>
             {
                 isLoggedIn() && (
                     <div

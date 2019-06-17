@@ -176,7 +176,7 @@ input  {
     justify-content: flex-start;
     align-items: flex-start;
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
 }
 
 .feature-cards {
@@ -420,16 +420,19 @@ input  {
 
 .settings-page {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     background-color: #F3F3F3;
     padding-bottom: 4rem;
+    
 }
 
 .settings-header {
-    width: 100%;
+    width: 85%;
+    height: 8rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     font-size: 3rem;
     margin: 1rem 0;
 }
@@ -1124,6 +1127,7 @@ input  {
 
 .rule-item {
     flex-wrap: wrap;
+    transition: height 2s;
 }
 
 .rule-item:first-child {
@@ -1343,6 +1347,10 @@ input  {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 95%;
+}
+
+.dashboard-card {
+    margin: 1rem;
 }
 
 .dashboard-category {

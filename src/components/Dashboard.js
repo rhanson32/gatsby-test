@@ -61,17 +61,14 @@ class Dashboard extends React.Component {
                 <Header />
                 <LeftMenu />
                 <div className="dashboard">
-                    <DashboardItem header="Security" percent="95" status="Passing" totals="95 / 100" />
-                    <DashboardItem header="Waste" percent="85" status="Passing" totals="85 / 100" />
-                    <DashboardItem header="Configuration" percent="77" status="Passing" totals="77 / 100" />
-                    <Card title="Security" headStyle={{ backgroundColor: "#27ae60" }}>
-                        <Progress type="circle" percent={50} />
+                    <Card style={{ margin: "1rem" }} title="Security" headStyle={{ backgroundColor: "#27ae60", color: "white", fontSize: "1.6rem" }}>
+                        <Progress type="circle" percent={50} width={300} />
                     </Card>
-                    <Card title="Waste" headStyle={{ backgroundColor: "#27ae60" }}>
-                        <Progress type="circle" percent={70} />
+                    <Card style={{ margin: "1rem" }} title="Waste" headStyle={{ backgroundColor: "#27ae60", color: "white", fontSize: "1.6rem" }}>
+                        <Progress type="circle" percent={70} width={300} />
                     </Card>
-                    <Card title="Configuration" headStyle={{ backgroundColor: "#27ae60" }}>
-                        <Progress type="circle" percent={92} />
+                    <Card style={{ margin: "1rem" }} title="Configuration" headStyle={{ backgroundColor: "#27ae60", color: "white", fontSize: "1.6rem" }}>
+                        <Progress type="circle" percent={92} width={300} />
                     </Card>
                     <div className="dashboard-categories">
                         <div className="dashboard-category">
