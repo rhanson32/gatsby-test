@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Table, Spin, Column } from 'antd';
+import { Button, Table, Spin, Column, Card } from 'antd';
 import Loading from './Loading';
 import RuleItem from './RuleItem';
 import Header from './Header';
@@ -137,8 +137,9 @@ class RulesPage extends React.Component {
                             )
                         }
                     </div>
-                
-                    <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                    <Card title="Rules" style={{ width: "90%", margin: "auto" }}>
+                        <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                    </Card>
                 </div> 
             </div>
         )

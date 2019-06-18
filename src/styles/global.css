@@ -986,6 +986,28 @@ input  {
     width: 95%;
 }
 
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-card-key {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dashboard-key-item {
+    padding: 0 1rem;
+}
+
+.dashboard-card-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
 .rules-page {
     display: flex;
     flex-wrap: wrap;
