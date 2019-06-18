@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Progress, Table } from 'antd';
+import { Button, Card, Progress, Table, Statistic } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
@@ -201,7 +201,14 @@ class Dashboard extends React.Component {
                                 })
                             }
                         </div>
-                        <Table size="middle" pagination={{ position: "top" }} style={{ width: "90%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                        <Card title="Security" style={{ width: "50%" }}>
+                            <Statistic title="Violations" value={25} />
+                            <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                        </Card>
+                        <Card title="Configuration" style={{ width: "50%" }}>
+                            <Statistic title="Violations" value={25} />
+                            <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                        </Card>
                     </div>
                 </div>
             </div>
