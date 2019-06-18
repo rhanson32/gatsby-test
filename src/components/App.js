@@ -25,6 +25,7 @@ const App = ({ children }) => (
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
             <PrivateRoute path="/app/settings" component={Settings} />
             <PrivateRoute path="/app/support" component={SupportPage} />
+            <PrivateRoute path="/app/history" component={History} />
             <Login path="app/login" />
             <SignUp path="app/signup" />
             <Features path="/app/features" />
