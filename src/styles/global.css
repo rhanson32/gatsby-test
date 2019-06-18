@@ -983,11 +983,13 @@ input  {
 .rules-page {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .accounts-page {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .accounts-header {
@@ -1486,6 +1488,7 @@ th, td {
     background-color: #F3F3F3;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     justify-content: flex-start;
 }
 
