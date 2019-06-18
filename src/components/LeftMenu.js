@@ -35,6 +35,11 @@ const LeftMenu = () => (
                 <Icon type="question-circle" style={{ fontSize: "2rem" }} />
             </Link>
         </div>
+        <div className="left-menu-item">
+            <Link to="/app/history">
+                <Icon type="history" style={{ fontSize: "2rem" }} />
+            </Link>
+        </div>
     </div>
 );
 

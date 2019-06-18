@@ -1184,6 +1184,16 @@ th, td {
     background-color: white;
 }
 
+.history-page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.history-main {
+    width: 95%;
+    background-color: #F3F3F3;
+}
+
 .button-unselected {
     background-color: #FFF;
     border: 1px solid #AAA;

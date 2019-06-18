@@ -16,6 +16,7 @@ import Settings from '../components/Settings'
 import Docs from '../components/Docs';
 import NotFound from '../components/NotFound';
 import Users from '../components/Users';
+import History from '../components/History';
 
 import store from '../store'
 
@@ -29,6 +30,7 @@ const App = () => (
             <PrivateRoute path="/app/users" component={Users} />
             <PrivateRoute path="/app/settings" component={Settings} />
             <PrivateRoute path="/app/support" component={SupportPage} />
+            <PrivateRoute path="/app/history" component={History} />
             <Login path="/app/login" />
             <SignUp path="/app/signup" />
             <Features path="/app/features" />
