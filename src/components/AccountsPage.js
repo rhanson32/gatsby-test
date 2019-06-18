@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Loading from './Loading';
+import { Spin, Button, Table } from 'antd';
 import AccountItem from './AccountItem';
 import Header from './Header'
 import EditAccount from './EditAccount';
@@ -41,15 +41,76 @@ class Accounts extends React.Component {
     }
 
     render() {
+        const dataSource = this.props.Accounts && this.props.Accounts.map((account, index) => {
+            return {
+                key: index.toString(),
+                name: account.Name,
+                category: account.Category,
+                accountId: account.AccountId,
+                provider: account.Provider,
+                state: account.Enabled ? "Monitor" : "Off",
+                status:  <Button.Group>
+                <Button type="link" name="off" id={account.AccountId} onClick={this.toggleRule} size="large" onClick={this.toggleRule}>
+                    Valid
+                </Button>
+                <Button name="monitor" id={account.AccountId} onClick={this.toggleRule} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
+                    Invalid
+                </Button>
+            </Button.Group>,
+                description: account.Description
+            }    
+        });
+          
+          const columns = [
+            {
+              title: 'Account ID',
+              dataIndex: 'accountId',
+              key: 'accountId',
+                sorter: (a, b) => a.accountId.length - b.accountId.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Provider',
+              dataIndex: 'provider',
+              key: 'provider',
+              filters: [
+                {
+                  text: 'AWS',
+                  value: 'AWS',
+                },
+                {
+                  text: 'Azure',
+                  value: 'Azure',
+                }
+              ],
+                onFilter: (value, record) => record.provider.indexOf(value) === 0,
+                sorter: (a, b) => a.provider.length - b.provider.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Status',
+              dataIndex: 'status',
+              key: 'status',
+              filters: [
+                {
+                  text: 'Valid',
+                  value: 'Valid',
+                },
+                {
+                  text: 'Invalid',
+                  value: 'Invalid',
+                }
+              ],
+              onFilter: (value, record) => record.state.indexOf(value) === 0
+            },
+          ];
         return (
             <div className="accounts-page">
                 <Header />
                 <LeftMenu />
                 <div className="accounts">
                     {
-                        this.props.Accounts.length === 0 && (
-                            <Loading type="spokes" color="33A" height={800} width={600} />
-                        )
+                        this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
                         this.props.Accounts.length !== 0 && (
@@ -87,6 +148,7 @@ class Accounts extends React.Component {
                         )
                     }
                 </div>
+                <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Table } from 'antd';
+import { Button, Table, Spin, Column } from 'antd';
 import Loading from './Loading';
 import RuleItem from './RuleItem';
 import Header from './Header';
@@ -107,7 +107,7 @@ class RulesPage extends React.Component {
                 },
                 {
                   text: 'Monitor',
-                  value: 'Waste',
+                  value: 'Monitor',
                 }
               ],
               onFilter: (value, record) => record.state.indexOf(value) === 0
@@ -119,25 +119,26 @@ class RulesPage extends React.Component {
                 <Header />
                 <LeftMenu />
                 <div className="rules">
-                {
-                    this.props.Rules.length === 0 && (
-                        <Loading type="spokes" color="333"/>
-                    )
-                }
-                <div className="rules-options">
                     {
-                        this.props.Rules.length !== 0 && (
-                            <div className="rules-bulk-switch">
-                                <ButtonGroup>
-                                    <Button size="large">Monitor All</Button>
-                                    <Button size="large">Remediate All</Button>
-                                </ButtonGroup>
-                            </div>
+                        this.props.Rules.length === 0 && (
+                            <Spin style={{ margin: "auto" }} size="large" />
                         )
                     }
-                </div>
+                    <div className="rules-options">
+                        {
+                            this.props.Rules.length !== 0 && (
+                                <div className="rules-bulk-switch">
+                                    <ButtonGroup>
+                                        <Button size="large">Disable All</Button>
+                                        <Button size="large">Monitor All</Button>
+                                        <Button size="large">Remediate All</Button>
+                                    </ButtonGroup>
+                                </div>
+                            )
+                        }
+                    </div>
                 
-                <Table title={() => <TableHeader title="Rules" />} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} /> 
+                    <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                 </div> 
             </div>
         )

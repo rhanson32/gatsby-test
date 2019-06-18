@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Icon, Progress } from 'antd';
+import { Button, Card, Progress } from 'antd';
 
-import DashboardItem from './DashboardItem';
 import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -56,6 +55,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+
         return (
             <div className="dashboard-page">
                 <Header />

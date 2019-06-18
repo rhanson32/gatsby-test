@@ -1174,10 +1174,10 @@ input  {
 }
 
 .table-header {
-    background-color: #0984e3;
+    background-color: transparent;
     margin: 0;
-    padding: 1rem;
-    color: white;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
 }
 
 th, td {
@@ -1187,6 +1187,10 @@ th, td {
 .button-unselected {
     background-color: #FFF;
     border: 1px solid #AAA;
+}
+
+.table-column {
+    background-color: blue;
 }
 
 .rules-options {

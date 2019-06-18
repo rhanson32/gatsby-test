@@ -37,11 +37,12 @@ class AddUser extends React.Component {
             let password = generator.generate({
                 length: 10,
                 numbers: true,
-                symbols: true
+                symbols: true,
+                strict: true
             });
             console.log(password);
             console.log(this.state.email);
-            this.props.addUser({ email: this.state.email, password, company: this.props.user['custom:company'] });
+            this.props.addUser({ email: this.state.email, password, company: this.props.user['custom:company'], group: this.state.selectedOption });
         }
     }
 

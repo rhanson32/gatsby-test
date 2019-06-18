@@ -20,7 +20,6 @@ class RuleItem extends React.Component {
         });
     }
     render() {
-        const ButtonGroup = Button.Group;
         return (
             <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
                 <div className="rule-name">
@@ -35,14 +34,14 @@ class RuleItem extends React.Component {
                     !this.props.rule.Header && (
                         <div className="rule-status">
                                 
-                                <ButtonGroup>
+                                <Button.Group>
                                     <Button style={{ backgroundColor: this.props.rule.Enabled ? "white" : "#27ae60", color: this.props.rule.Enabled ? "black" : "white" }} size="large" onClick={this.toggleRule}>
                                         OFF
                                     </Button>
                                     <Button style={{ backgroundColor: this.props.rule.Enabled ? "#27ae60" : "white", color: this.props.rule.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
                                         Monitor
                                     </Button>
-                                </ButtonGroup>
+                                </Button.Group>
                         </div>
                     )
                 } 

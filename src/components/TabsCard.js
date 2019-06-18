@@ -37,6 +37,17 @@ class TabsCard extends React.Component {
           tab: 'User',
         },
       ];
+
+      const dataSource = this.props.accounts.map((account, index) => {
+        return {
+            key: (index + 1).toString(),
+            accountId: account.AccountId,
+            provider: account.Provider,
+            roleName: account.RoleName,
+            status: account.Status,
+            type: account.Type
+        }
+    });
       
       const columns = [
           {
@@ -162,35 +173,12 @@ class TabsCard extends React.Component {
         {
             this.props.accounts.find(account => account.Type === 'Master') && (
                 <div className="account-list">
-                    <div className="account-header">
-                            <div className="account-item-field">
-                                Account ID
-                            </div>
-                            <div className="account-item-field">
-                                Provider
-                            </div>
-                            <div className="account-item-field">
-                                Status
-                            </div>
-                            <div className="account-item-field">
-                                Role Name
-                            </div>
-                            <div className="account-item-field">
-                                &nbsp;
-                            </div>
-                    
-                    </div>
-                    {
-                        this.props.accounts.find(account => account.Type === 'Master') && this.props.accounts.filter(account => account.Type === 'Master').map(account => {
-                            return <AccountItem key={account.AccountId} item={account} />
-                        })
-                    }
                     {
                         !this.props.accounts.find(account => account.Type === 'Master') && (
                             <AddAccount />
                         )
                     }
-                    <Table dataSource={dataSource} columns={columns} />
+                    <Table dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
                 </div>
             )
         }   
@@ -212,15 +200,6 @@ class TabsCard extends React.Component {
     </div>
       };
 
-    const dataSource = this.props.accounts.map((account, index) => {
-        return {
-            key: (index + 1).toString(),
-            accountId: account.AccountId,
-            provider: account.Provider,
-            roleName: account.RoleName,
-            status: account.Status
-        }
-    });
     return (
         <Card
           style={{ width: '100%' }}
