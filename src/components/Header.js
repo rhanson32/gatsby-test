@@ -16,7 +16,7 @@ class Header extends React.Component {
                     Purify Cloud
                 </div>
                 <div className="header-menu">
-
+                    <div>&nbsp;</div>
                     <div className="user-name"><Icon type="user" /> {this.props.user && this.props.user.email ? this.props.user.email : ''}</div>
                     {
                         isLoggedIn() && (
