@@ -990,6 +990,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    float: left;
 }
 
 .accounts-page {
