@@ -993,6 +993,12 @@ input  {
     float: left;
 }
 
+.rules-page:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .accounts-page {
     display: flex;
     flex-wrap: wrap;
