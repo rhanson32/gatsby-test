@@ -4,9 +4,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html,
 body {
-    margin: 0;
-    padding: 0;
+    height: 100%;
 }
 
 input  {
@@ -1013,6 +1013,7 @@ input  {
     flex-wrap: wrap;
     width: 100%;
     float: left;
+    min-height: 100%;
 }
 
 .rules-page:after {
