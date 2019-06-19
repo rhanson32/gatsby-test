@@ -34,8 +34,6 @@ input  {
     display: flex;
     justify-content: space-between;
     padding: 0.4rem 0;
-    height: 4rem;
-    float: left;
 }
 
 .header-title {
