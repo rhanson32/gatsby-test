@@ -115,8 +115,10 @@ class RulesPage extends React.Component {
           ];
         const ButtonGroup = Button.Group;
         return (
-            <div className="rules-page">
+            <div>
                 <Header />
+            <div className="rules-page">
+                
                 <LeftMenu />
                 <div className="rules">
                     {
@@ -141,6 +143,7 @@ class RulesPage extends React.Component {
                         <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                     </Card>
                 </div> 
+            </div>
             </div>
         )
     }
