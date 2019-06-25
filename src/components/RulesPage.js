@@ -139,9 +139,7 @@ class RulesPage extends React.Component {
                             )
                         }
                     </div>
-                    <Card title="Rules" style={{ width: "90%", margin: "auto" }}>
-                        <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
-                    </Card>
+                    <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                 </div> 
             </div>
             </div>

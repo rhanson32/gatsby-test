@@ -24,7 +24,7 @@ const App = () => (
     <Provider store={store}>
         <Router>
             <Home path="/" />
-            <PrivateRoute path="/app/dashboard" component={Dashboard} />
+            <PrivateRoute path="app/dashboard" component={Dashboard} />
             <PrivateRoute path="/app/rules" component={RulesPage} />
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
             <PrivateRoute path="/app/users" component={Users} />
@@ -36,7 +36,6 @@ const App = () => (
             <Features path="/app/features" />
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
-            <NotFound default />
         </Router>
     </Provider>
   )

@@ -11,7 +11,7 @@ class Header extends React.Component {
     render() {
     
         return (
-            <div className="header">
+            <div className="header" autoscroll="true">
                 <div className="header-title">
                     Purify Cloud
                 </div>

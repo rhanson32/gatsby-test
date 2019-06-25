@@ -984,6 +984,18 @@ input  {
     width: 95%;
 }
 
+.dashboard-cards {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+}
+
+.dashboard-card-statistics {
+    display: flex;
+}
+
 .dashboard-card-header {
     display: flex;
     justify-content: space-between;
@@ -1476,6 +1488,7 @@ th, td {
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
+    z-index: 2;
 }
 
 .left-menu-item:first-child {
