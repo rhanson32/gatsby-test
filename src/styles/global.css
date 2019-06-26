@@ -1431,6 +1431,8 @@ th, td {
     height: 2rem;
 }
 
+*/
+
 .dashboard {
     background-color: #F3F3F3;
     margin: 0 auto;
@@ -1480,8 +1482,6 @@ th, td {
     justify-content: space-around;
     color: white;
 }
-
-*/
 
 .left-menu {
     width: 5%;
