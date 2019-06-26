@@ -69,6 +69,20 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
     dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
 }
 
+export const fetchUsers = (id) => async (dispatch, getState) => {
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: getState().user.IdToken
+        }
+    }
+
+    const usersResponse = await purify.get('/users?id=' + id, myRequest).catch(err => console.log(err));
+    console.log(usersResponse);
+
+    dispatch({ type: 'FETCH_USERS', payload: usersResponse.data });
+}
+
 export const getAccounts = (id) => async (dispatch, getState) => {
 
     let myRequest = {

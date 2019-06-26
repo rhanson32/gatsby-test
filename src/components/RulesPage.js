@@ -55,10 +55,10 @@ class RulesPage extends React.Component {
                 id: rule.RuleId,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
-                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="large" onClick={this.toggleRule}>
+                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="medium" onClick={this.toggleRule}>
                     OFF
                 </Button>
-                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
+                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="medium" onClick={this.toggleRule}>
                     Monitor
                 </Button>
             </Button.Group>,

@@ -58,14 +58,9 @@ input  {
     padding: 0 0.8rem;
 }
 
-/*
-
 .external-header {
-    position: fixed;
-    top: 0%;
-    z-index: 999;
     width: 100vw;
-    height: 3.5rem;
+    height: 4rem;
     background-color: white;
     color: #103c42;
     display: flex;
@@ -74,6 +69,14 @@ input  {
     padding: 0.5rem 0;
     line-height: 2rem;
     border-bottom: 1px solid #EEE;
+}
+
+/*
+
+.external-header {
+    position: fixed;
+    top: 0%;
+    z-index: 999;
 }
 
 */
@@ -349,13 +352,18 @@ input  {
     margin-right: 1rem;
 }
 
+.progress-text {
+    font-size: 2.3rem;
+    color: slategray;
+}
+
 .support-screen {
-    padding: 2rem 0 0 0;
+    padding: 2rem 0 0 2rem;
     background-color: #F2F3F3;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
     width: 95%;
 }
@@ -715,8 +723,8 @@ input  {
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    padding-top: 4rem;
 }
 
 .login-header, .signup-header {
@@ -1295,7 +1303,7 @@ th, td {
 
 .rules-bulk-switch {
     display: flex;
-    padding: 2rem 0 1rem 0;
+    padding: 2rem 0 0 0;
     justify-content: flex-end;
     width: 60%;
 }
@@ -1626,6 +1634,14 @@ th, td {
 
 .support-list-attribute {
     width: 30%;
+}
+
+.dashboard-progress-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
 }
 
 /* ------------------------ Media Queries ------------------------------- */

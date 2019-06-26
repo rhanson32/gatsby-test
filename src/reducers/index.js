@@ -38,6 +38,18 @@ const ruleReducer = (state = [], action) => {
 
 };
 
+const usersReducer = (state = [], action) => {
+
+    switch(action.type)
+    {
+        case 'FETCH_USERS':
+            return [ ...action.payload ]
+        default:
+            return state;
+    }
+
+};
+
 const featureReducer = (state = [], action) => {
 
     switch(action.type)
@@ -134,5 +146,6 @@ export default combineReducers({
     menu: menuReducer,
     tickets: ticketReducer,
     mobile: mobileReducer,
-    documentation: documentationReducer
+    documentation: documentationReducer,
+    users: usersReducer
 });
