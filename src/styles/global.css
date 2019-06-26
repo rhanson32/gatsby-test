@@ -485,8 +485,6 @@ input  {
     padding: 1rem;
 }
 
-/*
-
 .feature-header {
     padding: 2rem 0;
     background-color: #74b9ff;
@@ -576,6 +574,8 @@ input  {
     width: 90%;
     line-height: 140%;
 }
+
+/*
 
 .not-found {
     display: flex;
