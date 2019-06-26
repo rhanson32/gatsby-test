@@ -2018,6 +2018,10 @@ th, td {
         width: 75%;
     }
 
+    .dashboard {
+        width: 95%;
+    }
+
     .settings-menu-item {
         width: 10rem;
     }
