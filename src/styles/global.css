@@ -1,3 +1,5 @@
+/*
+
 * {
     margin: 0;
     padding: 0;
@@ -25,11 +27,13 @@ input  {
     margin-top: 22rem;
 }
 
+
+
 .header {
     width: 100%;
-    background: #667db6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #667db6;  /* fallback for old browsers */ /*
+    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */ /*
+    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /*
     color: white;
     display: flex;
     justify-content: space-between;
@@ -701,9 +705,9 @@ input  {
 }
 
 .login-screen, .signup-screen {
-    background: #005C97;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #005C97;  /* fallback for old browsers */ /*
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */ /*
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /*
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -1620,6 +1624,8 @@ th, td {
 
 /* ------------------------ Media Queries ------------------------------- */
 
+/*
+
 @media screen and (max-width: 600px) {
 
     .feature-card {
@@ -1927,6 +1933,8 @@ th, td {
 
 /* -------------------------------------------------------------------- */
 
+/*
+
 @media screen and (min-width: 600px) and (max-width: 1200px) {
 
     .feature-focus-text {
@@ -2060,3 +2068,5 @@ th, td {
         margin-right: 1rem;
     }
 }
+
+*/
