@@ -124,6 +124,8 @@ input  {
     z-index: 100;
 }
 
+*/
+
 .settings-row {
     width: 100%;
     display: flex;
@@ -183,6 +185,8 @@ input  {
     width: 80%;
     margin: 0 auto;
 }
+
+/*
 
 .feature-cards {
     display: flex;
