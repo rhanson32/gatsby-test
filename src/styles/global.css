@@ -76,6 +76,8 @@ input  {
     border-bottom: 1px solid #EEE;
 }
 
+*/
+
 .right-menu {
     display: flex;
     justify-content: space-around;
@@ -123,8 +125,6 @@ input  {
     color: white;
     z-index: 100;
 }
-
-*/
 
 .settings-row {
     width: 100%;
@@ -186,8 +186,6 @@ input  {
     margin: 0 auto;
 }
 
-/*
-
 .feature-cards {
     display: flex;
     flex-wrap: wrap;
@@ -224,8 +222,6 @@ input  {
 .feature-card .feature-focus-header {
     width: 100%;
 }
-
-*/
 
 .settings-card {
     background-color: #F9F9f9;
@@ -369,8 +365,6 @@ input  {
     padding: 1rem 3rem;
 }
 
-/*
-
 .docs-menu {
     width: 15%;
     padding: 5rem 0.5rem;
@@ -435,8 +429,6 @@ input  {
     text-decoration: none;
     color: #333333;
 }
-
-*/
 
 .settings-page {
     display: flex;
@@ -585,6 +577,8 @@ input  {
     align-items: center;
 }
 
+*/
+
 .pricing-page {
     display: flex;
     flex-wrap: wrap;
@@ -598,8 +592,6 @@ input  {
     height: 30rem;
     border: 1px solid #EEE;
 }
-
-*/
 
 .add-user {
     display: flex;
@@ -1588,8 +1580,6 @@ th, td {
     padding: 0.5rem 1rem;
 }
 
-/*
-
 .empty-list {
     height: 50vh;
 }
@@ -1639,8 +1629,6 @@ th, td {
 }
 
 /* ------------------------ Media Queries ------------------------------- */
-
-/*
 
 @media screen and (max-width: 600px) {
 
@@ -1949,8 +1937,6 @@ th, td {
 
 /* -------------------------------------------------------------------- */
 
-/*
-
 @media screen and (min-width: 600px) and (max-width: 1200px) {
 
     .feature-focus-text {
@@ -2023,8 +2009,6 @@ th, td {
         width: 50%;
     }
 }
-
-*/
 
 @media screen and (min-width: 1200px) {
     .splash-subtitle {
