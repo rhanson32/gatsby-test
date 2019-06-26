@@ -649,8 +649,6 @@ input  {
     margin-right: 0.5rem;
 }
 
-/*
-
 .pricing-card-header {
     font-size: 2rem;
     height: 6rem;
@@ -719,9 +717,9 @@ input  {
 }
 
 .login-screen, .signup-screen {
-    background: #005C97;  /* fallback for old browsers */ /*
-    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */ /*
-    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /*
+    background: #005C97;  /* fallback for old browsers */ 
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */ 
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -991,8 +989,6 @@ input  {
     background-color: #F3F3F3;
     width: 95%;
 }
-
-*/
 
 .rules {
     display: flex;
@@ -1542,8 +1538,6 @@ th, td {
     width: 75%;
 }
 
-/*
-
 .pricing-feature-header {
     width: 100%;
     display: flex;
@@ -1553,8 +1547,6 @@ th, td {
     background-color: #F3F3F3;
     padding-left: 3rem;
 }
-
-*/
 
 .dashboard-page {
     margin: 0;
