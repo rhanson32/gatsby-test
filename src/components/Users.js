@@ -17,7 +17,6 @@ class Users extends React.Component {
                 <Header />
                 <LeftMenu />
                 <div className="users-main">
-               
                     <div>
                         <h1>User List</h1>
                     </div>
@@ -44,6 +43,7 @@ class Users extends React.Component {
                         <h1>Add User</h1>
                     </div>
                     <AddUser />
+                    
                 </div>
                 
             </div>

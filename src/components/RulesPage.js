@@ -122,9 +122,7 @@ class RulesPage extends React.Component {
                 <LeftMenu />
                 <div className="rules">
                     {
-                        this.props.Rules.length === 0 && (
-                            <Spin style={{ margin: "auto" }} size="large" />
-                        )
+                        this.props.Rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     <div className="rules-options">
                         {

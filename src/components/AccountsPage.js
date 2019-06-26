@@ -113,42 +113,11 @@ class Accounts extends React.Component {
                         this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.Accounts.length !== 0 && (
-                            <div className="account-list">
-                                <div className="account-header">
-                                    <div className="account-item-field">
-                                        Account ID
-                                    </div>
-                                    <div className="account-item-field">
-                                        Provider
-                                    </div>
-                                    <div className="account-item-field">
-                                        Status
-                                    </div>
-                                    <div className="account-item-field">
-                                        Role Name
-                                    </div>
-                                    <div className="account-item-field">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                                {
-                                    this.props.Accounts.map(account => {
-                                        if(account.RoleName !== "None")
-                                        {
-                                            return <AccountItem key={account.AccountId} item={account} />
-                                        }
-                                        else
-                                        {
-                                            return <EditAccount key={account.AccountId} item={account} />
-                                        }
-                                    })
-                                }
-                            </div>
-                        )
+                        this.props.Accounts.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                     }
+                   
                 </div>
-                <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                
             </div>
         )
     }
