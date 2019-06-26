@@ -599,6 +599,8 @@ input  {
     border: 1px solid #EEE;
 }
 
+*/
+
 .add-user {
     display: flex;
     flex-direction: column;
@@ -646,6 +648,8 @@ input  {
     width: 1rem;
     margin-right: 0.5rem;
 }
+
+/*
 
 .pricing-card-header {
     font-size: 2rem;
@@ -987,6 +991,8 @@ input  {
     background-color: #F3F3F3;
     width: 95%;
 }
+
+*/
 
 .rules {
     display: flex;
