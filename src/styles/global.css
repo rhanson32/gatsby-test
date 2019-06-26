@@ -436,6 +436,8 @@ input  {
     color: #333333;
 }
 
+*/
+
 .settings-page {
     display: flex;
     flex-direction: row;
@@ -482,6 +484,8 @@ input  {
     margin: 1rem;
     padding: 1rem;
 }
+
+/*
 
 .feature-header {
     padding: 2rem 0;
