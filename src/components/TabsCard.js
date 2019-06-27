@@ -202,7 +202,7 @@ class TabsCard extends React.Component {
 
     return (
         <Card
-          style={{ width: '100%' }}
+          style={{ width: '100%', minHeight: "60vh" }}
           tabList={tabListNoTitle}
           activeTabKey={this.state.noTitleKey}
           onTabChange={key => {

@@ -44,20 +44,16 @@ class Accounts extends React.Component {
         const dataSource = this.props.Accounts && this.props.Accounts.map((account, index) => {
             return {
                 key: index.toString(),
-                name: account.Name,
-                category: account.Category,
                 accountId: account.AccountId,
                 provider: account.Provider,
-                state: account.Enabled ? "Monitor" : "Off",
-                status:  <Button.Group>
+                role: account.RoleName,
+                status:  account.Status === "Valid" ?
                 <Button type="link" name="off" id={account.AccountId} onClick={this.toggleRule} size="large" onClick={this.toggleRule}>
                     Valid
-                </Button>
+                </Button> :
                 <Button name="monitor" id={account.AccountId} onClick={this.toggleRule} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
                     Invalid
                 </Button>
-            </Button.Group>,
-                description: account.Description
             }    
         });
           
@@ -103,6 +99,11 @@ class Accounts extends React.Component {
               ],
               onFilter: (value, record) => record.state.indexOf(value) === 0
             },
+            {
+              title: 'Role',
+              dataIndex: 'role',
+              key: 'role'
+            }
           ];
         return (
             <div className="accounts-page">
@@ -113,7 +114,7 @@ class Accounts extends React.Component {
                         this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.Accounts.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                        this.props.Accounts.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} />
                     }
                    
                 </div>

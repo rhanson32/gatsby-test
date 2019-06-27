@@ -65,11 +65,17 @@ class Users extends React.Component {
                     {
                         this.props.users.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />
                     }
+                    {
+                        this.props.users.length !== 0 && (
+                            <div>
+                                <h1>Add User</h1>
+                            </div>
+                        )
+                    }
+                    {
+                        this.props.users.length !== 0 && <AddUser />
+                    }
                     
-                    <div>
-                        <h1>Add User</h1>
-                    </div>
-                    <AddUser />
                     
                 </div>
                 
