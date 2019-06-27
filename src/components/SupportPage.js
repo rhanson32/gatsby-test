@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import SupportForm from './SupportForm';
 import LeftMenu from './LeftMenu';
 import SupportList from './SupportList';
+import SupportTabs from './SupportTabs';
 import { fetchTickets, postTicket, getCurrentUser } from '../actions';
 import { IoIosAdd } from 'react-icons/io';
 
@@ -52,31 +53,20 @@ class SupportPage extends React.Component {
         return (
             <div className="support-page">
                 <Header />
-                <LeftMenu />
+                <LeftMenu />     
                 {
                     this.props.tickets && (
                         <div className="support-screen">
                             <div className="support-screen-header">
                                 <h1>Support Center</h1>
                             </div>
-                            {this.state.showTickets && <SupportList count={this.props.tickets.length} items={this.props.tickets} />} 
-                            {!this.state.showTickets && <SupportForm onSubmit={this.submit} />}
-                            <div className="support-headers">
-                                <button className="add-button support-header" onClick={this.showForm}>
-                                    <IoIosAdd /> Create Case
-                                </button>
-                                <button className="enabled-button support-header" onClick={this.showTickets}>
-                                    My Cases
-                                </button>
-                            </div>
+                            <SupportTabs />
                         </div> 
                     )
-                }
-                
+                }  
             </div>
         )
-    }
-    
+    }  
 }
 
 const mapStateToProps = state => {

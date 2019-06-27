@@ -8,8 +8,7 @@ const History = () => (
         <LeftMenu />
         <div className="history-main">
             History!!!
-        </div>
-       
+        </div>    
     </div>
 );
 

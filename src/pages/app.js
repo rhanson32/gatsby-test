@@ -14,7 +14,6 @@ import Pricing from '../components/Pricing'
 import SupportPage from '../components/SupportPage'
 import Settings from '../components/Settings'
 import Docs from '../components/Docs';
-import NotFound from '../components/NotFound';
 import Users from '../components/Users';
 import History from '../components/History';
 
