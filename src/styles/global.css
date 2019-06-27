@@ -1003,7 +1003,7 @@ input  {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    width: 90%;
+    width: 95%;
     margin: auto;
 }
 
@@ -1465,6 +1465,7 @@ th, td {
 
 .dashboard-card {
     margin: 1rem;
+    width: 46%;
 }
 
 .dashboard-category {
@@ -1656,6 +1657,18 @@ th, td {
 
     .feature-card {
         width: 100%;
+    }
+
+    .progress-items {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-card {
+        width: 90%;
+    }
+
+    .dashboard-cards {
+        flex-wrap: wrap;
     }
 
     .rules, .accounts {
