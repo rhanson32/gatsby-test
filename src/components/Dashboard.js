@@ -27,6 +27,15 @@ class Dashboard extends React.Component {
                 }, 0),
                 configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
+                }, 0),
+                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
                 }, 0)
             })
             console.log(this.state);
@@ -43,8 +52,18 @@ class Dashboard extends React.Component {
                 }, 0),
                 configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
+                }, 0),
+                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                     return accumulator + currentValue;
+                 }, 0),
+                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
                 }, 0)
             });
+            
         }
     }
 
@@ -123,30 +142,32 @@ class Dashboard extends React.Component {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
                             <Card style={{ margin: "2rem auto", width: "90%" }} title={<div className="dashboard-card-header"><div>Category Metrics</div> <div className="dashboard-card-key"><div className="dashboard-key-item">Red</div><div className="dashboard-key-item">Blue</div><div className="dashboard-key-item">Green</div></div></div>} headStyle={{ fontSize: "1.6rem" }}>
+                                <div className="progress-items">
                                 <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)}%<br />Security</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)} width={300} strokeColor={"green"} />
                                 <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)}%<br />Waste</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)} width={300} />
                                 <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Configuration' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Configuration").length)}%<br />Configuration</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Configuration' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Configuration").length)} width={300} strokeColor={"red"} />
+                                </div>
                             </Card>
                             <div className="dashboard-categories">
                                 <div className="dashboard-cards">
                                     <Card headStyle={{ backgroundColor: "green", color: 'white' }} title="Security" style={{ width: "48%", margin: "1%" }}>
                                         <div className="dashboard-card-statistics">
                                             <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />
-                                            <Statistic title="Assets Evaluated" value={25} style={{ margin: "0.5rem 1rem" }} />
+                                            <Statistic title="Assets Evaluated" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                         </div>
                                         <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     <Card headStyle={{ backgroundColor: "blue", color: 'white' }} title="Configuration" style={{ width: "48%", margin: "1%" }}>
                                     <div className="dashboard-card-statistics">
                                         <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />
-                                        <Statistic title="Assets Evaluated" value={25} style={{ margin: "0.5rem 1rem" }} />
+                                        <Statistic title="Assets Evaluated" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                     </div>
                                         <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     <Card headStyle={{ backgroundColor: "purple", color: 'white' }} title="Waste" style={{ width: "48%", margin: "1%" }}>
                                     <div className="dashboard-card-statistics">
                                         <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
-                                        <Statistic title="Assets Evaluated" value={25} style={{ margin: "0.5rem 1rem" }} />
+                                        <Statistic title="Assets Evaluated" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                     </div>
                                         <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>

@@ -1308,6 +1308,12 @@ th, td {
     width: 60%;
 }
 
+.progress-items {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
 .rules-bulk-switch a {
     padding: 1rem;
     margin: 1rem;

@@ -240,7 +240,8 @@ export const getRules = (user) => async dispatch => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S
                 }
-            })
+            }),
+            Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
         }
     });
     dispatch({ type: 'FETCH_RULES', payload: Items });
