@@ -987,6 +987,7 @@ input  {
     flex-direction: column;
     background-color: #F3F3F3;
     width: 95%;
+    padding: 2rem 0 0 2rem;
 }
 
 .rules {
@@ -1520,7 +1521,6 @@ th, td {
 }
 
 .left-menu-item {
-    padding: 1rem 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1530,10 +1530,12 @@ th, td {
 
 .left-menu-item a:hover {
     color: purple;
+    background-color: slategrey;
 }
 
 .left-menu-item a:link, .left-menu-item a:visited {
     color: #333;
+    padding: 1rem 0;
 }
 
 .left-menu-item a {

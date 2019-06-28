@@ -110,11 +110,14 @@ class Accounts extends React.Component {
                 <Header />
                 <LeftMenu />
                 <div className="accounts">
+                  <div className="support-screen-header">
+                      <h1>Accounts</h1>
+                  </div>
                     {
                         this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.Accounts.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} />
+                        this.props.Accounts.length !== 0 && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} />
                     }
                    
                 </div>

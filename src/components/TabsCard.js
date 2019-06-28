@@ -1,9 +1,8 @@
+import React from 'react';
 import { Card, Table, Button } from 'antd';
 import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
-import AccountItem from './AccountItem';
-import React from 'react';
 
 class TabsCard extends React.Component {
   state = {
@@ -178,7 +177,7 @@ class TabsCard extends React.Component {
                             <AddAccount />
                         )
                     }
-                    <Table dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
+                    <Table pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
                 </div>
             )
         }   
