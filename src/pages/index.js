@@ -15,13 +15,11 @@ Amplify.configure({
 
 
 const IndexPage = () => (
-    <div>
-        <App>
-            <Helmet>
-                <title>Clean up your cloud</title>
-            </Helmet>
-        </App>
-    </div>
+    <App>
+        <Helmet>
+            <title>Clean up your cloud</title>
+        </Helmet>
+    </App>
 )
 
 export default IndexPage;

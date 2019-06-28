@@ -56,7 +56,7 @@ class Users extends React.Component {
                 <LeftMenu />
                 <div className="users-main">
                     
-                    <div>
+                    <div className="support-screen-header">
                         <h1>User List</h1>
                     </div>
                     {

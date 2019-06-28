@@ -266,7 +266,6 @@ input  {
 .support-form {
     display: flex;
     flex-direction: column;
-    width: 70%;
     justify-content: flex-start;
     align-items: center;
     background-color: #FFF;
@@ -1085,6 +1084,7 @@ input  {
     justify-content: flex-start;
     align-items: center;
     width: 95%;
+    padding: 2rem 0 0 2rem;
     background-color: #F3F3F3;
 }
 
@@ -1621,7 +1621,6 @@ th, td {
 }
 
 .support-list {
-    width: 70%;
     background-color: #FFF;
     padding: 1rem 0;
     border: 1px solid #DDD;

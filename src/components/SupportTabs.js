@@ -8,7 +8,7 @@ import React from 'react';
 
 class SupportTabs extends React.Component {
   state = {
-    noTitleKey: 'General',
+    noTitleKey: 'Tickets',
     showKey: false
   };
 
