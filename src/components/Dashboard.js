@@ -4,7 +4,7 @@ import { Spin, Card, Progress, Table, Statistic } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
-import { getCurrentUser, getRules } from '../actions';
+import { getCurrentUser, getRules, getAccounts, fetchUsers } from '../actions';
 
 import 'antd/dist/antd.css';
 
@@ -14,10 +14,10 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount = async () => {
-        if(!this.props.User.email)
+        if(!this.props.user.email)
         {
             await this.props.getCurrentUser();
-            await this.props.getRules(this.props.User);
+            await this.props.getRules(this.props.user);
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
@@ -38,11 +38,12 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             })
-            console.log(this.state);
+            this.props.getAccounts(this.props.user.CustomerId);
+            this.props.fetchUsers(this.props.user.CustomerId);
         }
         else
         {
-            await this.props.getRules(this.props.User);
+            await this.props.getRules(this.props.user);
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
@@ -63,12 +64,12 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             });
-            
+            this.props.getAccounts(this.props.user.CustomerId);
+            this.props.fetchUsers(this.props.user.CustomerId);
         }
     }
 
     render() {
-        console.log(this.state);
         const dataSourceSecurity = this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => {
             return {
                 key: index.toString(),
@@ -141,7 +142,7 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
-                            <Card style={{ margin: "2rem auto", width: "90%" }} title={<div className="dashboard-card-header"><div>Category Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card style={{ margin: "2rem auto", width: "90%", maxWidth: "1400px" }} title={<div className="dashboard-card-header"><div>Category Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
                                 <div className="progress-items">
                                 <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)}%<br />Security</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)} width={300} strokeColor={"green"} />
                                 <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)}%<br />Waste</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)} width={300} />
@@ -190,9 +191,9 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        User: state.user,
+        user: state.user,
         rules: state.rules
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, fetchUsers })(Dashboard);
