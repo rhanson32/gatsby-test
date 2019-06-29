@@ -1536,6 +1536,7 @@ th, td {
 .left-menu-item a:link, .left-menu-item a:visited {
     color: #333;
     padding: 1rem 0;
+    width: 100%;
 }
 
 .left-menu-item a {

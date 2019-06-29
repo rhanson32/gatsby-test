@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Table, Spin, Column, Card } from 'antd';
 import Loading from './Loading';
-import RuleItem from './RuleItem';
 import Header from './Header';
-import TableHeader from './TableHeader';
 import { saveUser, getRules, getCurrentUser, toggleRule } from '../actions';
 import LeftMenu from './LeftMenu';
 
