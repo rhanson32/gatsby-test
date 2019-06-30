@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import AddUser from './AddUser';
 import { getCurrentUser, fetchUsers } from '../actions';
 import { Table, Spin } from 'antd';
 import LeftMenu from './LeftMenu';
+import AddUserForm from './AddUserForm';
 
 class Users extends React.Component {
 
@@ -63,7 +63,7 @@ class Users extends React.Component {
                         this.props.users.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.users.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />
+                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />
                     }
                     {
                         this.props.users.length !== 0 && (
@@ -72,13 +72,11 @@ class Users extends React.Component {
                             </div>
                         )
                     }
-                    {
-                        this.props.users.length !== 0 && <AddUser />
-                    }
+                    <div className="add-user-form">
+                        <AddUserForm />
+                    </div>
                     
-                    
-                </div>
-                
+                </div>   
             </div>
         )
     }

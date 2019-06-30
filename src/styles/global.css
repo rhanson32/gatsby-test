@@ -206,6 +206,12 @@ input  {
     border: 1px solid #DDD;
 }
 
+.add-user-form {
+    border: 1px solid #AAA;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+}
+
 .feature-card .feature-focus-image {
     width: 100%;
 }
