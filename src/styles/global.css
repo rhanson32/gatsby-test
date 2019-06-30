@@ -71,16 +71,6 @@ input  {
     border-bottom: 1px solid #EEE;
 }
 
-/*
-
-.external-header {
-    position: fixed;
-    top: 0%;
-    z-index: 999;
-}
-
-*/
-
 .right-menu {
     display: flex;
     justify-content: space-around;
@@ -116,12 +106,11 @@ input  {
     align-items: center;
     font-size: 4rem;
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     background-image: url(../../static/workplace.jpg);
     background-size: cover;
     color: #FFF;
     z-index: 1;
-    margin-top: 3.5rem;
 }
 
 .pricing-header-text {
@@ -193,7 +182,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    width: 90%;
+    width: 100%;
     margin: 4rem auto;
 }
 
@@ -395,7 +384,6 @@ input  {
 .docs-main {
     display: flex;
     flex-direction: row;
-    margin-top: 4rem;
 }
 
 .docs-menu-header {
@@ -492,8 +480,9 @@ input  {
 
 .feature-header {
     padding: 2rem 0;
-    background-color: #74b9ff;
     opacity: 0.8;
+    background-image: url('../../static/drip.jpg');
+    max-height: 75vh;
 }
 
 .feature-header-title {
@@ -502,6 +491,7 @@ input  {
     font-size: 4rem;
     display: flex;
     justify-content: center;
+    color: white;
 }
 
 .feature-header-description {
@@ -542,11 +532,12 @@ input  {
 
 .feature-focus {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: auto;
     padding: 4rem 0 2rem 0;
+    width: 80%;
+    margin: auto;
 }
 
 .feature-focus-text {
@@ -554,11 +545,12 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-right: 2rem;
+    margin: 0;
+    width: 45%;
 }
 
 .feature-focus-image {
-    width:30%;
+    width:45%;
     height: 20rem;
 }
 
@@ -730,6 +722,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .login-header, .signup-header {
@@ -761,7 +754,6 @@ input  {
     background-color: white;
     border-radius: 5px;
     height: auto;
-    margin-top: 10rem;
     margin: auto;
 }
 
@@ -1612,7 +1604,7 @@ th, td {
     background-image: url(../../static/optimization-gears.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 85vh;
+    height: 70vh;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -1622,7 +1614,7 @@ th, td {
 .splash-overlay {
     height: 100%;
     width: 100%;
-    opacity: 0.9;
+    opacity: 0.95;
     background-color: #3d5878;
     display: flex;
     justify-content: center;

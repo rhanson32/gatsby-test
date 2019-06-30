@@ -1,4 +1,4 @@
-import { Card, Table, Button } from 'antd';
+import { Card } from 'antd';
 import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';

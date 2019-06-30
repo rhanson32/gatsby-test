@@ -96,7 +96,7 @@ class Login extends React.Component {
         <ExternalHeader />
         {
           !this.state.forgotPassword && !this.state.acceptCode && (
-            <div className={this.props.mobileMenu ? "login-form mobile-menu-showing" : "login-form mobile-menu-hidden"}>
+            <div className="login-form">
               <div className="login-header">PurifyCloud</div>
               {this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
@@ -130,7 +130,7 @@ class Login extends React.Component {
         
         {
           this.state.forgotPassword && (
-            <div className="forgot-password-form mobile-menu-hidden">
+            <div className="forgot-password-form">
               <p>Enter your email below to set a new password.</p>
               <div className="login-container">
               <label>Email</label>
@@ -150,7 +150,7 @@ class Login extends React.Component {
         }
         {
           this.state.acceptCode && (
-            <div className="login-form mobile-menu-hidden">
+            <div className="login-form">
               <div className="login-container">
               <p>Enter the confirmation code received by email and a new password to set.</p>
               
