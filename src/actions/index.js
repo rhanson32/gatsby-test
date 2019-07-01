@@ -108,6 +108,19 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
 }
 
+export const submitSubscription = async (id) => {
+
+    let myRequest = {
+        body: { id }
+    };
+
+    console.log(id);
+
+    const response = await purify.post('/stripe', myRequest);
+
+    console.log(response);
+}
+
 export const getSettings = (customerId) => async (dispatch, getState) => {
     let myRequest = {
         body: { customerId },
