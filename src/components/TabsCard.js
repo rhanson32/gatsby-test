@@ -53,7 +53,7 @@ class TabsCard extends React.Component {
       
       const columns = [
           {
-              title: 'Account Id',
+              title: 'Master Account Id',
               dataIndex: 'accountId',
               key: 'accountId'
           },
@@ -209,7 +209,7 @@ class TabsCard extends React.Component {
 
     return (
         <Card
-          style={{ width: '100%', minHeight: "60vh" }}
+          style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
           tabList={tabListNoTitle}
           activeTabKey={this.state.noTitleKey}
           onTabChange={key => {

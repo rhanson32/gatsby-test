@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Table, Spin, Column, Card } from 'antd';
 import Loading from './Loading';
 import Header from './Header';
-import { saveUser, getRules, getCurrentUser, toggleRule } from '../actions';
+import { saveUser, getRules, getCurrentUser, toggleRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
 
 class RulesPage extends React.Component {
@@ -23,7 +23,6 @@ class RulesPage extends React.Component {
         else {
             this.props.getRules(this.props.User);
         }
-        
     }
 
     toggleRule = (event) => {
@@ -32,10 +31,25 @@ class RulesPage extends React.Component {
         console.log(event.target.id);
     }
 
+    disableAll = () => {
+        console.log("Disabling all rules!");
+        this.props.modifyRules("disable", this.props.User.CustomerId);
+    }
+
+    monitorAll = () => {
+        console.log("Monitoring all rules!");
+        this.props.modifyRules('monitor', this.props.User.CustomerId);
+    }
+
+    remediateAll = () => {
+        console.log("Remediating all rules!");
+        this.props.modifyRules('remediate', this.props.User.CustomerId);
+    }
+
     toggleFilterMenu = () => {
         this.setState({
             showFilters: !this.state.showFilters
-        })
+        });
     }
 
     handleUpdate = (event) => {
@@ -53,10 +67,10 @@ class RulesPage extends React.Component {
                 id: rule.RuleId,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
-                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="medium" onClick={this.toggleRule}>
+                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default" onClick={this.toggleRule}>
                     OFF
                 </Button>
-                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="medium" onClick={this.toggleRule}>
+                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="default" onClick={this.toggleRule}>
                     Monitor
                 </Button>
             </Button.Group>,
@@ -115,30 +129,31 @@ class RulesPage extends React.Component {
         return (
             <div>
                 <Header />
-            <div className="rules-page">
-                
-                <LeftMenu />
-                <div className="rules">
-                    {
-                        this.props.Rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
-                    }
-                    <div className="rules-options">
+                <div className="rules-page">
+                    
+                    <LeftMenu />
+                    <div className="rules">
                         {
-                            this.props.Rules.length !== 0 && (
-                                <div className="rules-bulk-switch">
-                                    <ButtonGroup>
-                                        <Button size="large">Disable All</Button>
-                                        <Button size="large">Monitor All</Button>
-                                        <Button size="large">Remediate All</Button>
-                                    </ButtonGroup>
+                            this.props.Rules.length === 0 && <Spin style={{ margin: "auto", width: "100%" }} size="large" />
+                        }
+                        {this.props.Rules.length !== 0 && (
+                                <div className="rules-options">
+                                    <div className="rules-header">
+                                        <h2>Rules</h2>
+                                    </div>
+                                    <div className="rules-bulk-switch">
+                                        <ButtonGroup>
+                                            <Button size="large" onClick={this.disableAll}>Disable All</Button>
+                                            <Button size="large" onClick={this.monitorAll}>Monitor All</Button>
+                                            <Button size="large" onClick={this.remediateAll}>Remediate All</Button>
+                                        </ButtonGroup>
+                                    </div>
                                 </div>
                             )
                         }
-                    </div>
-                    {this.props.Rules.length !== 0 && <Table pagination={{ position: "top" }} style={{ width: "90%", margin: "auto", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />}
-                    
-                </div> 
-            </div>
+                        {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1400px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                    </div> 
+                </div>
             </div>
         )
     }
@@ -151,4 +166,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, toggleRule })(RulesPage);
+export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, toggleRule, modifyRules })(RulesPage);

@@ -44,6 +44,7 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     min-height: 300px;
+    border: 1px solid #CCC;
 }
 
 .payments h1 {
@@ -444,6 +445,10 @@ input  {
 
 .support-screen-header {
     width: 100%;
+    padding: 1rem 3rem;
+}
+
+.rules-header {
     padding: 1rem 3rem;
 }
 
@@ -1348,11 +1353,11 @@ th, td {
 }
 
 .rules-options {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .filter {
@@ -1382,10 +1387,14 @@ th, td {
 
 .rules-bulk-switch {
     display: flex;
-    padding: 2rem 0 0 0;
     justify-content: flex-end;
-    width: 60%;
 }
+
+
+.rules-header h2 {
+    margin-bottom: 0;
+}
+
 
 .progress-items {
     display: flex;
@@ -1607,8 +1616,7 @@ th, td {
 }
 
 .left-menu-item a:hover {
-    color: purple;
-    background-color: slategrey;
+    background-color: #DDD;
 }
 
 .left-menu-item a:link, .left-menu-item a:visited {

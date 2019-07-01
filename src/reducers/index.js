@@ -32,6 +32,8 @@ const ruleReducer = (state = [], action) => {
             return [ ...action.payload ]
         case 'TOGGLE_RULE':
             return [ ...action.payload ]
+        case 'UPDATE_RULES':
+            return [ ...action.payload ]
         default:
             return state;
     }

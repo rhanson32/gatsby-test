@@ -112,6 +112,60 @@ export const getAccounts = (id) => async (dispatch, getState) => {
    
 }
 
+export const modifyRules = (action, id) => async (dispatch, getState) => {
+    let myRequest = {
+        body: { 
+            action,
+            id
+         }
+    };
+
+    let rules = getState().rules;
+    if(action === 'disable')
+    {
+        rules = rules.map(rule => {
+            return {
+                ...rule,
+                Enabled: false
+            }
+        });
+    }
+    else if(action === 'monitor')
+    {
+        rules = rules.map(rule => {
+            return {
+                ...rule,
+                Enabled: true
+            }
+        });
+    }
+    console.log(getState());
+
+    dispatch({ type: 'UPDATE_RULES', payload: rules });
+
+    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
+
+    console.log(response);
+
+    const Items = response.data.map(item => {
+        return {
+            CustomerId: item.CustomerId.S,
+            RuleId: item.RuleId.S,
+            Name: item.Name.S,
+            Category: item.Category.S,
+            Description: item.Description.S,
+            Enabled: item.Enabled.BOOL,
+            Violations: item.Violations.L.map(violation => {
+                return {
+                    ViolationDate: violation.M.ViolationDate.S
+                }
+            }),
+            Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
+        }
+    });
+    
+}
+
 export const submitSubscription = async (id) => {
 
     let myRequest = {

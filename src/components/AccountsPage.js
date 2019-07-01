@@ -117,7 +117,7 @@ class Accounts extends React.Component {
                         this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.Accounts.length !== 0 && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "4rem auto" }} dataSource={dataSource} columns={columns} />
+                        this.props.Accounts.length !== 0 && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
                    
                 </div>
