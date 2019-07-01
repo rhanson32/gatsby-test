@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 const NotFoundPage = () => (
   <div>
-    <Header />
+    Test
   </div>
 )
 
