@@ -1,55 +1,39 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import React from 'react';
+import { Button, Form, Input } from 'antd';
 
-const validate = values => {
-  const errors = {}
-  if (!values.headline) {
-    errors.headline = 'Required'
-  }
-  if (!values.description) {
-    errors.description = 'Required'
-  } 
-  
-  return errors
+const { TextArea } = Input;
+
+class DemoForm extends React.Component  {
+
+
+    handleSubmit = () => {
+        console.log("Submitted!")
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            console.log('Received values of form: ', values);
+          }
+        });
+    }
+
+    render() {
+        const { getFieldDecorator } = this.props.form;
+        return (
+            <Form layout="inline" onSubmit={this.handleSubmit}>
+              <div className="form-field">
+              Headline <Input />
+              </div>
+              <div className="form-field">
+              Description
+              <TextArea rows={4} />
+              </div>
+              <div className="form-submit">
+              <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
+              </div>
+            </Form>
+        )
+    }
 }
 
+const SupportForm = Form.create({ name: 'supportForm' })(DemoForm);
 
-const SupportForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props
-  return (
-    <form className="support-form" onSubmit={handleSubmit}>
-      <div className="form-headline">
-        <label>Headline</label>
-        <div className="form-input">
-          <Field
-            name="headline"
-            component="input"
-            type="text"
-            placeholder="Brief summary of the issue"
-            
-          />
-        </div>
-      </div>
-      <div className="form-description">
-        <label>Description</label>
-        <div className="support-textarea">
-          <Field className="form-textarea" name="description" component="textarea" placeholder="Detailed account of the issue" />
-        </div>
-      </div>
-      <div className="support-form-buttons">
-        <button className="remove-button" type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear
-        </button>
-        <button className="add-button" type="submit" disabled={pristine || submitting}>
-          Submit
-        </button>
-        
-      </div>
-    </form>
-  )
-}
-
-export default reduxForm({
-  form: 'support', // a unique identifier for this form
-  validate
-})(SupportForm)
+export default SupportForm;

@@ -93,19 +93,23 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     }
 
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
-    
-    const Items = accountResponse.data.Items.map(item => {
-        return {
-            AccountId: item.AccountId.S,
-            Provider: item.Provider.S,
-            Role: (item.Role && item.Role.S) || 'None',
-            Type: item.Type.S || 'Secondary',
-            RoleName: (item.RoleName && item.RoleName.S) || 'None',
-            CustomerId: item.CustomerId.S,
-            Status: item.Status.S
-        }
-    });
-    dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
+
+    if(accountResponse)
+    {
+        const Items = accountResponse.data.Items.map(item => {
+            return {
+                AccountId: item.AccountId.S,
+                Provider: item.Provider.S,
+                Role: (item.Role && item.Role.S) || 'None',
+                Type: item.Type.S || 'Secondary',
+                RoleName: (item.RoleName && item.RoleName.S) || 'None',
+                CustomerId: item.CustomerId.S,
+                Status: item.Status.S
+            }
+        });
+        dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
+    }
+   
 }
 
 export const submitSubscription = async (id) => {

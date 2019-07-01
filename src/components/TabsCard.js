@@ -3,6 +3,7 @@ import { Card, Table, Button } from 'antd';
 import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
+import RegionsForm from './RegionsForm';
 
 class TabsCard extends React.Component {
   state = {
@@ -22,6 +23,8 @@ class TabsCard extends React.Component {
   };
 
   render() {
+
+   
     const tabListNoTitle = [
         {
           key: 'General',
@@ -75,7 +78,7 @@ class TabsCard extends React.Component {
         General: <div>
             <div className="settings-row">
             <div className="settings-left-side">
-                Operating Mode
+                Default Operating Mode
             </div>
             <Button.Group>
                 <Button>
@@ -171,16 +174,21 @@ class TabsCard extends React.Component {
         } 
         {
             this.props.accounts.find(account => account.Type === 'Master') && (
-                <div className="account-list">
-                    {
-                        !this.props.accounts.find(account => account.Type === 'Master') && (
-                            <AddAccount />
-                        )
-                    }
-                    <Table pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
+                <div className="settings-row">
+                    <div className="account-list">
+                        {
+                            !this.props.accounts.find(account => account.Type === 'Master') && (
+                                <AddAccount />
+                            )
+                        }
+                        <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
+                    </div>
                 </div>
             )
-        }   
+        } 
+        <div className="settings-row">
+            <RegionsForm />
+        </div>  
       </div>,
         User:  <div>
         <div className="settings-row">

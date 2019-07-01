@@ -23,16 +23,39 @@ input  {
     margin-top: 3.5rem;
 }
 
+.payments-screen {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F3F3F3;
+}
+
 .mobile-menu-showing {
     margin-top: 22rem;
 }
 
 .payments {
     width: 37%;
-    background-color: #ECECEC;
-    padding: 2rem 1rem;
+    background-color: white;
+    padding: 0 1rem 1rem 1rem;
     margin: auto;
     min-width: 400px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+}
+
+.payments h1 {
+    padding: 1rem;
+    width: 100%;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    justify-content: space-around;
 }
 
 .StripeElement {
@@ -235,6 +258,7 @@ input  {
     border: 1px solid #AAA;
     padding: 1rem 2rem;
     border-radius: 5px;
+    background-color: #F7F7F7;
 }
 
 .feature-card .feature-focus-image {
@@ -302,6 +326,26 @@ input  {
     background-color: #FFF;
     border-radius: 5px;
     border: 1px solid #DDD;
+}
+
+.form-field {
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field:first-child {
+    margin-top: 2rem;
+}
+
+.form-field input, .form-field textarea  {
+    margin-top: 0.5rem;
+}
+
+.form-submit {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .support-form-buttons {
