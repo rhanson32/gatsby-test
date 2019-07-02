@@ -63,14 +63,10 @@ class Users extends React.Component {
                         this.props.users.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
+                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
                     {
-                        this.props.users.length !== 0 && (
-                            <div>
-                                <h1>Add User</h1>
-                            </div>
-                        )
+                        this.props.users.length !== 0 && <h1>Add User</h1>
                     }
                     <div className="add-user-form">
                         <AddUserForm />

@@ -27,7 +27,7 @@ class ExternalHeader extends React.Component {
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
                     <Link activeClassName="active-link" to="/app/pricing">Pricing</Link> 
                     <Link activeClassName="active-link" to="/app/docs">Docs</Link>       
-                </div>  
+                </div>
                 <div className="right-menu">
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>

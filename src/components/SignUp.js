@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { IoEmail } from 'react-icons/io';
+import { Input, Button } from 'antd';
 
 const initialState = {
   username: ``,
@@ -63,30 +64,31 @@ class SignUp extends React.Component {
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <div className="signup-container">
                   <label>Email</label>
-                  <input
+                  <Input 
                     onChange={this.handleUpdate}
                     placeholder='you@yourcompany.com'
                     name='email'
                     value={this.state.email}
+                    allowClear
                   />
                   <label>Password</label>
-                  <input
+                  <Input 
                     onChange={this.handleUpdate}
                     placeholder='Password'
                     name='password'
                     value={this.state.password}
                     type='password'
+                    allowClear
                   />
                   <label>Company</label>
-                  <input
+                  <Input 
                     onChange={this.handleUpdate}
                     placeholder='YourCorp'
                     name='company'
                     value={this.state.company}
+                    allowClear
                   />
-                  <button className="signup-button" onClick={this.signUp}>
-                    <span className="signup-button-text">Sign Up</span>
-                  </button>
+                  <Button onClick={this.signUp} type="primary">Sign Up</Button>
                   </div>  
                 </div>
           )

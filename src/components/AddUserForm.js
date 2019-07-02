@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
     Form,
     Input,
@@ -8,6 +9,7 @@ import {
     Button,
     AutoComplete,
   } from 'antd';
+  import { addUser } from '../actions';
   
   const { Option } = Select;
   const AutoCompleteOption = AutoComplete.Option;
@@ -58,6 +60,10 @@ import {
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
+          if(values.email !== '' && values['group'] !== '')
+          {
+              this.props.addUser(values);
+          }
         }
       });
     };
@@ -104,7 +110,7 @@ import {
               rules: [
                 {
                   type: 'email',
-                  message: 'The input is not valid Email!',
+                  message: 'Email format is not valid',
                 },
                 {
                   required: true,
@@ -114,7 +120,7 @@ import {
             })(<Input />)}
           </Form.Item>
           <Form.Item label="Role">
-            {getFieldDecorator('radio-group')(
+            {getFieldDecorator('group')(
                 <Radio.Group>
                     <Radio value="Administrator">Administrator</Radio>
                     <Radio value="Auditor">Auditor</Radio>
@@ -131,6 +137,6 @@ import {
     }
   }
   
-export default Form.create({ name: 'register' })(RegistrationForm);
+export default Form.create({ name: 'register' })(connect(null, { addUser })(RegistrationForm));
 
   

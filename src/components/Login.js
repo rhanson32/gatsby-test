@@ -67,7 +67,7 @@ class Login extends React.Component {
   login = async() => {
     const { username, password } = this.state
     try {
-      await Auth.signIn(username, password)
+      await Auth.signIn(username, password);
       const user = await Auth.currentAuthenticatedUser()
       
       const userInfo = {
@@ -81,6 +81,11 @@ class Login extends React.Component {
     } catch (err) {
       this.setState({ error: err })
       console.log('error...: ', err)
+      console.log(this.state);
+      if(err === 'not authenticated')
+      {
+        this.setState({forgotPassword: true });
+      }
     }
   }
 
@@ -134,6 +139,7 @@ class Login extends React.Component {
                   value={this.state.code}
                   onKeyPress={this.handleKeyPress}
                 />
+                <Button onClick={this.requestPassword}>Resend Code</Button>
                 <label>
                   New Password
                 </label>

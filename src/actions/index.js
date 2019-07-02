@@ -3,15 +3,15 @@ import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
     baseURL: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test',
-    timeout: 5000
+    timeout: 8000
 });
 
-export const postTicket = (values, user) => async (dispatch, getState) => {
-    console.log(values)
+export const postTicket = (values) => async (dispatch, getState) => {
+    console.log(values);
     let myRequest = {
         body: {
             ...values,
-            CustomerId: user.CustomerId
+            CustomerId: getState().user.CustomerId
         },
         headers: {
             Authorization: getState().user.IdToken
@@ -447,10 +447,12 @@ export const showDocumentation = (page) => async dispatch => {
     dispatch({ type: 'CHANGE_PAGE', payload: page});
 }
 
-export const addUser = (user) => async dispatch => {
+export const addUser = (user) => async (dispatch, getState) => {
     let myRequest = {
         body: {
-            ...user
+            ...user,
+            company: getState().user['custom:company'],
+            password: 'Test1234!'
         }
     }
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));

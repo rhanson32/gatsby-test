@@ -1,39 +1,44 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { connect } from 'react-redux';
+import { Button, Input } from 'antd';
+import { postTicket } from '../actions';
 
 const { TextArea } = Input;
 
-class DemoForm extends React.Component  {
+class SupportForm extends React.Component  {
 
+  state = {
+    headline: ``,
+    description: ``
+  }
+
+    handleUpdate = (event) => {
+      this.setState({
+        [event.target.name]: event.target.value,
+      })
+    }
 
     handleSubmit = () => {
         console.log("Submitted!")
-        this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
-        });
+        this.props.postTicket(this.state);
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
         return (
-            <Form layout="inline" onSubmit={this.handleSubmit}>
+            <div>
               <div className="form-field">
-              Headline <Input />
+              <label>Headline</label> <Input name="headline" value={this.state.headline} onChange={this.handleUpdate} />
               </div>
               <div className="form-field">
-              Description
-              <TextArea rows={4} />
+              <label>Description</label>
+                <TextArea name="description" value={this.state.description} rows={4} onChange={this.handleUpdate} />
               </div>
               <div className="form-submit">
-              <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
+                <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
               </div>
-            </Form>
+            </div>
         )
     }
 }
 
-const SupportForm = Form.create({ name: 'supportForm' })(DemoForm);
-
-export default SupportForm;
+export default connect(null, { postTicket })(SupportForm);

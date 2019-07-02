@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { navigate } from '@reach/router';
+import { Button } from 'antd';
 
 class ActionCall extends React.Component {
+
+    navigateSignUp = () => {
+        navigate('/app/signup');
+    }
 
     render() {
         return (
@@ -9,9 +15,9 @@ class ActionCall extends React.Component {
                 <div className="action-header">
                     Try Purify for free
                 </div>
-                <Link className="action-button" to="/app/signup">
-                    Sign up
-                </Link>
+                <Button size="large" type="primary" onClick={this.navigateSignUp}>
+                    Sign Up
+                </Button>
             </div>
         )
     }

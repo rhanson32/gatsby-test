@@ -19,13 +19,13 @@ class Pricing extends React.Component {
                 <div className="pricing-cards">
                     <div className="pricing-card">
                         <div className="pricing-card-header">
-
+                            Features
                         </div>
                         <div className="pricing-card-price">
                             $0
                         </div>
                         <div className="pricing-card-description">
-
+                            Description
                         </div>
                         <div className="pricing-card-footer">
 
@@ -74,15 +74,87 @@ class Pricing extends React.Component {
                         <div className="pricing-card-description">
                             Number of Users
                         </div>
-                    </div>
-                    <div className="pricing-card">
                         <div className="pricing-card-description">
-                            5 Users
+                            Number of Accounts
                         </div>
                     </div>
                     <div className="pricing-card">
                         <div className="pricing-card-description">
-                            Unlimited Users
+                            5
+                        </div>
+                        <div className="pricing-card-description">
+                            Unlimited
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Unlimited
+                        </div>
+                        <div className="pricing-card-description">
+                            Unlimited
+                        </div>
+                    </div>
+                    <div className="pricing-feature-header">
+                        Features
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Active Rules
+                        </div>
+                        <div className="pricing-card-description">
+                            Cloud Providers
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            10
+                        </div>
+                        <div className="pricing-card-description">
+                            1
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                        Unlimited
+                        </div>
+                        <div className="pricing-card-description">
+                            1 (AWS, Azure coming in late 2019)
+                        </div>
+                    </div>
+                    <div className="pricing-feature-header">
+                        User Authentication
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Purify user accounts
+                        </div>
+                        <div className="pricing-card-description">
+                            SAML-based Single Sign-On (SSO)
+                        </div>
+                        <div className="pricing-card-description">
+                            Two-factor Authentication
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Unlimited
+                        </div>
+                        <div className="pricing-card-description">
+                            N/A
+                        </div>
+                        <div className="pricing-card-description">
+                            Standard
+                        </div>
+                    </div>
+                    <div className="pricing-card">
+                        <div className="pricing-card-description">
+                            Unlimited
+                        </div>
+                        <div className="pricing-card-description">
+                            Available
+                        </div>
+                        <div className="pricing-card-description">
+                            Standard
                         </div>
                     </div>
                 </div>

@@ -242,9 +242,9 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    width: 80%;
     margin: 4rem auto;
     max-width: 1400px;
+    width: 80%;
 }
 
 .feature-card {
@@ -582,7 +582,7 @@ input  {
 
 .feature-header-description {
     width: 60%;
-    margin: 2rem auto;
+    margin: 4rem auto;
     font-size: 2rem;
     line-height: 160%;
 }
@@ -680,7 +680,6 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     width: 33.1%;
-    height: 30rem;
     border: 1px solid #EEE;
 }
 
@@ -828,7 +827,7 @@ input  {
     padding: 1rem;
 }
 
-.login-container button, .login-container a {
+.login-container button, .login-container a, .signup-container button, .signup-container a {
     margin: 0.5rem 0;
 }
 
@@ -927,7 +926,8 @@ input  {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height: 30vh;
+    width: 100%;
     background-color: #6c5ce7;
 }
 
@@ -1758,6 +1758,10 @@ th, td {
         width: 65%;
     }
 
+    .feature-cards {
+        width: 100%;
+    }
+
     .rules-options {
         width: 100%;
     }
@@ -2134,6 +2138,10 @@ th, td {
 
     .settings-menu-item {
         width: 10rem;
+    }
+
+    .feature-cards {
+        width: 1100px;
     }
 
     .mobile-menu-button {
