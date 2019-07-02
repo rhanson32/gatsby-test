@@ -6,17 +6,12 @@ import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
 import { saveUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
+import { Input, Button } from 'antd';
 
 Amplify.configure({
   Auth: {
-      
-      // REQUIRED - Amazon Cognito Region
       region: 'us-east-1',
-
-      // OPTIONAL - Amazon Cognito User Pool ID
       userPoolId: 'us-east-1_wMiZuxWyI',
-
-      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
       userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'
   }
 });
@@ -100,50 +95,27 @@ class Login extends React.Component {
               <div className="login-header">PurifyCloud</div>
               {this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
-              <label>Email</label>
-              <input
-                onChange={this.handleUpdate}
-                placeholder='Email'
-                name='username'
-                value={this.state.username}
-                onKeyPress={this.handleKeyPress}
-              />
-              <label>Password</label>
-              <input
-                onChange={this.handleUpdate}
-                placeholder='Password'
-                name='password'
-                value={this.state.password}
-                type='password'
-                onKeyPress={this.handleKeyPress}
-              />
-              <a onClick={this.forgotPassword}>
-                Forgot password? 
-              </a>
-              <button className="login-button" onClick={this.login}>
-                <span className="login-button-text">Sign In</span>
-              </button>
+                <label>Email</label>
+                <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
+                <label>Password</label>
+                <Input.Password placeholder="Password" onChange={this.handleUpdate} name="password" value={this.state.password} onKeyPress={this.handleKeyPress} />
+                <a className="forgot-password" onClick={this.forgotPassword}>
+                  Forgot password? 
+                </a>
+                <Button type="primary" onClick={this.login}>Sign In</Button>
               </div>
             </div>
           )
         }
-        
         {
           this.state.forgotPassword && (
             <div className="forgot-password-form">
-              <p>Enter your email below to set a new password.</p>
+              <div className="login-header">Forgotten Password Form</div>
               <div className="login-container">
-              <label>Email</label>
-              <input
-                onChange={this.handleUpdate}
-                placeholder='user@company.com'
-                name='username'
-                value={this.state.username}
-                onKeyPress={this.handleKeyPress}
-              />
-              <button className="add-button password-button" onClick={this.requestPassword}>
-                Submit
-              </button>
+                <p>Enter your email below to set a new password.</p>
+                <label>Email</label>
+                <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
+                <Button onClick={this.requestPassword} type="primary">Submit</Button>
               </div>
             </div>
           )
@@ -151,31 +123,28 @@ class Login extends React.Component {
         {
           this.state.acceptCode && (
             <div className="login-form">
+              <div className="login-header">Set New Password</div>
               <div className="login-container">
-              <p>Enter the confirmation code received by email and a new password to set.</p>
-              
-              <label>Confirmation Code</label>
-              <input
-                onChange={this.handleUpdate}
-                placeholder='291736'
-                name='code'
-                value={this.state.code}
-                onKeyPress={this.handleKeyPress}
-              />
-              <label>
-                New Password
-              </label>
-              <input
-                onChange={this.handleUpdate}
-                placeholder='New password'
-                name='password'
-                type='password'
-                value={this.state.password}
-                onKeyPress={this.handleKeyPress}
-              />
-              <button className="add-button" onClick={this.submitPassword}>
-                Submit
-              </button>
+                <p>Enter the confirmation code received by email and a new password to set.</p>
+                <label>Confirmation Code</label>
+                <Input 
+                  onChange={this.handleUpdate}
+                  placeholder='e.g. 291736'
+                  name='code'
+                  value={this.state.code}
+                  onKeyPress={this.handleKeyPress}
+                />
+                <label>
+                  New Password
+                </label>
+                <Input
+                  onChange={this.handleUpdate}
+                  placeholder='New password'
+                  name='password'
+                  value={this.state.password}
+                  onKeyPress={this.handleKeyPress}
+                />
+                <Button onClick={this.submitPassword} type="primary">Submit</Button>
               </div>
             </div>
           )

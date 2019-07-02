@@ -24,12 +24,21 @@ class DocsMenu extends React.Component {
         this.props.showDocumentation('AddingUsers');
     }
 
+    showWorks = () => {
+        this.props.showDocumentation('HowItWorks');
+    }
+
     render() {
 
         return (
     <div className="docs-menu">
         <div className="docs-menu-header">
             Where To Begin
+        </div>
+        <div className="docs-menu-item">
+            <a onClick={this.showWorks}>
+                How It Works
+            </a>
         </div>
         <div className="docs-menu-item">
             <a onClick={this.showPrerequisites}>
@@ -41,9 +50,6 @@ class DocsMenu extends React.Component {
                 Signing Up
             </a>
             
-        </div>
-        <div className="docs-menu-item">
-            Confirmations
         </div>
         <div className="docs-menu-header">
             One-Time Setup
