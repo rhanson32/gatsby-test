@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Spin, Card, Progress, Table, Statistic } from 'antd';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
+import { isLoggedIn } from '../utils/auth'
+import { Spin, Card, Progress, Table, Statistic, Modal } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
@@ -9,9 +12,11 @@ import { getCurrentUser, getRules, getAccounts, fetchUsers } from '../actions';
 import 'antd/dist/antd.css';
 
 class Dashboard extends React.Component {
-
     state = {
-    }
+        ModalText: 'Content of the modal',
+        visible: false,
+        confirmLoading: false,
+      };
 
     componentDidMount = async () => {
         if(!this.props.user.email)
@@ -40,6 +45,9 @@ class Dashboard extends React.Component {
             })
             this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId);
+
+            if(this.props.user.Status === "Cancelled")
+            this.setState({ visible: true })
         }
         else
         {
@@ -66,10 +74,23 @@ class Dashboard extends React.Component {
             });
             this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId);
+
+            if(this.props.user.Status === "Cancelled")
+            this.setState({ visible: true })
         }
     }
 
+    handleCancel = () => {
+        Auth.signOut();
+    }
+    handleOk = () => {
+        navigate('/app/login');
+    }
+
     render() {
+        if (!isLoggedIn()) navigate('/app/dashboard');
+        const { visible, confirmLoading, ModalText } = this.state;
+
         const dataSourceSecurity = this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => {
             return {
                 key: index.toString(),
@@ -133,9 +154,21 @@ class Dashboard extends React.Component {
           ];
         return (
             <div className="dashboard-page">
+
                 <Header />
                 <LeftMenu />
-
+                {this.props.user.Status === "Cancelled" && (
+                    <Modal
+                    title="Inactive Account"
+                    visible={visible}
+                    onOk={this.handleOk}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleCancel}
+                    cancelText="Logout"
+                  >
+                    <p>{ModalText}</p>
+                  </Modal>
+                )}
                 {
                     this.props.rules.length !== 0 && (
                         <div className="dashboard">

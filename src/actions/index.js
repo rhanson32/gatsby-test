@@ -112,6 +112,20 @@ export const getAccounts = (id) => async (dispatch, getState) => {
    
 }
 
+export const cancelCustomer = () => async (dispatch, getState) => {
+    const user = getState().user;
+    console.log(user);
+
+    let myRequest = {
+        body: {
+            CustomerId: user.CustomerId
+        }
+    };
+
+    const response = await purify.post('customers', myRequest).catch(err => console.log(err));
+    console.log(response);
+}
+
 export const modifyRules = (action, id) => async (dispatch, getState) => {
     let myRequest = {
         body: { 
@@ -248,11 +262,15 @@ export const getCurrentUser = () => async dispatch => {
 
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
 
+    console.log(customerResponse);
+
     const userInfo = {
         ...user.attributes,
         IdToken: user.signInUserSession.idToken.jwtToken,
         CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
-        Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None"
+        Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
+        Plan: customerResponse.data[0].Plan.S,
+        Status: customerResponse.data[0].Status.S
     }
 
     dispatch({ type: 'STORE_USER', payload: userInfo })

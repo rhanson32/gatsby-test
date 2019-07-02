@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, Table, Button } from 'antd';
+import { Card, Table, Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
 import RegionsForm from './RegionsForm';
+import { cancelCustomer } from '../actions';
 
 class TabsCard extends React.Component {
   state = {
@@ -11,20 +12,44 @@ class TabsCard extends React.Component {
     showKey: false
   };
 
-  showKey = () => {
-    this.setState({
-        showKey: !this.state.showKey
-    })
-}
+  constructor(props) {
+      super(props);
+      console.log(this);
+      this.cancelAccount = this.cancelAccount.bind(this)
+  }
+
+    showKey = () => {
+        this.setState({
+            showKey: !this.state.showKey
+        })
+    }
 
   onTabChange = (key, type) => {
     console.log(key, type);
     this.setState({ [type]: key });
   };
 
+  cancelAccount = () => {
+      console.log("Cancelling account...");
+      this.props.cancelCustomer();
+  }
+
+  showConfirm = () => {
+    const { confirm } = Modal;
+    confirm({
+        title: 'Are you sure you want to cancel your account?',
+        content: 'When clicked the OK button, this dialog will be closed after 1 second',
+        onOk () {
+          console.log(this);
+        },
+        onCancel() {},
+      });
+  }
+
   render() {
 
-   
+    
+
     const tabListNoTitle = [
         {
           key: 'General',
@@ -116,7 +141,7 @@ class TabsCard extends React.Component {
         </div>
         <div className="settings-row">
             <div className="cancel-account">
-                <Button type="danger">
+                <Button type="danger" onClick={this.cancelAccount}>
                     Cancel My Account
                 </Button>
                     
@@ -230,4 +255,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(TabsCard);
+export default connect(mapStateToProps, { cancelCustomer })(TabsCard);
