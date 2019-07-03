@@ -1,43 +1,51 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Button, Table, Spin, Column, Card } from 'antd';
 
-const SupportList = (props) => (
-    <div className={props.count < 3 ? "support-list empty-list" : "support-list"}>
-        <div className="support-list-item">
-            <div className="support-list-attribute">
-                Ticket Number
-            </div>
-            <div className="support-list-attribute">
-                Headline
-            </div>
-            <div className="support-list-attribute">
-                Description
-            </div>
-        </div>
-        {
-            props.items.map(item => {
-                return (
-                    <div key={item.TicketId} className="support-list-item">
-                        <div className="support-list-attribute">
-                            {item.TicketId}
-                        </div>
-                        <div className="support-list-attribute">
-                            {item.Headline || "No Description"}
-                        </div>
-                        <div className="support-list-attribute">
-                            {item.Description || "No Description"}
-                        </div>
-                    </div>
-                )
-            })
-        }
-        {
-            props.items.length === 0 && (
-                <div className="empty-ticket-list">
-                        no tickets have been submitted yet
-                </div>
-            )
-        }
-    </div>
-)
+class SupportList extends React.Component {
 
-export default SupportList;
+    render() {
+        const dataSource = this.props.tickets.map((ticket, index) => {
+            return {
+                key: index.toString(),
+                headline: ticket.Headline,
+                description: ticket.Description,
+                id: ticket.TicketId 
+            }    
+        });
+
+        const columns = [
+            {
+              title: 'Id',
+              dataIndex: 'id',
+              key: 'id'
+            },
+            {
+              title: 'Headline',
+              dataIndex: 'headline',
+              key: 'headline'
+            },
+            {
+              title: 'Description',
+              dataIndex: 'description',
+              key: 'description'
+            }
+          ];
+
+        return (
+            <div>
+
+        {this.props.tickets.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "100%", margin: "auto", minHeight: "300px", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} />} 
+
+         </div>
+        )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        tickets: state.tickets
+    }
+}
+
+export default connect(mapStateToProps, null)(SupportList);

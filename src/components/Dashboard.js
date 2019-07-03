@@ -8,6 +8,7 @@ import { Spin, Card, Progress, Table, Statistic, Modal } from 'antd';
 import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers } from '../actions';
+import { VictoryChart, VictoryBar, VictoryAxis, VictoryTheme, VictoryPie } from 'victory';
 
 import 'antd/dist/antd.css';
 
@@ -88,8 +89,61 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        console.log(this.state);
+        console.log((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)
         if (!isLoggedIn()) navigate('/app/dashboard');
         const { visible, confirmLoading, ModalText } = this.state;
+
+        const data = [
+            {category: 'Security', violations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {category: 'Waste', violations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {category: 'Configuration', violations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)}
+        ];
+
+        const securityPie = [
+            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {
+                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0) - this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0)
+            }
+        ];
+
+        const wastePie = [
+            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {
+                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0) - this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0)
+            }
+        ];
+
+        const configurationPie = [
+            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {
+                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0) - this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0)
+            }
+        ];
 
         const dataSourceSecurity = this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => {
             return {
@@ -175,12 +229,53 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
+                            <Card style={{ margin: "2rem auto", width: "90%", maxWidth: "1400px" }} title={<div className="dashboard-card-header"><div>Overall Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
+                            <Progress percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} />
+                           <div className="progress-items">
+                            <div className="victory-chart">
+                                <div>Security</div>
+                                <VictoryPie
+                                    animate={{ duration: 2000 }}
+                                    innerRadius={100}
+                                    radius={140}
+                                    data={securityPie}
+                                    colorScale={['#d63031', '#00b894']}
+                                    labels={(d) => d.y}
+                                    labelRadius={110}
+                                    style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                    />
+                                
+                            </div>
+                            <div className="victory-chart">
+                                <VictoryPie
+                                     animate={{ duration: 2000 }}
+                                     innerRadius={100}
+                                     radius={140}
+                                     data={wastePie}
+                                     colorScale={['#d63031', '#00b894']}
+                                     labels={(d) => d.y}
+                                     labelRadius={110}
+                                     style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                    />
+                                    <div>Waste</div>
+                            </div>
+                            <div className="victory-chart">
+                                <VictoryPie
+                                     animate={{ duration: 2000 }}
+                                     innerRadius={100}
+                                     radius={140}
+                                     data={configurationPie}
+                                     colorScale={['#d63031', '#00b894']}
+                                     labels={(d) => d.y}
+                                     labelRadius={140}
+                                     style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                    />
+                                    <div>Configuration</div>
+                            </div>
+                            </div>
+                            </Card>
                             <Card style={{ margin: "2rem auto", width: "90%", maxWidth: "1400px" }} title={<div className="dashboard-card-header"><div>Category Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
-                                <div className="progress-items">
-                                <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)}%<br />Security</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length)} width={300} strokeColor={Math.round(this.props.rules.filter(rule => rule.Category === 'Security' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Security").length) > 90 ? "green" : "red"} />
-                                <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)}%<br />Waste</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Waste' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Waste").length)} width={300} strokeColor={"red"} />
-                                <Progress style={{ margin: "1rem" }} type="dashboard" format={() => <div className="progress-text">{Math.round(this.props.rules.filter(rule => rule.Category === 'Configuration' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Configuration").length)}%<br />Configuration</div>} percent={Math.round(this.props.rules.filter(rule => rule.Category === 'Configuration' && rule.Violations.length === 0).length * 100 / this.props.rules.filter(rule => rule.Category === "Configuration").length)} width={300} strokeColor={"red"} />
-                                </div>
+                            
                             </Card>
                             <div className="dashboard-categories">
                                 <div className="dashboard-cards">

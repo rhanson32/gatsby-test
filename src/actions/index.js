@@ -19,10 +19,11 @@ export const postTicket = (values) => async (dispatch, getState) => {
     };
     console.log(myRequest);
 
-    purify.post('/tickets', myRequest).then(
-        response => {
-            console.log(response);
-    }).catch(err => console.log(err));
+    const ticketResponse = await purify.post('/tickets', myRequest).catch(err => console.log(err));
+
+    console.log(ticketResponse);
+
+    dispatch({ type: 'POST_TICKET', payload: ticketResponse.data });
 }
 
 export const postAccount = (item, customerId) => async (dispatch, getState) => {

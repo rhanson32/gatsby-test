@@ -100,6 +100,8 @@ const ticketReducer = (state = [], action) => {
     {
         case 'FETCH_TICKETS':
             return [ ...action.payload ]
+        case 'POST_TICKET': 
+            return [ ...action.payload ]
         default:
             return state;
     }

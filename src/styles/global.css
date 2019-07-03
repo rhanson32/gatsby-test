@@ -33,6 +33,10 @@ input  {
     margin-top: 22rem;
 }
 
+.victory-chart {
+    max-width: 300px;
+}
+
 .payments {
     width: 37%;
     background-color: white;
