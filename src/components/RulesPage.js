@@ -151,7 +151,7 @@ class RulesPage extends React.Component {
                                 </div>
                             )
                         }
-                        {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1400px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                        {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
                     </div> 
                 </div>
             </div>

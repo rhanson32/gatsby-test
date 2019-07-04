@@ -34,7 +34,14 @@ input  {
 }
 
 .victory-chart {
-    max-width: 300px;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.dashboard-chart-label {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .payments {
@@ -1071,6 +1078,7 @@ input  {
     flex-wrap: wrap;
     background-color: #F3F3F3;
     width: 95%;
+    padding-top: 2rem;
 }
 
 .dashboard-cards {
@@ -1088,6 +1096,7 @@ input  {
 .dashboard-card-header {
     display: flex;
     justify-content: space-between;
+    font-size: 1.6rem;
 }
 
 .dashboard-card-key {
@@ -1349,6 +1358,7 @@ th, td {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
 }
 
 .filter {
@@ -1379,6 +1389,7 @@ th, td {
 .rules-bulk-switch {
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 1rem;
 }
 
 

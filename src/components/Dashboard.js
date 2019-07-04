@@ -229,53 +229,53 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
-                            <Card style={{ margin: "2rem auto", width: "90%", maxWidth: "1400px" }} title={<div className="dashboard-card-header"><div>Overall Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
-                            <Progress percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} />
-                           <div className="progress-items">
+                            <Card style={{ margin: "2rem", maxWidth: "1200px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                <div className="dashboard-card-header"><div>PurifyScore</div></div>
+                                <Progress format={percent => percent} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} />
+                            </Card>
+                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "2rem", width: "90%", maxWidth: "800px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <div className="dashboard-card-header"><div>Category Metrics</div></div>
+                            <div className="progress-items">
                             <div className="victory-chart">
-                                <div>Security</div>
                                 <VictoryPie
                                     animate={{ duration: 2000 }}
-                                    innerRadius={100}
-                                    radius={140}
+                                    innerRadius={90}
+                                    radius={150}
                                     data={securityPie}
                                     colorScale={['#d63031', '#00b894']}
                                     labels={(d) => d.y}
-                                    labelRadius={110}
-                                    style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                    labelRadius={105}
+                                    style={{ labels: { fill: "white", fontSize: 24, fontWeight: "bold" } }}
                                     />
-                                
+                                    <div className="dashboard-chart-label">Security</div>
                             </div>
                             <div className="victory-chart">
                                 <VictoryPie
                                      animate={{ duration: 2000 }}
-                                     innerRadius={100}
-                                     radius={140}
+                                     innerRadius={90}
+                                     radius={150}
                                      data={wastePie}
                                      colorScale={['#d63031', '#00b894']}
                                      labels={(d) => d.y}
-                                     labelRadius={110}
+                                     labelRadius={105}
                                      style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
                                     />
-                                    <div>Waste</div>
+                                    <div className="dashboard-chart-label">Waste</div>
                             </div>
                             <div className="victory-chart">
                                 <VictoryPie
                                      animate={{ duration: 2000 }}
-                                     innerRadius={100}
-                                     radius={140}
+                                     innerRadius={90}
+                                     radius={150}
                                      data={configurationPie}
                                      colorScale={['#d63031', '#00b894']}
                                      labels={(d) => d.y}
-                                     labelRadius={140}
+                                     labelRadius={105}
                                      style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
                                     />
-                                    <div>Configuration</div>
+                                    <div className="dashboard-chart-label">Configuration</div>
                             </div>
                             </div>
-                            </Card>
-                            <Card style={{ margin: "2rem auto", width: "90%", maxWidth: "1400px" }} title={<div className="dashboard-card-header"><div>Category Metrics</div></div>} headStyle={{ fontSize: "1.6rem" }}>
-                            
                             </Card>
                             <div className="dashboard-categories">
                                 <div className="dashboard-cards">
