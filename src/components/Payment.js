@@ -12,7 +12,7 @@ class Payment extends Component {
             <LeftMenu />
       <StripeProvider apiKey="pk_test_Kqcfc50dM018fN5E1HgPe7Ob002W4ops7h">
         <div className="payments">
-          <h1>Purchase Standard Plan</h1>
+          <h1>Upgrade to Standard</h1>
           <Elements>
             <CheckoutForm />
           </Elements>

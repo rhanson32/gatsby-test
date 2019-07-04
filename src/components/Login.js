@@ -64,7 +64,7 @@ class Login extends React.Component {
     })
   }
 
-  login = async() => {
+  login = async () => {
     const { username, password } = this.state
     try {
       await Auth.signIn(username, password);

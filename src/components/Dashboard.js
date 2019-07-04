@@ -233,7 +233,7 @@ class Dashboard extends React.Component {
                                 <div className="dashboard-card-header"><div>PurifyScore</div></div>
                                 <Progress format={percent => percent} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} />
                             </Card>
-                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "2rem", width: "90%", maxWidth: "800px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "2rem", width: "90%", maxWidth: "800px", borderRadius: "5px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                             <div className="dashboard-card-header"><div>Category Metrics</div></div>
                             <div className="progress-items">
                             <div className="victory-chart">
@@ -285,7 +285,7 @@ class Dashboard extends React.Component {
                                             <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />
                                             <Statistic title="Assets Evaluated" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                         </div>
-                                        <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                        <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     </div>
                                     <div className="dashboard-card">
@@ -294,7 +294,7 @@ class Dashboard extends React.Component {
                                         <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />
                                         <Statistic title="Assets Evaluated" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                     </div>
-                                        <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                        <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     </div>
                                     <div className="dashboard-card">
@@ -303,7 +303,7 @@ class Dashboard extends React.Component {
                                                 <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
                                                 <Statistic title="Assets Evaluated" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                             </div>
-                                            <Table size="middle" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                            <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                         </Card>
                                     </div>
                                 </div>
