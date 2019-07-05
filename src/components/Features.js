@@ -26,7 +26,7 @@ class Features extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="features-page">
                 <ExternalHeader />
                 {this.props.features.length === 0 && <Spin style={{ margin: "auto", width: "100vw", height: "100vh" }} size="large" />}
                 {this.props.features.length > 0 && <FeatureHeader />}

@@ -563,6 +563,10 @@ input  {
     justify-content: space-around;
 }
 
+.features-page {
+    width: 100%;
+}
+
 .settings-provider-option-header {
     padding: 4rem 0;
     font-size: 2rem;

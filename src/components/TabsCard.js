@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal } from 'antd';
+import { Card, Table, Button, Modal, Input } from 'antd';
 import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
@@ -228,6 +228,21 @@ class TabsCard extends React.Component {
                     Dark
                 </Button>
             </Button.Group>
+        </div>
+        <div className="settings-row">
+            <div className="settings-left-side">
+                Change Password
+            </div>
+            <div className="settings-switch">
+                <label>Old Password</label>
+                <Input />
+                <label>New Password</label>
+                <Input />
+                <Button>
+                    Submit
+                </Button>
+            </div>
+            
         </div>
     </div>
       };
