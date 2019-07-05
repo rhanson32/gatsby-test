@@ -231,10 +231,12 @@ class Dashboard extends React.Component {
                             }
                             <Card style={{ margin: "2rem", maxWidth: "1200px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <div className="dashboard-card-header"><div>PurifyScore</div></div>
-                                <Progress format={percent => percent} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} />
+                                <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
                             </Card>
                             <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "2rem", width: "90%", maxWidth: "800px", borderRadius: "5px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                            <div className="dashboard-card-header"><div>Category Metrics</div></div>
+                            <div className="dashboard-card-header">
+                                <div>Category Metrics</div>
+                            </div>
                             <div className="progress-items">
                             <div className="victory-chart">
                                 <VictoryPie

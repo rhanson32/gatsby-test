@@ -459,3 +459,15 @@ export const addUser = (user) => async (dispatch, getState) => {
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));
     console.log(response);
 }
+
+export const confirmUser = (username) => async dispatch => {
+
+    // const response = await Auth.resendSignUp(username);
+
+    const secondResponse = await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
+
+    console.log(secondResponse);
+
+    // console.log(response);
+
+}

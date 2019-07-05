@@ -4,7 +4,7 @@ import { setUser, isLoggedIn } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
-import { saveUser } from '../actions'
+import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button } from 'antd';
 
@@ -67,7 +67,8 @@ class Login extends React.Component {
   login = async () => {
     const { username, password } = this.state
     try {
-      await Auth.signIn(username, password);
+      const loginResponse = await Auth.signIn(username, password);
+      console.log(loginResponse);
       const user = await Auth.currentAuthenticatedUser()
       
       const userInfo = {
@@ -84,7 +85,8 @@ class Login extends React.Component {
       console.log(this.state);
       if(err === 'not authenticated')
       {
-        this.setState({forgotPassword: true });
+        this.setState({acceptCode: true });
+        this.props.confirmUser(username);
       }
     }
   }
@@ -166,5 +168,5 @@ const mapStateToProps = state => {
   }
 }
   
-export default connect(mapStateToProps, { saveUser })(Login)
+export default connect(mapStateToProps, { saveUser, confirmUser })(Login)
   

@@ -100,9 +100,7 @@ input  {
 
 .header {
     width: 100%;
-    background: #667db6;  /* fallback for old browsers */ 
-    background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */ 
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    background-color: #0984e3;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -445,7 +443,6 @@ input  {
 }
 
 .support-screen {
-    padding: 2rem 0 0 2rem;
     background-color: #F2F3F3;
     display: flex;
     flex-direction: column;
@@ -458,6 +455,7 @@ input  {
 .support-screen-header {
     width: 100%;
     padding: 1rem 3rem;
+    margin-top: 1rem;
 }
 
 .rules-header {
@@ -1068,7 +1066,6 @@ input  {
     flex-direction: column;
     background-color: #F3F3F3;
     width: 95%;
-    padding: 2rem 0 0 2rem;
 }
 
 .rules {
@@ -1168,7 +1165,6 @@ input  {
     justify-content: flex-start;
     align-items: center;
     width: 95%;
-    padding: 2rem 0 0 2rem;
     background-color: #F3F3F3;
 }
 
@@ -2076,8 +2072,20 @@ th, td {
         font-size: 2rem;
     }
 
+    .history-main {
+        width: 90%;
+    }
+
     .feature-card {
         width: 38%;
+    }
+
+    .support-screen {
+        width: 90%;
+    }
+
+    .users-main {
+        width: 90%;
     }
 
     .left-menu {

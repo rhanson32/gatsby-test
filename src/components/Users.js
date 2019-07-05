@@ -68,9 +68,14 @@ class Users extends React.Component {
                     {
                         this.props.users.length !== 0 && <h1>Add User</h1>
                     }
-                    <div className="add-user-form">
-                        <AddUserForm />
-                    </div>
+                    {
+                        this.props.users.length !== 0 && (
+                            <div className="add-user-form">
+                                <AddUserForm />
+                            </div>
+                        )
+                    }
+                    
                     
                 </div>   
             </div>

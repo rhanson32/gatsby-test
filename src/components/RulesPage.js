@@ -139,7 +139,7 @@ class RulesPage extends React.Component {
                         {this.props.Rules.length !== 0 && (
                                 <div className="rules-options">
                                     <div className="rules-header">
-                                        <h2>Rules</h2>
+                                        <h1>Rules</h1>
                                     </div>
                                     <div className="rules-bulk-switch">
                                         <ButtonGroup>
