@@ -1,7 +1,5 @@
 import { Card } from 'antd';
 import { connect } from 'react-redux';
-import AWSAccount from './AWSAccount';
-import AddAccount from './AddAccount';
 import SupportList from './SupportList';
 import SupportForm from './SupportForm';
 import React from 'react';
@@ -33,40 +31,6 @@ class SupportTabs extends React.Component {
           key: 'NewTicket',
           tab: 'New Ticket',
         }
-      ];
-
-      const dataSource = this.props.accounts.map((account, index) => {
-        return {
-            key: (index + 1).toString(),
-            accountId: account.AccountId,
-            provider: account.Provider,
-            roleName: account.RoleName,
-            status: account.Status,
-            type: account.Type
-        }
-    });
-      
-      const columns = [
-          {
-              title: 'Account Id',
-              dataIndex: 'accountId',
-              key: 'accountId'
-          },
-          {
-              title: 'Provider',
-              dataIndex: 'provider',
-              key: 'provider'
-          },
-          {
-              title: 'Status',
-              dataIndex: 'status',
-              key: 'status'
-          },
-          {
-              title: 'Role',
-              dataIndex: 'roleName',
-              key: 'roleName'
-          }
       ];
       
       const contentListNoTitle = {

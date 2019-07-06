@@ -5,7 +5,6 @@ import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
 import ExternalHeader from './ExternalHeader';
-import { IoEmail } from 'react-icons/io';
 import { Input, Button } from 'antd';
 
 const initialState = {
@@ -32,9 +31,17 @@ class SignUp extends React.Component {
       const { password, email, company } = this.state
       try {
         this.setState({ error: null });
-        await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }})
-        this.setState({ stage: 1 })
-        await validateCompany(this.state)
+        // await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }})
+        // this.setState({ stage: 1 })
+        const valid = await validateCompany(this.state);
+        if(!valid)
+        {
+          this.setState({ error: { message: 'Company already exists. Please ask your administrator for access.' } })
+        }
+        else
+        {
+          console.log("Proceeding to sign up");
+        }
       } catch (err) {
         this.setState({ error: err })
         console.log('error signing up...', err)
@@ -97,15 +104,15 @@ class SignUp extends React.Component {
           this.state.stage === 1 && (
             <div className="signup-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
-              <input
+              <Input
                 onChange={this.handleUpdate}
                 placeholder='Authorization Code'
                 name='authCode'
                 value={this.state.authCode}
               />
-              <div className="signup-button" onClick={this.confirmSignUp}>
-                <span className="signup-button-text">Confirm Sign Up</span>
-              </div>
+              <Button onClick={this.confirmSignUp}>
+                Confirm Sign Up
+              </Button>
             </div>
           )
         }

@@ -1,11 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SupportForm from './SupportForm';
 import LeftMenu from './LeftMenu';
-import SupportList from './SupportList';
 import SupportTabs from './SupportTabs';
 import { fetchTickets, postTicket, getCurrentUser } from '../actions';
-import { IoIosAdd } from 'react-icons/io';
 
 import Header from './Header'
 

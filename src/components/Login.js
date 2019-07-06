@@ -1,12 +1,13 @@
 import React from "react"
 import { navigate } from '@reach/router'
-import { setUser, isLoggedIn } from '../utils/auth'
+import { setUser, isLoggedIn, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
 import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button } from 'antd';
+import moment from 'moment';
 
 Amplify.configure({
   Auth: {
@@ -23,7 +24,9 @@ class Login extends React.Component {
     error: ``,
     code: ``,
     forgotPassword: false,
-    acceptCode: false
+    acceptCode: false,
+    buttonText: 'Sign In',
+    loading: false
   }
 
   handleUpdate = (event) => {
@@ -67,17 +70,20 @@ class Login extends React.Component {
   login = async () => {
     const { username, password } = this.state
     try {
+      this.setState({ loading: true, buttonText: 'Signing In...' });
       const loginResponse = await Auth.signIn(username, password);
       console.log(loginResponse);
-      const user = await Auth.currentAuthenticatedUser()
-      
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
       const userInfo = {
         ...user.attributes,
         username: user.username
       }
 
+      console.log(userInfo);
       setUser(userInfo)
       this.props.saveUser(userInfo)
+      setExpiration(moment().add(12, 'hours').toISOString())
       navigate("/app/dashboard")
     } catch (err) {
       this.setState({ error: err })
@@ -109,7 +115,7 @@ class Login extends React.Component {
                 <a className="forgot-password" onClick={this.forgotPassword}>
                   Forgot password? 
                 </a>
-                <Button type="primary" onClick={this.login}>Sign In</Button>
+                <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
               </div>
             </div>
           )

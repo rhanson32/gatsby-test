@@ -693,7 +693,11 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     width: 33.1%;
-    border: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+}
+
+.pricing-card:last-child {
+    border: none;
 }
 
 .add-user {
@@ -1421,6 +1425,7 @@ th, td {
 .error-item {
     padding: 1rem;
     color: red;
+    width: 90%;
 }
 
 .empty-ticket-list {

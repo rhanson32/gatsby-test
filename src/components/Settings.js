@@ -1,10 +1,6 @@
 import React from 'react'
 import Header from './Header'
-import AWSAccount from './AWSAccount';
 import { connect } from 'react-redux'
-import AccountItem from './AccountItem';
-import AddAccount from './AddAccount';
-import { Table } from 'antd';
 import TabsCard from './TabsCard';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions'
 import LeftMenu from './LeftMenu';
@@ -40,38 +36,6 @@ class Settings extends React.Component {
     }
 
     render() {
-        const dataSource = this.props.accounts.map((account, index) => {
-            return {
-                key: (index + 1).toString(),
-                accountId: account.AccountId,
-                provider: account.Provider,
-                roleName: account.RoleName,
-                status: account.Status
-            }
-        });
-
-        const columns = [
-            {
-                title: 'Account Id',
-                dataIndex: 'accountId',
-                key: 'accountId'
-            },
-            {
-                title: 'Provider',
-                dataIndex: 'provider',
-                key: 'provider'
-            },
-            {
-                title: 'Status',
-                dataIndex: 'status',
-                key: 'status'
-            },
-            {
-                title: 'Role',
-                dataIndex: 'roleName',
-                key: 'roleName'
-            }
-        ];
     return (
     <div className="settings-page">
         <Header />

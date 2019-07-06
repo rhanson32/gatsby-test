@@ -79,9 +79,11 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
     }
 
     const usersResponse = await purify.get('/users?id=' + id, myRequest).catch(err => console.log(err));
-    console.log(usersResponse);
 
-    dispatch({ type: 'FETCH_USERS', payload: usersResponse.data });
+    if(usersResponse)
+    {
+        dispatch({ type: 'FETCH_USERS', payload: usersResponse.data });
+    }
 }
 
 export const getAccounts = (id) => async (dispatch, getState) => {
@@ -263,8 +265,6 @@ export const getCurrentUser = () => async dispatch => {
 
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
 
-    console.log(customerResponse);
-
     const userInfo = {
         ...user.attributes,
         IdToken: user.signInUserSession.idToken.jwtToken,
@@ -297,11 +297,11 @@ export const validateCompany = async (user) => {
     {
         postResponse = await purify.put('/customers', myRequest)
         console.log(postResponse);
-        
+        return true;
     }
     else
     {
-        console.log("Company already exists. No further action needed.")
+        return false;
     }
 };
 

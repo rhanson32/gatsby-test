@@ -1,19 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
-import accounts from '../../static/accounts.png';
 import statistic from '../../static/statistic.png';
 import puzzle from '../../static/puzzle.jpg';
 import pay from '../../static/pay.jpg';
 import checklist from '../../static/checklist.jpg';
 import ExternalHeader from './ExternalHeader';
 import FeatureHeader from './FeatureHeader';
-import FeatureFocus from './FeatureFocus';
 import ActionCall from './ActionCall';
 import SiteMap from './SiteMap';
-import MobileMenu from './MobileMenu';
-import Loading from './Loading';
-import FeatureCard from './FeatureCard';
 import { Card } from 'antd';
 import { getFeatures } from '../actions';
 
@@ -28,7 +23,7 @@ class Features extends React.Component {
         return (
             <div className="features-page">
                 <ExternalHeader />
-                {this.props.features.length === 0 && <Spin style={{ margin: "auto", width: "100vw", height: "100vh" }} size="large" />}
+                {this.props.features.length === 0 && <Spin tip="Loading..." style={{ margin: "40vh auto 0 auto", width: "100vw", height: "100vh" }} size="large" />}
                 {this.props.features.length > 0 && <FeatureHeader />}
                 <div className="feature-header-description">
                     Set it and forget it. Configure Purify once and it's ready to respond to everything that happens in your cloud. Every single time.

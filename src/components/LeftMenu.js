@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import { Icon } from 'antd';
-import { IoMdSettings, IoMdAnalytics, IoMdApps, IoMdCheckboxOutline } from 'react-icons/io';
 
 const LeftMenu = () => (
     <div className="left-menu">

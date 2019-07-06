@@ -149,27 +149,6 @@ class TabsCard extends React.Component {
         </div>
         </div>,
         AWS: <div>
-        <div className="settings-row">
-            <div className="settings-left-side">
-                Status
-            </div>
-            <div className="settings-switch">
-                {
-                    this.props.settings && this.props.settings.Providers && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === true) !== undefined && (
-                        <Button className="enabled-button" onClick={this.toggleAWSState}>
-                            Enabled
-                        </Button>
-                    )
-                }
-                {
-                    this.props.settings && this.props.settings.Providers.find(provider => provider.Name === 'AWS' && provider.Enabled === false) !== undefined && (
-                        <Button className="disabled-button" onClick={this.toggleAWSState}>
-                            Disabled
-                        </Button>
-                    )
-                }
-            </div>
-        </div>
         {
             this.props.accounts.length === 0 && (
                 <div className="settings-card-title">
@@ -216,19 +195,6 @@ class TabsCard extends React.Component {
         </div>  
       </div>,
         User:  <div>
-        <div className="settings-row">
-            <div className="settings-left-side">
-                Theme
-            </div>
-            <Button.Group>
-                <Button>
-                    Light
-                </Button>
-                <Button>
-                    Dark
-                </Button>
-            </Button.Group>
-        </div>
         <div className="settings-row">
             <div className="settings-left-side">
                 Change Password

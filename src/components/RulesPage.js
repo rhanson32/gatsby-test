@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Table, Spin, Column, Card } from 'antd';
-import Loading from './Loading';
+import { Button, Table, Spin } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, toggleRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
@@ -67,10 +66,10 @@ class RulesPage extends React.Component {
                 id: rule.RuleId,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
-                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default" onClick={this.toggleRule}>
+                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default">
                     OFF
                 </Button>
-                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="default" onClick={this.toggleRule}>
+                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="default">
                     Monitor
                 </Button>
             </Button.Group>,
@@ -134,7 +133,7 @@ class RulesPage extends React.Component {
                     <LeftMenu />
                     <div className="rules">
                         {
-                            this.props.Rules.length === 0 && <Spin style={{ margin: "auto", width: "100%" }} size="large" />
+                            this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%" }} size="large" />
                         }
                         {this.props.Rules.length !== 0 && (
                                 <div className="rules-options">

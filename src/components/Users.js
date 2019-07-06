@@ -60,7 +60,7 @@ class Users extends React.Component {
                         <h1>User List</h1>
                     </div>
                     {
-                        this.props.users.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
+                        this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
                     }
                     {
                         this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />

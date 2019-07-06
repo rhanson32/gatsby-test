@@ -23,9 +23,6 @@ const createOptions = () => {
   };
 
 class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleChange = ({error}) => {
     if (error) {

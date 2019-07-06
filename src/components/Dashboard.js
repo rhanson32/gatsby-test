@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn } from '../utils/auth'
+import { isLoggedIn, getExpiration } from '../utils/auth'
 import { Spin, Card, Progress, Table, Statistic, Modal } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers } from '../actions';
-import { VictoryChart, VictoryBar, VictoryAxis, VictoryTheme, VictoryPie } from 'victory';
+import { VictoryPie } from 'victory';
+import moment from 'moment';
 
 import 'antd/dist/antd.css';
 
@@ -20,6 +21,12 @@ class Dashboard extends React.Component {
       };
 
     componentDidMount = async () => {
+        if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired")
+            await Auth.signOut();
+            navigate('/app/login');
+        }
         if(!this.props.user.email)
         {
             await this.props.getCurrentUser();
@@ -89,22 +96,8 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.state);
-        console.log((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)
         if (!isLoggedIn()) navigate('/app/dashboard');
         const { visible, confirmLoading, ModalText } = this.state;
-
-        const data = [
-            {category: 'Security', violations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)},
-            {category: 'Waste', violations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)},
-            {category: 'Configuration', violations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)}
-        ];
 
         const securityPie = [
             { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {

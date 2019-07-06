@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spin, Button, Table } from 'antd';
-import AccountItem from './AccountItem';
 import Header from './Header'
-import EditAccount from './EditAccount';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import LeftMenu from './LeftMenu';
 
@@ -48,10 +46,10 @@ class Accounts extends React.Component {
                 provider: account.Provider,
                 role: account.RoleName,
                 status:  account.Status === "Valid" ?
-                <Button type="link" name="off" id={account.AccountId} onClick={this.toggleRule} size="large" onClick={this.toggleRule}>
+                <Button type="link" name="off" id={account.AccountId} size="large">
                     Valid
                 </Button> :
-                <Button name="monitor" id={account.AccountId} onClick={this.toggleRule} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
+                <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
                     Invalid
                 </Button>
             }    
@@ -114,7 +112,7 @@ class Accounts extends React.Component {
                       <h1>Accounts</h1>
                   </div>
                     {
-                        this.props.Accounts.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
+                        this.props.Accounts.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
                     }
                     {
                         this.props.Accounts.length !== 0 && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
