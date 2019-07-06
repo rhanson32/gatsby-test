@@ -81,7 +81,7 @@ class SignUp extends React.Component {
             <ExternalHeader />
             {
               this.state.stage === 0 && (
-                <div className={this.props.mobileMenu ? "signup-form mobile-menu-showing" : "signup-form mobile-menu-hidden"}>
+                <div className="signup-form">
                   <div className="signup-header">Welcome to PurifyCloud</div>
                   {this.state.error && <Error errorMessage={this.state.error}/>}
                   <div className="signup-container">
@@ -117,7 +117,7 @@ class SignUp extends React.Component {
         }
         {
           this.state.stage === 1 && (
-            <div className="signup-form">
+            <div className="confirm-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
               <Input
                 onChange={this.handleUpdate}

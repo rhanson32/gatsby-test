@@ -26,7 +26,8 @@ class Login extends React.Component {
     forgotPassword: false,
     acceptCode: false,
     buttonText: 'Sign In',
-    loading: false
+    loading: false,
+    confirmUser: false
   }
 
   handleUpdate = (event) => {
@@ -57,6 +58,12 @@ class Login extends React.Component {
       });
   }
 
+  resendCode = async () => {
+    const { username } = this.state;
+    const response = await Auth.resendSignUp(username).catch(err => console.log(err));
+    console.log(response);
+  }
+
   submitPassword = async () => {
     const { username, code, password } = this.state;
     console.log("Submitting new password!");
@@ -65,6 +72,17 @@ class Login extends React.Component {
     this.setState({
       acceptCode: false
     })
+  }
+
+  confirmUser = async () => {
+    const { username, code, password } = this.state;
+    const response = await Auth.confirmSignUp(username, code).catch(err => console.log(err));
+    console.log(response);
+    if(response)
+    {
+      await Auth.signIn(username, password).catch(err => console.log(err));
+      navigate('/app/dashboard');
+    }
   }
 
   login = async () => {
@@ -87,7 +105,12 @@ class Login extends React.Component {
       navigate("/app/dashboard")
     } catch (err) {
       this.setState({ error: err })
-      console.log('error...: ', err)
+      console.log('error...: ', err);
+      if(err.code === 'UserNotConfirmedException')
+      {
+        this.resendCode();
+        this.setState({ confirmUser: true });
+      }
       console.log(this.state);
       if(err === 'not authenticated')
       {
@@ -103,7 +126,7 @@ class Login extends React.Component {
       <div className="login-screen">
         <ExternalHeader />
         {
-          !this.state.forgotPassword && !this.state.acceptCode && (
+          !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && (
             <div className="login-form">
               <div className="login-header">PurifyCloud</div>
               {this.state.error && <Error errorMessage={this.state.error}/>}
@@ -159,6 +182,26 @@ class Login extends React.Component {
                   onKeyPress={this.handleKeyPress}
                 />
                 <Button onClick={this.submitPassword} type="primary">Submit</Button>
+              </div>
+            </div>
+          )
+        }
+        {
+          this.state.confirmUser && (
+            <div className="login-form">
+              <div className="login-header">Confirm User Account</div>
+              <div className="login-container">
+                <p>Enter the confirmation code received by email in order to confirm this user account.</p>
+                <label>Confirmation Code</label>
+                <Input 
+                  onChange={this.handleUpdate}
+                  placeholder='e.g. 291736'
+                  name='code'
+                  value={this.state.code}
+                  onKeyPress={this.handleKeyPress}
+                />
+                <Button onClick={this.resendCode}>Resend Code</Button>
+                <Button onClick={this.confirmUser} type="primary">Submit</Button>
               </div>
             </div>
           )

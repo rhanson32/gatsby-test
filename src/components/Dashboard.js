@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        if (!isLoggedIn()) navigate('/app/dashboard');
+        if (!isLoggedIn()) navigate('/app/login');
         const { visible, confirmLoading, ModalText } = this.state;
 
         const securityPie = [
