@@ -12,12 +12,6 @@ class TabsCard extends React.Component {
     showKey: false
   };
 
-  constructor(props) {
-      super(props);
-      console.log(this);
-      this.cancelAccount = this.cancelAccount.bind(this)
-  }
-
     showKey = () => {
         this.setState({
             showKey: !this.state.showKey
@@ -47,8 +41,6 @@ class TabsCard extends React.Component {
   }
 
   render() {
-
-    
 
     const tabListNoTitle = [
         {

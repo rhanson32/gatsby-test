@@ -14,7 +14,9 @@ const initialState = {
   company: '',
   authCode: '',
   stage: 0,
-  error: ''
+  error: '',
+  buttonText: 'Sign Up',
+  loading: false
 }
 
 class SignUp extends React.Component {
@@ -28,19 +30,32 @@ class SignUp extends React.Component {
     }
   
     signUp = async() => {
-      const { password, email, company } = this.state
+      this.setState({ loading: true, buttonText: 'Creating Account...' });
+      const { password, email, company } = this.state;
+      let valid;
+      let signUpResponse
       try {
         this.setState({ error: null });
-        // await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }})
-        // this.setState({ stage: 1 })
-        const valid = await validateCompany(this.state);
-        if(!valid)
+        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }}).catch(err => console.log(err));
+
+        if(signUpResponse)
         {
-          this.setState({ error: { message: 'Company already exists. Please ask your administrator for access.' } })
+            valid = await validateCompany(this.state);
+            if(!valid)
+            {
+              this.setState({ error: { message: 'Company already exists. Please ask your administrator for access.' } })
+            }
+            else
+            {
+              console.log("Proceeding to sign up");
+              
+              this.setState({ stage: 1 });
+              console.log(signUpResponse);
+            }
         }
-        else
+        else 
         {
-          console.log("Proceeding to sign up");
+            console.log("Must delete user with email:", email);
         }
       } catch (err) {
         this.setState({ error: err })
@@ -95,7 +110,7 @@ class SignUp extends React.Component {
                     value={this.state.company}
                     allowClear
                   />
-                  <Button onClick={this.signUp} type="primary">Sign Up</Button>
+                  <Button loading={this.state.loading} onClick={this.signUp} type="primary">{this.state.buttonText}</Button>
                   </div>  
                 </div>
           )
