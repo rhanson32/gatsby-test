@@ -222,11 +222,11 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
-                            <Card style={{ margin: "2rem", maxWidth: "1200px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card style={{ margin: "1.5rem", maxWidth: "1200px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <div className="dashboard-card-header"><div>PurifyScore</div></div>
                                 <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
                             </Card>
-                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "2rem", width: "90%", maxWidth: "800px", borderRadius: "5px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "1.5rem", width: "90%", maxWidth: "800px", borderRadius: "5px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                             <div className="dashboard-card-header">
                                 <div>Category Metrics</div>
                             </div>
@@ -280,7 +280,7 @@ class Dashboard extends React.Component {
                                             <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />
                                             <Statistic title="Assets Evaluated" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                         </div>
-                                        <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                        <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     </div>
                                     <div className="dashboard-card">
@@ -289,7 +289,7 @@ class Dashboard extends React.Component {
                                         <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />
                                         <Statistic title="Assets Evaluated" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                     </div>
-                                        <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                        <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                     </Card>
                                     </div>
                                     <div className="dashboard-card">
@@ -298,7 +298,7 @@ class Dashboard extends React.Component {
                                                 <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
                                                 <Statistic title="Assets Evaluated" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />
                                             </div>
-                                            <Table size="small" pagination={{ position: "top" }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
+                                            <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
                                         </Card>
                                     </div>
                                 </div>
