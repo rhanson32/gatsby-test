@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth'
-import { Spin, Card, Progress, Table, Statistic, Modal } from 'antd';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
-import { getCurrentUser, getRules, getAccounts, fetchUsers } from '../actions';
+import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
 import { VictoryPie } from 'victory';
 import moment from 'moment';
 
@@ -18,6 +18,8 @@ class Dashboard extends React.Component {
         ModalText: 'Content of the modal',
         visible: false,
         confirmLoading: false,
+        welcomeScreen: false,
+        account: ``
       };
 
     componentDidMount = async () => {
@@ -56,6 +58,8 @@ class Dashboard extends React.Component {
 
             if(this.props.user.Status === "Cancelled")
             this.setState({ visible: true })
+            if(this.props.user.Status === "New")
+            this.setState({ welcomeScreen: true })
         }
         else
         {
@@ -85,6 +89,8 @@ class Dashboard extends React.Component {
 
             if(this.props.user.Status === "Cancelled")
             this.setState({ visible: true })
+            if(this.props.user.Status === "New")
+            this.setState({ welcomeScreen: true })
         }
     }
 
@@ -95,9 +101,20 @@ class Dashboard extends React.Component {
         navigate('/app/login');
     }
 
+    handleDismiss = () => {
+        this.props.updateCustomerStatus("Active");
+        this.setState({ welcomeScreen: false })
+    }
+
+    handleSubmit = () => {
+
+    }
+
     render() {
         if (!isLoggedIn()) navigate('/app/login');
-        const { visible, confirmLoading, ModalText } = this.state;
+
+        console.log(this.props);
+        const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
         const securityPie = [
             { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -201,9 +218,30 @@ class Dashboard extends React.Component {
           ];
         return (
             <div className="dashboard-page">
-
                 <Header />
                 <LeftMenu />
+                <Modal
+                    title="Welcome to Purify!"
+                    visible={welcomeScreen}
+                    onOk={this.handleSubmit}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleDismiss}
+                    cancelText="Dismiss"
+                >
+                    <div className="new-account-modal">
+                        <p>In order to get started quickly, please input the role information for your AWS master account below.</p>
+                        <div className="new-account-modal-input">
+                            <label>Account Id</label>
+                            <Input value={this.state.account} onChange={this.handleChange}></Input>
+                        </div>
+                        <div className="new-account-modal-input">
+                        <label>Role Name</label>
+                        <Input></Input>
+                        </div>
+                        <p>Unsure how to deploy a role with sufficient permissions in your account? Use our CloudFormation template available <a href="#">here</a></p>
+                    </div>
+                </Modal>
+
                 {this.props.user.Status === "Cancelled" && (
                     <Modal
                     title="Inactive Account"
@@ -306,7 +344,6 @@ class Dashboard extends React.Component {
                         </div>
                     )
                 }
-               
             </div>
         )
     } 
@@ -319,4 +356,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, fetchUsers })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus })(Dashboard);

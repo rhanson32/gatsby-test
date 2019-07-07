@@ -69,6 +69,8 @@ const userReducer = (state = {}, action) => {
     {
         case 'STORE_USER':
             return action.payload
+        case 'UPDATE_STATUS':
+            return { ...state, Status: action.payload }
         default:
             return state;
     }

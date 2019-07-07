@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
 import RegionsForm from './RegionsForm';
-import { cancelCustomer } from '../actions';
+import { updateCustomerStatus } from '../actions';
 
 class TabsCard extends React.Component {
   state = {
@@ -25,7 +25,7 @@ class TabsCard extends React.Component {
 
   cancelAccount = () => {
       console.log("Cancelling account...");
-      this.props.cancelCustomer();
+      this.props.updateCustomerStatus('Cancelled');
   }
 
   showConfirm = () => {
@@ -125,10 +125,7 @@ class TabsCard extends React.Component {
                         </Button>
                     )
                 }
-                {
-                     this.state.showKey && this.props.user.Key
-                }
-                
+                {this.state.showKey && this.props.user.Key}
             </div>
         </div>
         <div className="settings-row">
@@ -228,4 +225,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { cancelCustomer })(TabsCard);
+export default connect(mapStateToProps, { updateCustomerStatus })(TabsCard);

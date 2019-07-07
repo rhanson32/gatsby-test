@@ -38,6 +38,20 @@ input  {
     max-height: 250px;
 }
 
+.new-account-modal p {
+    margin: 1rem 0;
+}
+
+.new-account-modal input {
+    width: 75%;
+}
+
+.new-account-modal-input {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+}
+
 .dashboard-chart-label {
     font-size: 1.5rem;
     display: flex;

@@ -115,18 +115,21 @@ export const getAccounts = (id) => async (dispatch, getState) => {
    
 }
 
-export const cancelCustomer = () => async (dispatch, getState) => {
+export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     const user = getState().user;
     console.log(user);
 
     let myRequest = {
         body: {
-            CustomerId: user.CustomerId
+            CustomerId: user.CustomerId,
+            status: status
         }
     };
 
-    const response = await purify.post('customers', myRequest).catch(err => console.log(err));
+    const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
     console.log(response);
+
+    dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
 export const modifyRules = (action, id) => async (dispatch, getState) => {
