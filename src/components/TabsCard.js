@@ -30,13 +30,13 @@ class TabsCard extends React.Component {
 
   showConfirm = () => {
     const { confirm } = Modal;
+    console.log(this);
     confirm({
         title: 'Are you sure you want to cancel your account?',
-        content: 'When clicked the OK button, this dialog will be closed after 1 second',
-        onOk () {
+        onOk() {
           console.log(this);
         },
-        onCancel() {},
+        onCancel() {}
       });
   }
 
@@ -130,7 +130,7 @@ class TabsCard extends React.Component {
         </div>
         <div className="settings-row">
             <div className="cancel-account">
-                <Button type="danger" onClick={this.cancelAccount}>
+                <Button type="danger" onClick={this.showConfirm}>
                     Cancel My Account
                 </Button>
                     

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth'
-import { Spin, Card, Progress, Table, Statistic, Modal, Input } from 'antd';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
@@ -19,7 +19,11 @@ class Dashboard extends React.Component {
         visible: false,
         confirmLoading: false,
         welcomeScreen: false,
-        account: ``
+        account: ``,
+        showAll: true,
+        showSecurity: false,
+        showWaste: false,
+        showConfiguration: false
       };
 
     componentDidMount = async () => {
@@ -88,10 +92,46 @@ class Dashboard extends React.Component {
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
-            this.setState({ visible: true })
+                this.setState({ visible: true })
             if(this.props.user.Status === "New")
-            this.setState({ welcomeScreen: true })
+                this.setState({ welcomeScreen: true })
         }
+    }
+
+    showAll = () => {
+        this.setState({
+            showAll: true,
+            showSecurity: false,
+            showWaste: false,
+            showConfiguration: false
+        });
+    }
+
+    showSecurity = () => {
+        this.setState({
+            showAll: false,
+            showSecurity: true,
+            showWaste: false,
+            showConfiguration: false
+        });
+    }
+
+    showWaste = () => {
+        this.setState({
+            showAll: false,
+            showSecurity: false,
+            showWaste: true,
+            showConfiguration: false
+        });
+    }
+
+    showConfiguration = () => {
+        this.setState({
+            showAll: false,
+            showSecurity: false,
+            showWaste: false,
+            showConfiguration: true
+        });
     }
 
     handleCancel = () => {
@@ -115,6 +155,19 @@ class Dashboard extends React.Component {
 
         console.log(this.props);
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
+
+        const allPie = [
+            { x: "In Violation", y: this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                return accumulator + currentValue;
+            }, 0)},
+            {
+                x: "Compliant", y: this.props.rules.map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0) - this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0)
+            }
+        ];
 
         const securityPie = [
             { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -154,6 +207,18 @@ class Dashboard extends React.Component {
                 }, 0)
             }
         ];
+
+        const dataSourceAll = this.props.rules.map((rule, index) => {
+            return {
+                key: index.toString(),
+                name: rule.Name,
+                category: rule.Category,
+                id: rule.RuleId,
+                status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
+                violations: rule.Violations.length,
+                description: rule.Description
+            }    
+        });
 
         const dataSourceSecurity = this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => {
             return {
@@ -264,83 +329,117 @@ class Dashboard extends React.Component {
                                 <div className="dashboard-card-header"><div>PurifyScore</div></div>
                                 <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
                             </Card>
-                            <Card bodyStyle={{ paddingBottom: "4rem" }} style={{ margin: "1.5rem", width: "90%", maxWidth: "800px", borderRadius: "5px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                            <div className="dashboard-card-header">
+                            <Card bodyStyle={{ }} style={{ margin: "1.5rem", maxWidth: "800px", borderRadius: "5px" }} title={<div className="dashboard-card-header">
                                 <div>Category Metrics</div>
-                            </div>
+                                <Button.Group>
+                                    <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
+                                        All
+                                    </Button>
+                                    <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
+                                        Security
+                                    </Button>
+                                    <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
+                                        Waste
+                                    </Button>
+                                    <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
+                                        Configuration
+                                    </Button>
+                                </Button.Group>
+                            </div>} headStyle={{ fontSize: "1.6rem" }}>
                             <div className="progress-items">
-                            <div className="victory-chart">
-                                <VictoryPie
-                                    animate={{ duration: 2000 }}
-                                    innerRadius={90}
-                                    radius={150}
-                                    data={securityPie}
-                                    colorScale={['#d63031', '#00b894']}
-                                    labels={(d) => d.y}
-                                    labelRadius={105}
-                                    style={{ labels: { fill: "white", fontSize: 24, fontWeight: "bold" } }}
-                                    />
-                                    <div className="dashboard-chart-label">Security</div>
-                            </div>
-                            <div className="victory-chart">
+                                <div className="progress-header">
+                                {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
+                                {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
+                                {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
+                                {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
+                                    {this.state.showAll && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                            
+                                </div>
+                                {this.state.showAll && (
+                                <div className="victory-chart">
+                                    <VictoryPie
+                                        animate={{ duration: 2000 }}
+                                        innerRadius={90}
+                                        radius={150}
+                                        data={allPie}
+                                        colorScale={['#eee', '#00b894']}
+                                        labels={(d) => d.y}
+                                        labelRadius={105}
+                                        style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
+                                        />
+                                        
+                                </div>
+                                )
+                            }
+                            {this.state.showSecurity && (
+                                <div className="victory-chart">
+                                    <VictoryPie
+                                        animate={{ duration: 2000 }}
+                                        innerRadius={90}
+                                        radius={150}
+                                        data={securityPie}
+                                        colorScale={['#eee', '#00b894']}
+                                        labels={(d) => d.y}
+                                        labelRadius={105}
+                                        style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
+                                        />
+                                        
+                                </div>
+                                )
+                            }
+                            {this.state.showWaste && (
+                                <div className="victory-chart">
                                 <VictoryPie
                                      animate={{ duration: 2000 }}
                                      innerRadius={90}
                                      radius={150}
                                      data={wastePie}
-                                     colorScale={['#d63031', '#00b894']}
+                                     colorScale={['#eee', '#00b894']}
                                      labels={(d) => d.y}
                                      labelRadius={105}
-                                     style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                     style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
                                     />
-                                    <div className="dashboard-chart-label">Waste</div>
-                            </div>
-                            <div className="victory-chart">
+                                    
+                                </div>
+                            )}
+                            {this.state.showConfiguration && (
+                                <div className="victory-chart">
                                 <VictoryPie
                                      animate={{ duration: 2000 }}
                                      innerRadius={90}
                                      radius={150}
                                      data={configurationPie}
-                                     colorScale={['#d63031', '#00b894']}
+                                     colorScale={['#eee', '#00b894']}
                                      labels={(d) => d.y}
                                      labelRadius={105}
-                                     style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
+                                     style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
                                     />
-                                    <div className="dashboard-chart-label">Configuration</div>
-                            </div>
+                                    
+                                </div>
+                            )}
+                            {this.state.showAll && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceAll} columns={columns} />}
+                            {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
+                            {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                            {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
                             </div>
                             </Card>
-                            <div className="dashboard-categories">
-                                <div className="dashboard-cards">
-                                    <div className="dashboard-card">
-                                    <Card headStyle={{ backgroundColor: "green", color: 'white' }} title="Security" style={{ margin: "1%" }}>
-                                        <div className="dashboard-card-statistics">
-                                            <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />
-                                            <Statistic title="Assets Evaluated" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />
-                                        </div>
-                                        <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
-                                    </Card>
-                                    </div>
-                                    <div className="dashboard-card">
-                                    <Card headStyle={{ backgroundColor: "blue", color: 'white' }} title="Configuration" style={{ margin: "1%" }}>
-                                    <div className="dashboard-card-statistics">
-                                        <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />
-                                        <Statistic title="Assets Evaluated" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />
-                                    </div>
-                                        <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
-                                    </Card>
-                                    </div>
-                                    <div className="dashboard-card">
-                                        <Card headStyle={{ backgroundColor: "purple", color: 'white' }} title="Waste" style={{ margin: "1%" }}>
-                                            <div className="dashboard-card-statistics">
-                                                <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
-                                                <Statistic title="Assets Evaluated" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />
-                                            </div>
-                                            <Table size="small" pagination={{ position: "top", pageSize: 5 }} style={{ width: "100%", margin: "auto" }} dataSource={dataSourceWaste} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />
-                                        </Card>
-                                    </div>
-                                </div>
-                            </div>
+                            <Card style={{ width: "20%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
+                            </Card>
+                            <Card style={{ width: "20%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
+                            </Card>
                         </div>
                     )
                 }
