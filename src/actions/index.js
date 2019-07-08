@@ -34,7 +34,8 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
         body: {
             ...item,
             CustomerId: customerId,
-            Type: 'Master'
+            Type: 'Master',
+            Status: 'New'
         },
         headers: {
             Authorization: getState().user.IdToken
@@ -97,6 +98,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
 
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
 
+    console.log(accountResponse);
     if(accountResponse)
     {
         const Items = accountResponse.data.Items.map(item => {
@@ -111,8 +113,9 @@ export const getAccounts = (id) => async (dispatch, getState) => {
             }
         });
         dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
+        return accountResponse.ScannedCount;
     }
-   
+    
 }
 
 export const updateCustomerStatus = (status) => async (dispatch, getState) => {
@@ -340,6 +343,74 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
+export const disableRule = (id, user) => async (dispatch, getState) => {
+
+    const prevState = getState();
+    let myRequest = {
+        body: { },
+        headers: {
+            Authorization: user.IdToken
+        }
+    }
+
+    let newRules = prevState.rules.map(rule => {
+
+            if(rule.RuleId === id && rule.Enabled)
+            {
+                myRequest.body = {
+                    ...rule,
+                    Enabled: false
+                };
+
+                purify.put('/rules', myRequest).catch(err => console.log(err));
+                return {
+                    ...rule,
+                    Enabled: false
+                }
+            }
+            else 
+            {
+                return rule
+            }   
+    });
+
+    dispatch({ type: 'TOGGLE_RULE', payload: newRules });
+}
+
+export const enableRule = (id, user) => async (dispatch, getState) => {
+
+    const prevState = getState();
+    let myRequest = {
+        body: { },
+        headers: {
+            Authorization: user.IdToken
+        }
+    }
+
+    let newRules = prevState.rules.map(rule => {
+
+            if(rule.RuleId === id && !rule.Enabled)
+            {
+                myRequest.body = {
+                    ...rule,
+                    Enabled: true
+                };
+
+                purify.put('/rules', myRequest).catch(err => console.log(err));
+                return {
+                    ...rule,
+                    Enabled: true
+                }
+            }
+            else 
+            {
+                return rule
+            }   
+    });
+
+    dispatch({ type: 'TOGGLE_RULE', payload: newRules });
+}
+
 export const toggleRule = (id, user) => async (dispatch, getState) => {
 
     const prevState = getState();
@@ -461,6 +532,7 @@ export const addUser = (user) => async (dispatch, getState) => {
     }
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));
     console.log(response);
+    dispatch({ type: 'ADD_USER', payload: user })
 }
 
 export const confirmUser = (username) => async dispatch => {

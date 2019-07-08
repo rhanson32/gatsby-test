@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Table, Spin } from 'antd';
 import Header from './Header';
-import { saveUser, getRules, getCurrentUser, toggleRule, modifyRules } from '../actions';
+import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
 
 class RulesPage extends React.Component {
@@ -24,8 +24,14 @@ class RulesPage extends React.Component {
         }
     }
 
-    toggleRule = (event) => {
-        this.props.toggleRule(event.target.id, this.props.User); 
+    enableRule = (event) => {
+        this.props.enableRule(event.target.id, this.props.User); 
+        console.log(event.target.name);
+        console.log(event.target.id);
+    }
+
+    disableRule = (event) => {
+        this.props.disableRule(event.target.id, this.props.User); 
         console.log(event.target.name);
         console.log(event.target.id);
     }
@@ -66,10 +72,10 @@ class RulesPage extends React.Component {
                 id: rule.RuleId,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
-                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default">
+                <Button name="off" id={rule.RuleId} onClick={this.disableRule} type={!rule.Enabled ? "primary": "default"} size="default">
                     OFF
                 </Button>
-                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="default">
+                <Button name="monitor" id={rule.RuleId} onClick={this.enableRule} type={rule.Enabled ? "primary": "default"} size="default">
                     Monitor
                 </Button>
             </Button.Group>,
@@ -197,10 +203,10 @@ class RulesPage extends React.Component {
                             )
                         }
                         <div className="web-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />}   
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />}   
                         </div>
                         <div className="mobile-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
                         </div>
                     </div> 
                 </div>
@@ -216,4 +222,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, toggleRule, modifyRules })(RulesPage);
+export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules })(RulesPage);

@@ -1171,7 +1171,7 @@ input  {
 }
 
 .account-list {
-    margin: 3rem auto;
+    margin: 1rem auto;
 }
 
 .rule-list {
@@ -1515,13 +1515,15 @@ th, td {
 .rule-header, .account-header, .dashboard-category-header, .users-header, .add-user-header {
     display: flex;
     justify-content: flex-start;
-    padding: 1.4rem 1rem;
+    padding: 0.7rem 1rem;
     background-color: rgba(9, 132, 227, 0.8);
     border: 1px solid rgba(9, 132, 227, 0.8);
     line-height: 2rem;
     font-size: 1.4rem;
     color: #FFF;
 }
+
+
 
 .users-header {
     justify-content: space-around;

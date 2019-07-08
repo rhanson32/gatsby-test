@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Spin, Button, Table } from 'antd';
+import { Link } from 'gatsby';
+import { Spin, Button, Table, Alert } from 'antd';
 import Header from './Header'
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import LeftMenu from './LeftMenu';
 
 class Accounts extends React.Component {
+
+  state = {
+    scanComplete: false
+  }
+
     componentDidMount = async () => {
         if(!this.props.user || !this.props.user.CustomerId)
         {
@@ -13,7 +19,8 @@ class Accounts extends React.Component {
         }
         if(this.props.user && this.props.user.CustomerId)
         {
-            this.props.getAccounts(this.props.user.CustomerId);
+            await this.props.getAccounts(this.props.user.CustomerId);
+            this.setState({ scanComplete: true });
         }      
     }
     componentDidUpdate() {
@@ -54,6 +61,10 @@ class Accounts extends React.Component {
                 </Button>
             }    
         });
+
+        const MissingMaster = () => (
+          <p style={{ margin: "2rem auto", width: "80%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tag within  <Link to="/app/settings">Settings</Link>.</p>
+        );
           
           const columns = [
             {
@@ -111,11 +122,24 @@ class Accounts extends React.Component {
                   <div className="support-screen-header">
                       <h1>Accounts</h1>
                   </div>
+                  {
+                    this.state.scanComplete && this.props.Accounts.length === 0 && (
+                      <Alert
+                      style={{ width: "80%", margin: "0 auto" }}
+                      message="AWS Master Account Missing"
+                      description={<MissingMaster />}
+                      type="warning"
+                      showIcon
+                      closable
+                      closeText="Close"
+                    />
+                    )
+                  }
                     {
-                        this.props.Accounts.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
+                        !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.Accounts.length !== 0 && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
+                        this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
                    
                 </div>

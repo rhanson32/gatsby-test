@@ -46,6 +46,8 @@ const usersReducer = (state = [], action) => {
     {
         case 'FETCH_USERS':
             return [ ...action.payload ]
+        case 'ADD_USER': 
+            return [ ...state, { Username: action.payload.email, Group: action.payload.group }]
         default:
             return state;
     }

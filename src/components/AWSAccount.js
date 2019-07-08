@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Input, Button } from 'antd';
 
 import { toggleAddAccount, postAccount, getCurrentUser } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
-        id: '',
+        id: ``,
         provider: 'AWS',
-        role: ''
+        role: ``
     };
 
     componentDidMount() {
@@ -41,17 +42,33 @@ class AddAccount extends React.Component {
     render() {
         console.log(this.state);
         return (
-            <div className="account-item">
-                <div className="account-item-field-large">
-                    <input name="id" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="e.g. 25237483438"></input>
-                </div>
-                <div className="account-item-field-large">
-                    <input name="role" onChange={this.handleUpdate} placeholder="Role Name"></input>
-                </div>
-                <div className="account-item-buttons">
-                    <button className="add-button large-button" onClick={this.submitAccount}>Submit</button>
-                </div>
+            <div className="settings-card-title">
+                    <div className="account-list">
+                        <div className="account-header">
+                            <div className="account-item-field-large">
+                                Account ID
+                            </div>
+                            <div className="account-item-field-large">
+                                Role Name
+                            </div>
+                            <div className="account-item-field">
+                                &nbsp;  
+                            </div>
+                        </div>
+                        <div className="account-item">
+                            <div className="account-item-field-large">
+                                <Input name="id" value={this.state.id} onChange={this.handleUpdate} placeholder="e.g. 25237483438" />
+                            </div>
+                            <div className="account-item-field-large">
+                                <Input name="role" value={this.state.role} onChange={this.handleUpdate} placeholder="Role Name" />
+                            </div>
+                            <div className="account-item-buttons">
+                                <Button onClick={this.submitAccount} type="primary">Submit</Button>
+                            </div>
+                        </div>
+                    </div>
             </div>
+            
         )
     }
 }

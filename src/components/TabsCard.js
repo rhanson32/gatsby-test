@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card, Table, Button, Modal, Input } from 'antd';
 import { connect } from 'react-redux';
+import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import AddAccount from './AddAccount';
 import RegionsForm from './RegionsForm';
+import ServicesForm from './ServicesForm';
 import { updateCustomerStatus } from '../actions';
 
 class TabsCard extends React.Component {
@@ -26,6 +28,21 @@ class TabsCard extends React.Component {
   cancelAccount = () => {
       console.log("Cancelling account...");
       this.props.updateCustomerStatus('Cancelled');
+  }
+
+  handleUpdate = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
+
+    console.log(this.state);
+  }
+
+  changePassword = async () => {
+      const user = await Auth.currentAuthenticatedUser();
+        const response = await Auth.changePassword(user, this.state.oldPassword, this.state.newPassword).catch(err => console.log(err));
+
+        console.log(response);
   }
 
   showConfirm = () => {
@@ -145,26 +162,7 @@ class TabsCard extends React.Component {
                 </div>
             )
         }
-        {
-             this.props.accounts.length === 0 && (
-                <div className="settings-card-title">
-                    <div className="account-list">
-                        <div className="account-header">
-                            <div className="account-item-field-large">
-                                Account ID
-                            </div>
-                            <div className="account-item-field-large">
-                                Role Name
-                            </div>
-                            <div className="account-item-field">
-                                &nbsp;  
-                            </div>
-                        </div>
-                        <AWSAccount />
-                    </div>
-                </div>
-            )
-        } 
+        {this.props.accounts.length === 0 && <AWSAccount />} 
         {
             this.props.accounts.find(account => account.Type === 'Master') && (
                 <div className="settings-row">
@@ -182,6 +180,9 @@ class TabsCard extends React.Component {
         <div className="settings-row">
             <RegionsForm />
         </div>  
+        <div className="settings-row">
+            <ServicesForm />
+        </div>  
       </div>,
         User:  <div>
         <div className="settings-row">
@@ -190,10 +191,10 @@ class TabsCard extends React.Component {
             </div>
             <div className="settings-switch">
                 <label>Old Password</label>
-                <Input />
+                <Input name="oldPassword" value={this.state.oldPassword} onChange={this.handleUpdate} />
                 <label>New Password</label>
-                <Input />
-                <Button>
+                <Input name="newPassword" value={this.state.newPassword} onChange={this.handleUpdate} />
+                <Button type="primary" onClick={this.changePassword}>
                     Submit
                 </Button>
             </div>
