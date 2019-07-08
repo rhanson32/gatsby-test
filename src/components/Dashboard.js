@@ -169,6 +169,8 @@ class Dashboard extends React.Component {
             }
         ];
 
+        console.log(allPie);
+
         const securityPie = [
             { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                 return accumulator + currentValue;
@@ -325,11 +327,12 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
-                            <Card style={{ margin: "1.5rem", maxWidth: "1200px" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card style={{ margin: "1.5rem", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <div className="dashboard-card-header"><div>PurifyScore</div></div>
                                 <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
                             </Card>
-                            <Card bodyStyle={{ }} style={{ margin: "1.5rem", maxWidth: "800px", borderRadius: "5px" }} title={<div className="dashboard-card-header">
+                            <div className="web-metrics">
+                            <Card bodyStyle={{ }} style={{ margin: "0 1.5rem", borderRadius: "5px" }} title={<div className="dashboard-card-header">
                                 <div>Category Metrics</div>
                                 <Button.Group>
                                     <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
@@ -353,7 +356,7 @@ class Dashboard extends React.Component {
                                 {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
                                 {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
                                     {this.state.showAll && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showAll && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
                                     {this.state.showAll && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
                                     {this.state.showSecurity && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
                                     {this.state.showSecurity && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
@@ -434,12 +437,17 @@ class Dashboard extends React.Component {
                             {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
                             </div>
                             </Card>
-                            <Card style={{ width: "20%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                            <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
+                            </div>
+                            <div className="dashboard-sidebar">
+                            <Card style={{ marginBottom: "1rem" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
+                                <hr />
                             </Card>
-                            <Card style={{ width: "20%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Card style={{ }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
                             </Card>
+                            </div>
+                            
                         </div>
                     )
                 }

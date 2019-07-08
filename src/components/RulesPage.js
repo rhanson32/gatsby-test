@@ -76,6 +76,25 @@ class RulesPage extends React.Component {
                 description: rule.Description
             }    
         });
+
+        const mobileDataSource = this.props.Rules.map((rule, index) => {
+            return {
+                key: index.toString(),
+                name: rule.Name,
+                category: rule.Category,
+                id: rule.RuleId,
+                state: rule.Enabled ? "Monitor" : "Off",
+                status:  <Button.Group>
+                <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default">
+                    OFF
+                </Button>
+                <Button name="monitor" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "#27ae60" : "white", color: rule.Enabled ? "white" : "black" }} size="default">
+                    Monitor
+                </Button>
+            </Button.Group>,
+                description: rule.Description
+            }    
+        });
           
           const columns = [
             {
@@ -124,6 +143,33 @@ class RulesPage extends React.Component {
               onFilter: (value, record) => record.state.indexOf(value) === 0
             },
           ];
+
+          const mobileColumns = [
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              key: 'name',
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Status',
+              dataIndex: 'state',
+              key: 'status',
+              filters: [
+                {
+                  text: 'Off',
+                  value: 'Off',
+                },
+                {
+                  text: 'Monitor',
+                  value: 'Monitor',
+                }
+              ],
+              onFilter: (value, record) => record.state.indexOf(value) === 0
+            },
+          ];
+
         const ButtonGroup = Button.Group;
         return (
             <div>
@@ -150,7 +196,12 @@ class RulesPage extends React.Component {
                                 </div>
                             )
                         }
-                        {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                        <div className="web-rules">
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />}   
+                        </div>
+                        <div className="mobile-rules">
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                        </div>
                     </div> 
                 </div>
             </div>

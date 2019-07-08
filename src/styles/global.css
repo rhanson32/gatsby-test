@@ -71,7 +71,6 @@ input  {
     background-color: white;
     padding: 0 2rem 2rem 2rem;
     margin: auto;
-    min-width: 400px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -1573,13 +1572,11 @@ th, td {
     height: 2rem;
 }
 
-*/
-
 .dashboard {
     background-color: #F3F3F3;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     width: 95%;
@@ -1781,6 +1778,19 @@ th, td {
         width: 100%;
     }
 
+    .web-rules {
+        display: none;
+    }
+
+    .web-metrics {
+        width: 100%;
+    }
+
+    .payments {
+        width: 90%;
+        margin: 2rem auto;
+    }
+
     .progress-items {
         flex-wrap: wrap;
     }
@@ -1832,7 +1842,7 @@ th, td {
     .left-menu {
         width: 100%;
         flex-direction: row;
-        height: 8rem;
+        height: 6rem;
     }
 
     .left-menu-item:first-child {
@@ -1850,8 +1860,44 @@ th, td {
         font-size: 4rem;
     }
 
+    .header-menu {
+        justify-content: space-around;
+    }
+
+    .progress-header {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-chart-label {
+        width: 100%;
+    }
+
+    .users-main {
+        width: 100%;
+    }
+
+    .add-user-form {
+        width: 95%;
+    }
+
+    .history-main {
+        width: 100%;
+        min-height: 95vh;
+    }
+
+    .accounts {
+        min-height: 95vh;
+    }
+
     .dashboard {
         padding: 1rem 0;
+        width: 100%;
+    }
+
+    .dashboard-card-header {
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .dashboard-item {
@@ -2104,8 +2150,25 @@ th, td {
         width: 40%;
     }
 
+    .web-metrics {
+        width: 80%;
+    }
+
+    .web-rules {
+        width: 100%;
+    }
+
+    .mobile-rules {
+        display: none;
+    }
+
     .feature-focus-header {
         font-size: 2rem;
+    }
+
+    .payments {
+        min-height: 500px;
+        min-width: 400px;
     }
 
     .history-main {
@@ -2191,6 +2254,18 @@ th, td {
         width: 75%;
     }
 
+    .mobile-rules {
+        display: none;
+    }
+
+    .dashboard-sidebar {
+        width: 20%;
+    }
+
+    .web-metrics {
+        width: 70%;
+    }
+
     .dashboard {
         width: 95%;
     }
@@ -2201,6 +2276,11 @@ th, td {
 
     .feature-cards {
         width: 1100px;
+    }
+
+    .payments {
+        min-height: 500px;
+        min-width: 400px;
     }
 
     .mobile-menu-button {
