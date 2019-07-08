@@ -2258,6 +2258,10 @@ th, td {
         display: none;
     }
 
+    .web-rules {
+        width: 100%;
+    }
+
     .dashboard-sidebar {
         width: 20%;
     }
