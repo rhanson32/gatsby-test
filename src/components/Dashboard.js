@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message } from 'antd';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
-import { VictoryPie } from 'victory';
+import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis } from 'victory';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
@@ -161,6 +161,12 @@ class Dashboard extends React.Component {
         if (!isLoggedIn()) navigate('/app/login');
 
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
+
+        const sampleData = [
+            { x: 1, y: 2 },
+            { x: 2, y: 5 },
+            { x: 3, y: 1 },
+        ];
 
         const allPie = [
             { x: "In Violation", y: this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -371,18 +377,18 @@ class Dashboard extends React.Component {
                                 {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
                                 {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
                                 {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
-                                    {this.state.showAll && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showAll && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showAll && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
                                             
                                 </div>
                                 {this.state.showAll && (
@@ -469,8 +475,34 @@ class Dashboard extends React.Component {
                             <Card style={{ }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
                             </Card>
-                            </div>
                             
+                            </div>
+                            <Card style={{ width: "100%", margin: "1.5rem" }} title={
+                                <div className="history-chart-header">
+                                    <div className="history-chart-header-title">
+                                        Violations Over Time
+                                    </div>
+                                    <div className="history-chart-header-filters">
+                                        <Button type="link">Today</Button>
+                                        <Button type="link">Last 7 Days</Button>
+                                        <Button type="link">Last Month</Button>
+                                        <DatePicker.RangePicker />
+                                    </div>
+                                </div>
+                            }>
+                                <VictoryChart
+                                height={200}
+                                domainPadding={50}
+                                >
+                                    <VictoryBar
+                                        style={{ data: { fill: "#c43a31" } }}
+                                        data={sampleData}
+                                    />
+                                    <VictoryAxis />
+                                    <VictoryAxis dependentAxis />
+                                </VictoryChart>
+                            </Card>
+
                         </div>
                     )
                 }

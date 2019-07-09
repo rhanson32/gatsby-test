@@ -1691,13 +1691,31 @@ th, td {
     padding-left: 3rem;
 }
 
+.history-chart-header {
+    display: flex;
+
+}
+
+.history-chart-header-title {
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.history-chart-header-filters {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    align-items: center;
+}
+
 .dashboard-page {
     margin: 0;
     padding-bottom: 2rem;
     background-color: #F3F3F3;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 100vw;
     justify-content: flex-start;
 }
 
@@ -2283,7 +2301,7 @@ th, td {
     }
 
     .dashboard-sidebar {
-        width: 20%;
+        width: 25%;
     }
 
     .web-metrics {
