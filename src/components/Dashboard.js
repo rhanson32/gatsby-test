@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration } from '../utils/auth'
-import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button } from 'antd';
+import { isLoggedIn, getExpiration } from '../utils/auth';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
@@ -30,9 +30,12 @@ class Dashboard extends React.Component {
     componentDidMount = async () => {
         if(moment(getExpiration()) < moment())
         {
-            console.log("User session has expired")
-            await Auth.signOut();
-            navigate('/app/login');
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
         }
         if(!this.props.user.email)
         {

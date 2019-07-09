@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import { connect } from 'react-redux';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
+import moment from 'moment';
+import { getExpiration } from '../utils/auth';
 import CheckoutForm from './CheckoutForm';
 import LeftMenu from './LeftMenu';
 import Header from './Header';
-import { Alert } from 'antd';
+import { Alert, message } from 'antd';
 import { getCurrentUser } from '../actions';
 
 class Payment extends Component {
   componentDidMount = () => {
+    if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
+        }
     if(!this.props.user.email)
     {
         this.props.getCurrentUser();

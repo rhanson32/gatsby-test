@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
 import { Link } from 'gatsby';
+import moment from 'moment';
+import { getExpiration } from '../utils/auth';
 import { Button, Table, Spin, message } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
@@ -15,6 +19,15 @@ class RulesPage extends React.Component {
     }
 
     componentDidMount = async () => {
+        if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
+        }
         if(!this.props.User.email)
         {
             await this.props.getCurrentUser()
