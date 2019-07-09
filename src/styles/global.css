@@ -1623,6 +1623,11 @@ th, td {
     width: 90%;
 }
 
+.dashboard-max {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
 .dashboard-main {
     flex-grow: 7;
     display: flex;

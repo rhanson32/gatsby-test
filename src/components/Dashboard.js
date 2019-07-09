@@ -334,6 +334,7 @@ class Dashboard extends React.Component {
                 {
                     this.props.rules.length !== 0 && (
                         <div className="dashboard">
+                            <div className="dashboard-max">
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
@@ -502,7 +503,7 @@ class Dashboard extends React.Component {
                                     <VictoryAxis dependentAxis />
                                 </VictoryChart>
                             </Card>
-
+                            </div>
                         </div>
                     )
                 }
