@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {CardElement, injectStripe} from 'react-stripe-elements';
-import { Button } from 'antd';
+import React, { Component } from 'react';
+import { CardElement, injectStripe } from 'react-stripe-elements';
+import { connect } from 'react-redux';
+import { Button, message } from 'antd';
 import { submitSubscription } from '../actions';
 
 const createOptions = () => {
@@ -38,9 +39,15 @@ class CheckoutForm extends Component {
     const { token } = await this.props.stripe.createToken();
 
     console.log(token);
-    const response = await submitSubscription(token.id);
-    console.log(response);
-
+    if(token)
+    {
+      const response = await submitSubscription(token.id, this.props.user);
+      console.log(response);
+    }
+    else
+    {
+      message.error('Unable to process payment. Please refresh the page and try again.');
+    }
   }
 
   render() {
@@ -60,4 +67,10 @@ class CheckoutForm extends Component {
   }
 }
 
-export default injectStripe(CheckoutForm);
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default injectStripe(connect(mapStateToProps, null)(CheckoutForm));

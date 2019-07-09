@@ -98,7 +98,6 @@ export const getAccounts = (id) => async (dispatch, getState) => {
 
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
 
-    console.log(accountResponse);
     if(accountResponse)
     {
         const Items = accountResponse.data.Items.map(item => {
@@ -189,10 +188,17 @@ export const modifyRules = (action, id) => async (dispatch, getState) => {
     
 }
 
-export const submitSubscription = async (id) => {
+export const submitSubscription = async (id, user) => {
+
+    console.log(user);
+    const { email, CustomerId } = user;
 
     let myRequest = {
-        body: { id }
+        body: { 
+            id,
+            email,
+            CustomerId
+        }
     };
 
     console.log(id);

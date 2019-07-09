@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Table, Spin } from 'antd';
+import { Link } from 'gatsby';
+import { Button, Table, Spin, message } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
@@ -24,10 +25,30 @@ class RulesPage extends React.Component {
         }
     }
 
+    error = () => {
+        const RulesMessage = () => (
+            <div>
+                Free plan users may only enable 10 rules at one time. Please <Link to="/app/payment">upgrade</Link> to the Standard plan to remove the cap on rules.
+            </div>
+        )
+        message.error(<RulesMessage />, 5);
+    };
+
     enableRule = (event) => {
-        this.props.enableRule(event.target.id, this.props.User); 
-        console.log(event.target.name);
-        console.log(event.target.id);
+        const enabledCount = this.props.Rules.filter(rule => rule.Enabled).length;
+        console.log(enabledCount);
+        
+        if(enabledCount >= 10 && this.props.User.Plan === "Free")
+        {
+            console.log("Cannot add more rules. Please upgrade to the Standard Plan to enable more rules.");
+            this.error();
+        }
+        else
+        {
+            this.props.enableRule(event.target.id, this.props.User); 
+            console.log(event.target.name);
+            console.log(event.target.id);
+        }
     }
 
     disableRule = (event) => {
@@ -196,7 +217,6 @@ class RulesPage extends React.Component {
                                         <ButtonGroup>
                                             <Button size="large" onClick={this.disableAll}>Disable All</Button>
                                             <Button size="large" onClick={this.monitorAll}>Monitor All</Button>
-                                            <Button size="large" onClick={this.remediateAll}>Remediate All</Button>
                                         </ButtonGroup>
                                     </div>
                                 </div>

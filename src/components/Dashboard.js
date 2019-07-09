@@ -23,7 +23,8 @@ class Dashboard extends React.Component {
         showAll: true,
         showSecurity: false,
         showWaste: false,
-        showConfiguration: false
+        showConfiguration: false,
+        scanComplete: false
       };
 
     componentDidMount = async () => {
@@ -37,6 +38,7 @@ class Dashboard extends React.Component {
         {
             await this.props.getCurrentUser();
             await this.props.getRules(this.props.user);
+
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
@@ -57,7 +59,8 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             })
-            this.props.getAccounts(this.props.user.CustomerId);
+            await this.props.getAccounts(this.props.user.CustomerId);
+            this.setState({ scanComplete: true });
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
@@ -88,7 +91,8 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             });
-            this.props.getAccounts(this.props.user.CustomerId);
+            await this.props.getAccounts(this.props.user.CustomerId);
+            this.setState({ scanComplete: true });
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
@@ -153,7 +157,6 @@ class Dashboard extends React.Component {
     render() {
         if (!isLoggedIn()) navigate('/app/login');
 
-        console.log(this.props);
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
         const allPie = [
@@ -168,8 +171,6 @@ class Dashboard extends React.Component {
                 }, 0)
             }
         ];
-
-        console.log(allPie);
 
         const securityPie = [
             { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -327,10 +328,21 @@ class Dashboard extends React.Component {
                             {
                                 this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
                             }
-                            <Card style={{ margin: "1.5rem", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                                <div className="dashboard-card-header"><div>PurifyScore</div></div>
-                                <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
-                            </Card>
+                            {
+                                this.props.accounts.length !== 0 && (
+                                    <Card style={{ margin: "1.5rem", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                        <div className="dashboard-card-header"><div>PurifyScore</div></div>
+                                        <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
+                                    </Card>
+                                )
+                            }
+                            {
+                                this.props.accounts.length === 0 && this.state.scanComplete && (
+                                    <Card style={{ margin: "1.5rem", width: "100%" }}>
+                                        No data available. Please enable some accounts to see data in your dashboard.
+                                    </Card>
+                                )
+                            }
                             <div className="web-metrics">
                             <Card bodyStyle={{ }} style={{ margin: "0 1.5rem", borderRadius: "5px" }} title={<div className="dashboard-card-header">
                                 <div>Category Metrics</div>
@@ -349,6 +361,7 @@ class Dashboard extends React.Component {
                                     </Button>
                                 </Button.Group>
                             </div>} headStyle={{ fontSize: "1.6rem" }}>
+                            {this.props.accounts.length !== 0 && (
                             <div className="progress-items">
                                 <div className="progress-header">
                                 {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
@@ -435,7 +448,14 @@ class Dashboard extends React.Component {
                             {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
                             {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
                             {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
-                            </div>
+                            </div> )}
+                            {
+                                this.props.accounts.length === 0 && this.state.scanComplete && (
+                                    <div className="data-missing-dashboard">
+                                        No data available. Please enable some accounts to see data in your dashboard.
+                                    </div>
+                                )
+                            }
                             </Card>
                             </div>
                             <div className="dashboard-sidebar">
@@ -459,7 +479,8 @@ class Dashboard extends React.Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        rules: state.rules
+        rules: state.rules,
+        accounts: state.accounts
     }
 }
 
