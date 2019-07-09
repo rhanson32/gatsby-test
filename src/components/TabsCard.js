@@ -111,17 +111,8 @@ class TabsCard extends React.Component {
       const contentListNoTitle = {
         General: <div>
             <div className="settings-row">
-            <div className="settings-left-side">
-                Default Operating Mode
-            </div>
-            <Button.Group>
-                <Button>
-                    Monitor
-                </Button>
-                <Button>
-                    Remediate
-                </Button>
-            </Button.Group>
+                
+            
         </div>
         <div className="settings-row">
             <div className="settings-left-side">

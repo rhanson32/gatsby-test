@@ -469,12 +469,13 @@ class Dashboard extends React.Component {
                             </Card>
                             </div>
                             <div className="dashboard-sidebar">
-                            <Card style={{ marginBottom: "1rem" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                                <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
-                                <hr />
+                            <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                <Statistic title="Rules Enabled" value={this.props.rules.filter(rule => rule.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
+                                <Statistic title="Total Rules" value={this.props.rules.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>
-                            <Card style={{ }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                                <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />
+                            <Card bodyStyle={{ display: "flex" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                            <Statistic title="Enabled Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
+                            <Statistic title="Total Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>
                             
                             </div>

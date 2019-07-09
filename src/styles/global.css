@@ -1625,7 +1625,12 @@ th, td {
 
 .dashboard-max {
     max-width: 1500px;
+    background-color: #F3F3F3;
     margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .dashboard-main {

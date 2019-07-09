@@ -1,9 +1,14 @@
 import React from 'react'
 import Header from './Header'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
+import { getExpiration } from '../utils/auth';
 import TabsCard from './TabsCard';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions'
 import LeftMenu from './LeftMenu';
+import moment from 'moment';
+import { message } from 'antd';
 
 class Settings extends React.Component {
 
@@ -20,6 +25,15 @@ class Settings extends React.Component {
     };
 
     componentDidMount = async () => {
+        if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
+        }
         await this.props.getCurrentUser()
         this.props.getSettings()
         this.props.getAccounts(this.props.user.CustomerId)

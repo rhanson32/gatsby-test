@@ -3,6 +3,11 @@ import { connect } from 'react-redux'
 import LeftMenu from './LeftMenu';
 import SupportTabs from './SupportTabs';
 import { fetchTickets, postTicket, getCurrentUser } from '../actions';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
+import { getExpiration } from '../utils/auth';
+import moment from 'moment';
+import { message } from 'antd';
 
 import Header from './Header'
 
@@ -13,6 +18,15 @@ class SupportPage extends React.Component {
     }
 
     componentDidMount = async () => {
+        if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
+        }
         if(!this.props.User.email)
         {
             await this.props.getCurrentUser()
