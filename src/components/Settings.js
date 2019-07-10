@@ -54,12 +54,15 @@ class Settings extends React.Component {
     <div className="settings-page">
         <Header />
         <LeftMenu />
-        <div className="settings-main">
+        <div className="support-right-side">
             <div className="support-screen-header">
-                <h1>Settings</h1>
+                    <h1>Settings</h1>
+                </div>
+            <div className="settings-main">
+                <TabsCard />
             </div>
-            <TabsCard />
         </div>
+        
     </div>
     )
     }

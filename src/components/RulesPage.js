@@ -30,8 +30,8 @@ class RulesPage extends React.Component {
         }
         if(!this.props.User.email)
         {
-            await this.props.getCurrentUser()
-            this.props.getRules(this.props.User)
+            await this.props.getCurrentUser();
+            this.props.getRules(this.props.User);
         }
         else {
             this.props.getRules(this.props.User);
@@ -66,22 +66,17 @@ class RulesPage extends React.Component {
 
     disableRule = (event) => {
         this.props.disableRule(event.target.id, this.props.User); 
-        console.log(event.target.name);
-        console.log(event.target.id);
     }
 
     disableAll = () => {
-        console.log("Disabling all rules!");
         this.props.modifyRules("disable", this.props.User.CustomerId);
     }
 
     monitorAll = () => {
-        console.log("Monitoring all rules!");
         this.props.modifyRules('monitor', this.props.User.CustomerId);
     }
 
     remediateAll = () => {
-        console.log("Remediating all rules!");
         this.props.modifyRules('remediate', this.props.User.CustomerId);
     }
 
@@ -219,13 +214,18 @@ class RulesPage extends React.Component {
                     <LeftMenu />
                     <div className="rules">
                         {
-                            this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%" }} size="large" />
+                            this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%", fontSize: "2rem" }} size="large" />
                         }
+                        {
+                            this.props.Rules.length !== 0 && (
+                                <div className="rules-header">
+                                    <h1>Rules</h1>
+                                </div>
+                            )
+                        }
+                        
                         {this.props.Rules.length !== 0 && (
                                 <div className="rules-options">
-                                    <div className="rules-header">
-                                        <h1>Rules</h1>
-                                    </div>
                                     <div className="rules-bulk-switch">
                                         <ButtonGroup>
                                             <Button size="large" onClick={this.disableAll}>Disable All</Button>

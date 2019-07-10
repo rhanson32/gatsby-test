@@ -4,7 +4,8 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import { Link } from 'gatsby';
-import { Spin, Button, Table, Alert, message } from 'antd';
+import { FaAws, FaMicrosoft } from 'react-icons/fa';
+import { Spin, Button, Table, Alert, message, Switch, Drawer, Input } from 'antd';
 import Header from './Header'
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import LeftMenu from './LeftMenu';
@@ -13,7 +14,9 @@ import { getExpiration } from '../utils/auth';
 class Accounts extends React.Component {
 
   state = {
-    scanComplete: false
+    scanComplete: false,
+    showDrawer: false,
+    accountId: ``
   }
 
     componentDidMount = async () => {
@@ -36,18 +39,6 @@ class Accounts extends React.Component {
             this.setState({ scanComplete: true });
         }      
     }
-    componentDidUpdate() {
-    
-    }
-
-    state = {
-        AccountHeader: {
-            AccountId: 'Account ID',
-            Provider: 'Provider',
-            RoleName: 'Role Name',
-            Header: true
-        }
-    };
 
     addAccount = () => {
         this.props.toggleAddAccount();
@@ -58,12 +49,26 @@ class Accounts extends React.Component {
         postAccount();
     }
 
+    onClose = () => {
+      this.setState({
+        showDrawer: false
+      })
+    }
+
+    showDrawer = (event) => {
+      console.log(event.target.id);
+      this.setState({
+        accountId: event.target.id,
+        showDrawer: true
+      });
+    }
+
     render() {
         const dataSource = this.props.Accounts && this.props.Accounts.map((account, index) => {
             return {
                 key: index.toString(),
                 accountId: account.AccountId,
-                provider: account.Provider,
+                provider: account.Provider === 'AWS' ? <FaAws size="2em" /> : <FaMicrosoft />,
                 role: account.RoleName,
                 status:  account.Status === "Valid" ?
                 <Button type="link" name="off" id={account.AccountId} size="large">
@@ -71,7 +76,9 @@ class Accounts extends React.Component {
                 </Button> :
                 <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
                     Invalid
-                </Button>
+                </Button>,
+                state: <Switch />,
+                action: <Button type="link" id={account.AccountId} onClick={this.showDrawer}>Edit</Button>
             }    
         });
 
@@ -125,6 +132,16 @@ class Accounts extends React.Component {
               title: 'Role',
               dataIndex: 'role',
               key: 'role'
+            },
+            {
+              title: 'State',
+              dataIndex: 'state',
+              key: 'state'
+            },
+            {
+              title: ' ',
+              dataIndex: 'action',
+              key: 'action'
             }
           ];
         return (
@@ -149,12 +166,28 @@ class Accounts extends React.Component {
                     )
                   }
                     {
-                        !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
+                        !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />
                     }
                     {
-                        this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
+                        this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
-                   
+                   {
+                     this.state.showDrawer && (
+                       <Drawer
+                        title="Edit Account"
+                        placement="right"
+                        closable={false}
+                        onClose={this.onClose}
+                        visible={this.state.showDrawer}
+                       >
+                         <label>IAM Role</label>
+                         <Input 
+                          placeholder="Example text"
+                          />
+                         <Button type="primary">Update</Button>
+                       </Drawer>
+                     )
+                   }
                 </div>
                 
             </div>

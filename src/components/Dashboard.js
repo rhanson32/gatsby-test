@@ -331,143 +331,133 @@ class Dashboard extends React.Component {
                     <p>{ModalText}</p>
                   </Modal>
                 )}
-                {
-                    this.props.rules.length !== 0 && (
                         <div className="dashboard">
+                            {
+                                !this.state.scanComplete && <div className="spin-container"><Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" /></div>
+                            }
+                            {this.props.rules.length !== 0 && this.props.accounts.length !== 0 && this.state.scanComplete && (
                             <div className="dashboard-max">
-                            {
-                                this.props.rules.length === 0 && <Spin style={{ margin: "auto" }} size="large" />
-                            }
-                            {
-                                this.props.accounts.length !== 0 && (
-                                    <Card style={{ margin: "1.5rem", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                                        <div className="dashboard-card-header"><div>PurifyScore</div></div>
-                                        <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
-                                    </Card>
-                                )
-                            }
-                            {
-                                this.props.accounts.length === 0 && this.state.scanComplete && (
-                                    <Card style={{ margin: "1.5rem", width: "100%" }}>
-                                        No data available. Please enable some accounts to see data in your dashboard.
-                                    </Card>
-                                )
-                            }
-                            <div className="web-metrics">
-                            <Card bodyStyle={{ }} style={{ margin: "0 1.5rem", borderRadius: "5px" }} title={<div className="dashboard-card-header">
-                                <div>Category Metrics</div>
-                                <Button.Group>
-                                    <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
-                                        All
-                                    </Button>
-                                    <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
-                                        Security
-                                    </Button>
-                                    <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
-                                        Waste
-                                    </Button>
-                                    <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                        Configuration
-                                    </Button>
-                                </Button.Group>
-                            </div>} headStyle={{ fontSize: "1.6rem" }}>
-                            {this.props.accounts.length !== 0 && (
-                            <div className="progress-items">
-                                <div className="progress-header">
-                                {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
-                                {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
-                                {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
-                                {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
-                                    {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showConfiguration && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                    {this.state.showWaste && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                            
-                                </div>
-                                {this.state.showAll && (
-                                <div className="victory-chart">
-                                    <VictoryPie
-                                        animate={{ duration: 2000 }}
-                                        innerRadius={90}
-                                        radius={150}
-                                        data={allPie}
-                                        colorScale={['#eee', '#00b894']}
-                                        labels={(d) => d.y}
-                                        labelRadius={105}
-                                        style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
-                                        />
-                                        
-                                </div>
-                                )
-                            }
-                            {this.state.showSecurity && (
-                                <div className="victory-chart">
-                                    <VictoryPie
-                                        animate={{ duration: 2000 }}
-                                        innerRadius={90}
-                                        radius={150}
-                                        data={securityPie}
-                                        colorScale={['#eee', '#00b894']}
-                                        labels={(d) => d.y}
-                                        labelRadius={105}
-                                        style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
-                                        />
-                                        
-                                </div>
-                                )
-                            }
-                            {this.state.showWaste && (
-                                <div className="victory-chart">
-                                <VictoryPie
-                                     animate={{ duration: 2000 }}
-                                     innerRadius={90}
-                                     radius={150}
-                                     data={wastePie}
-                                     colorScale={['#eee', '#00b894']}
-                                     labels={(d) => d.y}
-                                     labelRadius={105}
-                                     style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
-                                    />
-                                    
-                                </div>
-                            )}
-                            {this.state.showConfiguration && (
-                                <div className="victory-chart">
-                                <VictoryPie
-                                     animate={{ duration: 2000 }}
-                                     innerRadius={90}
-                                     radius={150}
-                                     data={configurationPie}
-                                     colorScale={['#eee', '#00b894']}
-                                     labels={(d) => d.y}
-                                     labelRadius={105}
-                                     style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
-                                    />
-                                    
-                                </div>
-                            )}
-                            {this.state.showAll && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceAll} columns={columns} />}
-                            {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
-                            {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                            {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
-                            </div> )}
-                            {
-                                this.props.accounts.length === 0 && this.state.scanComplete && (
-                                    <div className="data-missing-dashboard">
-                                        No data available. Please enable some accounts to see data in your dashboard.
+                                <Card style={{ margin: "1.5rem", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
+                                    <div className="dashboard-card-header"><div>PurifyScore</div></div>
+                                    <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
+                                </Card>
+                                {this.props.accounts.length === 0 && (<Card style={{ margin: "1.5rem", width: "100%" }}>
+                                    No data available. Please enable some accounts to see data in your dashboard.
+                                </Card>)}
+                                <div className="web-metrics">
+                                <Card bodyStyle={{ }} style={{ margin: "0 1.5rem", borderRadius: "5px" }} title={<div className="dashboard-card-header">
+                                    <div>Category Metrics</div>
+                                    <Button.Group>
+                                        <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
+                                            All
+                                        </Button>
+                                        <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
+                                            Security
+                                        </Button>
+                                        <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
+                                            Waste
+                                        </Button>
+                                        <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
+                                            Configuration
+                                        </Button>
+                                    </Button.Group>
+                                </div>} headStyle={{ fontSize: "1.6rem" }}>
+                                <div className="progress-items">
+                                    <div className="progress-header">
+                                    {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
+                                    {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
+                                    {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
+                                    {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
+                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                                
                                     </div>
-                                )
-                            }
-                            </Card>
-                            </div>
+                                    {this.state.showAll && (
+                                    <div className="victory-chart">
+                                        <VictoryPie
+                                            animate={{ duration: 2000 }}
+                                            innerRadius={90}
+                                            radius={150}
+                                            data={allPie}
+                                            colorScale={['#eee', '#00b894']}
+                                            labels={(d) => d.y}
+                                            labelRadius={105}
+                                            style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
+                                            />
+                                            
+                                    </div>
+                                    )
+                                }
+                                {this.state.showSecurity && (
+                                    <div className="victory-chart">
+                                        <VictoryPie
+                                            animate={{ duration: 2000 }}
+                                            innerRadius={90}
+                                            radius={150}
+                                            data={securityPie}
+                                            colorScale={['#eee', '#00b894']}
+                                            labels={(d) => d.y}
+                                            labelRadius={105}
+                                            style={{ labels: { fontSize: 24, fontWeight: "bold" } }}
+                                            />
+                                            
+                                    </div>
+                                    )
+                                }
+                                {this.state.showWaste && (
+                                    <div className="victory-chart">
+                                    <VictoryPie
+                                        animate={{ duration: 2000 }}
+                                        innerRadius={90}
+                                        radius={150}
+                                        data={wastePie}
+                                        colorScale={['#eee', '#00b894']}
+                                        labels={(d) => d.y}
+                                        labelRadius={105}
+                                        style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
+                                        />
+                                        
+                                    </div>
+                                )}
+                                {this.state.showConfiguration && (
+                                    <div className="victory-chart">
+                                    <VictoryPie
+                                        animate={{ duration: 2000 }}
+                                        innerRadius={90}
+                                        radius={150}
+                                        data={configurationPie}
+                                        colorScale={['#eee', '#00b894']}
+                                        labels={(d) => d.y}
+                                        labelRadius={105}
+                                        style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
+                                        />
+                                        
+                                    </div>
+                                )}
+                                {this.state.showAll && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceAll} columns={columns} />}
+                                {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
+                                {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
+                                </div> )}
+                                {
+                                    this.props.accounts.length === 0 && this.state.scanComplete && (
+                                        <div className="data-missing-dashboard">
+                                            No data available. Please enable some accounts to see data in your dashboard.
+                                        </div>
+                                    )
+                                }
+                                </Card>
+                                </div>
                             <div className="dashboard-sidebar">
                             <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Rules Enabled" value={this.props.rules.filter(rule => rule.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
@@ -504,9 +494,11 @@ class Dashboard extends React.Component {
                                     <VictoryAxis dependentAxis />
                                 </VictoryChart>
                             </Card>
+                            
                             </div>
+                            )}
                         </div>
-                    )
+                    
                 }
             </div>
         )
