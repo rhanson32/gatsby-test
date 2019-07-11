@@ -351,6 +351,30 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
+export const getHistory = (user) => async dispatch => {
+
+    let myRequest = {
+        body: {},
+        headers: {
+            Authorization: user.IdToken
+        }
+    }
+
+    const { CustomerId } = user;
+
+    const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
+
+    const Items = historyResponse.data.map(item => {
+        return {
+            CustomerId: item.CustomerId.S,
+            ActionDate: item.ActionDate.S,
+            Event: item.Event.S,
+            EventData: item.EventData ? item.EventData.M : "None"
+        }
+    });
+    dispatch({ type: 'FETCH_HISTORY', payload: Items });
+}
+
 export const disableRule = (id, user) => async (dispatch, getState) => {
 
     const prevState = getState();

@@ -40,6 +40,18 @@ const ruleReducer = (state = [], action) => {
 
 };
 
+const historyReducer = (state = [], action) => {
+
+    switch(action.type)
+    {
+        case 'FETCH_HISTORY':
+            return [ ...action.payload ]
+        default:
+            return state;
+    }
+
+};
+
 const usersReducer = (state = [], action) => {
 
     switch(action.type)
@@ -155,5 +167,6 @@ export default combineReducers({
     tickets: ticketReducer,
     mobile: mobileReducer,
     documentation: documentationReducer,
-    users: usersReducer
+    users: usersReducer,
+    history: historyReducer
 });
