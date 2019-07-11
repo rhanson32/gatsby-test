@@ -65,10 +65,11 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
         }
     };
 
+    dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
     const response = await purify.put('/accounts', myRequest).catch(err => console.log(err));
 
     console.log(response);
-    dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
+    
 }
 
 export const fetchUsers = (id) => async (dispatch, getState) => {

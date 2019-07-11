@@ -5,10 +5,11 @@ import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import { Link } from 'gatsby';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
-import { Spin, Button, Table, Alert, message, Switch, Drawer, Input } from 'antd';
+import { Spin, Button, Table, Alert, message, Drawer, Input } from 'antd';
 import Header from './Header'
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import LeftMenu from './LeftMenu';
+import SwitchWrapAccount from './SwitchWrapAccount';
 import { getExpiration } from '../utils/auth';
 
 class Accounts extends React.Component {
@@ -83,7 +84,7 @@ class Accounts extends React.Component {
                 <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
                     Invalid
                 </Button>,
-                state: <Switch checked={account.Enabled} onChange={this.handleChange} />,
+                state: <SwitchWrapAccount checked={account.Enabled} account={account} />,
                 action: <Button type="link" id={account.AccountId} onClick={this.showDrawer}>Edit</Button>
             }    
         });
@@ -187,10 +188,14 @@ class Accounts extends React.Component {
                         visible={this.state.showDrawer}
                        >
                          <label>IAM Role</label>
-                         <Input 
+                         <Input
+                          style={{ margin: "1rem 0" }}
                           placeholder="Example text"
                           />
-                         <Button type="primary">Update</Button>
+                          <div className="drawer-submit">
+                            <Button type="primary">Update</Button>
+                          </div>
+                         
                        </Drawer>
                      )
                    }

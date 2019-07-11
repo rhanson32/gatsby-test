@@ -87,12 +87,12 @@ class SupportPage extends React.Component {
                     )
                 }  
                 <Drawer
+                    className="support-drawer"
                     title="Create Support Case"
                     placement="right"
                     closable={false}
                     onClose={this.onClose}
                     visible={this.state.visible}
-                    width="50%"
                     >
                     <SupportForm />
                 </Drawer>

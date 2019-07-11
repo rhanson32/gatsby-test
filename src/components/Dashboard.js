@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker } from 'antd';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker, notification } from 'antd';
 
 import LeftMenu from './LeftMenu';
 import Header from './Header';
@@ -24,7 +24,11 @@ class Dashboard extends React.Component {
         showSecurity: false,
         showWaste: false,
         showConfiguration: false,
-        scanComplete: false
+        scanComplete: false,
+        error: {
+            title: ``,
+            message: ``
+        }
       };
 
     componentDidMount = async () => {
@@ -39,8 +43,23 @@ class Dashboard extends React.Component {
         }
         if(!this.props.user.email)
         {
-            await this.props.getCurrentUser();
-            await this.props.getRules(this.props.user);
+            try
+            {
+                await this.props.getCurrentUser();
+                await this.props.getRules(this.props.user);
+            }
+            catch(err)
+            {
+                console.log(err.message);
+                if(err.message === 'Network Error')
+                {
+                    notification['error']({
+                        message: 'Network Error',
+                        description: 'Unable to connect to the internet. Please check your internet connection and try again.'
+                    });
+                }
+            }
+            
 
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -73,7 +92,14 @@ class Dashboard extends React.Component {
         }
         else
         {
-            await this.props.getRules(this.props.user);
+            try
+            {
+                await this.props.getRules(this.props.user);
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;

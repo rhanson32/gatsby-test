@@ -9,7 +9,7 @@
 html,
 body {
     height: 100%;
-    width: 100vw;
+    width: 100%;
 }
 
 input  {
@@ -1748,6 +1748,13 @@ th, td {
     justify-content: flex-start;
 }
 
+.drawer-submit {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    padding-top: 1rem;
+}
+
 .dashboard-item {
     background-color: rgba(0, 184, 148, 0.75);
     width: 25%;
@@ -1872,6 +1879,7 @@ th, td {
 
     .rules, .accounts {
         width: 100%;
+        min-height: 75vh;
     }
 
     .rules-bulk-switch a {
@@ -1879,7 +1887,15 @@ th, td {
     }
 
     .rules-bulk-switch {
-        width: 65%;
+        width: 90%;
+    }
+
+    .support-screen {
+        width: 100%;
+    }
+
+    .support-drawer {
+        width: 80%;
     }
 
     .feature-cards {
@@ -1924,7 +1940,7 @@ th, td {
         width: 100%;
         text-align: center;
         line-height: 5rem;
-        font-size: 4rem;
+        font-size: 3.5rem;
     }
 
     .header-menu {
@@ -1942,6 +1958,7 @@ th, td {
 
     .users-main {
         width: 100%;
+        min-height: 75vh;
     }
 
     .add-user-form {
@@ -1950,10 +1967,6 @@ th, td {
 
     .history-main {
         width: 100%;
-        min-height: 95vh;
-    }
-
-    .accounts {
         min-height: 95vh;
     }
 
@@ -2217,6 +2230,14 @@ th, td {
         width: 40%;
     }
 
+    .support-drawer {
+        width: 50%;
+    }
+
+    .dashboard-sidebar {
+        width: 16%;
+    }
+
     .web-metrics {
         width: 80%;
     }
@@ -2224,7 +2245,7 @@ th, td {
     .web-rules {
         width: 100%;
     }
-    
+
     .payments-main {
         width: 90%;
     }
@@ -2327,6 +2348,10 @@ th, td {
 
     .mobile-rules {
         display: none;
+    }
+
+    .support-drawer {
+        width: 50%;
     }
 
     .web-rules {
