@@ -249,7 +249,7 @@ class RulesPage extends React.Component {
                             )
                         }
                         <div className="web-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}   
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} style={{ width: "90%", margin: "auto", maxWidth: "1000px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 

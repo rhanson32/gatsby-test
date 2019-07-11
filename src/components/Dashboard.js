@@ -129,7 +129,30 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "New")
                 this.setState({ welcomeScreen: true })
         }
-        setInterval(() => this.props.getRules(this.props.user), 30000);
+        setInterval( async () => {
+            await this.props.getRules(this.props.user);
+            this.setState({
+                securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                wasteViolations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                     return accumulator + currentValue;
+                 }, 0),
+                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0),
+                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                    return accumulator + currentValue;
+                }, 0)
+            });
+            console.log("Interval function invoked.");
+        }, 30000);
     }
 
     showAll = () => {
@@ -196,15 +219,15 @@ class Dashboard extends React.Component {
         ];
 
         const allPie = [
-            { x: "In Violation", y: this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+            { x: "In Violation", y: Math.round(this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                 return accumulator + currentValue;
-            }, 0)},
+            }, 0))},
             {
-                x: "Compliant", y: this.props.rules.map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
+                x: "Compliant", y: Math.round(this.props.rules.map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
-                }, 0) - this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
+                }, 0)) - Math.round(this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
                     return accumulator + currentValue;
-                }, 0)
+                }, 0))
             }
         ];
 

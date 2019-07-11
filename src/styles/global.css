@@ -1645,7 +1645,6 @@ th, td {
 .dashboard-max {
     max-width: 1500px;
     background-color: #F3F3F3;
-    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -1677,6 +1676,10 @@ th, td {
     align-items: center;
     height: 100vh;
     z-index: 2;
+}
+
+.dashboard {
+    width: 95%;
 }
 
 .left-menu-item:first-child {
@@ -1926,6 +1929,10 @@ th, td {
         width: 100%;
         flex-direction: row;
         height: 6rem;
+    }
+
+    .dashboard {
+        width: 100%;
     }
 
     .left-menu-item:first-child {
@@ -2236,6 +2243,7 @@ th, td {
 
     .dashboard-sidebar {
         width: 16%;
+        margin-left: 1.5rem;
     }
 
     .web-metrics {
@@ -2281,6 +2289,10 @@ th, td {
 
     .left-menu {
         width: 10%;
+    }
+
+    .dashboard {
+        width: 90%;
     }
 
     .settings-menu-item {
@@ -2346,6 +2358,10 @@ th, td {
         width: 75%;
     }
 
+    .left-menu-item a:link, .left-menu-item a:visited {
+        padding: 1.5rem 0;
+    }
+
     .mobile-rules {
         display: none;
     }
@@ -2360,15 +2376,11 @@ th, td {
 
     .dashboard-sidebar {
         width: 25%;
-        margin: 0 1.5rem;
+        margin-left: 1.5rem;
     }
 
     .web-metrics {
         width: 70%;
-    }
-
-    .dashboard {
-        width: 95%;
     }
 
     .settings-menu-item {
@@ -2399,6 +2411,14 @@ th, td {
     .action-button {
         padding: 0.5rem 1.5rem;
         font-size: 2rem;
+    }
+
+    .left-menu {
+        width: 10%;
+    }
+
+    .rules, .accounts, .dashboard, .users-main, .support-screen, .history-main {
+        width: 90%;
     }
 
     .left-menu-item svg {

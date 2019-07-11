@@ -7,7 +7,9 @@ const History = () => (
         <Header />
         <LeftMenu />
         <div className="history-main">
-            History!!!
+            <div className="support-screen-header">
+                <h1>History</h1>
+            </div>
         </div>    
     </div>
 );
