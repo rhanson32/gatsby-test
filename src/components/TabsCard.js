@@ -7,6 +7,7 @@ import AddAccount from './AddAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
 import { updateCustomerStatus } from '../actions';
+import { navigate } from '@reach/router';
 
 class TabsCard extends React.Component {
   state = {
@@ -55,6 +56,10 @@ class TabsCard extends React.Component {
         },
         onCancel() {}
       });
+  }
+
+  showPlans = () => {
+      navigate('/app/payment')
   }
 
   render() {
@@ -111,8 +116,8 @@ class TabsCard extends React.Component {
       const contentListNoTitle = {
         General: <div>
             <div className="settings-row">
-                
-            
+              <p style={{ margin: "0 2rem" }}>Unhappy with your current plan?</p>  
+            {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Update My Plan</Button>}
         </div>
         <div className="settings-row">
             <div className="settings-left-side">

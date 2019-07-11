@@ -39,11 +39,6 @@ const LeftMenu = () => (
                 <Icon type="history" style={{ fontSize: "2rem" }} />
             </Link>
         </div>
-        <div className="left-menu-item">
-            <Link to="/app/payment">
-                <Icon type="history" style={{ fontSize: "2rem" }} />
-            </Link>
-        </div>
     </div>
 );
 

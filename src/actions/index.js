@@ -108,7 +108,8 @@ export const getAccounts = (id) => async (dispatch, getState) => {
                 Type: item.Type.S || 'Secondary',
                 RoleName: (item.RoleName && item.RoleName.S) || 'None',
                 CustomerId: item.CustomerId.S,
-                Status: item.Status.S
+                Status: item.Status.S,
+                Enabled: item.Enabled.BOOL
             }
         });
         dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
@@ -259,7 +260,7 @@ export const saveUser = (user) => async (dispatch, getState) => {
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
-        console.log(customerResponse)
+        console.log(customerResponse);
         user.customerId = customerResponse.data[0].CustomerId.S
     }
     dispatch({ type: 'STORE_USER', payload: user })

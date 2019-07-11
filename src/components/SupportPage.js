@@ -7,14 +7,16 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getExpiration } from '../utils/auth';
 import moment from 'moment';
-import { message } from 'antd';
+import { message, Drawer, Button } from 'antd';
+import SupportForm from './SupportForm';
 
 import Header from './Header'
 
 class SupportPage extends React.Component {
     state = {
         ticketSubmitted: true,
-        showTickets: true
+        showTickets: true,
+        visible: false
     }
 
     componentDidMount = async () => {
@@ -41,13 +43,20 @@ class SupportPage extends React.Component {
 
     showForm = () => {
         this.setState({ 
-            showTickets: false
+            showTickets: false,
+            visible: true
         })
     }
 
     showTickets = () => {
         this.setState({ 
             showTickets: true
+        })
+    }
+
+    onClose = () => {
+        this.setState({
+            visible: false
         })
     }
 
@@ -64,17 +73,29 @@ class SupportPage extends React.Component {
         return (
             <div className="support-page">
                 <Header />
-                <LeftMenu />     
+                <LeftMenu />   
+                
                 {
                     this.props.tickets && (
                         <div className="support-screen">
                             <div className="support-screen-header">
                                 <h1>Support Center</h1>
+                                <Button onClick={this.showForm} type="primary">Create Case</Button>  
                             </div>
                             <SupportTabs />
                         </div> 
                     )
                 }  
+                <Drawer
+                    title="Create Support Case"
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                    width="50%"
+                    >
+                    <SupportForm />
+                </Drawer>
             </div>
         )
     }  

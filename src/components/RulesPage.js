@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import { Link } from 'gatsby';
 import moment from 'moment';
 import { getExpiration } from '../utils/auth';
-import { Button, Table, Spin, message } from 'antd';
+import { Button, Table, Spin, message, Switch } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
@@ -59,8 +59,6 @@ class RulesPage extends React.Component {
         else
         {
             this.props.enableRule(event.target.id, this.props.User); 
-            console.log(event.target.name);
-            console.log(event.target.id);
         }
     }
 
@@ -86,6 +84,10 @@ class RulesPage extends React.Component {
         });
     }
 
+    changeSwitch = (newState) => {
+        console.log(newState);
+    }
+
     handleUpdate = (event) => {
         this.setState({
           [event.target.name]: event.target.value,
@@ -99,6 +101,7 @@ class RulesPage extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
+                state2: <Switch id={rule.ruleId} checked={rule.Enabled} onChange={this.changeSwitch} />,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
                 <Button name="off" id={rule.RuleId} onClick={this.disableRule} type={!rule.Enabled ? "primary": "default"} size="default">
@@ -118,6 +121,7 @@ class RulesPage extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
+                state2: <Switch checked={rule.Enabled} />,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
                 <Button name="off" id={rule.RuleId} onClick={this.toggleRule} style={{ backgroundColor: rule.Enabled ? "white" : "#27ae60", color: rule.Enabled ? "black" : "white" }} size="default">
@@ -177,6 +181,11 @@ class RulesPage extends React.Component {
               ],
               onFilter: (value, record) => record.state.indexOf(value) === 0
             },
+            {
+                title: 'State',
+                dataIndex: 'state2',
+                key: 'state2'
+            }
           ];
 
           const mobileColumns = [

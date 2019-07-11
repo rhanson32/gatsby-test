@@ -44,6 +44,12 @@ class Accounts extends React.Component {
         this.props.toggleAddAccount();
     }
 
+    handleChange = (e) => {
+      console.log("Switched!");
+      console.log(e);
+      
+    }
+
     submitAccount = () => {
         this.setState({ AddAccount: false});
         postAccount();
@@ -77,7 +83,7 @@ class Accounts extends React.Component {
                 <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
                     Invalid
                 </Button>,
-                state: <Switch />,
+                state: <Switch checked={account.Enabled} onChange={this.handleChange} />,
                 action: <Button type="link" id={account.AccountId} onClick={this.showDrawer}>Edit</Button>
             }    
         });

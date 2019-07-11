@@ -488,7 +488,8 @@ input  {
 }
 
 .rules-header {
-    padding: 1rem 3rem;
+    padding: 0 3rem;
+    width: 35%;
 }
 
 .docs-menu {
@@ -1109,6 +1110,7 @@ input  {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     background-color: #F3F3F3;
     width: 95%;
@@ -1400,11 +1402,11 @@ th, td {
 }
 
 .rules-options {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     max-width: 1200px;
 }
 
@@ -2222,6 +2224,10 @@ th, td {
     .web-rules {
         width: 100%;
     }
+    
+    .payments-main {
+        width: 90%;
+    }
 
     .mobile-rules {
         display: none;
@@ -2351,6 +2357,7 @@ th, td {
     .payments {
         min-height: 500px;
         min-width: 400px;
+        max-width: 550px;
     }
 
     .mobile-menu-button {

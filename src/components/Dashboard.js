@@ -103,6 +103,7 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "New")
                 this.setState({ welcomeScreen: true })
         }
+        setInterval(() => this.props.getRules(this.props.user), 30000);
     }
 
     showAll = () => {
@@ -475,8 +476,9 @@ class Dashboard extends React.Component {
                                         Violations Over Time
                                     </div>
                                     <div className="history-chart-header-filters">
-                                        <Button type="link">Today</Button>
+                                        <Button type="link">Last 3 Days</Button>
                                         <Button type="link">Last 7 Days</Button>
+                                        <Button type="link">MTD</Button>
                                         <Button type="link">Last Month</Button>
                                         <DatePicker.RangePicker />
                                     </div>
