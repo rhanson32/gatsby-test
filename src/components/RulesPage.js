@@ -4,8 +4,9 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { Link } from 'gatsby';
 import moment from 'moment';
+import SwitchWrap from './SwitchWrap';
 import { getExpiration } from '../utils/auth';
-import { Button, Table, Spin, message, Switch } from 'antd';
+import { Button, Table, Spin, message, Switch, Drawer } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
@@ -15,7 +16,9 @@ class RulesPage extends React.Component {
     state = {
         showFilters: false,
         Category: "All",
-        Status: "All"
+        Status: "All",
+        visible: false,
+        description: ``
     }
 
     componentDidMount = async () => {
@@ -78,15 +81,29 @@ class RulesPage extends React.Component {
         this.props.modifyRules('remediate', this.props.User.CustomerId);
     }
 
+    onClose = () => {
+        this.setState({
+            visible: false,
+        });
+        };
+
     toggleFilterMenu = () => {
         this.setState({
             showFilters: !this.state.showFilters
         });
     }
 
-    changeSwitch = (newState) => {
-        console.log(newState);
+    showDetail = (e) => {
+        console.log(e.target.name);
+        console.log(this.props.Rules);
+        this.setState({
+            description: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Description,
+            visible: true
+        });
+        console.log(this.state);
     }
+
+    
 
     handleUpdate = (event) => {
         this.setState({
@@ -101,7 +118,7 @@ class RulesPage extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
-                state2: <Switch id={rule.ruleId} checked={rule.Enabled} onChange={this.changeSwitch} />,
+                state2: <SwitchWrap checked={rule.Enabled} id={rule.RuleId} />,
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
                 <Button name="off" id={rule.RuleId} onClick={this.disableRule} type={!rule.Enabled ? "primary": "default"} size="default">
@@ -138,7 +155,12 @@ class RulesPage extends React.Component {
           const columns = [
             {
               title: 'Name',
-              dataIndex: 'name',
+              render: (text, record) => (
+                  <span>
+                      {record.name}
+                      <Button name={record.name} type="link" onClick={this.showDetail}>View</Button>
+                  </span>
+              ),
               key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortDirections: ['descend', 'ascend']
@@ -164,22 +186,6 @@ class RulesPage extends React.Component {
                 onFilter: (value, record) => record.category.indexOf(value) === 0,
                 sorter: (a, b) => a.category.length - b.category.length,
                 sortDirections: ['descend', 'ascend']
-            },
-            {
-              title: 'Status',
-              dataIndex: 'status',
-              key: 'status',
-              filters: [
-                {
-                  text: 'Off',
-                  value: 'Off',
-                },
-                {
-                  text: 'Monitor',
-                  value: 'Monitor',
-                }
-              ],
-              onFilter: (value, record) => record.state.indexOf(value) === 0
             },
             {
                 title: 'State',
@@ -219,7 +225,6 @@ class RulesPage extends React.Component {
             <div>
                 <Header />
                 <div className="rules-page">
-                    
                     <LeftMenu />
                     <div className="rules">
                         {
@@ -232,7 +237,6 @@ class RulesPage extends React.Component {
                                 </div>
                             )
                         }
-                        
                         {this.props.Rules.length !== 0 && (
                                 <div className="rules-options">
                                     <div className="rules-bulk-switch">
@@ -245,13 +249,22 @@ class RulesPage extends React.Component {
                             )
                         }
                         <div className="web-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />}   
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} style={{ width: "90%", margin: "auto", maxWidth: "1200px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
                         </div>
                     </div> 
                 </div>
+                <Drawer
+                        title="Rule Detail"
+                        placement="right"
+                        closable={false}
+                        onClose={this.onClose}
+                        visible={this.state.visible}
+                        >
+                        Description: {<p>{this.state.description}</p>}
+                </Drawer>
             </div>
         )
     }

@@ -9,6 +9,25 @@ class RuleItem extends React.Component {
         showDescription: false
     }
 
+    enableRule = (event) => {
+        const enabledCount = this.props.Rules.filter(rule => rule.Enabled).length;
+        console.log(enabledCount);
+        
+        if(enabledCount >= 10 && this.props.User.Plan === "Free")
+        {
+            console.log("Cannot add more rules. Please upgrade to the Standard Plan to enable more rules.");
+            this.error();
+        }
+        else
+        {
+            this.props.enableRule(event.target.id, this.props.User); 
+        }
+    }
+
+    disableRule = (event) => {
+        this.props.disableRule(event.target.id, this.props.User); 
+    }
+
     toggleRule = (event) => {
         this.props.toggleRule(this.props.rule.RuleId, this.props.user); 
         console.log(event.target.name);
@@ -21,7 +40,7 @@ class RuleItem extends React.Component {
     }
     render() {
         return (
-            <div className={this.props.rule.Header ? "rule-header" : "rule-item"}>
+            <div className="rule-header">
                 <div className="rule-name">
                     {this.props.rule.Name}{"  "}
                     {!this.state.showDescription && <button className="rule-arrow-dark" onClick={this.toggleDescription}><IoIosArrowDown /></button>}

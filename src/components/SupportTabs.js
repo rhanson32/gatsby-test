@@ -6,7 +6,7 @@ import React from 'react';
 
 class SupportTabs extends React.Component {
   state = {
-    noTitleKey: 'Tickets',
+    noTitleKey: 'Cases',
     showKey: false
   };
 
@@ -24,18 +24,13 @@ class SupportTabs extends React.Component {
   render() {
     const tabListNoTitle = [
         {
-          key: 'Tickets',
-          tab: 'My Tickets',
-        },
-        {
-          key: 'NewTicket',
-          tab: 'New Ticket',
+          key: 'Cases',
+          tab: 'My Cases',
         }
       ];
       
       const contentListNoTitle = {
-        Tickets: <SupportList count={this.props.tickets.length} items={this.props.tickets} />,
-        NewTicket: <SupportForm onSubmit={this.submit} /> 
+        Cases: <SupportList count={this.props.tickets.length} items={this.props.tickets} /> 
       };
 
     return (
