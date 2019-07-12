@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExternalHeader from './ExternalHeader';
-import SiteMap from './SiteMap'
-import MobileMenu from './MobileMenu';
+import SiteMap from './SiteMap';
 
 class Pricing extends React.Component {
 
@@ -10,7 +9,6 @@ class Pricing extends React.Component {
         return (
             <div className="pricing-page">
                 <ExternalHeader />
-                {this.props.mobile.mobileMenu && <MobileMenu />}
                 <div className="pricing-header">
                     <div className="pricing-overlay">
                         <div className="pricing-header-text">Plans and Pricing</div>

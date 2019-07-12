@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import DocsMenu from './DocsMenu';
 import ExternalHeader from './ExternalHeader';
 import GettingStarted from './GettingStarted';
-import MobileMenu from './MobileMenu';
 import Prerequisites from './Prerequisites';
 import SigningUp from './SigningUp';
 import AddingUsers from './AddingUsers';
@@ -16,9 +15,8 @@ class Docs extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="docs-page">
                 <ExternalHeader />
-                {this.props.mobile.mobileMenu && <MobileMenu />}
                 <div className="docs-main">
                     <DocsMenu />
                     {
