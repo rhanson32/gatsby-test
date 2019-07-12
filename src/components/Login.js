@@ -111,7 +111,6 @@ class Login extends React.Component {
         this.resendCode();
         this.setState({ confirmUser: true });
       }
-      console.log(this.state);
       if(err === 'not authenticated')
       {
         this.setState({acceptCode: true });

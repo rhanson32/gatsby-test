@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'gatsby';
 import { FaBars } from 'react-icons/fa';
+import { Button, Modal } from 'antd';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
 
@@ -13,14 +14,15 @@ class ExternalHeader extends React.Component {
     toggleMobile = () => {
         this.props.showMobile()
     }
+
     render() {
         return (
             <div className="external-header">
                 <div className="external-title">
-                    <button className="mobile-menu-button" onClick={this.toggleMobile}>
-                        <FaBars />
-                    </button>
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>
+                    <Button onClick={this.toggleMobile}>
+                        Menu
+                    </Button>
                 </div>
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
@@ -31,7 +33,16 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
                 </div>
-                {this.props.mobileMenu && <MobileMenu />}
+                <Modal
+                    title={null}
+                    visible={this.props.mobileMenu}
+                    onCancel={this.toggleMobile}
+                    closable
+                    style={{ margin: "auto", right: "22px" }}
+                    footer={null}
+                    >
+                    <MobileMenu />
+                </Modal>
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input } from 'antd';
+import { Card, Table, Button, Modal, Input, Drawer } from 'antd';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -12,7 +12,11 @@ import { navigate } from '@reach/router';
 class TabsCard extends React.Component {
   state = {
     noTitleKey: 'General',
-    showKey: false
+    showKey: false,
+    visible: false,
+    title: ``,
+    oldPassword: ``,
+    newPassword: ``
   };
 
     showKey = () => {
@@ -26,17 +30,16 @@ class TabsCard extends React.Component {
     this.setState({ [type]: key });
   };
 
-  cancelAccount = () => {
+  cancelAccount = async () => {
       console.log("Cancelling account...");
-      this.props.updateCustomerStatus('Cancelled');
+      await this.props.updateCustomerStatus('Cancelled');
+      console.log("Account cancelled.");
   }
 
   handleUpdate = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     })
-
-    console.log(this.state);
   }
 
   changePassword = async () => {
@@ -44,6 +47,10 @@ class TabsCard extends React.Component {
         const response = await Auth.changePassword(user, this.state.oldPassword, this.state.newPassword).catch(err => console.log(err));
 
         console.log(response);
+        this.setState({ 
+            oldPassword: ``,
+            newPassword: ``
+        });
   }
 
   showConfirm = () => {
@@ -62,6 +69,20 @@ class TabsCard extends React.Component {
       navigate('/app/payment')
   }
 
+  onClose = () => {
+      this.setState({ visible: false });
+  }
+
+  showPassword = () => {
+      console.log("Change password form.");
+      this.setState({
+          visible: true,
+          title: 'Change Password',
+          oldPassword: ``,
+          newPassword: ``
+      });
+  }
+
   render() {
 
     const tabListNoTitle = [
@@ -72,11 +93,7 @@ class TabsCard extends React.Component {
         {
           key: 'AWS',
           tab: 'AWS',
-        },
-        {
-          key: 'User',
-          tab: 'User',
-        },
+        }
       ];
 
       const dataSource = this.props.accounts.map((account, index) => {
@@ -120,7 +137,25 @@ class TabsCard extends React.Component {
                 <p style={{ margin: "0 2rem" }}>Unhappy with your current plan?</p>  
               </div>
               <div className="settings-switch">
-                {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Update My Plan</Button>}
+                {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Change Plan</Button>}
+            </div>
+        </div>
+        <div className="settings-row">
+            <div className="settings-left-side"> 
+            </div>
+            <div className="settings-switch">
+                <div className="cancel-account">
+                    <Button type="danger" onClick={this.showConfirm}>
+                        Cancel My Account
+                    </Button>      
+                </div>
+            </div>
+        </div>
+        <div className="settings-row">
+                <div className="settings-left-side"> 
+              </div>
+              <div className="settings-switch">
+                { <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>}
             </div>
         </div>
         <div className="settings-row">
@@ -183,37 +218,39 @@ class TabsCard extends React.Component {
         <div className="settings-row">
             <ServicesForm />
         </div>  
-      </div>,
-        User:  <div>
-        <div className="settings-row">
-            <div className="settings-left-side">
-                Change Password
-            </div>
-            <div className="settings-switch">
-                <label>Old Password</label>
-                <Input name="oldPassword" value={this.state.oldPassword} onChange={this.handleUpdate} />
-                <label>New Password</label>
-                <Input name="newPassword" value={this.state.newPassword} onChange={this.handleUpdate} />
-                <Button type="primary" onClick={this.changePassword}>
-                    Submit
-                </Button>
-            </div>
-            
-        </div>
-    </div>
+      </div>
       };
 
     return (
-        <Card
-          style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
-          tabList={tabListNoTitle}
-          activeTabKey={this.state.noTitleKey}
-          onTabChange={key => {
-            this.onTabChange(key, 'noTitleKey');
-          }}
-        >
-          {contentListNoTitle[this.state.noTitleKey]}
-        </Card>
+        <div>
+            <Card
+            style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
+            tabList={tabListNoTitle}
+            activeTabKey={this.state.noTitleKey}
+            onTabChange={key => {
+                this.onTabChange(key, 'noTitleKey');
+            }}
+            >
+            {contentListNoTitle[this.state.noTitleKey]}
+            </Card>
+            <Drawer
+                title={this.state.title}
+                placement="right"
+                closable={false}
+                onClose={this.onClose}
+                visible={this.state.visible}
+                >
+                <div>
+                    <label>Old Password</label>
+                    <Input name="oldPassword" value={this.state.oldPassword} onChange={this.handleUpdate} />
+                    <label>New Password</label>
+                    <Input name="newPassword" value={this.state.newPassword} onChange={this.handleUpdate} />
+                    <Button type="primary" onClick={this.changePassword}>
+                        Submit
+                    </Button>
+                </div>
+            </Drawer>
+        </div>
     );
   }
 }

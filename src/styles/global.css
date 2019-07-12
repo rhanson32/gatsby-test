@@ -1935,6 +1935,7 @@ th, td {
 
     .feature-cards {
         width: 100%;
+        margin: 2rem auto;
     }
 
     .rules-options {
@@ -2035,7 +2036,6 @@ th, td {
 
     .feature-focus {
         flex-wrap: wrap;
-        margin: 1rem 0;
         padding: 1rem 0;
     }
 
@@ -2091,6 +2091,7 @@ th, td {
     .feature-header-description {
         width: 80%;
         font-size: 1rem;
+        margin: 2rem auto;
     }
 
     .feature-icon {
@@ -2121,7 +2122,7 @@ th, td {
     }
 
     .feature-focus-image {
-        width: 90%;
+        width: 100%;
     }
 
     .feature-focus-header {
@@ -2132,13 +2133,26 @@ th, td {
 
     .splash {
         background-size: 100% 100%;
-        height: 70vh;
+        height: 50vh;
+        width: 100%;
     }
 
     .splash-title {
         top: 14%;
         left: 30%;
         font-size: 2.6rem;
+    }
+
+    .feature-focus {
+        width: 100%;
+    }
+
+    .feature-focus-description {
+        margin-bottom: 1rem;
+    }
+
+    .docs-section {
+        width: 100%;
     }
 
     .splash-subtitle {
@@ -2152,7 +2166,7 @@ th, td {
         font-size: 2.6rem;
         padding: 0 0.5rem;
         width: 100%;
-        justify-content: center;
+        justify-content: space-around;
         text-align: center;
     }
 
@@ -2228,14 +2242,24 @@ th, td {
         height: 0;
     }
 
+    .home {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+
     .mobile-menu {
         display: flex;
         flex-direction: column;
         width: 100%;
         align-items: center;
         background-color: white;
-        border-bottom: 1px solid #CCC;
-        padding: 0.5rem 0;
+        padding: 2rem 0 0 0;
+    }
+
+    .mobile-menu a:nth-child(odd) {
+        background-color: #EEE;
     }
 
     .mobile-menu a:link, .mobile-menu a:visited {
@@ -2243,6 +2267,12 @@ th, td {
         color: black;
         line-height: 3.5rem;
         font-size: 1.5rem;
+    }
+
+    .mobile-menu a {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .mobile-menu-button {
