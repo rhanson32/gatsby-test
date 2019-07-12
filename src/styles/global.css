@@ -614,7 +614,6 @@ input  {
 }
 
 .feature-header {
-    padding: 2rem 0;
     opacity: 0.8;
     background-image: url('../../static/drip.jpg');
     max-height: 75vh;
@@ -893,6 +892,7 @@ input  {
     background-color: white;
     border-radius: 5px;
     height: auto;
+    max-width: 500px;
 }
 
 .dashboard-categories {
@@ -1871,8 +1871,33 @@ th, td {
         width: 100%;
     }
 
+    .dashboard-max {
+        width: 100%;
+    }
+
     .web-rules, .web-accounts {
         display: none;
+    }
+
+    .mobile-rules {
+        margin: 0 auto;
+        padding-bottom: 2rem;
+    }
+
+    .support-right-side {
+        width: 100%;
+    }
+
+    .support-screen-header {
+        width: 100%;
+    }
+
+    .settings-div {
+        margin: 0 auto;
+    }
+
+    .settings-main {
+        width: 90%;
     }
 
     .settings-row {
@@ -2301,10 +2326,6 @@ th, td {
 
 @media screen and (min-width: 600px) and (max-width: 1200px) {
 
-    .feature-focus-text {
-        width: 40%;
-    }
-
     .support-drawer {
         width: 50%;
     }
@@ -2345,6 +2366,10 @@ th, td {
 
     .feature-card {
         width: 38%;
+    }
+
+    .feature-cards {
+        width: 95%;
     }
 
     .support-screen {

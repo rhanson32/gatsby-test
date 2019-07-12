@@ -222,7 +222,7 @@ class TabsCard extends React.Component {
       };
 
     return (
-        <div>
+        <div className="settings-div">
             <Card
             style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
             tabList={tabListNoTitle}

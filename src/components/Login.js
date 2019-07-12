@@ -1,5 +1,5 @@
-import React from "react"
-import { navigate } from '@reach/router'
+import React from 'react';
+import { navigate } from '@reach/router';
 import { setUser, isLoggedIn, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'

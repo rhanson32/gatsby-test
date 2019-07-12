@@ -145,7 +145,7 @@ const menuReducer = (state = { selected: 'General' }, action) => {
     }
 }
 
-const mobileReducer = (state = { mobileMenu: false }, action) => {
+const mobileReducer = (state = { mobileMenu: true }, action) => {
     switch(action.type)
     {
         case 'TOGGLE_MOBILE': 

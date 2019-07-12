@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
-import { FaBars } from 'react-icons/fa';
 import { Button, Modal } from 'antd';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
@@ -13,6 +13,13 @@ class ExternalHeader extends React.Component {
 
     toggleMobile = () => {
         this.props.showMobile()
+        this.setState({
+            showMobile: !this.state.showMobile
+        })
+    }
+
+    signUp = () => {
+        navigate('/app/signup');
     }
 
     render() {
@@ -20,9 +27,9 @@ class ExternalHeader extends React.Component {
             <div className="external-header">
                 <div className="external-title">
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>
-                    <Button onClick={this.toggleMobile}>
-                        Menu
-                    </Button>
+                    <div className="mobile-menu">
+                        <Button onClick={this.toggleMobile}>Menu</Button>
+                    </div>
                 </div>
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
@@ -31,11 +38,11 @@ class ExternalHeader extends React.Component {
                 </div>
                 <div className="right-menu">
                     <Link className="login-link" to="/app/login">Log In</Link>
-                    <Link className="sign-up-link" to="/app/signup">Sign Up</Link>
+                    <Button onClick={this.signUp} type="primary">Sign Up</Button>
                 </div>
                 <Modal
                     title={null}
-                    visible={this.props.mobileMenu}
+                    visible={this.state.showMobile}
                     onCancel={this.toggleMobile}
                     closable
                     style={{ margin: "auto", right: "22px" }}
