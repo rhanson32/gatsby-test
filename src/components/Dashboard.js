@@ -28,7 +28,8 @@ class Dashboard extends React.Component {
         error: {
             title: ``,
             message: ``
-        }
+        },
+        interval: 0
       };
 
     componentDidMount = async () => {
@@ -135,7 +136,7 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "New")
                 this.setState({ welcomeScreen: true })
         }
-        setInterval( async () => {
+        this.setState({ interval: setInterval( async () => {
             await this.props.getRules(this.props.user);
             this.setState({
                 securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -157,8 +158,12 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             });
-            console.log("Interval function invoked.");
-        }, 30000);
+            console.log("Interval function invoked:", this.state.interval);
+        }, 30000)});
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
     }
 
     showAll = () => {
@@ -555,8 +560,6 @@ class Dashboard extends React.Component {
                             </div>
                             )}
                         </div>
-                    
-                }
             </div>
         )
     } 

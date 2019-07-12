@@ -1,7 +1,6 @@
 import { Card } from 'antd';
 import { connect } from 'react-redux';
 import SupportList from './SupportList';
-import SupportForm from './SupportForm';
 import React from 'react';
 
 class SupportTabs extends React.Component {

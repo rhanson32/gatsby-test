@@ -5,8 +5,7 @@ import {
     Input,
     Select,
     Radio,
-    Button,
-    AutoComplete,
+    Button
   } from 'antd';
   import { addUser } from '../actions';
   
@@ -14,8 +13,7 @@ import {
   
   class RegistrationForm extends React.Component {
     state = {
-      confirmDirty: false,
-      autoCompleteResult: [],
+      confirmDirty: false
     };
   
     handleSubmit = e => {
@@ -33,18 +31,7 @@ import {
   
     render() {
       const { getFieldDecorator } = this.props.form;
-      const { autoCompleteResult } = this.state;
   
-      const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-      };
       const tailFormItemLayout = {
         wrapperCol: {
           xs: {
@@ -57,14 +44,6 @@ import {
           },
         },
       };
-      const prefixSelector = getFieldDecorator('prefix', {
-        initialValue: '86',
-      })(
-        <Select style={{ width: 70 }}>
-          <Option value="86">+86</Option>
-          <Option value="87">+87</Option>
-        </Select>,
-      );
   
       return (
         <Form layout="inline" onSubmit={this.handleSubmit}>

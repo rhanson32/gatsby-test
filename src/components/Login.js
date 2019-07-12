@@ -135,9 +135,11 @@ class Login extends React.Component {
                 <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
                 <label>Password</label>
                 <Input.Password placeholder="Password" onChange={this.handleUpdate} name="password" value={this.state.password} onKeyPress={this.handleKeyPress} />
-                <a className="forgot-password" onClick={this.forgotPassword}>
+                <div className="login-buttons">
+                <Button type="link" onClick={this.forgotPassword}>
                   Forgot password? 
-                </a>
+                </Button>
+                </div>
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
               </div>
             </div>

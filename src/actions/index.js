@@ -163,31 +163,10 @@ export const modifyRules = (action, id) => async (dispatch, getState) => {
             }
         });
     }
-    console.log(getState());
 
     dispatch({ type: 'UPDATE_RULES', payload: rules });
 
-    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
-
-    console.log(response);
-
-    const Items = response.data.map(item => {
-        return {
-            CustomerId: item.CustomerId.S,
-            RuleId: item.RuleId.S,
-            Name: item.Name.S,
-            Category: item.Category.S,
-            Description: item.Description.S,
-            Enabled: item.Enabled.BOOL,
-            Violations: item.Violations.L.map(violation => {
-                return {
-                    ViolationDate: violation.M.ViolationDate.S
-                }
-            }),
-            Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
-        }
-    });
-    
+    await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
 
 export const submitSubscription = async (id, user) => {

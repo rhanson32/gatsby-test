@@ -492,6 +492,12 @@ input  {
     width: 35%;
 }
 
+.docs-menu-link {
+    color: #1890ff;
+    background: transparent;
+    border: none;
+}
+
 .docs-menu {
     width: 15%;
     padding: 5rem 0.5rem;
@@ -910,6 +916,10 @@ input  {
 .forgot-password {
     display: flex;
     justify-content: flex-end;
+    border: none;
+    background: transparent;
+    color: blue;
+    width: 30%;
 }
 
 .password-button {
@@ -927,6 +937,13 @@ input  {
 .login-form label, .signup-form label {
     font-size: 1.2rem;
     margin-top: 0.8rem;
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 .login-button, .signup-button {
@@ -1196,6 +1213,7 @@ input  {
 
 .account-list {
     margin: 1rem auto;
+    max-width: 800px;
 }
 
 .rule-list {

@@ -36,33 +36,33 @@ class DocsMenu extends React.Component {
             Where To Begin
         </div>
         <div className="docs-menu-item">
-            <a onClick={this.showWorks}>
+            <button className="docs-menu-link" onClick={this.showWorks}>
                 How It Works
-            </a>
+            </button>
         </div>
         <div className="docs-menu-item">
-            <a onClick={this.showPrerequisites}>
+            <button className="docs-menu-link" onClick={this.showPrerequisites}>
                 Prerequisites
-            </a>
+            </button>
         </div>
         <div className="docs-menu-item">
-            <a onClick={this.showSigningUp}>
+            <button className="docs-menu-link" onClick={this.showSigningUp}>
                 Signing Up
-            </a>
+            </button>
             
         </div>
         <div className="docs-menu-header">
             One-Time Setup
         </div>
         <div className="docs-menu-item">
-            <a onClick={this.showAddingUsers}>
+            <button className="docs-menu-link" onClick={this.showAddingUsers}>
                 Adding Users
-            </a>
+            </button>
         </div>
         <div className="docs-menu-item">
-            <a onClick={this.showGettingStarted}>
+            <button className="docs-menu-link" onClick={this.showGettingStarted}>
                 Getting Started
-            </a>
+            </button>
             
         </div>
         <div className="docs-menu-item">

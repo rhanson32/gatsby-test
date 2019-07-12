@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { Button } from 'antd';
 import { toggleRule } from '../actions';
 

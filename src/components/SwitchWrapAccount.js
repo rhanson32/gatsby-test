@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import { updateAccount } from '../actions';
 
 class SwitchWrap extends React.Component {
-    state = {
-        id: this.props.id
-    }
 
     changeSwitch = (newState) => {
  
-        const { id, user } = this.props;
         const newAccount = {
             ...this.props.account,
             Enabled: newState
