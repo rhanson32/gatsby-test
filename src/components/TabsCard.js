@@ -116,8 +116,12 @@ class TabsCard extends React.Component {
       const contentListNoTitle = {
         General: <div>
             <div className="settings-row">
-              <p style={{ margin: "0 2rem" }}>Unhappy with your current plan?</p>  
-            {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Update My Plan</Button>}
+                <div className="settings-left-side">
+                <p style={{ margin: "0 2rem" }}>Unhappy with your current plan?</p>  
+              </div>
+              <div className="settings-switch">
+                {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Update My Plan</Button>}
+            </div>
         </div>
         <div className="settings-row">
             <div className="settings-left-side">

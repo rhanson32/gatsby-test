@@ -151,6 +151,27 @@ class Accounts extends React.Component {
               key: 'action'
             }
           ];
+
+          const mobileColumns = [
+            {
+              title: 'Account ID',
+              dataIndex: 'accountId',
+              key: 'accountId',
+                sorter: (a, b) => a.accountId.length - b.accountId.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+              title: 'Role',
+              dataIndex: 'role',
+              key: 'role'
+            },
+            {
+              title: ' ',
+              dataIndex: 'action',
+              key: 'action'
+            }
+          ];
+
         return (
             <div className="accounts-page">
                 <Header />
@@ -175,9 +196,12 @@ class Accounts extends React.Component {
                     {
                         !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />
                     }
-                    {
-                        this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
-                    }
+                    <div className="web-accounts">
+                      {this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}
+                    </div>
+                    <div className="mobile-accounts">
+                      {this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} />}
+                    </div>
                    {
                      this.state.showDrawer && (
                        <Drawer
@@ -187,10 +211,10 @@ class Accounts extends React.Component {
                         onClose={this.onClose}
                         visible={this.state.showDrawer}
                        >
-                         <label>IAM Role</label>
+                         <label>IAM Role Name</label>
                          <Input
                           style={{ margin: "1rem 0" }}
-                          placeholder="Example text"
+                          placeholder="Purify"
                           />
                           <div className="drawer-submit">
                             <Button type="primary">Update</Button>

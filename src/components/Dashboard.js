@@ -41,6 +41,12 @@ class Dashboard extends React.Component {
                 navigate('/app/login');
             }, 2000); 
         }
+        if(this.props.rules.length > 0)
+        {
+            this.setState({ 
+                scanComplete: true
+            });
+        }
         if(!this.props.user.email)
         {
             try
@@ -408,7 +414,7 @@ class Dashboard extends React.Component {
                                             Waste
                                         </Button>
                                         <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                            Configuration
+                                            Config
                                         </Button>
                                     </Button.Group>
                                 </div>} headStyle={{ fontSize: "1.6rem" }}>
@@ -420,7 +426,7 @@ class Dashboard extends React.Component {
                                     {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
                                         {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
                                         {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.securityEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
+                                        {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
                                         {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
                                         {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
                                         {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
@@ -498,7 +504,7 @@ class Dashboard extends React.Component {
                                 {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
                                 {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
                                 {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
-                                </div> )}
+                                </div>
                                 {
                                     this.props.accounts.length === 0 && this.state.scanComplete && (
                                         <div className="data-missing-dashboard">
@@ -514,8 +520,8 @@ class Dashboard extends React.Component {
                                 <Statistic title="Total Rules" value={this.props.rules.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>
                             <Card bodyStyle={{ display: "flex" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                            <Statistic title="Enabled Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
-                            <Statistic title="Total Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
+                                <Statistic title="Enabled Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
+                                <Statistic title="Total Accounts" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>
                             
                             </div>

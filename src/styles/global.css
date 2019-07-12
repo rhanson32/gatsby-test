@@ -1649,6 +1649,8 @@ th, td {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    width: 97%;
+    margin: 0 auto;
 }
 
 .dashboard-main {
@@ -1851,8 +1853,20 @@ th, td {
         width: 100%;
     }
 
-    .web-rules {
+    .web-rules, .web-accounts {
         display: none;
+    }
+
+    .settings-row {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .settings-left-side, .settings-switch {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 0 0.5rem 0;
     }
 
     .web-metrics {
@@ -1947,7 +1961,7 @@ th, td {
         width: 100%;
         text-align: center;
         line-height: 5rem;
-        font-size: 3.5rem;
+        font-size: 3.2rem;
     }
 
     .header-menu {
@@ -2100,7 +2114,7 @@ th, td {
 
     .splash {
         background-size: 100% 100%;
-        height: 50vh;
+        height: 70vh;
     }
 
     .splash-title {
@@ -2160,6 +2174,12 @@ th, td {
         width: 100%;
         font-size: 1rem;
         align-items: center;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        padding: 0 2%;
+        margin: 1rem 0;
     }
 
     .right-menu a {
@@ -2250,7 +2270,7 @@ th, td {
         width: 80%;
     }
 
-    .web-rules {
+    .web-rules, .web-accounts {
         width: 100%;
     }
 
@@ -2258,7 +2278,7 @@ th, td {
         width: 90%;
     }
 
-    .mobile-rules {
+    .mobile-rules, .mobile-accounts {
         display: none;
     }
 
@@ -2289,10 +2309,6 @@ th, td {
 
     .left-menu {
         width: 10%;
-    }
-
-    .dashboard {
-        width: 90%;
     }
 
     .settings-menu-item {
@@ -2362,7 +2378,7 @@ th, td {
         padding: 1.5rem 0;
     }
 
-    .mobile-rules {
+    .mobile-rules, .mobile-accounts {
         display: none;
     }
 
@@ -2370,7 +2386,7 @@ th, td {
         width: 50%;
     }
 
-    .web-rules {
+    .web-rules, .web-accounts {
         width: 100%;
     }
 

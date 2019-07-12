@@ -6,7 +6,8 @@ import { toggleRule } from '../actions';
 
 class RuleItem extends React.Component {
     state = {
-        showDescription: false
+        showDescription: false,
+        edit: false
     }
 
     enableRule = (event) => {
@@ -33,52 +34,32 @@ class RuleItem extends React.Component {
         console.log(event.target.name);
     }
 
+    editRule = () => {
+        this.setState({
+            edit: true
+        });
+    }
+
     toggleDescription = () => {
         this.setState({
             showDescription: !this.state.showDescription
         });
     }
     render() {
+        console.log(this.props.rule);
         return (
-            <div className="rule-header">
-                <div className="rule-name">
-                    {this.props.rule.Name}{"  "}
-                    {!this.state.showDescription && <button className="rule-arrow-dark" onClick={this.toggleDescription}><IoIosArrowDown /></button>}
-                    {this.state.showDescription && <button className="rule-arrow-dark" onClick={this.toggleDescription}><IoIosArrowUp /></button>}
-                </div>
-                <div className="rule-category">
-                    {this.props.rule.Category}
-                </div>
-                {
-                    !this.props.rule.Header && (
-                        <div className="rule-status">
-                                
-                                <Button.Group>
-                                    <Button style={{ backgroundColor: this.props.rule.Enabled ? "white" : "#27ae60", color: this.props.rule.Enabled ? "black" : "white" }} size="large" onClick={this.toggleRule}>
-                                        OFF
-                                    </Button>
-                                    <Button style={{ backgroundColor: this.props.rule.Enabled ? "#27ae60" : "white", color: this.props.rule.Enabled ? "white" : "black" }} size="large" onClick={this.toggleRule}>
-                                        Monitor
-                                    </Button>
-                                </Button.Group>
-                        </div>
-                    )
-                } 
-                {
-                    this.state.showDescription && (
-                        <div className="rule-description">
-                            {this.props.rule.Description}
-                        </div>
-                    )
-                }  
-                {
-                    this.props.rule.Header && (
-                        <div className="rule-status">
-                            Status
-                        </div>
-                    )
-                }
-                   
+            <div>
+                <h2>Name</h2>
+                <p>{this.props.rule.Name}</p>
+                <h3>Category</h3>
+                <p>{this.props.rule.Category}</p>
+                <h3>Mode</h3>
+                <p>Monitor</p>
+                <h3>Description</h3>
+                <p>Exceptions</p>
+                <h3>None</h3>
+                <p> {this.props.rule.Description}</p>
+                <Button type="primary" onClick={this.editRule}>Configure</Button>
             </div>
         )
     }
@@ -86,7 +67,8 @@ class RuleItem extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        rules: state.rules
     }
 }
 

@@ -10,6 +10,7 @@ import { Button, Table, Spin, message, Switch, Drawer } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import LeftMenu from './LeftMenu';
+import RuleItem from './RuleItem';
 
 class RulesPage extends React.Component {
 
@@ -18,7 +19,9 @@ class RulesPage extends React.Component {
         Category: "All",
         Status: "All",
         visible: false,
-        description: ``
+        description: ``,
+        title: ``,
+        rule: null
     }
 
     componentDidMount = async () => {
@@ -95,15 +98,16 @@ class RulesPage extends React.Component {
 
     showDetail = (e) => {
         console.log(e.target.name);
+        console.log(e.target);
         console.log(this.props.Rules);
         this.setState({
             description: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Description,
-            visible: true
+            visible: true,
+            title: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Name,
+            rule: this.props.Rules.filter(rule => rule.Name === e.target.name)[0]
         });
         console.log(this.state);
     }
-
-    
 
     handleUpdate = (event) => {
         this.setState({
@@ -119,6 +123,7 @@ class RulesPage extends React.Component {
                 category: rule.Category,
                 id: rule.RuleId,
                 state2: <SwitchWrap checked={rule.Enabled} id={rule.RuleId} />,
+                mode: 'Monitor',
                 state: rule.Enabled ? "Monitor" : "Off",
                 status:  <Button.Group>
                 <Button name="off" id={rule.RuleId} onClick={this.disableRule} type={!rule.Enabled ? "primary": "default"} size="default">
@@ -191,6 +196,11 @@ class RulesPage extends React.Component {
                 title: 'State',
                 dataIndex: 'state2',
                 key: 'state2'
+            },
+            {
+                title: 'Mode',
+                dataIndex: 'mode',
+                key: 'mode'
             }
           ];
 
@@ -252,18 +262,18 @@ class RulesPage extends React.Component {
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} style={{ width: "90%", margin: "auto", maxWidth: "1000px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>} />} 
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} />} 
                         </div>
                     </div> 
                 </div>
                 <Drawer
-                        title="Rule Detail"
+                        title={this.state.title}
                         placement="right"
                         closable={false}
                         onClose={this.onClose}
                         visible={this.state.visible}
                         >
-                        Description: {<p>{this.state.description}</p>}
+                        {this.state.ruleId !== null && <RuleItem rule={this.state.rule} />}
                 </Drawer>
             </div>
         )
