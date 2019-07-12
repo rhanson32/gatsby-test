@@ -517,6 +517,7 @@ input  {
 .docs-main {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 .docs-menu-header {
