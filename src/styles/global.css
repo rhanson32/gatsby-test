@@ -157,6 +157,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     padding: 0.5rem 0;
     line-height: 2rem;
     border-bottom: 1px solid #EEE;
@@ -168,6 +169,7 @@ input  {
     align-items: center;
     font-size: 1.5rem; 
     line-height: 2rem;
+    padding-right: 2rem;
 }
 
 .pricing-overlay {
@@ -550,7 +552,6 @@ input  {
     line-height: 3rem;
     font-size: 2.8rem;
     padding: 0 0.5rem;
-    width: 30%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -1020,7 +1021,6 @@ input  {
     align-items: center;
     font-size: 1.5rem;
     line-height: 2rem;
-    width: 40%;
 }
 
 .external-menu a, .right-menu a {
@@ -2065,7 +2065,6 @@ th, td {
 
     .external-header {
         height: 4rem;
-        flex-wrap: wrap;
     }
 
     .action-header {
@@ -2189,7 +2188,6 @@ th, td {
         line-height: 3rem;
         font-size: 2.6rem;
         padding: 0 0.5rem;
-        width: 100%;
         justify-content: space-around;
         text-align: center;
     }
@@ -2276,10 +2274,8 @@ th, td {
     .mobile-menu {
         display: flex;
         flex-direction: column;
-        width: 100%;
         align-items: center;
-        background-color: white;
-        padding: 2rem 0 0 0;
+        width: 35%;
     }
 
     .mobile-menu a:nth-child(odd) {
@@ -2410,7 +2406,6 @@ th, td {
         width: 30%;
         font-size: 1.2rem;
         justify-content: flex-end;
-        padding-right: 1rem;
     }
 
     .header-menu {
@@ -2492,6 +2487,12 @@ th, td {
         width: 0;
     }
 
+    .mobile-menu {
+        display: none;
+        height: 0;
+        width: 0;
+    }
+
     .action-header {
         line-height: 5rem;
         font-size: 4rem;
@@ -2537,9 +2538,5 @@ th, td {
 
     .site-map-item-link {
         font-size: 1.3rem;
-    }
-
-    .right-menu {
-        margin-right: 1rem;
     }
 }

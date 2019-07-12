@@ -26,10 +26,10 @@ class ExternalHeader extends React.Component {
         return (
             <div className="external-header">
                 <div className="external-title">
-                    <Link activeClassName="active-link" to="/">PurifyCloud</Link>
-                    <div className="mobile-menu">
-                        <Button onClick={this.toggleMobile}>Menu</Button>
-                    </div>
+                    <Link activeClassName="active-link" to="/">PurifyCloud</Link>  
+                </div>
+                <div className="mobile-menu">
+                    <Button type="primary" onClick={this.toggleMobile}>Menu</Button>
                 </div>
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
