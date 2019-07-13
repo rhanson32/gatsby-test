@@ -99,8 +99,8 @@ class Login extends React.Component {
       }
 
       console.log(userInfo);
-      setUser(userInfo)
-      this.props.saveUser(userInfo)
+      setUser(userInfo);
+      await this.props.saveUser(userInfo);
       setExpiration(moment().add(8, 'hours').toISOString())
       navigate("/app/dashboard")
     } catch (err) {

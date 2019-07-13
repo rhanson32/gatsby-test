@@ -237,13 +237,15 @@ export const saveUser = (user) => async (dispatch, getState) => {
         }
     }
 
+    dispatch({ type: 'STORE_USER', payload: user });
+
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
         console.log(customerResponse);
         user.customerId = customerResponse.data[0].CustomerId.S
     }
-    dispatch({ type: 'STORE_USER', payload: user })
+    dispatch({ type: 'STORE_USER', payload: user });
 }
 
 export const getCurrentUser = () => async dispatch => {
