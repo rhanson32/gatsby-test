@@ -33,16 +33,33 @@ class SupportTabs extends React.Component {
       };
 
     return (
-        <Card
-          style={{ width: '80%', minHeight: "60vh", margin: "4rem auto", border: "1px solid #CCC", borderRadius: "3px" }}
-          tabList={tabListNoTitle}
-          activeTabKey={this.state.noTitleKey}
-          onTabChange={key => {
-            this.onTabChange(key, 'noTitleKey');
-          }}
-        >
-          {contentListNoTitle[this.state.noTitleKey]}
-        </Card>
+      <div>
+        <div className="web-rules">
+          <Card
+            style={{ width: '80%', minHeight: "60vh", margin: "4rem auto", border: "1px solid #CCC", borderRadius: "3px" }}
+            tabList={tabListNoTitle}
+            activeTabKey={this.state.noTitleKey}
+            onTabChange={key => {
+              this.onTabChange(key, 'noTitleKey');
+            }}
+          >
+            {contentListNoTitle[this.state.noTitleKey]}
+          </Card>
+        </div>
+        <div className="mobile-rules">
+          <Card
+            style={{ width: '90%', minHeight: "60vh", margin: "4rem 3%", border: "1px solid #CCC", borderRadius: "3px" }}
+            tabList={tabListNoTitle}
+            activeTabKey={this.state.noTitleKey}
+            onTabChange={key => {
+              this.onTabChange(key, 'noTitleKey');
+            }}
+          >
+            {contentListNoTitle[this.state.noTitleKey]}
+          </Card>
+        </div>
+      </div>
+        
     );
   }
 }

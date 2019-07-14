@@ -58,7 +58,7 @@ class RuleItem extends React.Component {
                 <p>Exceptions</p>
                 <h3>None</h3>
                 <p> {this.props.rule.Description}</p>
-                <Button type="primary" onClick={this.editRule}>Configure</Button>
+                {this.props.rule.Configurable && <Button type="primary" onClick={this.editRule}>Configure</Button>}
             </div>
         )
     }

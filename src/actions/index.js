@@ -321,6 +321,7 @@ export const getRules = (user) => async dispatch => {
             Category: item.Category.S,
             Description: item.Description.S,
             Enabled: item.Enabled.BOOL,
+            Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
             Violations: item.Violations.L.map(violation => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S
@@ -513,12 +514,16 @@ export const fetchTickets = () => async (dispatch, getState) => {
 
     const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest);
 
+    console.log(ticketResponse);
+
     const items = ticketResponse.data.map(item => {
         return { 
             CustomerId: item.CustomerId.S,
             TicketId: item.TicketId.S,
             Headline: (item.Headline && item.Headline.S) || "None",
-            Description: (item.Description && item.Description.S) || "None"
+            Description: (item.Description && item.Description.S) || "None",
+            CreateDate: (item.CreateDate && item.CreateDate.S) || "Unknown",
+            Status: (item.Status && item.Status.S) || "Unassigned"
         }
     });
 

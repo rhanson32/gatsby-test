@@ -71,7 +71,7 @@ class Accounts extends React.Component {
     }
 
     render() {
-        const dataSource = this.props.Accounts && this.props.Accounts.map((account, index) => {
+        const dataSource = this.props.accounts && this.props.accounts.map((account, index) => {
             return {
                 key: index.toString(),
                 accountId: account.AccountId,
@@ -181,7 +181,7 @@ class Accounts extends React.Component {
                       <h1>Accounts</h1>
                   </div>
                   {
-                    this.state.scanComplete && this.props.Accounts.length === 0 && (
+                    this.state.scanComplete && this.props.accounts.length === 0 && (
                       <Alert
                       style={{ width: "80%", margin: "0 auto" }}
                       message="AWS Master Account Missing"
@@ -193,14 +193,12 @@ class Accounts extends React.Component {
                     />
                     )
                   }
-                    {
-                        !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />
-                    }
+                    {this.props.accounts.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
                     <div className="web-accounts">
-                      {this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}
+                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />}
                     </div>
                     <div className="mobile-accounts">
-                      {this.state.scanComplete && <Table pagination={this.props.Accounts.length < 10 ? false : { position: "top" }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} />}
+                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ width: "90%", maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}
                     </div>
                    {
                      this.state.showDrawer && (
@@ -219,12 +217,10 @@ class Accounts extends React.Component {
                           <div className="drawer-submit">
                             <Button type="primary">Update</Button>
                           </div>
-                         
                        </Drawer>
                      )
                    }
-                </div>
-                
+                </div> 
             </div>
         )
     }
@@ -232,7 +228,7 @@ class Accounts extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        Accounts: state.accounts,
+        accounts: state.accounts,
         Flags: state.flags,
         user: state.user
     }

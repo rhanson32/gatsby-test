@@ -187,7 +187,12 @@ class RulesPage extends React.Component {
           const mobileColumns = [
             {
               title: 'Name',
-              dataIndex: 'name',
+              render: (text, record) => (
+                <span>
+                    {record.name}
+                    <Button name={record.name} type="link" onClick={this.showDetail}>View</Button>
+                </span>
+            ),
               key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortDirections: ['descend', 'ascend']
@@ -242,7 +247,7 @@ class RulesPage extends React.Component {
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} style={{ width: "90%", margin: "auto", maxWidth: "1000px", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} style={{ width: "90%", margin: "auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={mobileColumns} />} 
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 
                         </div>
                     </div> 
                 </div>

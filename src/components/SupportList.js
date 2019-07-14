@@ -10,7 +10,8 @@ class SupportList extends React.Component {
                 key: index.toString(),
                 headline: ticket.Headline,
                 description: ticket.Description,
-                id: ticket.TicketId 
+                id: ticket.TicketId,
+                status: ticket.Status
             }    
         });
 
@@ -29,13 +30,18 @@ class SupportList extends React.Component {
               title: 'Description',
               dataIndex: 'description',
               key: 'description'
+            },
+            {
+              title: 'Status',
+              dataIndex: 'status',
+              key: 'status'
             }
           ];
 
         return (
             <div>
 
-        {this.props.tickets.length !== 0 && <Table pagination={{ position: "bottom" }} style={{ width: "100%", margin: "auto", minHeight: "300px", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} />} 
+        {this.props.tickets.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8, hideOnSinglePage: true }} footer={() => 'You may also reach us with any questions at support@purify.cloud.'} style={{ width: "100%", margin: "auto", minHeight: "300px", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} />} 
 
          </div>
         )

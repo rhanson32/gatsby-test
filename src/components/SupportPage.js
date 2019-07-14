@@ -7,7 +7,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getExpiration } from '../utils/auth';
 import moment from 'moment';
-import { message, Drawer, Button } from 'antd';
+import { message, Drawer, Button, Spin } from 'antd';
 import SupportForm from './SupportForm';
 
 import Header from './Header'
@@ -16,7 +16,8 @@ class SupportPage extends React.Component {
     state = {
         ticketSubmitted: true,
         showTickets: true,
-        visible: false
+        visible: false,
+        scanComplete: false
     }
 
     componentDidMount = async () => {
@@ -32,11 +33,13 @@ class SupportPage extends React.Component {
         if(!this.props.User.email)
         {
             await this.props.getCurrentUser()
-            this.props.fetchTickets()
+            await this.props.fetchTickets();
+            this.setState({ scanComplete: true });
         }
         else
         {
-            this.props.fetchTickets()
+            await this.props.fetchTickets();
+            this.setState({ scanComplete: true });
         }
         
     }
@@ -74,7 +77,6 @@ class SupportPage extends React.Component {
             <div className="support-page">
                 <Header />
                 <LeftMenu />   
-                
                 {
                     this.props.tickets && (
                         <div className="support-screen">
@@ -82,7 +84,8 @@ class SupportPage extends React.Component {
                                 <h1>Support Center</h1>
                                 <Button onClick={this.showForm} type="primary">Create Case</Button>  
                             </div>
-                            <SupportTabs />
+                            {this.props.tickets.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
+                            {(this.props.tickets.length > 0 || this.state.scanComplete) && <SupportTabs />}
                         </div> 
                     )
                 }  

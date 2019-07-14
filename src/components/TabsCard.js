@@ -180,14 +180,6 @@ class TabsCard extends React.Component {
                 {this.state.showKey && this.props.user.Key}
             </div>
         </div>
-        <div className="settings-row">
-            <div className="cancel-account">
-                <Button type="danger" onClick={this.showConfirm}>
-                    Cancel My Account
-                </Button>
-                    
-            </div>
-        </div>
         </div>,
         AWS: <div>
         {
@@ -231,7 +223,7 @@ class TabsCard extends React.Component {
                 this.onTabChange(key, 'noTitleKey');
             }}
             >
-            {contentListNoTitle[this.state.noTitleKey]}
+                {contentListNoTitle[this.state.noTitleKey]}
             </Card>
             <Drawer
                 title={this.state.title}
