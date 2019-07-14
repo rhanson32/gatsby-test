@@ -33,7 +33,7 @@ class SupportTabs extends React.Component {
       };
 
     return (
-      <div>
+      <div className="support-container">
         <div className="web-rules">
           <Card
             style={{ width: '80%', minHeight: "60vh", margin: "4rem auto", border: "1px solid #CCC", borderRadius: "3px" }}
