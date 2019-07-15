@@ -34,7 +34,7 @@ class Users extends React.Component {
             return {
                 key: index.toString(),
                 name: user.Username,
-                role: user.Group
+                role: user.Group === 'Administrators' ? 'Administrator': 'Auditor'
             }    
         });
 
@@ -71,9 +71,13 @@ class Users extends React.Component {
                 <Header />
                 <LeftMenu />
                 <div className="users-main">
-                    
-                    <div className="support-screen-header">
-                        <h1>User List</h1>
+                    <div className="users-header">
+                        <div className="rules-header">
+                            <h1>User List</h1>
+                        </div>
+                        <div className="rules-options">
+                            <Button type="primary" onClick={this.showDrawer}>Add User</Button>
+                        </div>
                     </div>
                     {
                         this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
@@ -81,7 +85,7 @@ class Users extends React.Component {
                     {
                         this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", maxWidth: "800px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
-                    <Button type="primary" onClick={this.showDrawer}>Add User</Button>
+            
                     <Drawer
                         title="Add User"
                         placement="right"

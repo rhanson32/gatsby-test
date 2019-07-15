@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'antd';
+import { Switch, notification } from 'antd';
 import { connect } from 'react-redux';
 import { enableRule, disableRule } from '../actions';
 
@@ -29,6 +29,13 @@ class SwitchWrap extends React.Component {
             console.log("Cannot add more rules. Please upgrade to the Standard Plan to enable more rules.");
             this.error();
         }
+        else if(!this.props.user.Group.includes('Administrators'))
+        {
+            notification.error({
+                message: 'Access Denied',
+                description: 'You are not permitted to take this action.'
+            })
+        }
         else
         {
             this.props.enableRule(id, user); 
@@ -36,7 +43,18 @@ class SwitchWrap extends React.Component {
     }
 
     disableRule = (id, user) => {
-        this.props.disableRule(id, user); 
+        if(!this.props.user.Group.includes('Administrators'))
+        {
+            notification.error({
+                message: 'Access Denied',
+                description: 'You are not permitted to take this action.'
+            })
+        }
+        else
+        {
+            this.props.disableRule(id, user); 
+        }
+        
     }
 
     render() {

@@ -234,12 +234,14 @@ input  {
 }
 
 .settings-left-side {
-    width: 40%;
+    width: 30%;
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
+
+
 
 .orange-button {
     background-color: #e17055;
@@ -251,6 +253,15 @@ input  {
 .clear-button {
     border: none;
     background-color: transparent;
+}
+
+.settings-subscription {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100px;
 }
 
 .settings-menu {
@@ -1238,11 +1249,18 @@ input  {
     width: 100%;
 }
 
+.users-header {
+    display: flex;
+    width: 100%;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
 .users-main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     width: 95%;
     background-color: #F3F3F3;
 }
@@ -1563,7 +1581,7 @@ th, td {
     width: 100%;
 }
 
-.rule-header, .account-header, .dashboard-category-header, .users-header, .add-user-header {
+.rule-header, .account-header, .dashboard-category-header, .add-user-header {
     display: flex;
     justify-content: flex-start;
     padding: 0.7rem 1rem;
@@ -1572,12 +1590,6 @@ th, td {
     line-height: 2rem;
     font-size: 1.4rem;
     color: #FFF;
-}
-
-
-
-.users-header {
-    justify-content: space-around;
 }
 
 .button-group {
@@ -1911,6 +1923,10 @@ th, td {
     .mobile-rules {
         margin: 0 auto;
         width: 100%;
+    }
+
+    .forgot-password-form {
+        width: 90%;
     }
 
     .support-right-side {
@@ -2300,11 +2316,21 @@ th, td {
         padding: 0;
     }
 
+    .mobile-menu-button {
+        width: 35%;
+        visibility: visible;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0.5rem;
+    }
+
     .mobile-menu {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 35%;
+        width: 100%;
+        margin-top: 1.5rem;
+        margin-left: 0.5rem;
     }
 
     .mobile-menu a:nth-child(odd) {
@@ -2324,15 +2350,6 @@ th, td {
         justify-content: center;
     }
 
-    .mobile-menu-button {
-       visibility: visible;
-       border: none;
-       background-color: rgba(0, 0, 0, 0.0);
-       position: fixed;
-       top: 2%;
-       left: 4%;
-    }
-
     .account-list, .rule-list {
         width: 95%;
     }
@@ -2341,7 +2358,7 @@ th, td {
         font-size: 0.8rem;
     }
 
-    .account-header, .rule-header, .dashboard-category-header, .users-header {
+    .account-header, .rule-header, .dashboard-category-header {
         font-size: 1rem;
     }
 

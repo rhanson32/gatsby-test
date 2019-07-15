@@ -95,7 +95,8 @@ class Login extends React.Component {
       console.log(user);
       const userInfo = {
         ...user.attributes,
-        username: user.username
+        username: user.username,
+        group: user.signInUserSession.idToken.payload['cognito:groups'][0]
       }
 
       console.log(userInfo);
@@ -150,8 +151,9 @@ class Login extends React.Component {
               <div className="login-header">Forgotten Password Form</div>
               <div className="login-container">
                 <p>Enter your email below to set a new password.</p>
-                <label>Email</label>
+                <label style={{ marginBottom: "0.2rem" }}>Email</label>
                 <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
+                <div>&nbsp;</div>
                 <Button onClick={this.requestPassword} type="primary">Submit</Button>
               </div>
             </div>

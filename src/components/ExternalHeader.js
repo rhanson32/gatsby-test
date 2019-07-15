@@ -28,7 +28,7 @@ class ExternalHeader extends React.Component {
                 <div className="external-title">
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>  
                 </div>
-                <div className="mobile-menu">
+                <div className="mobile-menu-button">
                     <Button type="primary" onClick={this.toggleMobile}>Menu</Button>
                 </div>
                 <div className="external-menu">

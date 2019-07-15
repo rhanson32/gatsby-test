@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import {
     Form,
     Input,
-    Select,
     Radio,
     Button
   } from 'antd';
   import { addUser } from '../actions';
-  
-  const { Option } = Select;
   
   class RegistrationForm extends React.Component {
     state = {

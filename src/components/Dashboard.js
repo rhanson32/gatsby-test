@@ -100,6 +100,8 @@ class Dashboard extends React.Component {
             });
             this.setState({
                 securityPercent: Math.round(((this.state.securityEvaluations - this.state.securityViolations) / this.state.securityEvaluations) * 100),
+                wastePercent: Math.round(((this.state.wasteEvaluations - this.state.wasteViolations) / this.state.wasteEvaluations) * 100),
+                configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
             await this.props.getAccounts(this.props.user.CustomerId);
@@ -144,6 +146,8 @@ class Dashboard extends React.Component {
             
             this.setState({
                 securityPercent: Math.round(((this.state.securityEvaluations - this.state.securityViolations) / this.state.securityEvaluations) * 100),
+                wastePercent: Math.round(((this.state.wasteEvaluations - this.state.wasteViolations) / this.state.wasteEvaluations) * 100),
+                configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
 
@@ -183,7 +187,9 @@ class Dashboard extends React.Component {
 
         this.setState({
             data: this.getData(this.state.securityPercent),
-            allData: this.getData(this.state.percent)
+            allData: this.getData(this.state.percent),
+            wasteData: this.getData(this.state.wastePercent),
+            configurationData: this.getData(this.state.configurationPercent)
           });
     }
 
@@ -397,12 +403,7 @@ class Dashboard extends React.Component {
                 },
                 key: 'violations',
                 sorter: (a, b) => a.violations - b.violations,
-            },
-            {
-              title: '',
-              dataIndex: 'action',
-              key: 'action'
-            },
+            }
           ];
         return (
             <div className="dashboard-page">
@@ -475,10 +476,10 @@ class Dashboard extends React.Component {
                                             Waste
                                         </Button>
                                         <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                            Config
+                                            Configuration
                                         </Button>
                                     </Button.Group>
-                                </div>} headStyle={{ fontSize: "1.6rem", backgroundColor: "#00b894", color: "white" }}>
+                                </div>} headStyle={{ fontSize: "1.6rem" }}>
                                 <div className="progress-items">
                                     <div className="progress-header">
                                     {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
@@ -571,38 +572,78 @@ class Dashboard extends React.Component {
                                 }
                                 {this.state.showWaste && (
                                     <div className="victory-chart">
-                                    <VictoryPie
-                                        animate={{ duration: 2000 }}
-                                        innerRadius={90}
-                                        radius={150}
-                                        data={wastePie}
-                                        colorScale={['#eee', '#00b894']}
-                                        labels={(d) => d.y}
-                                        labelRadius={105}
-                                        style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
-                                        />
+                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
+                                            <VictoryPie
+                                                standalone={false}
+                                                animate={{ duration: 1000 }}
+                                                width={400} height={400}
+                                                data={this.state.wasteData}
+                                                innerRadius={120}
+                                                cornerRadius={25}
+                                                labels={() => null}
+                                                style={{
+                                                data: { fill: (d) => {
+                                                    const color = d.y > 80 ? "green" : "red";
+                                                    return d.x === 1 ? color : "transparent";
+                                                }
+                                                }
+                                                }}
+                                            />
+                                            <VictoryAnimation duration={1000} data={this.state}>
+                                                {(newProps) => {
+                                                return (
+                                                    <VictoryLabel
+                                                    textAnchor="middle" verticalAnchor="middle"
+                                                    x={200} y={200}
+                                                    text={`${Math.round(newProps.wastePercent)}%`}
+                                                    style={{ fontSize: 45 }}
+                                                    />
+                                                );
+                                                }}
+                                            </VictoryAnimation>
+                                        </svg>
                                         
                                     </div>
                                 )}
                                 {this.state.showConfiguration && (
                                     <div className="victory-chart">
-                                    <VictoryPie
-                                        animate={{ duration: 2000 }}
-                                        innerRadius={90}
-                                        radius={150}
-                                        data={configurationPie}
-                                        colorScale={['#eee', '#00b894']}
-                                        labels={(d) => d.y}
-                                        labelRadius={105}
-                                        style={{ labels: { fontSize: 20, fontWeight: "bold" } }}
-                                        />
+                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
+                                            <VictoryPie
+                                                standalone={false}
+                                                animate={{ duration: 1000 }}
+                                                width={400} height={400}
+                                                data={this.state.configurationData}
+                                                innerRadius={120}
+                                                cornerRadius={25}
+                                                labels={() => null}
+                                                style={{
+                                                data: { fill: (d) => {
+                                                    const color = d.y > 80 ? "green" : "red";
+                                                    return d.x === 1 ? color : "transparent";
+                                                }
+                                                }
+                                                }}
+                                            />
+                                            <VictoryAnimation duration={1000} data={this.state}>
+                                                {(newProps) => {
+                                                return (
+                                                    <VictoryLabel
+                                                    textAnchor="middle" verticalAnchor="middle"
+                                                    x={200} y={200}
+                                                    text={`${Math.round(newProps.configurationPercent)}%`}
+                                                    style={{ fontSize: 45 }}
+                                                    />
+                                                );
+                                                }}
+                                            </VictoryAnimation>
+                                        </svg>
                                         
                                     </div>
                                 )}
-                                {this.state.showAll && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceAll} columns={columns} />}
-                                {this.state.showSecurity && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceSecurity} columns={columns} />}
-                                {this.state.showConfiguration && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                {this.state.showWaste && <Table size="small" pagination={{ position: "bottom", pageSize: 5 }} style={{ margin: "auto" }} dataSource={dataSourceWaste} columns={columns} />}
+                                {this.state.showAll && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceAll} columns={columns} />}
+                                {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceSecurity} columns={columns} />}
+                                {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceWaste} columns={columns} />}
                                 </div>
                                 {
                                     this.props.accounts.length === 0 && this.state.scanComplete && (
@@ -615,11 +656,11 @@ class Dashboard extends React.Component {
                                 )}
                                 </div>
                             <div className="dashboard-sidebar">
-                            <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex", justifyContent: "space-between" , minHeight: "160px" }} title="Rules" headStyle={{ fontSize: "1.6rem", backgroundColor: "#00b894", color: "white" }}>
+                            <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex", justifyContent: "space-between" , minHeight: "160px" }} title="Rules" headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Enabled" value={this.props.rules.filter(rule => rule.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                                 <Statistic title="Total" value={this.props.rules.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>
-                            <Card bodyStyle={{ display: "flex", justifyContent: "space-between", minHeight: "160px" }} title="Accounts" headStyle={{ fontSize: "1.6rem", backgroundColor: "#00b894", color: "white" }}>
+                            <Card bodyStyle={{ display: "flex", justifyContent: "space-between", minHeight: "160px" }} title="Accounts" headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Enabled" value={this.props.accounts.filter(account => account.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                                 <Statistic title="Total" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                             </Card>

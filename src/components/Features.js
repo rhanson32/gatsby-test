@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
-import statistic from '../../static/statistic.png';
+import dashboard from '../../static/dashboard.jpg';
 import puzzle from '../../static/puzzle.jpg';
 import pay from '../../static/pay.jpg';
 import checklist from '../../static/checklist.jpg';
@@ -48,7 +48,7 @@ class Features extends React.Component {
                             <Card
                                 hoverable
                                 style={{ width: 500, margin: "1rem" }}
-                                cover={<img alt="example" src={statistic} />}
+                                cover={<img alt="example" src={dashboard} />}
                             >
                                 <Meta title="Many Accounts. One View." description="Get one view of all of your accounts, no matter how many you have. See everything at once, and take action on any account with just a few clicks." />
                             </Card>

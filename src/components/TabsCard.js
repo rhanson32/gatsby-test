@@ -134,52 +134,25 @@ class TabsCard extends React.Component {
         General: <div>
             <div className="settings-row">
                 <div className="settings-left-side">
-                <p style={{ margin: "0 2rem" }}>Unhappy with your current plan?</p>  
-              </div>
-              <div className="settings-switch">
-                {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Change Plan</Button>}
-            </div>
-        </div>
-        <div className="settings-row">
-            <div className="settings-left-side"> 
-            </div>
-            <div className="settings-switch">
-                <div className="cancel-account">
-                    <Button type="danger" onClick={this.showConfirm}>
-                        Cancel My Account
+                    Subscription  
+                </div>
+                <div className="settings-subscription">
+                    {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Change Subscription</Button>}
+                
+                    <Button type="danger" size="large" onClick={this.showConfirm}>
+                        Cancel Subscription
                     </Button>      
                 </div>
             </div>
-        </div>
-        <div className="settings-row">
+            <hr style={{ width: "80%", margin: "2rem auto" }} />
+            <div className="settings-row">
                 <div className="settings-left-side"> 
-              </div>
-              <div className="settings-switch">
-                { <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>}
+                    Credentials
+                </div>
+                <div className="settings-subscription">
+                    <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
+                </div>
             </div>
-        </div>
-        <div className="settings-row">
-            <div className="settings-left-side">
-                API Key
-            </div>
-            <div className="settings-switch">
-                {
-                    !this.state.showKey && (
-                        <Button type="link" onClick={this.showKey}>
-                            Show
-                        </Button>
-                    )
-                }
-                {
-                    this.state.showKey && (
-                        <Button type="link" onClick={this.showKey}>
-                           &nbsp; Hide
-                        </Button>
-                    )
-                }
-                {this.state.showKey && this.props.user.Key}
-            </div>
-        </div>
         </div>,
         AWS: <div>
         {

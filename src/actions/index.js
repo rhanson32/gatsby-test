@@ -266,7 +266,8 @@ export const getCurrentUser = () => async dispatch => {
         CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
         Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
         Plan: customerResponse.data[0].Plan.S,
-        Status: customerResponse.data[0].Status.S
+        Status: customerResponse.data[0].Status.S,
+        Group: user.signInUserSession.idToken.payload['cognito:groups'][0]
     }
 
     dispatch({ type: 'STORE_USER', payload: userInfo })
@@ -313,8 +314,6 @@ export const getRules = (user) => async dispatch => {
 
     const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
 
-    console.log(rulesResponse);
-
     const Items = rulesResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
@@ -327,7 +326,7 @@ export const getRules = (user) => async dispatch => {
             Violations: item.Violations.L.map(violation => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S,
-                    ResourceId: violation.M.ResourceId && violation.M.ResourceId.S || "None"
+                    ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None"
                 }
             }),
             Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
@@ -516,8 +515,6 @@ export const fetchTickets = () => async (dispatch, getState) => {
     }
 
     const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest);
-
-    console.log(ticketResponse);
 
     const items = ticketResponse.data.map(item => {
         return { 
