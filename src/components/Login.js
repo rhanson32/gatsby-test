@@ -85,34 +85,66 @@ class Login extends React.Component {
     }
   }
 
+  confirmMFA = async () => {
+    const response = await Auth.confirmSignIn(this.state.user, this.state.mfaCode, "SOFTWARE_TOKEN_MFA").catch(err => console.log(err));
+
+    console.log(response);
+
+    if(response)
+    {
+      navigate('/app/dashboard');
+    }
+  }
+
   login = async () => {
     const { username, password } = this.state
     try {
       this.setState({ loading: true, buttonText: 'Signing In...' });
-      const loginResponse = await Auth.signIn(username, password);
-      console.log(loginResponse);
-      const user = await Auth.currentAuthenticatedUser();
+      const user = await Auth.signIn(username, password);
+
+      this.setState({
+        user
+      });
       console.log(user);
       const userInfo = {
         ...user.attributes,
         username: user.username,
-        group: user.signInUserSession.idToken.payload['cognito:groups'][0]
+        // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
       }
 
       console.log(userInfo);
       setUser(userInfo);
       await this.props.saveUser(userInfo);
-      setExpiration(moment().add(8, 'hours').toISOString())
-      navigate("/app/dashboard")
+      setExpiration(moment().add(8, 'hours').toISOString());
+      console.log(this.state.user.challengeName);
+      if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
+      {
+        this.setState({
+          inputMFA: true
+        });
+      }
+      else
+      {
+        console.log("Navigating to new page...");
+        navigate("/app/dashboard");
+      }
+      console.log(this.state.inputMFA);
     } catch (err) {
       this.setState({ error: err })
-      console.log('error...: ', err);
-      if(err.code === 'UserNotConfirmedException')
+      console.log('Error: ', err);
+      console.log(err.code);
+      if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
+      {
+        this.setState({
+          inputMFA: true
+        })
+      }
+      else if(err.code === 'UserNotConfirmedException')
       {
         this.resendCode();
         this.setState({ confirmUser: true });
       }
-      if(err === 'not authenticated')
+      else if(err === 'not authenticated')
       {
         this.setState({acceptCode: true });
         this.props.confirmUser(username);
@@ -121,12 +153,12 @@ class Login extends React.Component {
   }
 
   render() {
-    if (isLoggedIn()) navigate('/app/dashboard');
+    // if (isLoggedIn()) navigate('/app/dashboard');
     return (
       <div className="login-screen">
         <ExternalHeader />
         {
-          !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && (
+          !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && !this.state.inputMFA && (
             <div className="login-form">
               <div className="login-header">PurifyCloud</div>
               {this.state.error && <Error errorMessage={this.state.error}/>}
@@ -141,6 +173,18 @@ class Login extends React.Component {
                 </Button>
                 </div>
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
+              </div>
+            </div>
+          )
+        }
+        {
+          this.state.inputMFA && (
+            <div className="login-form">
+              <div className="login-header">MFA Code Required</div>
+              <div className="login-container">
+                <label>Code from MFA device:</label>
+                <Input name="mfaCode" value={this.state.mfaCode} onChange={this.handleUpdate} />
+                <Button type="primary" onClick={this.confirmMFA}>Submit</Button>
               </div>
             </div>
           )

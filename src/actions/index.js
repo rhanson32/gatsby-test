@@ -250,6 +250,7 @@ export const saveUser = (user) => async (dispatch, getState) => {
 
 export const getCurrentUser = () => async dispatch => {
     const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
 
     let myRequest = {
         body: {},
@@ -259,6 +260,7 @@ export const getCurrentUser = () => async dispatch => {
     }
 
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
+    console.log(customerResponse);
 
     const userInfo = {
         ...user.attributes,
@@ -267,7 +269,8 @@ export const getCurrentUser = () => async dispatch => {
         Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
         Plan: customerResponse.data[0].Plan.S,
         Status: customerResponse.data[0].Status.S,
-        Group: user.signInUserSession.idToken.payload['cognito:groups'][0]
+        Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
+        MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
     }
 
     dispatch({ type: 'STORE_USER', payload: userInfo })

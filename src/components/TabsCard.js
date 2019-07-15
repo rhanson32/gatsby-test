@@ -8,6 +8,7 @@ import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
 import { updateCustomerStatus } from '../actions';
 import { navigate } from '@reach/router';
+const QRCode = require('qrcode.react');
 
 class TabsCard extends React.Component {
   state = {
@@ -16,7 +17,8 @@ class TabsCard extends React.Component {
     visible: false,
     title: ``,
     oldPassword: ``,
-    newPassword: ``
+    newPassword: ``,
+    showMFASetup: false
   };
 
     showKey = () => {
@@ -40,6 +42,7 @@ class TabsCard extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     })
+    console.log(event.target.value);
   }
 
   changePassword = async () => {
@@ -81,6 +84,47 @@ class TabsCard extends React.Component {
           oldPassword: ``,
           newPassword: ``
       });
+  }
+
+  submitMFA = async () => {
+
+    const user = await Auth.currentAuthenticatedUser();
+    const response = await Auth.verifyTotpToken(user, this.state.challengeAnswer);
+    console.log(response);
+    Auth.setPreferredMFA(user, 'TOTP').then(data => console.log(data));
+    Auth.currentAuthenticatedUser().then(data => console.log(data));
+    this.setState({
+        showMFASetup: false
+    });
+  }
+
+  cancelMFA = () => {
+      this.setState({
+          showMFASetup: false
+      })
+  }
+
+  disableMFA = async () => {
+      
+  }
+
+  setupMFA = async () => {
+      console.log("Clicked!");
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
+      const response = await Auth.setupTOTP(user);
+        this.setState({
+            mfaCode: response
+        });
+
+    const issuer = 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_wMiZuxWyI';
+      console.log(response);
+      const str = "otpauth://totp/AWSCognito:"+ this.props.user.sub + "?secret=" + this.state.mfaCode + "&issuer=" + issuer;
+    this.setState({
+        qrCode: str,
+        showMFASetup: true
+    });
+
   }
 
   render() {
@@ -151,6 +195,18 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
+                    {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
+                    {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
+                    <Modal
+                        visible={this.state.showMFASetup}
+                        onOk={this.submitMFA}
+                        onCancel={this.cancelMFA}
+                    >
+                        <QRCode value={this.state.qrCode} />
+                        <label>Authenticator Code</label>
+                        <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
+                        
+                    </Modal>
                 </div>
             </div>
         </div>,
