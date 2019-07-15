@@ -2495,6 +2495,10 @@ th, td {
         display: none;
     }
 
+    .header-menu {
+        padding-right: 1rem;
+    }
+
     .support-drawer {
         width: 50%;
     }

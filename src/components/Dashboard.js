@@ -36,7 +36,8 @@ class Dashboard extends React.Component {
             percent: 0,
             data: this.getData(0),
             allData: this.getData(0),
-            interval: 0
+            interval: 0,
+            showDetail: false
           };
     }
     
@@ -230,6 +231,20 @@ class Dashboard extends React.Component {
         });
     }
 
+    showDetail = (e) => {
+        console.log(e.target.id);
+        this.setState({
+            showDetail: true,
+            detailId: e.target.id
+        });
+    }
+
+    hideDetail = () => {
+        this.setState({
+            showDetail: false
+        })
+    }
+
     handleCancel = () => {
         Auth.signOut();
     }
@@ -316,7 +331,7 @@ class Dashboard extends React.Component {
                 category: rule.Category,
                 id: rule.RuleId,
                 status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
-                violations: rule.Violations.length,
+                violations: rule.Violations,
                 description: rule.Description
             }    
         });
@@ -328,7 +343,7 @@ class Dashboard extends React.Component {
                 category: rule.Category,
                 id: rule.RuleId,
                 status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
-                violations: rule.Violations.length,
+                violations: rule.Violations,
                 description: rule.Description
             }    
         });
@@ -340,7 +355,7 @@ class Dashboard extends React.Component {
                 category: rule.Category,
                 id: rule.RuleId,
                 status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
-                violations: rule.Violations.length,
+                violations: rule.Violations,
                 description: rule.Description
             }    
         });
@@ -352,7 +367,7 @@ class Dashboard extends React.Component {
                 category: rule.Category,
                 id: rule.RuleId,
                 status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
-                violations: rule.Violations.length,
+                violations: rule.Violations,
                 description: rule.Description
             }    
         });
@@ -372,7 +387,14 @@ class Dashboard extends React.Component {
             },
             {
                 title: 'Violations',
-                dataIndex: 'violations',
+                render: (text, record) => {
+                    return (
+                    <span>
+                        {record.violations.length} 
+                        {record.violations.length > 0 && <Button name={record.name} id={record.id} type="link" onClick={this.showDetail}>View</Button>}
+                    </span>
+                    )
+                },
                 key: 'violations',
                 sorter: (a, b) => a.violations - b.violations,
             },
@@ -434,6 +456,12 @@ class Dashboard extends React.Component {
                                     No data available. Please enable some accounts to see data in your dashboard.
                                 </Card>)}
                                 <div className="web-metrics">
+                                {this.state.showDetail && (
+                                    <Card style={{ minHeight: "520px" }} title="Details on the violations" extra={<Button  type="primary" onClick={this.hideDetail}>Close</Button>}>
+                                        {this.props.rules.filter(rule => rule.RuleId === this.state.detailId)[0].Violations.map(violation => <p>{violation.ResourceId}</p>)}
+                                    </Card>
+                                )}
+                                {!this.state.showDetail && (
                                 <Card bodyStyle={{ }} style={{ borderRadius: "5px" }} title={<div className="dashboard-card-header">
                                     <div>Category Metrics</div>
                                     <Button.Group>
@@ -584,6 +612,7 @@ class Dashboard extends React.Component {
                                     )
                                 }
                                 </Card>
+                                )}
                                 </div>
                             <div className="dashboard-sidebar">
                             <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex", justifyContent: "space-between" , minHeight: "160px" }} title="Rules" headStyle={{ fontSize: "1.6rem", backgroundColor: "#00b894", color: "white" }}>

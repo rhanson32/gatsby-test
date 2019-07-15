@@ -313,6 +313,8 @@ export const getRules = (user) => async dispatch => {
 
     const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
 
+    console.log(rulesResponse);
+
     const Items = rulesResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
@@ -324,7 +326,8 @@ export const getRules = (user) => async dispatch => {
             Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
             Violations: item.Violations.L.map(violation => {
                 return {
-                    ViolationDate: violation.M.ViolationDate.S
+                    ViolationDate: violation.M.ViolationDate.S,
+                    ResourceId: violation.M.ResourceId && violation.M.ResourceId.S || "None"
                 }
             }),
             Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
