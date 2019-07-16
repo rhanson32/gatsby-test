@@ -5,12 +5,12 @@ import { Auth } from 'aws-amplify';
 import { Link } from 'gatsby';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
-import { getExpiration } from '../utils/auth';
-import { Button, Table, Spin, message, Drawer } from 'antd';
-import Header from './Header';
+import { isLoggedIn, getExpiration, logout } from '../utils/auth';
+import { Button, Table, Spin, message, Drawer, Icon } from 'antd';
+import { Header } from 'tabler-react';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
-import LeftMenu from './LeftMenu';
 import RuleItem from './RuleItem';
+import TopMenu from './TopMenu';
 
 class RulesPage extends React.Component {
 
@@ -217,10 +217,31 @@ class RulesPage extends React.Component {
 
         const ButtonGroup = Button.Group;
         return (
-            <div>
-                <Header />
-                <div className="rules-page">
-                    <LeftMenu />
+            <div className="rules-page">
+                <Header.H2>
+                        <div className="header" autoscroll="true">
+                            <div className="header-title">
+                                Purify Cloud
+                            </div>
+                            <div className="header-menu">
+                                <div className="user-name">
+                                    {this.props.User.email && <Icon type="user" />}
+                                    {this.props.User && this.props.User.email ? ' ' + this.props.User.email : ' '}
+                                </div>
+                                {
+                                    isLoggedIn() && this.props.User.email && (
+                                        <Button
+                                            type="default"
+                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
+                                        >
+                                            Sign Out
+                                        </Button>
+                                    )
+                                }
+                            </div>  
+                        </div>
+                        <TopMenu />
+                    </Header.H2>
                     <div className="rules">
                         {
                             this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%", fontSize: "2rem" }} size="large" />
@@ -249,17 +270,16 @@ class RulesPage extends React.Component {
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 
                         </div>
+                        <Drawer
+                            title={this.state.title}
+                            placement="right"
+                            closable={false}
+                            onClose={this.onClose}
+                            visible={this.state.visible}
+                            >
+                            {this.state.ruleId !== null && <RuleItem rule={this.state.rule} />}
+                        </Drawer>
                     </div> 
-                </div>
-                <Drawer
-                        title={this.state.title}
-                        placement="right"
-                        closable={false}
-                        onClose={this.onClose}
-                        visible={this.state.visible}
-                        >
-                        {this.state.ruleId !== null && <RuleItem rule={this.state.rule} />}
-                </Drawer>
             </div>
         )
     }

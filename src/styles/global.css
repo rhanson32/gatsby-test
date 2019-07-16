@@ -122,18 +122,16 @@ input  {
   }
 
 .header {
-    width: 100%;
+    width: 100vw;
     background-color: #0984e3;
-    color: white;
+    color: #0984e3;
     display: flex;
     justify-content: space-between;
-    padding: 0.4rem 0;
 }
 
 .header-title {
     line-height: 3rem;
     font-size: 2.8rem;
-    padding: 0 1rem;
     width: 30%;
 }
 
@@ -148,6 +146,12 @@ input  {
 
 .header-menu a {
     padding: 0 0.8rem;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .external-header {
@@ -486,7 +490,7 @@ input  {
 }
 
 .support-screen {
-    background-color: #F2F3F3;
+    background-color: #F5F7FB;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -500,6 +504,7 @@ input  {
     display: flex;
     flex-direction: column;
     width: 90%;
+    min-height: 90vh;
 }
 
 .support-screen-header {
@@ -589,7 +594,7 @@ input  {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
     padding-bottom: 4rem;
 }
 
@@ -1138,8 +1143,9 @@ input  {
 .accounts {
     display: flex;
     flex-direction: column;
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
     width: 95%;
+    min-height: 90vh;
 }
 
 .rules {
@@ -1148,8 +1154,8 @@ input  {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
-    background-color: #F3F3F3;
     width: 95%;
+    min-height: 90vh;
     padding: 2rem 0 3rem 0;
 }
 
@@ -1194,6 +1200,7 @@ input  {
     width: 100%;
     float: left;
     min-height: 100%;
+    background-color: #F5F7FB;
 }
 
 .rules-page:after {
@@ -1206,6 +1213,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    background-color: #F5F7FB;
 }
 
 .accounts-header {
@@ -1247,6 +1255,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    background-color: #F5F7FB;
 }
 
 .users-header {
@@ -1262,7 +1271,8 @@ input  {
     justify-content: flex-start;
     align-items: flex-start;
     width: 95%;
-    background-color: #F3F3F3;
+    min-height: 90vh;
+    background-color: #F5F7FB;
 }
 
 .account-item, .rule-item, .dashboard-category-item, .users-item, .add-user-item {
@@ -1579,6 +1589,7 @@ th, td {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    background-color: #F5F7FB;
 }
 
 .rule-header, .account-header, .dashboard-category-header, .add-user-header {
@@ -1638,7 +1649,7 @@ th, td {
 }
 
 .dashboard {
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;
@@ -1682,7 +1693,7 @@ th, td {
 
 .dashboard-max {
     max-width: 1500px;
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1719,6 +1730,7 @@ th, td {
 
 .dashboard {
     width: 95%;
+    min-height: 90vh;
 }
 
 .left-menu-item:first-child {
@@ -1778,7 +1790,7 @@ th, td {
 .dashboard-page {
     margin: 0;
     padding-bottom: 2rem;
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
@@ -2478,7 +2490,7 @@ th, td {
     }
 
     .rules, .accounts, .dashboard {
-        width: 90%;
+        width: 100%;
     }
 
     .left-menu-item svg {
@@ -2575,7 +2587,7 @@ th, td {
     }
 
     .rules, .accounts, .dashboard, .users-main, .support-screen, .history-main {
-        width: 90%;
+        width: 100%;
     }
 
     .left-menu-item svg {

@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker, notification } from 'antd';
-
+import { isLoggedIn, getExpiration, logout } from '../utils/auth';
+import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker, notification, Icon } from 'antd';
+import { StatsCard, Header, Tabs, Tab, Nav } from "tabler-react";
+import "tabler-react/dist/Tabler.css";  
+import TopMenu from './TopMenu';
 import LeftMenu from './LeftMenu';
-import Header from './Header';
+// import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
 import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
@@ -407,8 +409,30 @@ class Dashboard extends React.Component {
           ];
         return (
             <div className="dashboard-page">
-                <Header />
-                <LeftMenu />
+                    <Header.H2>
+                        <div className="header" autoscroll="true">
+                            <div className="header-title">
+                                Purify Cloud
+                            </div>
+                            <div className="header-menu">
+                                <div className="user-name">
+                                    {this.props.user.email && <Icon type="user" />}
+                                    {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
+                                </div>
+                                {
+                                    isLoggedIn() && this.props.user.email && (
+                                        <Button
+                                            type="default"
+                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
+                                        >
+                                            Sign Out
+                                        </Button>
+                                    )
+                                }
+                            </div>  
+                        </div>
+                        <TopMenu />
+                    </Header.H2>
                 <Modal
                     title="Welcome to Purify!"
                     visible={welcomeScreen}
@@ -601,8 +625,7 @@ class Dashboard extends React.Component {
                                                 );
                                                 }}
                                             </VictoryAnimation>
-                                        </svg>
-                                        
+                                        </svg> 
                                     </div>
                                 )}
                                 {this.state.showConfiguration && (
@@ -656,6 +679,7 @@ class Dashboard extends React.Component {
                                 )}
                                 </div>
                             <div className="dashboard-sidebar">
+                            <StatsCard layout={1} movement={0} total={this.props.rules.filter(rule => rule.Enabled).length} label="Active Rules" />
                             <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex", justifyContent: "space-between" , minHeight: "160px" }} title="Rules" headStyle={{ fontSize: "1.6rem" }}>
                                 <Statistic title="Enabled" value={this.props.rules.filter(rule => rule.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
                                 <Statistic title="Total" value={this.props.rules.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />

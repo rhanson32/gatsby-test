@@ -1,16 +1,16 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import LeftMenu from './LeftMenu';
+import React from 'react';
+import { connect } from 'react-redux';
 import SupportTabs from './SupportTabs';
 import { fetchTickets, postTicket, getCurrentUser } from '../actions';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { getExpiration } from '../utils/auth';
+import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import moment from 'moment';
-import { message, Drawer, Button, Spin } from 'antd';
+import { message, Drawer, Button, Spin, Icon } from 'antd';
 import SupportForm from './SupportForm';
+import TopMenu from './TopMenu';
 
-import Header from './Header'
+import { Header } from 'tabler-react';
 
 class SupportPage extends React.Component {
     state = {
@@ -30,7 +30,7 @@ class SupportPage extends React.Component {
                 navigate('/app/login');
             }, 2000); 
         }
-        if(!this.props.User.email)
+        if(!this.props.user.email)
         {
             await this.props.getCurrentUser()
             await this.props.fetchTickets();
@@ -69,14 +69,36 @@ class SupportPage extends React.Component {
         this.setState({
             ticketSubmitted: true
         })
-        this.props.postTicket(values, this.props.User);
+        this.props.postTicket(values, this.props.user);
       }
 
     render() {
         return (
             <div className="support-page">
-                <Header />
-                <LeftMenu />   
+                <Header.H2>
+                        <div className="header" autoscroll="true">
+                            <div className="header-title">
+                                Purify Cloud
+                            </div>
+                            <div className="header-menu">
+                                <div className="user-name">
+                                    {this.props.user.email && <Icon type="user" />}
+                                    {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
+                                </div>
+                                {
+                                    isLoggedIn() && this.props.user.email && (
+                                        <Button
+                                            type="default"
+                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
+                                        >
+                                            Sign Out
+                                        </Button>
+                                    )
+                                }
+                            </div>  
+                        </div>
+                        <TopMenu />
+                    </Header.H2>
                 {
                     this.props.tickets && (
                         <div className="support-screen">
@@ -107,7 +129,7 @@ class SupportPage extends React.Component {
 const mapStateToProps = state => {
     return {
         tickets: state.tickets,
-        User: state.user
+        user: state.user
     }
 }
 

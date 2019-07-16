@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
+import { navigate } from '@reach/router';
+import { Auth } from 'aws-amplify';
+import { Header } from 'tabler-react';
 import { getCurrentUser, fetchUsers } from '../actions';
-import { Table, Spin, Drawer, Button } from 'antd';
-import LeftMenu from './LeftMenu';
+import { isLoggedIn, getExpiration, logout } from '../utils/auth';
+import { Table, Spin, Drawer, Button, Icon } from 'antd';
+import TopMenu from './TopMenu';
 import AddUserForm from './AddUserForm';
 
 class Users extends React.Component {
@@ -68,8 +71,30 @@ class Users extends React.Component {
         
         return (
             <div className="users-page">
-                <Header />
-                <LeftMenu />
+                <Header.H2>
+                    <div className="header" autoscroll="true">
+                        <div className="header-title">
+                            Purify Cloud
+                        </div>
+                        <div className="header-menu">
+                            <div className="user-name">
+                                {this.props.user.email && <Icon type="user" />}
+                                {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
+                            </div>
+                            {
+                                isLoggedIn() && this.props.user.email && (
+                                    <Button
+                                        type="default"
+                                        onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
+                                    >
+                                        Sign Out
+                                    </Button>
+                                )
+                            }
+                        </div>  
+                    </div>
+                    <TopMenu />
+                </Header.H2>
                 <div className="users-main">
                     <div className="users-header">
                         <div className="rules-header">
