@@ -4,11 +4,9 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import { Spin, Card, Progress, Table, Statistic, Modal, Input, Button, message, DatePicker, notification, Icon } from 'antd';
-import { StatsCard, Header, Tabs, Tab, Nav } from "tabler-react";
+import { StatsCard, Header, Tabs, Tab } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
-import LeftMenu from './LeftMenu';
-// import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
 import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
@@ -680,14 +678,9 @@ class Dashboard extends React.Component {
                                 </div>
                             <div className="dashboard-sidebar">
                             <StatsCard layout={1} movement={0} total={this.props.rules.filter(rule => rule.Enabled).length} label="Active Rules" />
-                            <Card style={{ marginBottom: "1rem" }} bodyStyle={{ display: "flex", justifyContent: "space-between" , minHeight: "160px" }} title="Rules" headStyle={{ fontSize: "1.6rem" }}>
-                                <Statistic title="Enabled" value={this.props.rules.filter(rule => rule.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
-                                <Statistic title="Total" value={this.props.rules.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
-                            </Card>
-                            <Card bodyStyle={{ display: "flex", justifyContent: "space-between", minHeight: "160px" }} title="Accounts" headStyle={{ fontSize: "1.6rem" }}>
-                                <Statistic title="Enabled" value={this.props.accounts.filter(account => account.Enabled).length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
-                                <Statistic title="Total" value={this.props.accounts.length} style={{ margin: "0.5rem 1rem", width: "50%" }} />
-                            </Card>
+                            <StatsCard layout={1} movement={0} total={this.props.rules.length} label="Available Rules" />
+                            <StatsCard layout={1} movement={0} total={this.props.accounts.filter(account => account.Enabled).length} label="Enabled Accounts" />
+                            <StatsCard layout={1} movement={0} total={this.props.accounts.length} label="Total Accounts" />
                             
                             </div>
                             <div className="web-rules">

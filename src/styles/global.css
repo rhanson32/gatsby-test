@@ -1728,6 +1728,10 @@ th, td {
     z-index: 2;
 }
 
+.card-test {
+    width: 20%;
+}
+
 .dashboard {
     width: 95%;
     min-height: 90vh;

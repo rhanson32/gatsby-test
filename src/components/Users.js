@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { Header } from 'tabler-react';
+import { Header, Card, Progress } from 'tabler-react';
 import { getCurrentUser, fetchUsers } from '../actions';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import { Table, Spin, Drawer, Button, Icon } from 'antd';
@@ -110,7 +110,23 @@ class Users extends React.Component {
                     {
                         this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", maxWidth: "800px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
-            
+                    <div className="card-test">
+                        <Card>
+                            <Card.Body>
+                                <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
+                                    Purify Score
+                                </div>
+                                <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
+                                    62
+                                </div>
+                                <Progress>
+                                    <Progress.Bar color="green" width={10}>
+                                    </Progress.Bar>
+                                </Progress>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                    
                     <Drawer
                         title="Add User"
                         placement="right"
