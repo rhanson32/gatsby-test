@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Link } from 'gatsby';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
 import { Spin, Button, Table, Alert, message, Drawer, Input, Icon } from 'antd';
-import { Header } from 'tabler-react';
+import Header from './Header';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import TopMenu from './TopMenu';
@@ -174,30 +174,9 @@ class Accounts extends React.Component {
 
         return (
             <div className="accounts-page">
-                <Header.H2>
-                        <div className="header" autoscroll="true">
-                            <div className="header-title">
-                                Purify Cloud
-                            </div>
-                            <div className="header-menu">
-                                <div className="user-name">
-                                    {this.props.user.email && <Icon type="user" />}
-                                    {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
-                                </div>
-                                {
-                                    isLoggedIn() && this.props.user.email && (
-                                        <Button
-                                            type="default"
-                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
-                                        >
-                                            Sign Out
-                                        </Button>
-                                    )
-                                }
-                            </div>  
-                        </div>
-                        <TopMenu />
-                    </Header.H2>
+                <Header />
+                <TopMenu />
+
                 <div className="accounts">
                   <div className="support-screen-header">
                       <h1>Accounts</h1>

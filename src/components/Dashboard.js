@@ -295,58 +295,6 @@ class Dashboard extends React.Component {
             }
           };
 
-        const allPie = [
-            { x: "In Violation", y: Math.round(this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0))},
-            {
-                x: "Compliant", y: Math.round(this.props.rules.map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)) - Math.round(this.props.rules.map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0))
-            }
-        ];
-
-        const securityPie = [
-            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)},
-            {
-                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0) - this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            }
-        ];
-
-        const wastePie = [
-            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)},
-            {
-                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0) - this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            }
-        ];
-
-        const configurationPie = [
-            { x: "In Violation", y: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                return accumulator + currentValue;
-            }, 0)},
-            {
-                x: "Compliant", y: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0) - this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            }
-        ];
-
         const dataSourceAll = this.props.rules.map((rule, index) => {
             return {
                 key: index.toString(),
@@ -433,6 +381,7 @@ class Dashboard extends React.Component {
         return (
             <div className="dashboard-page">
                     <Header />
+                    <TopMenu />
                     {/* <Header.H2>
                         <div className="header" autoscroll="true">
                             <div className="header-title">
@@ -514,10 +463,10 @@ class Dashboard extends React.Component {
                                             Purify Score
                                         </div>
                                         <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
-                                            62
+                                            {this.state.percent}
                                         </div>
                                         <Progress>
-                                            <Progress.Bar color="green" width={10}>
+                                            <Progress.Bar color="green" width={this.state.percent}>
                                             </Progress.Bar>
                                         </Progress>
                                     </Card.Body>
@@ -574,12 +523,18 @@ class Dashboard extends React.Component {
                                 </Card>
                             </div>
                             </div>
+                            <div className="dashboard-metrics">
                             <div className="dashboard-title">Category Metrics</div>
                                 <div className="web-metrics">
                                 <Card>
                                     <Card.Header>
                                     <div className="dashboard-card-header">
-                                        <div>Category Metrics</div>
+                                        <div>
+                                            {this.state.showAll && "All Categories"}
+                                            {this.state.showSecurity && "Security"}
+                                            {this.state.showWaste && "Waste"}
+                                            {this.state.showConfiguration && "Configuration"}
+                                        </div>
                                             <Button.Group>
                                                 <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
                                                     All
@@ -598,25 +553,7 @@ class Dashboard extends React.Component {
                                     </Card.Header>
                                     <Card.Body>
                                     <div className="progress-items">
-                                    <div className="progress-header">
-                                    {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
-                                    {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
-                                    {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
-                                    {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                                
-                                    </div>
+
                                     {this.state.showAll && (
                                     <div className="victory-chart">
                                         <svg viewBox="0 0 400 400" width="100%" height="100%">
@@ -770,33 +707,110 @@ class Dashboard extends React.Component {
                                 
                                     </Card.Body>
                                 </Card>
+                                </div>
+                                <div className="dashboard-sidebar">
+                                <div className="metric-card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.state.showAll && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations}
+                                                </div>
+                                            )}
+                                            {this.state.showSecurity && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.securityViolations}
+                                                </div>
+                                            )}
+                                            {this.state.showWaste && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.wasteViolations}
+                                                </div>
+                                            )}
+                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.configurationViolations}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Violations
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
+                                <div className="metric-card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.state.showAll && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations}
+                                                </div>
+                                            )}
+                                            {this.state.showSecurity && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.securityEvaluations}
+                                                </div>
+                                            )}
+                                            {this.state.showWaste && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.wasteEvaluations}
+                                                </div>
+                                            )}
+                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                                <div>
+                                                    {this.state.configurationEvaluations}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            Evaluations
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
+                                <div className="metric-card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                        {this.state.showAll && this.state.scanComplete && (
+                                                <div>
+                                                    {Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100)}
+                                                </div>
+                                            )}
+                                            {this.state.showSecurity && this.state.scanComplete && (
+                                                <div>
+                                                    {Math.round((this.state.securityViolations / this.state.securityEvaluations) * 100)}
+                                                </div>
+                                            )}
+                                            {this.state.showWaste && this.state.scanComplete && (
+                                                <div>
+                                                    {Math.round((this.state.wasteViolations / this.state.wasteEvaluations) * 100)}
+                                                </div>
+                                            )}
+                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                                <div>
+                                                    {Math.round((this.state.configurationViolations / this.state.configurationEvaluations) * 100)}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Violation %
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
+                                </div>
+                                </div>
                                 <div className="dashboard-trends">
                                 <div className="dashboard-title">Trends</div>
-                                <div className="dashboard-sidebar">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.props.accounts.length}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Total Accounts
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.props.accounts.length}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Total Accounts
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
+                                
                               
-                                </div>
+                                
                             <div className="dashboard-sidebar">
+                                <div className="trend-card-wrapper">
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
@@ -807,6 +821,8 @@ class Dashboard extends React.Component {
                                         </div>
                                     </Card.Body>
                                 </Card>
+                                </div>
+                                <div className="trend-card-wrapper">
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
@@ -817,9 +833,10 @@ class Dashboard extends React.Component {
                                         </div>
                                     </Card.Body>
                                 </Card>
+                                </div>
                             </div>
 
-                            <div className="web-rules">
+                            <div className="dashboard-trends-graph">
                             <Card>
                                 <Card.Header>
                                     <div className="history-chart-header">
@@ -844,8 +861,9 @@ class Dashboard extends React.Component {
                                 </Card.Body>
                             </Card>
                             </div>
-                                </div>
                             </div>
+                                </div>
+                    
                             )}
                         </div>
             </div>

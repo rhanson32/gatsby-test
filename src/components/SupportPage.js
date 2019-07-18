@@ -9,8 +9,7 @@ import moment from 'moment';
 import { message, Drawer, Button, Spin, Icon } from 'antd';
 import SupportForm from './SupportForm';
 import TopMenu from './TopMenu';
-
-import { Header } from 'tabler-react';
+import Header from './Header';
 
 class SupportPage extends React.Component {
     state = {
@@ -75,30 +74,10 @@ class SupportPage extends React.Component {
     render() {
         return (
             <div className="support-page">
-                <Header.H2>
-                        <div className="header" autoscroll="true">
-                            <div className="header-title">
-                                Purify Cloud
-                            </div>
-                            <div className="header-menu">
-                                <div className="user-name">
-                                    {this.props.user.email && <Icon type="user" />}
-                                    {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
-                                </div>
-                                {
-                                    isLoggedIn() && this.props.user.email && (
-                                        <Button
-                                            type="default"
-                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
-                                        >
-                                            Sign Out
-                                        </Button>
-                                    )
-                                }
-                            </div>  
-                        </div>
-                        <TopMenu />
-                    </Header.H2>
+                <Header />
+                        
+                <TopMenu />
+
                 {
                     this.props.tickets && (
                         <div className="support-screen">

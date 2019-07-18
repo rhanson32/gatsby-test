@@ -7,7 +7,7 @@ import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer, Icon } from 'antd';
-import { Header } from 'tabler-react';
+import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import RuleItem from './RuleItem';
 import TopMenu from './TopMenu';
@@ -218,30 +218,8 @@ class RulesPage extends React.Component {
         const ButtonGroup = Button.Group;
         return (
             <div className="rules-page">
-                <Header.H2>
-                        <div className="header" autoscroll="true">
-                            <div className="header-title">
-                                Purify Cloud
-                            </div>
-                            <div className="header-menu">
-                                <div className="user-name">
-                                    {this.props.User.email && <Icon type="user" />}
-                                    {this.props.User && this.props.User.email ? ' ' + this.props.User.email : ' '}
-                                </div>
-                                {
-                                    isLoggedIn() && this.props.User.email && (
-                                        <Button
-                                            type="default"
-                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
-                                        >
-                                            Sign Out
-                                        </Button>
-                                    )
-                                }
-                            </div>  
-                        </div>
-                        <TopMenu />
-                    </Header.H2>
+                <Header />  
+                <TopMenu />
                     <div className="rules">
                         {
                             this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%", fontSize: "2rem" }} size="large" />

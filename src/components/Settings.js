@@ -1,5 +1,4 @@
 import React from 'react'
-import { Header } from 'tabler-react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
@@ -8,6 +7,7 @@ import TabsCard from './TabsCard';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions';
 import { Icon, Button } from 'antd';
 import TopMenu from './TopMenu';
+import Header from './Header';
 import moment from 'moment';
 import { message } from 'antd';
 
@@ -53,30 +53,8 @@ class Settings extends React.Component {
     render() {
     return (
     <div className="settings-page">
-        <Header.H2>
-            <div className="header" autoscroll="true">
-                <div className="header-title">
-                    Purify Cloud
-                </div>
-                <div className="header-menu">
-                    <div className="user-name">
-                        {this.props.user.email && <Icon type="user" />}
-                        {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
-                    </div>
-                    {
-                        isLoggedIn() && this.props.user.email && (
-                            <Button
-                                type="default"
-                                onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
-                            >
-                                Sign Out
-                            </Button>
-                        )
-                    }
-                </div>  
-            </div>
-            <TopMenu />
-        </Header.H2>
+        <Header />
+        <TopMenu />
         <div className="support-right-side">
             <div className="support-screen-header">
                     <h1>Settings</h1>

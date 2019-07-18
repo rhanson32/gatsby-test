@@ -121,18 +121,21 @@ input  {
     background-color: #fefde5 !important;
   }
 
-.header {
+.purify-header {
     width: 100vw;
     background-color: #0984e3;
-    color: #0984e3;
+    color: white;
     display: flex;
     justify-content: space-between;
+    min-height: 4rem;
 }
 
 .header-title {
     line-height: 3rem;
     font-size: 2.8rem;
     width: 30%;
+    display: flex;
+    align-items: center;
 }
 
 .header-menu {
@@ -152,6 +155,10 @@ input  {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.navigation-wrapper {
+    margin-bottom: 2rem;
 }
 
 .external-header {
@@ -430,8 +437,8 @@ input  {
 
 .dashboard-sidebar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    align-items: stretch;
     height: 100%;
 }
 
@@ -813,7 +820,6 @@ input  {
 
 .card-wrapper {
     width: 15%; 
-    margin: 0 1%;
     display: flex;
     align-items: stretch;
 }
@@ -1529,7 +1535,9 @@ th, td {
 .progress-items {
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -1829,6 +1837,7 @@ th, td {
     font-size: 40px;
     font-weight: 400;
     width: 90%;
+    padding: 0 0 1.5rem 0;
 }
 
 .dashboard-page {
@@ -1876,6 +1885,21 @@ th, td {
 
 .dashboard-main {
     padding: 0.5rem 1rem;
+}
+
+.dashboard-metrics {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.dashboard-trends {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
 }
 
 .empty-list {
@@ -1950,6 +1974,18 @@ th, td {
         width: 100%;
     }
 
+    .dashboard-score {
+        width: 100%;
+    }
+
+    .dashboard-headlines {
+        flex-wrap: wrap;
+    }
+
+    .card-wrapper {
+        width: 45%;
+    }
+
     .left-menu-item {
         height: 100%;
     }
@@ -2015,6 +2051,7 @@ th, td {
 
     .web-metrics {
         width: 100%;
+        align-items: stretch;
     }
 
     .payments {
@@ -2335,6 +2372,7 @@ th, td {
     .dashboard-sidebar {
         width: 100%;
         margin: 1rem 0;
+        flex-direction: column;
     }
 
     .right-menu a {
@@ -2444,7 +2482,15 @@ th, td {
     }
 
     .dashboard-sidebar {
-        width: 18%;
+        width: 100%;
+    }
+
+    .trend-card-wrapper {
+        width: 47%;
+    }
+
+    .metric-card-wrapper {
+        width: 30%;
     }
 
     .web-rules, .web-accounts {
@@ -2567,9 +2613,12 @@ th, td {
         width: 75%;
     }
 
+    .dashboard-sidebar {
+        flex-direction: column;
+    }
+
     .dashboard-score {
         width: 30%; 
-        margin: 0 1%; 
         align-items: stretch;
     }
 
@@ -2586,7 +2635,7 @@ th, td {
     }
 
     .header-menu {
-        padding-right: 1rem;
+        padding-right: 2rem;
     }
 
     .support-drawer {
@@ -2594,15 +2643,24 @@ th, td {
     }
 
     .web-rules, .web-accounts {
-        width: 100%;
+      
+        width: 90%;
+        margin: auto;
+        max-width: 1100px;
+        box-shadow: 0 0 5 5;
     }
 
     .dashboard-sidebar {
         width: 28%;
-        margin-left: 1.5rem;
     }
 
     .web-metrics {
+        width: 70%;
+        display: flex;
+        align-items: stretch;
+    }
+
+    .dashboard-trends-graph {
         width: 70%;
     }
 
@@ -2686,6 +2744,11 @@ th, td {
 
     .web-metrics {
         width: 100%;
+        align-items: stretch;
+    }
+
+    .dashboard-trends-graph {
+        width: 100%;
     }
 
 }
@@ -2695,6 +2758,11 @@ th, td {
 @media screen and (min-width: 900px) and (max-width: 1200px) {
 
     .web-metrics {
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .dashboard-trends-graph {
         width: 100%;
     }
 }
