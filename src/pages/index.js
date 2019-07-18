@@ -5,8 +5,7 @@ import { Helmet } from 'react-helmet';
 import Amplify from 'aws-amplify';
 
 Amplify.configure({
-    Auth: {
-        
+    Auth: {  
         region: 'us-east-1',
         userPoolId: 'us-east-1_wMiZuxWyI',
         userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'

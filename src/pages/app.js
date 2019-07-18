@@ -1,7 +1,7 @@
 import React from "react"
 import { Router } from "@reach/router"
 import { Provider } from 'react-redux'
-
+import { Helmet } from 'react-helmet';
 import Login from "../components/Login"
 import SignUp from "../components/SignUp"
 import PrivateRoute from "../components/PrivateRoute"
@@ -22,6 +22,9 @@ import store from '../store'
 
 const App = () => (
     <Provider store={store}>
+        <Helmet>
+            <link href="node_modules\c3\c3.css" rel="stylesheet" />
+        </Helmet>
         <Router>
             <Home path="/" />
             <PrivateRoute path="app/dashboard" component={Dashboard} />

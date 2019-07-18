@@ -242,7 +242,6 @@ export const saveUser = (user) => async (dispatch, getState) => {
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
-        console.log(customerResponse);
         user.customerId = customerResponse.data[0].CustomerId.S
     }
     dispatch({ type: 'STORE_USER', payload: user });
@@ -250,7 +249,6 @@ export const saveUser = (user) => async (dispatch, getState) => {
 
 export const getCurrentUser = () => async dispatch => {
     const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
 
     let myRequest = {
         body: {},
@@ -260,7 +258,6 @@ export const getCurrentUser = () => async dispatch => {
     }
 
     const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
-    console.log(customerResponse);
 
     const userInfo = {
         ...user.attributes,
