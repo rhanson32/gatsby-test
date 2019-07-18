@@ -6,9 +6,10 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
 import { Spin, Table, Statistic, Modal, Input, Button, message, DatePicker, notification, Icon, Dropdown, Menu } from 'antd';
-import { StatsCard, Header, Tabs, Tab, Avatar, Card, Progress } from "tabler-react";
+import { StatsCard, Tabs, Tab, Avatar, Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
+import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
 import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
@@ -431,7 +432,8 @@ class Dashboard extends React.Component {
           )
         return (
             <div className="dashboard-page">
-                    <Header.H2>
+                    <Header />
+                    {/* <Header.H2>
                         <div className="header" autoscroll="true">
                             <div className="header-title">
                                 Purify Cloud
@@ -439,10 +441,13 @@ class Dashboard extends React.Component {
                             <div className="header-menu">
                                 <div className="user-name">
                                     <Dropdown overlay={menu}>
-                                        <div>
+                                        <div className="header-profile">
                                             <Avatar icon="users" />
-                                            {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
-                                            {"Administrator"}
+                                            <div className="header-profile-names">
+                                                {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
+                                                {"Administrator"}
+                                            </div>
+                                            
                                         </div>
                                     </Dropdown>
                                 </div>
@@ -459,7 +464,7 @@ class Dashboard extends React.Component {
                             </div>  
                         </div>
                         <TopMenu />
-                    </Header.H2>
+                    </Header.H2> */}
                 <Modal
                     title="Welcome to Purify!"
                     visible={welcomeScreen}
@@ -500,9 +505,9 @@ class Dashboard extends React.Component {
                             }
                             {this.props.rules.length !== 0 && this.props.accounts.length !== 0 && this.state.scanComplete && (
                             <div className="dashboard-max">
-                                <div className="dashboard-title">Dashboard</div>
-                                <div style={{ display: "flex", alignItems: "stretch", width: "100%" }}>
-                                <div style={{ width: "30%", margin: "0 1%" }}>
+                                <div className="dashboard-title">Headline</div>
+                                <div className="dashboard-headlines">
+                                <div className="dashboard-score">
                                 <Card>
                                     <Card.Body>
                                         <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
@@ -519,10 +524,10 @@ class Dashboard extends React.Component {
                                 </Card>
                                 </div>
                                 
-                                <div style={{ width: "15%", margin: "0 1%" }}>
+                                <div className="card-wrapper">
                                 <Card>
                                 <Card.Body>
-                                    <div style={{ fontSize: "40px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
+                                    <div className="card-metric-wrapper">
                                         {this.props.rules.filter(rule => rule.Enabled).length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -532,10 +537,10 @@ class Dashboard extends React.Component {
                             </Card>
                             </div> 
                                          
-                            <div style={{ width: "15%", margin: "0 1%" }}>
+                            <div className="card-wrapper">
                             <Card>
                                 <Card.Body>
-                                    <div style={{ fontSize: "40px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
+                                    <div className="card-metric-wrapper">
                                         {this.props.rules.length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -544,10 +549,10 @@ class Dashboard extends React.Component {
                                 </Card.Body>
                             </Card>
                             </div>
-                            <div style={{ width: "15%", margin: "0 1%" }}>
+                            <div className="card-wrapper">
                                     <Card>
                                         <Card.Body>
-                                            <div style={{ fontSize: "40px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
+                                            <div className="card-metric-wrapper">
                                                 {this.props.accounts.filter(account => account.Enabled).length}
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -556,19 +561,20 @@ class Dashboard extends React.Component {
                                         </Card.Body>
                                     </Card>
                                 </div>
-                            <div style={{ width: "15%", margin: "0 1%" }}>
-                            <Card>
-                                <Card.Body>
-                                    <div style={{ fontSize: "40px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
-                                        {this.props.accounts.length}
-                                    </div>
-                                    <div style={{ display: "flex", justifyContent: "center" }}>
-                                    Total Accounts
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                            <div className="card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.props.accounts.length}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Total Accounts
+                                        </div>
+                                    </Card.Body>
+                                </Card>
                             </div>
                             </div>
+                            <div className="dashboard-title">Category Metrics</div>
                                 <div className="web-metrics">
                                 <Card>
                                     <Card.Header>
@@ -764,213 +770,53 @@ class Dashboard extends React.Component {
                                 
                                     </Card.Body>
                                 </Card>
-                                
-                                {/* <Card style={{ margin: "1.5rem 0", width: "100%" }} title={null} headStyle={{ fontSize: "1.6rem" }}>
-                                    <div className="dashboard-card-header"><div>PurifyScore</div></div>
-                                    <Progress format={percent => percent + " / 100"} percent={Math.round((1 - ((this.state.securityViolations + this.state.wasteViolations + this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations))) * 100)} strokeWidth={20} style={{ paddingRight: "1rem" }} />
-                                </Card> */}
-                                {/* {this.props.accounts.length === 0 && (<Card style={{ margin: "1.5rem", width: "100%" }}>
-                                    No data available. Please enable some accounts to see data in your dashboard.
-                                </Card>)} */}
-                                {/* {this.state.showDetail && (
-                                    <Card style={{ minHeight: "520px" }} title="Details on the violations" extra={<Button  type="primary" onClick={this.hideDetail}>Close</Button>}>
-                                        {this.props.rules.filter(rule => rule.RuleId === this.state.detailId)[0].Violations.map(violation => <p>{violation.ResourceId}</p>)}
-                                    </Card>
-                                )} */}
-                                {/* {!this.state.showDetail && (
-                                <Card bodyStyle={{ }} style={{ borderRadius: "5px" }} title={<div className="dashboard-card-header">
-                                    <div>Category Metrics</div>
-                                    <Button.Group>
-                                        <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
-                                            All
-                                        </Button>
-                                        <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
-                                            Security
-                                        </Button>
-                                        <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
-                                            Waste
-                                        </Button>
-                                        <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                            Configuration
-                                        </Button>
-                                    </Button.Group>
-                                </div>} headStyle={{ fontSize: "1.6rem" }}>
-                                <div className="progress-items">
-                                    <div className="progress-header">
-                                    {this.state.showAll && <div className="dashboard-chart-label">All Categories</div>}
-                                    {this.state.showSecurity && <div className="dashboard-chart-label">Security</div>}
-                                    {this.state.showConfiguration && <div className="dashboard-chart-label">Configuration</div>}
-                                    {this.state.showWaste && <div className="dashboard-chart-label">Waste</div>}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showAll && this.state.scanComplete && <Statistic title="% Violations" value={Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Violations" value={this.state.securityViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.securityEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showSecurity && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.securityViolations / this.state.securityEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Violations" value={this.state.configurationViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.configurationEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showConfiguration && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.configurationViolations / this.state.configurationEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Violations" value={this.state.wasteViolations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="Evaluations" value={this.state.wasteEvaluations} style={{ margin: "0.5rem 1rem" }} />}
-                                        {this.state.showWaste && this.state.scanComplete && <Statistic title="% Violations" value={Math.round(this.state.wasteViolations / this.state.wasteEvaluations * 100)} style={{ margin: "0.5rem 1rem" }} />}
-                                                
-                                    </div>
-                                    {this.state.showAll && (
-                                    <div className="victory-chart">
-                                        <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.allData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                    }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.percent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg>    
-                                    </div>
-                                    )
-                                }
-                                {this.state.showSecurity && (
-                                    <div className="victory-chart">
-                                        <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.data}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.securityPercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg>
-                                    </div>
-                                    )
-                                }
-                                {this.state.showWaste && (
-                                    <div className="victory-chart">
-                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.wasteData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.wastePercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg> 
-                                    </div>
-                                )}
-                                {this.state.showConfiguration && (
-                                    <div className="victory-chart">
-                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.configurationData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.configurationPercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg>
-                                        
-                                    </div>
-                                )}
-                                {this.state.showAll && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceAll} columns={columns} />}
-                                {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceSecurity} columns={columns} />}
-                                {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceWaste} columns={columns} />}
-                                </div>
-                                {
-                                    this.props.accounts.length === 0 && this.state.scanComplete && (
-                                        <div className="data-missing-dashboard">
-                                            No data available. Please enable some accounts to see data in your dashboard.
+                                <div className="dashboard-trends">
+                                <div className="dashboard-title">Trends</div>
+                                <div className="dashboard-sidebar">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.props.accounts.length}
                                         </div>
-                                    )
-                                }
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Total Accounts
+                                        </div>
+                                    </Card.Body>
                                 </Card>
-                                )} */}
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.props.accounts.length}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Total Accounts
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
+                              
                                 </div>
                             <div className="dashboard-sidebar">
-                            
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.props.accounts.length}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            New Violations
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.props.accounts.length}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                        Fixed Violations
+                                        </div>
+                                    </Card.Body>
+                                </Card>
                             </div>
 
                             <div className="web-rules">
@@ -998,7 +844,7 @@ class Dashboard extends React.Component {
                                 </Card.Body>
                             </Card>
                             </div>
-
+                                </div>
                             </div>
                             )}
                         </div>

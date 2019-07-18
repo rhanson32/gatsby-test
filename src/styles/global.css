@@ -418,6 +418,12 @@ input  {
     border-bottom: 1px solid #DDD;
 }
 
+.dashboard-headlines {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .support-form form {
     width: 100%;
 }
@@ -481,7 +487,9 @@ input  {
 }
 
 .user-name {
+    display: flex;
     margin-right: 1rem;
+    align-items: flex-start;
 }
 
 .progress-text {
@@ -801,6 +809,21 @@ input  {
 
 .add-user-item-container label {
     margin-right: 1.5rem;
+}
+
+.card-wrapper {
+    width: 15%; 
+    margin: 0 1%;
+    display: flex;
+    align-items: stretch;
+}
+
+.card-metric-wrapper {
+    font-size: 40px; 
+    font-weight: bold; 
+    display: flex; 
+    justify-content: center; 
+    padding: 0.5rem 0;
 }
 
 .user-radio {
@@ -1775,6 +1798,15 @@ th, td {
     padding-left: 3rem;
 }
 
+.history-profile {
+    display: flex;
+}
+
+.history-profile-names {
+    display: flex;
+    flex-direction: column;
+}
+
 .history-chart-header {
     display: flex;
     width: 100%;
@@ -2399,12 +2431,20 @@ th, td {
         width: 50%;
     }
 
-    .dashboard-sidebar {
-        width: 18%;
+    .dashboard-score {
+        width: 65%;
     }
 
-    .web-metrics {
-        width: 80%;
+    .card-wrapper {
+        width: 30%;
+    }
+
+    .dashboard-headlines {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-sidebar {
+        width: 18%;
     }
 
     .web-rules, .web-accounts {
@@ -2527,6 +2567,12 @@ th, td {
         width: 75%;
     }
 
+    .dashboard-score {
+        width: 30%; 
+        margin: 0 1%; 
+        align-items: stretch;
+    }
+
     .left-menu-item a:link, .left-menu-item a:visited {
         padding: 2rem 0;
     }
@@ -2631,5 +2677,24 @@ th, td {
 
     .site-map-item-link {
         font-size: 1.3rem;
+    }
+}
+
+/************************************************************/
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+
+    .web-metrics {
+        width: 100%;
+    }
+
+}
+
+/************************************************************/
+
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+
+    .web-metrics {
+        width: 100%;
     }
 }
