@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import c3 from 'c3';
 import C3Chart from 'react-c3js';
 import 'c3/c3.css';
 import { navigate } from '@reach/router';
