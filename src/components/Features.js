@@ -56,7 +56,7 @@ class Features extends React.Component {
                             <Card
                                 hoverable
                                 style={{ width: 500, margin: "1rem" }}
-                                cover={<img alt="example" src={rules} />}
+                                cover={<img alt="example" src={dashboard} />}
                             >
                                 <Meta title="Customizable" description="Purify is built from the ground up to be customizable to your needs. So pilot it with just a few accounts and rules, or turn off rules that don't apply or you don't care about. Then let Purify filter those out automatically. So you see only what you need at all times." />
                             </Card>
