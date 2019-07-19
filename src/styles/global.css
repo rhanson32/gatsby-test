@@ -493,6 +493,7 @@ input  {
     display: flex;
     margin-right: 1rem;
     align-items: flex-start;
+    padding-bottom: 1rem;
 }
 
 .progress-text {
@@ -767,6 +768,13 @@ input  {
     border-right: 1px solid #EEE;
 }
 
+.pricing-card-new {
+    max-width: 300px;
+    display: flex;
+    align-items: stretch;
+    width: 45%;
+}
+
 .pricing-card:last-child {
     border: none;
 }
@@ -901,9 +909,7 @@ input  {
 }
 
 .login-screen, .signup-screen {
-    background: #005C97;  /* fallback for old browsers */ 
-    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */ 
-    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    background: #0984e3;  /* fallback for old browsers */ 
     width: 100%;
     height: 100vh;
     display: flex;
@@ -913,7 +919,7 @@ input  {
 }
 
 .login-header, .signup-header {
-    background-color: #0984e3;
+    background-color: #00b894;
     text-align: center;
     line-height: 4rem;
     height: 4rem;
@@ -1042,7 +1048,8 @@ input  {
     align-items: center;
     height: 30vh;
     width: 100%;
-    background-color: #6c5ce7;
+    margin-top: 4rem;
+    background-color: #0984e3;
 }
 
 .action-header {
@@ -1121,8 +1128,8 @@ input  {
     align-items: flex-start;
     width: 100vw;
     height: auto;
-    background-color: #F2F2f2;
-    border-top: 1px solid darkgray;
+    background-color: #F5F7FB;
+    border-top: 1px solid #DDD;
     padding: 2rem 0;
 }
 
@@ -1368,15 +1375,28 @@ input  {
     border-radius: 5px;
 }
 
+.pricing-main {
+    width: 80%;
+    margin: auto;
+}
+
+.pricing-header-new {
+    padding: 2rem 0;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.pricing-description {
+    font-size: 24px;
+}
+
 .pricing-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    box-shadow: 0px 0px 6px 8px #F3F3F3;
-    border: 1px #EEE;
-    margin: 4rem auto;
-    width: 80%;
+    justify-content: space-around;
+    align-items: stretch;
+    margin: 4rem 0;
+    width: 100%;
 }
 
 .account-item-field select {
@@ -1839,6 +1859,14 @@ th, td {
     justify-content: flex-end;
     width: 70%;
     align-items: center;
+}
+
+.red-icon {
+    color: red;
+}
+
+.green-icon {
+    color: green;
 }
 
 .dashboard-title {

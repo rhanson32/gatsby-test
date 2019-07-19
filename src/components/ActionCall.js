@@ -14,7 +14,7 @@ class ActionCall extends React.Component {
                 <div className="action-header">
                     Try Purify for free
                 </div>
-                <Button size="large" type="primary" onClick={this.navigateSignUp}>
+                <Button size="large" className="green-icon" onClick={this.navigateSignUp}>
                     Sign Up
                 </Button>
             </div>

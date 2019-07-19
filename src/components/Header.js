@@ -18,7 +18,9 @@ class Header extends React.Component {
                 </div>
                 <div className="header-menu">
                     <div className="user-name">
-                        <Avatar size="lg" icon="users" />
+                        <div>
+                            <Avatar size="lg" icon="user" />
+                        </div>
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", padding: "0 0.5rem" }}>
                             <div style={{ fontSize: "20px", maxHeight: "24px", display: "flex", alignItems: "flex-start" }}>
                                 {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}

@@ -618,20 +618,7 @@ class Dashboard extends React.Component {
                                             {this.state.showWaste && "Waste"}
                                             {this.state.showConfiguration && "Configuration"}
                                         </div>
-                                            <Button.Group>
-                                                <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
-                                                    All
-                                                </Button>
-                                                <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
-                                                    Security
-                                                </Button>
-                                                <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
-                                                    Waste
-                                                </Button>
-                                                <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                                    Configuration
-                                                </Button>
-                                            </Button.Group>
+                                            
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
