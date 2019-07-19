@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
-import dashboard from '../../static/dashboard.png';
+import dashboard from '../../static/dashboard.jpg';
 import puzzle from '../../static/puzzle.jpg';
 import pay from '../../static/pay.jpg';
 import checklist from '../../static/checklist.jpg';
@@ -16,7 +16,7 @@ const { Meta } = Card;
 
 class Features extends React.Component {
     componentDidMount() {
-        this.props.getFeatures()
+        this.props.getFeatures();
     }
 
     render() {
