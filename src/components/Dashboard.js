@@ -10,7 +10,7 @@ import { StatsCard, Tabs, Tab, Avatar, Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import Header from './Header';
-import { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus } from '../actions';
+import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus } from '../actions';
 import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
 
@@ -42,7 +42,17 @@ class Dashboard extends React.Component {
             interval: 0,
             showDetail: false,
             last3days: false,
-            last7days: false
+            last7days: false,
+            chartData: {
+                columns: [
+                    ['Found Violations', 0, 0, 0, 0, 0, 0],
+                    ['Fixed Violations', 10, 12, 3, 0, 1, 7]
+                  ],
+                  types: {
+                      'Found Violations': 'bar',
+                      'Fixed Violations': 'bar'
+                  }
+             }
           };
     }
     
@@ -70,6 +80,8 @@ class Dashboard extends React.Component {
             {
                 await this.props.getCurrentUser();
                 await this.props.getRules(this.props.user);
+                await this.props.getHistory(this.props.user);
+                this.last3Days();
             }
             catch(err)
             {
@@ -124,6 +136,8 @@ class Dashboard extends React.Component {
             try
             {
                 await this.props.getRules(this.props.user);
+                await this.props.getHistory(this.props.user);
+                this.last3Days();
             }
             catch(err)
             {
@@ -241,6 +255,89 @@ class Dashboard extends React.Component {
             showWaste: false,
             showConfiguration: true
         });
+    }
+
+    last3Days = () => {
+        const foundData = [
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
+        ];
+
+        const fixedData = [
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
+        ];
+        console.log(foundData);
+
+        this.setState({
+            chartData: {
+                columns: [
+                ['Found Violations', ...foundData],
+                ['Fixed Violations', ...fixedData]
+              ],
+              types: {
+                  'Fixed Violations': 'bar',
+                  'Found Violations': 'bar'
+              }
+            }
+        });
+    }
+
+    last7Days = () => {
+        const foundData = [
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(7, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(6, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(5, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(4, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
+        ];
+
+        const fixedData = [
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(7, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(6, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(5, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(4, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
+            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
+        ];
+        const dates = [
+            moment().subtract(7, 'days').format('YYYY-MM-DD'), 
+            moment().subtract(6, 'days').format('YYYY-MM-DD'),
+            moment().subtract(5, 'days').format('YYYY-MM-DD'),
+            moment().subtract(4, 'days').format('YYYY-MM-DD'),
+            moment().subtract(3, 'days').format('YYYY-MM-DD'),
+            moment().subtract(2, 'days').format('YYYY-MM-DD'),
+            moment().subtract(1, 'days').format('YYYY-MM-DD')
+        ]
+        console.log(foundData);
+        this.setState({
+            chartData: {
+                x: 'x', 
+                columns: [
+                ['x', ...dates],
+                ['Found Violations', ...foundData],
+                ['Fixed Violations', ...fixedData]
+              ],
+              types: {
+                  'Fixed Violations': 'bar',
+                  'Found Violations': 'bar'
+              },
+              axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        count: 7,
+                        format: '%Y-%m-%d'
+                    }
+                }
+            }
+            }
+        })
     }
 
     showDetail = (e) => {
@@ -382,38 +479,7 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
-                    {/* <Header.H2>
-                        <div className="header" autoscroll="true">
-                            <div className="header-title">
-                                Purify Cloud
-                            </div>
-                            <div className="header-menu">
-                                <div className="user-name">
-                                    <Dropdown overlay={menu}>
-                                        <div className="header-profile">
-                                            <Avatar icon="users" />
-                                            <div className="header-profile-names">
-                                                {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
-                                                {"Administrator"}
-                                            </div>
-                                            
-                                        </div>
-                                    </Dropdown>
-                                </div>
-                                {
-                                    isLoggedIn() && this.props.user.email && (
-                                        <Button
-                                            type="default"
-                                            onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
-                                        >
-                                            Sign Out
-                                        </Button>
-                                    )
-                                }
-                            </div>  
-                        </div>
-                        <TopMenu />
-                    </Header.H2> */}
+                    
                 <Modal
                     title="Welcome to Purify!"
                     visible={welcomeScreen}
@@ -454,7 +520,24 @@ class Dashboard extends React.Component {
                             }
                             {this.props.rules.length !== 0 && this.props.accounts.length !== 0 && this.state.scanComplete && (
                             <div className="dashboard-max">
-                                <div className="dashboard-title">Headline</div>
+                                <div className="dashboard-title-short">Headline</div>
+                                <div className="dashboard-filters">
+                                    <div style={{ paddingRight: "1rem" }}>Filters: </div>
+                                    <Button.Group>
+                                        <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
+                                            All
+                                        </Button>
+                                        <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
+                                            Security
+                                        </Button>
+                                        <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
+                                            Waste
+                                        </Button>
+                                        <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
+                                            Configuration
+                                        </Button>
+                                    </Button.Group>
+                                </div>
                                 <div className="dashboard-headlines">
                                 <div className="dashboard-score">
                                 <Card>
@@ -807,8 +890,7 @@ class Dashboard extends React.Component {
                                 <div className="dashboard-trends">
                                 <div className="dashboard-title">Trends</div>
                                 
-                              
-                                
+                                <div className="dashboard-trends-container">
                             <div className="dashboard-sidebar">
                                 <div className="trend-card-wrapper">
                                 <Card>
@@ -844,8 +926,8 @@ class Dashboard extends React.Component {
                                             Violations Over Time
                                         </div>
                                         <div className="history-chart-header-filters">
-                                            <Button type="link">Last 3 Days</Button>
-                                            <Button type="link">Last 7 Days</Button>
+                                            <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
+                                            <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
                                             <Button type="link">MTD</Button>
                                             <Button type="link">Last Month</Button>
                                             <Button type="link">Last 3 Months</Button>
@@ -856,10 +938,11 @@ class Dashboard extends React.Component {
                                 </Card.Header>
                                 <Card.Body>
                                     <div style={{ backgroundColor: "white" }}>
-                                        <C3Chart data={data} />
+                                        <C3Chart data={this.state.chartData} />
                                     </div>
                                 </Card.Body>
                             </Card>
+                            </div>
                             </div>
                             </div>
                                 </div>
@@ -875,8 +958,9 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         rules: state.rules,
-        accounts: state.accounts
+        accounts: state.accounts,
+        history: state.history
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, fetchUsers, updateCustomerStatus })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getHistory, fetchUsers, updateCustomerStatus })(Dashboard);

@@ -157,10 +157,6 @@ input  {
     width: 100%;
 }
 
-.navigation-wrapper {
-    margin-bottom: 2rem;
-}
-
 .external-header {
     width: 100vw;
     height: 4rem;
@@ -934,7 +930,7 @@ input  {
 }
 
 .login-container button, .login-container a, .signup-container button, .signup-container a {
-    margin: 0.5rem 0;
+    margin: 1rem 0;
 }
 
 .login-form, .signup-form {
@@ -1438,6 +1434,10 @@ input  {
     color: #636e72;
 }
 
+.submit-button {
+    margin: 1rem 0;
+}
+
 .filters {
     width: 80%;
     display: flex;
@@ -1680,6 +1680,13 @@ th, td {
     height: 2rem;
 }
 
+.dashboard-trends-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .dashboard {
     background-color: #F5F7FB;
     margin: 0 auto;
@@ -1732,6 +1739,7 @@ th, td {
     flex-wrap: wrap;
     width: 94%;
     margin: 0 auto;
+    padding-top: 2rem;
 }
 
 .dashboard-main {
@@ -1836,8 +1844,22 @@ th, td {
 .dashboard-title {
     font-size: 40px;
     font-weight: 400;
-    width: 90%;
+    width: 100%;
     padding: 0 0 1.5rem 0;
+}
+
+.dashboard-title-short {
+    font-size: 40px;
+    font-weight: 400;
+    width: 50%;
+    padding: 0 0 1.5rem 0;
+}
+
+.dashboard-filters {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .dashboard-page {
@@ -2613,13 +2635,27 @@ th, td {
         width: 75%;
     }
 
+    .card-metric-wrapper {
+        font-size: 48px;
+    }
+
     .dashboard-sidebar {
         flex-direction: column;
+        justify-content: space-between;
+
     }
 
     .dashboard-score {
         width: 30%; 
         align-items: stretch;
+    }
+
+    .trend-card-wrapper {
+        width: 100%;
+        height: 48%;
+        align-items: stretch;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .left-menu-item a:link, .left-menu-item a:visited {

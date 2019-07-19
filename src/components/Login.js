@@ -39,7 +39,14 @@ class Login extends React.Component {
   handleKeyPress = event => {
     if(event.key === 'Enter')
     {
-      this.login()
+      this.login();
+    }
+  }
+
+  handlePress = event => {
+    if(event.key === 'Enter')
+    {
+      this.confirmMFA();
     }
   }
 
@@ -83,6 +90,17 @@ class Login extends React.Component {
       await Auth.signIn(username, password).catch(err => console.log(err));
       navigate('/app/dashboard');
     }
+  }
+
+  returnToLogin = () => {
+    this.setState({
+        acceptCode: false,
+        inputMFA: false,
+        forgotPassword: false,
+        confirmUser: false,
+        loading: false,
+        buttonText: 'Sign In'
+    })
   }
 
   confirmMFA = async () => {
@@ -183,8 +201,9 @@ class Login extends React.Component {
               <div className="login-header">MFA Code Required</div>
               <div className="login-container">
                 <label>Code from MFA device:</label>
-                <Input name="mfaCode" value={this.state.mfaCode} onChange={this.handleUpdate} />
+                <Input name="mfaCode" value={this.state.mfaCode} onChange={this.handleUpdate} onKeyPress={this.handlePress} />
                 <Button type="primary" onClick={this.confirmMFA}>Submit</Button>
+                <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
               </div>
             </div>
           )
@@ -199,6 +218,7 @@ class Login extends React.Component {
                 <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
                 <div>&nbsp;</div>
                 <Button onClick={this.requestPassword} type="primary">Submit</Button>
+                <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
               </div>
             </div>
           )
