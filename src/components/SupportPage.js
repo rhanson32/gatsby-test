@@ -74,19 +74,28 @@ class SupportPage extends React.Component {
     render() {
         return (
             <div className="support-page">
-                <Header />
-                        
+                <Header />   
                 <TopMenu />
-
                 {
                     this.props.tickets && (
                         <div className="support-screen">
-                            <div className="support-screen-header">
-                                <h1>Support Center</h1>
-                                <Button onClick={this.showForm} type="primary">Create Case</Button>  
+                            <div className="support-screen-max">
+                            {
+                                this.state.scanComplete && (
+                                    <div className="support-screen-header">
+                                        <h1>Support Center</h1>
+                                        <Button onClick={this.showForm} type="primary">Create Case</Button>  
+                                    </div>
+                                )
+                            }
+                            {this.props.tickets.length === 0 && !this.state.scanComplete && (
+                                <div style={{ display: "flex", height: "100vh", width: "100vw", justifyContent: "center", alignItems: "center" }}>
+                                    <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />
+                                </div>
+                                )
+                            }
+                            {(this.props.tickets.length > 0 || this.state.scanComplete) && <SupportTabs scanComplete={this.state.scanComplete} />}
                             </div>
-                            {this.props.tickets.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
-                            {(this.props.tickets.length > 0 || this.state.scanComplete) && <SupportTabs />}
                         </div> 
                     )
                 }  

@@ -75,6 +75,7 @@ class Users extends React.Component {
                 <Header />
                 <TopMenu />
                 <div className="users-main">
+                    <div className="users-max">
                     <div className="users-header">
                         <div className="rules-header">
                             <h1>User List</h1>
@@ -87,8 +88,9 @@ class Users extends React.Component {
                         this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "90%", maxWidth: "800px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
+                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ maxWidth: "800px", margin: "2rem auto", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
+                    </div>
                     <Drawer
                         title="Add User"
                         placement="right"

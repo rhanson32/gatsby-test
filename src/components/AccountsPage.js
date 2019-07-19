@@ -178,6 +178,7 @@ class Accounts extends React.Component {
                 <TopMenu />
 
                 <div className="accounts">
+                  <div className="accounts-max">
                   <div className="support-screen-header">
                       <h1>Accounts</h1>
                   </div>
@@ -221,6 +222,7 @@ class Accounts extends React.Component {
                        </Drawer>
                      )
                    }
+                   </div>
                 </div> 
             </div>
         )

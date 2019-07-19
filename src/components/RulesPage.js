@@ -221,9 +221,11 @@ class RulesPage extends React.Component {
                 <Header />  
                 <TopMenu />
                     <div className="rules">
+                        <div className="rules-max">
                         {
                             this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%", fontSize: "2rem" }} size="large" />
                         }
+                        <div className="rules-header-new">
                         {
                             this.props.Rules.length !== 0 && (
                                 <div className="rules-header">
@@ -242,11 +244,13 @@ class RulesPage extends React.Component {
                                 </div>
                             )
                         }
+                        </div>
                         <div className="web-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 
+                        </div>
                         </div>
                         <Drawer
                             title={this.state.title}
