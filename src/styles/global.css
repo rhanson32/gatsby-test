@@ -1,4 +1,5 @@
 
+/************************** General items used across many pages *********************/
 
 * {
     margin: 0;
@@ -25,10 +26,13 @@ input  {
     margin-top: 3.5rem;
 }
 
-.payments-screen {
+.purify-header {
+    width: 100vw;
+    background-color: #0984e3;
+    color: white;
     display: flex;
-    flex-wrap: wrap;
-    background-color: #F3F3F3;
+    justify-content: space-between;
+    min-height: 4rem;
 }
 
 .mobile-menu-showing {
@@ -40,94 +44,19 @@ input  {
     max-height: 250px;
 }
 
-.new-account-modal p {
-    margin: 1rem 0;
-}
-
-.progress-header {
-    width: 100%;
+.external-title {
+    line-height: 3rem;
+    font-size: 2.8rem;
+    padding: 0 0.5rem;
     display: flex;
-
-}
-
-.new-account-modal input {
-    width: 75%;
-}
-
-.new-account-modal-input {
-    display: flex;
-    flex-direction: column;
-    margin: 0.5rem 0;
-}
-
-.dashboard-chart-label {
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35%;
-}
-
-.payments {
-    width: 40%;
-    background-color: white;
-    padding: 0 2rem 2rem 2rem;
-    margin:  0 auto;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-    min-height: 300px;
-    border: 1px solid #CCC;
+    align-items: center;
+    margin-left: 0.5rem;
 }
 
-.payments h1 {
-    padding: 1rem;
-    width: 100%;
-}
-
-.checkout {
-    display: flex;
-    flex-direction: column;
-    min-height: 150px;
-    justify-content: space-around;
-}
-
-.StripeElement {
-    box-sizing: border-box;
-  
-    height: 40px;
-  
-    padding: 10px 12px;
-  
-    border: 1px solid transparent;
-    border-radius: 4px;
-    background-color: white;
-  
-    box-shadow: 0 1px 3px 0 #e6ebf1;
-    -webkit-transition: box-shadow 150ms ease;
-    transition: box-shadow 150ms ease;
-  }
-  
-  .StripeElement--focus {
-    box-shadow: 0 1px 3px 0 #cfd7df;
-  }
-  
-  .StripeElement--invalid {
-    border-color: #fa755a;
-  }
-  
-  .StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
-  }
-
-.purify-header {
-    width: 100vw;
-    background-color: #0984e3;
+.external-title a {
+    text-decoration: none;
     color: white;
-    display: flex;
-    justify-content: space-between;
-    min-height: 4rem;
 }
 
 .header-title {
@@ -160,8 +89,8 @@ input  {
 .external-header {
     width: 100vw;
     height: 4rem;
-    background-color: white;
-    color: #103c42;
+    background-color: #0984e3;
+    color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -180,43 +109,345 @@ input  {
     padding-right: 2rem;
 }
 
-.pricing-overlay {
+.orange-button {
+    background-color: #e17055;
+    border: 1px solid #e17055;
+    color: white;
+    transition: border 0.2s, background-color 0.2s;
+}
+
+.clear-button {
+    border: none;
+    background-color: transparent;
+}
+
+/*************************** Dashboard Page CSS ****************************/
+
+.dashboard-title {
+    font-size: 40px;
+    font-weight: 400;
     width: 100%;
+    padding: 0 0 1.5rem 0;
+}
+
+.dashboard-title-short {
+    font-size: 40px;
+    font-weight: 400;
+    width: 50%;
+    padding: 0 0 1.5rem 0;
+}
+
+.dashboard-filters {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.dashboard-page {
+    margin: 0;
+    padding-bottom: 2rem;
+    background-color: #F5F7FB;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    justify-content: flex-start;
+}
+
+.dashboard-max {
+    max-width: 1500px;
+    background-color: #F5F7FB;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 94%;
+    margin: 0 auto;
+    padding-top: 2rem;
+}
+
+.dashboard-main {
+    flex-grow: 7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.dashboard-item {
+    background-color: rgba(0, 184, 148, 0.75);
+    width: 25%;
+    margin: 4% 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    padding: 0 1.2rem;
+    height: 10rem;
+}
+
+.dashboard-header {
+    line-height: 3rem;
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-main {
+    padding: 0.5rem 1rem;
+}
+
+.dashboard-metrics {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.dashboard-trends {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.dashboard-footer {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+.dashboard-trends-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dashboard-progress-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+}
+
+.dashboard {
+    background-color: #F5F7FB;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 95%;
+    min-height: 90vh;
+}
+
+.dashboard-card {
+    margin: 1rem;
+    width: 46%;
+}
+
+.dashboard-category {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-items: center;
+    background-color: #EEE;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.dashboard-category-header {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-category-item {
+    width: 90%;
+}
+
+.dashboard-cards {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: auto;
+}
+
+.dashboard-card-statistics {
+    display: flex;
+}
+
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    width: 100%;
+}
+
+.dashboard-card-key {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dashboard-key-item {
+    padding: 0 1rem;
+}
+
+.dashboard-card-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.new-account-modal p {
+    margin: 1rem 0;
+}
+
+.new-account-modal input {
+    width: 75%;
+}
+
+.new-account-modal-input {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+}
+
+.progress-header {
+    width: 100%;
+    display: flex;
+}
+
+.dashboard-chart-label {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+}
+
+.dashboard-headlines {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dashboard-sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 50;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.pricing-overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 4rem;
-    color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    font-weight: 700;
-}
-
-.pricing-header {
+.dashboard-categories {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 4rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
     width: 100%;
-    height: 50vh;
-    background-image: url(../../static/workplace.jpg);
-    background-size: cover;
-    color: #FFF;
-    z-index: 1;
 }
 
-.pricing-header-text {
-    color: white;
-    z-index: 100;
+.card-wrapper {
+    width: 15%; 
+    display: flex;
+    align-items: stretch;
+}
+
+.card-metric-wrapper {
+    font-size: 40px; 
+    font-weight: bold; 
+    display: flex; 
+    justify-content: center; 
+    padding: 0.5rem 0;
+}
+
+/********************** Payment Screen *****************************/
+
+.payments-screen {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F3F3F3;
+}
+
+.payments {
+    width: 40%;
+    background-color: white;
+    padding: 0 2rem 2rem 2rem;
+    margin:  0 auto;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 300px;
+    border: 1px solid #CCC;
+}
+
+.payments h1 {
+    padding: 1rem;
+    width: 100%;
+}
+
+.payments-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 95%;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    justify-content: space-around;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+  
+    height: 40px;
+  
+    padding: 10px 12px;
+  
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+  
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+  
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+  
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+  
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+/**************************** Settings Page *****************************/
+
+.settings-div {
+    width: 100%;
 }
 
 .settings-row {
@@ -248,20 +479,6 @@ input  {
     align-items: center;
 }
 
-
-
-.orange-button {
-    background-color: #e17055;
-    border: 1px solid #e17055;
-    color: white;
-    transition: border 0.2s, background-color 0.2s;
-}
-
-.clear-button {
-    border: none;
-    background-color: transparent;
-}
-
 .settings-subscription {
     width: 70%;
     display: flex;
@@ -286,51 +503,6 @@ input  {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-}
-
-.feature-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 4rem auto;
-    max-width: 1400px;
-    width: 80%;
-}
-
-.feature-card {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    margin: 2%;
-    padding: 2rem;
-    border: 1px solid #DDD;
-}
-
-.add-user-form {
-    border: 1px solid #AAA;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    background-color: #F7F7F7;
-}
-
-.feature-card .feature-focus-image {
-    width: 100%;
-}
-
-.feature-card .feature-focus-description {
-    width: 100%;
-    font-size: 1rem;
-}
-
-.cancel-account {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 2rem;
-}
-
-.feature-card .feature-focus-header {
-    width: 100%;
 }
 
 .settings-card {
@@ -368,6 +540,247 @@ input  {
     padding: 0.5rem 1rem;
     border-radius: 24px;
     border: none;
+}
+
+.cancel-account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+.settings-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #F5F7FB;
+    padding-bottom: 4rem;
+}
+
+.settings-header {
+    width: 85%;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+.settings-provider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-provider-header {
+    width: 30%;
+    font-size: 2rem;
+}
+
+.settings-provider-option {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.settings-provider-option-header {
+    padding: 4rem 0;
+    font-size: 2rem;
+}
+
+.settings-provider-option-select button {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+/**************************** Feature Page ***************************/
+
+.feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 4rem auto;
+    max-width: 1400px;
+    width: 80%;
+}
+
+.feature-card {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    padding: 2rem;
+    border: 1px solid #DDD;
+}
+
+.feature-card .feature-focus-image {
+    width: 100%;
+}
+
+.feature-card .feature-focus-description {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.feature-card .feature-focus-header {
+    width: 100%;
+}
+
+.feature-header {
+    opacity: 0.8;
+    background-image: url('../../static/drip.jpg');
+    max-height: 75vh;
+    width: 100%;
+}
+
+.feature-header-title {
+    margin: 4rem auto 4rem auto;
+    width: 70%;
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.feature-header-description {
+    width: 60%;
+    margin: 4rem auto;
+    font-size: 2rem;
+    line-height: 160%;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: midnightblue;
+}
+
+.feature-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: auto 3rem;
+}
+
+.feature-focus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    padding: 4rem 0 2rem 0;
+    width: 80%;
+    margin: auto;
+}
+
+.feature-focus-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    width: 45%;
+}
+
+.feature-focus-image {
+    width:45%;
+    height: 20rem;
+}
+
+.feature-focus-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.feature-focus-header {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 1rem;
+}
+
+.feature-focus-description {
+    font-size: 1.5rem;
+    color: #555;
+    width: 90%;
+    line-height: 140%;
+}
+
+.feature-item {
+    width: 45%;
+    margin: 2rem auto;
+}
+
+.feature-item-header {
+    margin: 0.5rem 0;
+    font-size: 1.6rem;
+}
+
+/********************** User Page *************************/
+
+.add-user-form {
+    border: 1px solid #AAA;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    background-color: #F7F7F7;
+}
+
+.users-max {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+/************************ Support Page ************************/
+
+.support-list {
+    background-color: #FFF;
+    padding: 1rem 0;
+    border: 1px solid #DDD;
+}
+
+.support-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    line-height: 3rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #DDD;
+    background-color: white;
+    margin: 1rem;
+    color: #555;
+}
+
+.support-container {
+    width: 100%;
+}
+
+.support-list-attribute {
+    width: 30%;
+}
+
+.support-headers {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+}
+
+.support-header {
+    margin: 1rem 0;
+}
+
+.support-header button {
+    border: none;
+}
+
+.inactive-support-header {
+    color: #999;
+    background-color: #EEE;
+    width: 100%;
+    height: 4rem;
+    font-size: 2rem;
+    border: 1px solid #DDD;
+    margin: 2rem 0;
 }
 
 .support-form {
@@ -419,21 +832,8 @@ input  {
     border-bottom: 1px solid #DDD;
 }
 
-.dashboard-headlines {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
 .support-form form {
     width: 100%;
-}
-
-.dashboard-sidebar {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    height: 100%;
 }
 
 .support-form label {
@@ -515,6 +915,41 @@ input  {
     margin: 0 auto;
 }
 
+.support-right-side {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    min-height: 90vh;
+}
+
+.support-screen-header {
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    max-height: 5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-ticket {
+    width: 100%;
+    padding: 10rem;
+}
+
+/********************** Rules Page **************************/
+
+.rules {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 95%;
+    min-height: 90vh;
+    padding: 2rem 0 3rem 0;
+}
+
 .rules-max, .accounts-max {
     width: 90%;
     margin: 0 auto;
@@ -530,32 +965,25 @@ input  {
     padding-bottom: 2rem;
 }
 
-.support-right-side {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: auto;
-    min-height: 90vh;
-}
-
-.users-max {
-    width: 90%;
-    margin: 0 auto;
-    max-width: 800px;
-}
-
-.support-screen-header {
-    width: 100%;
-    padding: 1rem 0;
-    margin-top: 1rem;
-    max-height: 5rem;
-    display: flex;
-    justify-content: space-between;
-}
-
 .rules-header {
     width: 35%;
 }
+
+.rule-name {
+    width: 50%;
+}
+
+.rule-category, .rule-provider {
+    width: 25%;
+}
+
+.rule-status {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+/*********************** Docs Page ********************/
 
 .docs-menu-link {
     color: #1890ff;
@@ -607,108 +1035,6 @@ input  {
     line-height: 140%;
 }
 
-.add-ticket {
-    width: 100%;
-    padding: 10rem;
-}
-
-.external-title {
-    line-height: 3rem;
-    font-size: 2.8rem;
-    padding: 0 0.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 0.5rem;
-}
-
-.external-title a {
-    text-decoration: none;
-    color: #333333;
-}
-
-.settings-page {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    background-color: #F5F7FB;
-    padding-bottom: 4rem;
-}
-
-.settings-header {
-    width: 85%;
-    height: 8rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    font-size: 3rem;
-    margin: 1rem 0;
-}
-
-.settings-provider {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.settings-provider-header {
-    width: 30%;
-    font-size: 2rem;
-}
-
-.settings-provider-option {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.settings-provider-option-header {
-    padding: 4rem 0;
-    font-size: 2rem;
-}
-
-.settings-provider-option-select button {
-    margin: 1rem;
-    padding: 1rem;
-}
-
-.feature-header {
-    opacity: 0.8;
-    background-image: url('../../static/drip.jpg');
-    max-height: 75vh;
-    width: 100%;
-}
-
-.feature-header-title {
-    margin: 4rem auto 4rem auto;
-    width: 70%;
-    font-size: 4rem;
-    display: flex;
-    justify-content: center;
-    color: white;
-}
-
-.feature-header-description {
-    width: 60%;
-    margin: 4rem auto;
-    font-size: 2rem;
-    line-height: 160%;
-}
-
-.feature-icon {
-    font-size: 3rem;
-    color: midnightblue;
-}
-
-.feature-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: auto 3rem;
-}
-
 .sign-up-link {
     padding: 0.2rem 1rem;
     background-color: #00b894;
@@ -717,7 +1043,7 @@ input  {
 }
 
 .external-title a:link, .external-title a:visited {
-    color: #333;
+    color: white;
     text-decoration: none;
 }
 
@@ -726,84 +1052,6 @@ input  {
     
 }
 
-.feature-focus {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: auto;
-    padding: 4rem 0 2rem 0;
-    width: 80%;
-    margin: auto;
-}
-
-.feature-focus-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    width: 45%;
-}
-
-.feature-focus-image {
-    width:45%;
-    height: 20rem;
-}
-
-.feature-focus-image img {
-    width: 100%;
-    height: 100%;
-}
-
-.feature-focus-header {
-    font-size: 2.5rem;
-    color: #333;
-    margin: 1rem;
-}
-
-.feature-focus-description {
-    font-size: 1.5rem;
-    color: #555;
-    width: 90%;
-    line-height: 140%;
-}
-
-/*
-
-.not-found {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
-}
-
-*/
-
-.pricing-page, .features-page, .home, .docs-page {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.pricing-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 33.1%;
-    border-right: 1px solid #EEE;
-}
-
-.pricing-card-new {
-    max-width: 300px;
-    display: flex;
-    align-items: stretch;
-    width: 45%;
-}
-
-.pricing-card:last-child {
-    border: none;
-}
 
 .add-user {
     display: flex;
@@ -848,23 +1096,60 @@ input  {
     margin-right: 1.5rem;
 }
 
-.card-wrapper {
-    width: 15%; 
-    display: flex;
-    align-items: stretch;
-}
-
-.card-metric-wrapper {
-    font-size: 40px; 
-    font-weight: bold; 
-    display: flex; 
-    justify-content: center; 
-    padding: 0.5rem 0;
-}
-
 .user-radio {
     width: 1rem;
     margin-right: 0.5rem;
+}
+
+/********************* Pricing Page ***********************/
+
+.pricing-page, .features-page, .home, .docs-page {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.pricing-main {
+    width: 80%;
+    margin: auto;
+}
+
+.pricing-header-new {
+    padding: 2rem 0;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.pricing-description {
+    font-size: 24px;
+}
+
+.pricing-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    margin: 4rem 0;
+    width: 100%;
+}
+
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 33.1%;
+    border-right: 1px solid #EEE;
+}
+
+.pricing-card-new {
+    max-width: 300px;
+    display: flex;
+    align-items: stretch;
+    width: 45%;
+}
+
+.pricing-card:last-child {
+    border: none;
 }
 
 .pricing-card-header {
@@ -878,7 +1163,6 @@ input  {
     align-items: center;
     width: 100%;
     color: black;
-
 }
 
 .pricing-card-price {
@@ -934,6 +1218,8 @@ input  {
     color: white;
 }
 
+/**************** Login Page *************************/
+
 .login-screen, .signup-screen {
     background: #0984e3;  /* fallback for old browsers */ 
     width: 100%;
@@ -975,14 +1261,6 @@ input  {
     border-radius: 5px;
     height: auto;
     max-width: 500px;
-}
-
-.dashboard-categories {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
 }
 
 .forgot-password-form {
@@ -1054,17 +1332,8 @@ input  {
 }
 
 .external-menu a:hover {
-    color: #777;
-}
-
-.feature-item {
-    width: 45%;
-    margin: 2rem auto;
-}
-
-.feature-item-header {
-    margin: 0.5rem 0;
-    font-size: 1.6rem;
+    color: #CCC;
+    border-bottom: #CCC;
 }
 
 .action-call {
@@ -1110,10 +1379,7 @@ input  {
 .external-menu a, .right-menu a {
     text-decoration: none;
     margin: 0.4rem 1rem;
-}
-
-.external-menu a {
-    color: #333333;
+    color: white;
 }
 
 .header-menu a {
@@ -1127,6 +1393,20 @@ input  {
 
 .active-link {
     text-decoration: underline;
+}
+
+/******************** Home Page ***************************/
+
+.splash {
+    background-image: url(../../static/optimization-gears.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    z-index: 1;
 }
 
 .splash-title {
@@ -1145,6 +1425,16 @@ input  {
     margin-top: 4rem;
     color: white;
     z-index: 200;
+}
+
+.splash-overlay {
+    height: 100%;
+    width: 100%;
+    opacity: 0.95;
+    background-color: #3d5878;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .site-map {
@@ -1206,53 +1496,6 @@ input  {
     min-height: 90vh;
 }
 
-.rules {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 95%;
-    min-height: 90vh;
-    padding: 2rem 0 3rem 0;
-}
-
-.dashboard-cards {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    width: 95%;
-    margin: auto;
-}
-
-.dashboard-card-statistics {
-    display: flex;
-}
-
-.dashboard-card-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.6rem;
-    width: 100%;
-}
-
-.dashboard-card-key {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.dashboard-key-item {
-    padding: 0 1rem;
-}
-
-.dashboard-card-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-}
-
 .rules-page {
     display: flex;
     flex-wrap: wrap;
@@ -1279,12 +1522,7 @@ input  {
     margin: 2rem;
 }
 
-.payments-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 95%;
-}
+
 
 .data-missing-dashboard {
     min-height: 300px;
@@ -1389,7 +1627,6 @@ input  {
     height: 2rem;
 }
 
-
 .account-item-field-large {
     width: 40%;
     display: flex;
@@ -1400,30 +1637,6 @@ input  {
     width: 70%;
     padding: 0.4rem 0 0.4rem 1rem;
     border-radius: 5px;
-}
-
-.pricing-main {
-    width: 80%;
-    margin: auto;
-}
-
-.pricing-header-new {
-    padding: 2rem 0;
-    font-size: 40px;
-    font-weight: 700;
-}
-
-.pricing-description {
-    font-size: 24px;
-}
-
-.pricing-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: stretch;
-    margin: 4rem 0;
-    width: 100%;
 }
 
 .account-item-field select {
@@ -1623,30 +1836,6 @@ th, td {
     border-radius: 3px;
 }
 
-.support-headers {
-    display: flex;
-    flex-direction: column;
-    width: 15%;
-}
-
-.support-header {
-    margin: 1rem 0;
-}
-
-.support-header button {
-    border: none;
-}
-
-.inactive-support-header {
-    color: #999;
-    background-color: #EEE;
-    width: 100%;
-    height: 4rem;
-    font-size: 2rem;
-    border: 1px solid #DDD;
-    margin: 2rem 0;
-}
-
 .add-button {
     background-color: #0984e3;
     color: white;
@@ -1692,20 +1881,6 @@ th, td {
     color: #777;
 }
 
-.rule-name {
-    width: 50%;
-}
-
-.rule-category, .rule-provider {
-    width: 25%;
-}
-
-.rule-status {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-}
-
 .disabled-button, .enabled-button {
     border: none;
     padding: 0 1.2rem;
@@ -1723,82 +1898,12 @@ th, td {
     height: 2rem;
 }
 
-.dashboard-trends-container {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.dashboard {
-    background-color: #F5F7FB;
-    margin: 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 95%;
-}
-
-.dashboard-card {
-    margin: 1rem;
-    width: 46%;
-}
-
-.dashboard-category {
-    display: flex;
-    flex-direction: column;
-    justify-items: flex-start;
-    align-items: center;
-    background-color: #EEE;
-    margin-bottom: 1rem;
-    width: 100%;
-}
-
-.dashboard-category-header {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.dashboard-category-item {
-    width: 90%;
-}
-
 .spin-container {
     width: 90vw;
     height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.dashboard-max {
-    max-width: 1500px;
-    background-color: #F5F7FB;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 94%;
-    margin: 0 auto;
-    padding-top: 2rem;
-}
-
-.dashboard-main {
-    flex-grow: 7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    color: white;
-}
-
-.dashboard-footer {
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
-    color: white;
 }
 
 .left-menu {
@@ -1813,11 +1918,6 @@ th, td {
 
 .card-test {
     width: 20%;
-}
-
-.dashboard {
-    width: 95%;
-    min-height: 90vh;
 }
 
 .left-menu-item:first-child {
@@ -1857,6 +1957,8 @@ th, td {
     padding-left: 3rem;
 }
 
+/*************** History Page **********************/
+
 .history-profile {
     display: flex;
 }
@@ -1892,37 +1994,6 @@ th, td {
     color: green;
 }
 
-.dashboard-title {
-    font-size: 40px;
-    font-weight: 400;
-    width: 100%;
-    padding: 0 0 1.5rem 0;
-}
-
-.dashboard-title-short {
-    font-size: 40px;
-    font-weight: 400;
-    width: 50%;
-    padding: 0 0 1.5rem 0;
-}
-
-.dashboard-filters {
-    width: 50%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.dashboard-page {
-    margin: 0;
-    padding-bottom: 2rem;
-    background-color: #F5F7FB;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100vw;
-    justify-content: flex-start;
-}
-
 .drawer-submit {
     display: flex;
     justify-content: flex-end;
@@ -1930,113 +2001,8 @@ th, td {
     padding-top: 1rem;
 }
 
-.dashboard-item {
-    background-color: rgba(0, 184, 148, 0.75);
-    width: 25%;
-    margin: 4% 2%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border-radius: 5px;
-    padding: 0 1.2rem;
-    height: 10rem;
-}
-
-.dashboard-header {
-    line-height: 3rem;
-    font-size: 2rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: white;
-    margin: 0 auto;
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-}
-
-.dashboard-main {
-    padding: 0.5rem 1rem;
-}
-
-.dashboard-metrics {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.dashboard-trends {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-between;
-    align-items: stretch;
-}
-
 .empty-list {
     height: 50vh;
-}
-
-.splash {
-    background-image: url(../../static/optimization-gears.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 70vh;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    z-index: 1;
-}
-
-.settings-div {
-    width: 100%;
-}
-
-.splash-overlay {
-    height: 100%;
-    width: 100%;
-    opacity: 0.95;
-    background-color: #3d5878;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.support-list {
-    background-color: #FFF;
-    padding: 1rem 0;
-    border: 1px solid #DDD;
-}
-
-.support-list-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    line-height: 3rem;
-    font-size: 1.5rem;
-    border-bottom: 1px solid #DDD;
-    background-color: white;
-    margin: 1rem;
-    color: #555;
-}
-
-.support-container {
-    width: 100%;
-}
-
-.support-list-attribute {
-    width: 30%;
-}
-
-.dashboard-progress-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 300px;
 }
 
 /* ------------------------ Media Queries ------------------------------- */

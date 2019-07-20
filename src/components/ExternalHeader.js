@@ -38,7 +38,7 @@ class ExternalHeader extends React.Component {
                 </div>
                 <div className="right-menu">
                     <Link className="login-link" to="/app/login">Log In</Link>
-                    <Button onClick={this.signUp} type="primary">Sign Up</Button>
+                    <Button onClick={this.signUp} type="default">Sign Up</Button>
                 </div>
                 <Modal
                     title={null}

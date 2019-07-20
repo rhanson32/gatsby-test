@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import { PricingCard, Icon } from 'tabler-react';
 import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap';
+import { navigate } from '@reach/router';
 
 class Pricing extends React.Component {
+
+    signUp = () => {
+        navigate('/app/signup');
+    }
 
     render() {
         return (
@@ -48,7 +53,7 @@ class Pricing extends React.Component {
                             <Icon className="red-icon" name="x" /> SAML-based Single Sign-On
                         </PricingCard.AttributeItem>
                     </PricingCard.AttributeList>
-                    <PricingCard.Button active={true}>
+                    <PricingCard.Button active={true} onClick={this.signUp}>
                         Sign Up
                     </PricingCard.Button>
                 </PricingCard>

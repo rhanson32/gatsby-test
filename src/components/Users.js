@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { Card, Progress } from 'tabler-react';
 import { getCurrentUser, fetchUsers } from '../actions';
 import { isLoggedIn, getExpiration, logout } from '../utils/auth';
-import { Table, Spin, Drawer, Button, Icon } from 'antd';
+import { Table, Spin, Drawer, Button } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import AddUserForm from './AddUserForm';
@@ -56,12 +54,12 @@ class Users extends React.Component {
               key: 'role',
               filters: [
                 {
-                  text: 'Administrators',
-                  value: 'Administrators',
+                  text: 'Administrator',
+                  value: 'Administrator',
                 },
                 {
-                  text: 'Auditors',
-                  value: 'Auditors',
+                  text: 'Auditor',
+                  value: 'Auditor',
                 }
               ],
                 onFilter: (value, record) => record.role.indexOf(value) === 0,
