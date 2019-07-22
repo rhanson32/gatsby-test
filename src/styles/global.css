@@ -80,6 +80,26 @@ input  {
     padding: 0 0.8rem;
 }
 
+.features-header {
+    display: flex;
+    max-height: 50vh;
+    padding: 3rem 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.features-header img {
+    max-width: 30%;
+}
+
+.features-header-message {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+
 .navigation {
     display: flex;
     justify-content: center;
@@ -97,7 +117,6 @@ input  {
     align-items: center;
     padding: 0.5rem 0;
     line-height: 2rem;
-    border-bottom: 1px solid #EEE;
 }
 
 .right-menu {
@@ -647,7 +666,7 @@ input  {
 
 .feature-header-description {
     width: 60%;
-    margin: 4rem auto;
+    margin: 2rem auto;
     font-size: 2rem;
     line-height: 160%;
 }
@@ -1238,6 +1257,8 @@ input  {
     width: 100%;
     color: white;
     font-size: 1.4rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .login-container, .signup-container {
@@ -1331,8 +1352,10 @@ input  {
     color: black;
 }
 
-.external-menu a:hover {
-    color: #CCC;
+
+
+.external-menu a:hover, .right-menu a:hover {
+    color: #DDD;
     border-bottom: #CCC;
 }
 
@@ -1445,7 +1468,6 @@ input  {
     width: 100vw;
     height: auto;
     background-color: #F5F7FB;
-    border-top: 1px solid #DDD;
     padding: 2rem 0;
 }
 

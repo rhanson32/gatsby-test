@@ -21,6 +21,9 @@ class Pricing extends React.Component {
                     Pricing
                 </div>
                 <div className="pricing-description">
+                    All prices shown are monthly prices, charged on a subscription model until cancellation.
+                </div>
+                <div className="pricing-description">
                     Our product is currently in beta testing. While we are in beta, use the code PURIFYFREE to use the Standard plan for free for 90 days.
                 </div>
                 <div className="pricing-cards">
@@ -38,7 +41,7 @@ class Pricing extends React.Component {
                             5 Users
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
-                            Unlimited Accounts
+                            3 Accounts
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             10 Active Rules
@@ -48,6 +51,15 @@ class Pricing extends React.Component {
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> 2-Factor Authentication
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Email Support
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="red-icon" name="x" /> Latest Features
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="red-icon" name="x" /> Ticket Support & SLA
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="red-icon" name="x" /> SAML-based Single Sign-On
@@ -81,6 +93,15 @@ class Pricing extends React.Component {
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> 2-Factor Authentication
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Email Support
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Latest Features
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Ticket Support & SLA
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> SAML-based Single Sign-On

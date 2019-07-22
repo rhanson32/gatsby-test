@@ -182,9 +182,9 @@ class Login extends React.Component {
               {this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
                 <label>Email</label>
-                <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
+                <Input placeholder="Email" allowClear name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
                 <label>Password</label>
-                <Input.Password placeholder="Password" onChange={this.handleUpdate} name="password" value={this.state.password} onKeyPress={this.handleKeyPress} />
+                <Input.Password placeholder="Password" allowClear onChange={this.handleUpdate} name="password" value={this.state.password} onKeyPress={this.handleKeyPress} />
                 <div className="login-buttons">
                 <Button type="link" onClick={this.forgotPassword}>
                   Forgot password? 
@@ -198,10 +198,17 @@ class Login extends React.Component {
         {
           this.state.inputMFA && (
             <div className="login-form">
-              <div className="login-header">MFA Code Required</div>
+              <div className="login-header">Authentication Code Required</div>
               <div className="login-container">
-                <label>Code from MFA device:</label>
-                <Input name="mfaCode" value={this.state.mfaCode} onChange={this.handleUpdate} onKeyPress={this.handlePress} />
+                <label style={{ padding: "0.3rem 0"}}>MFA Code:</label>
+                <Input 
+                  name="mfaCode" 
+                  allowClear 
+                  value={this.state.mfaCode} 
+                  onChange={this.handleUpdate} 
+                  onKeyPress={this.handlePress} 
+                  autoFocus
+                />
                 <Button type="primary" onClick={this.confirmMFA}>Submit</Button>
                 <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
               </div>
@@ -215,7 +222,15 @@ class Login extends React.Component {
               <div className="login-container">
                 <p>Enter your email below to set a new password.</p>
                 <label style={{ marginBottom: "0.2rem" }}>Email</label>
-                <Input placeholder="Email" name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />
+                <Input 
+                  placeholder="Email" 
+                  name="username" 
+                  allowClear 
+                  autoFocus
+                  value={this.state.username} 
+                  onChange={this.handleUpdate} 
+                  onKeyPress={this.handleKeyPress} 
+                />
                 <div>&nbsp;</div>
                 <Button onClick={this.requestPassword} type="primary">Submit</Button>
                 <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
@@ -234,6 +249,7 @@ class Login extends React.Component {
                   onChange={this.handleUpdate}
                   placeholder='e.g. 291736'
                   name='code'
+                  allowClear
                   value={this.state.code}
                   onKeyPress={this.handleKeyPress}
                 />
@@ -245,6 +261,7 @@ class Login extends React.Component {
                   onChange={this.handleUpdate}
                   placeholder='New password'
                   name='password'
+                  allowClear
                   value={this.state.password}
                   onKeyPress={this.handleKeyPress}
                 />
@@ -264,6 +281,7 @@ class Login extends React.Component {
                   onChange={this.handleUpdate}
                   placeholder='e.g. 291736'
                   name='code'
+                  allowClear
                   value={this.state.code}
                   onKeyPress={this.handleKeyPress}
                 />

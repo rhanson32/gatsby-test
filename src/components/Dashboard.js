@@ -342,7 +342,7 @@ class Dashboard extends React.Component {
     }
 
     lastMonth = () => {
-        
+
     }
 
     showDetail = (e) => {
@@ -484,7 +484,6 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
-                    
                 <Modal
                     title="Welcome to Purify!"
                     visible={welcomeScreen}
@@ -567,7 +566,10 @@ class Dashboard extends React.Component {
                                 <Card>
                                 <Card.Body>
                                     <div className="card-metric-wrapper">
-                                        {this.props.rules.filter(rule => rule.Enabled).length}
+                                        {this.state.showAll && this.props.rules.filter(rule => rule.Enabled).length}
+                                        {this.state.showSecurity && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
+                                        {this.state.showWaste && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
+                                        {this.state.showConfiguration && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
                                     Active Rules
@@ -580,7 +582,10 @@ class Dashboard extends React.Component {
                             <Card>
                                 <Card.Body>
                                     <div className="card-metric-wrapper">
-                                        {this.props.rules.length}
+                                        {this.state.showAll && this.props.rules.length}
+                                        {this.state.showSecurity && this.props.rules.filter(rule => rule.Category === 'Security').length}
+                                        {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').length}
+                                        {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
                                     Available Rules
@@ -800,11 +805,7 @@ class Dashboard extends React.Component {
                                                     {this.state.securityViolations}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && this.state.scanComplete && (
-                                                <div>
-                                                    {this.state.wasteViolations}
-                                                </div>
-                                            )}
+                                            {this.state.showWaste && this.state.scanComplete && <div>{this.state.wasteViolations}</div>}
                                             {this.state.showConfiguration && this.state.scanComplete && (
                                                 <div>
                                                     {this.state.configurationViolations}
