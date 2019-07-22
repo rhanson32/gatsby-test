@@ -2013,8 +2013,39 @@ th, td {
         width: 100%;
     }
 
-    .dashboard-score {
+    .dashboard-top {
+        display: flex;
         width: 100%;
+        flex-direction: column-reverse;
+    }
+
+    .dashboard-trends-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dashboard-headlines {
+        justify-content: space-around;
+    }
+
+    .dashboard-filters {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 1rem;
+    }
+
+    .dashboard-score {
+        width: 95%;
+    }
+
+    .purify-header {
+        flex-wrap: wrap;
+    }
+
+    .rules-header-new {
+        flex-direction: column;
+        align-items: center;
     }
 
     .dashboard-headlines {
@@ -2044,7 +2075,9 @@ th, td {
     }
 
     .rules-header {
-        width: 70%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .web-rules, .web-accounts {
@@ -2124,7 +2157,9 @@ th, td {
     }
 
     .rules-bulk-switch {
-        width: 90%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .support-screen {
@@ -2180,6 +2215,8 @@ th, td {
     .header-title {
         width: 100%;
         text-align: center;
+        display: flex;
+        justify-content: center;
         line-height: 5rem;
         font-size: 3.2rem;
     }
@@ -2250,8 +2287,7 @@ th, td {
 
     .header-menu {
         width: 100%;
-        font-size: 1rem;
-        flex-wrap: wrap;
+        font-size: 0.8rem;
     }
 
     .header-menu a {
@@ -2508,6 +2544,12 @@ th, td {
         width: 50%;
     }
 
+    .dashboard-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
     .dashboard-score {
         width: 65%;
     }
@@ -2650,6 +2692,12 @@ th, td {
         line-height: 160%;
         margin-top: 6rem;
         width: 75%;
+    }
+
+    .dashboard-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 
     .card-metric-wrapper {

@@ -200,7 +200,7 @@ class Accounts extends React.Component {
                       {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />}
                     </div>
                     <div className="mobile-accounts">
-                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ width: "90%", maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}
+                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}
                     </div>
                    {
                      this.state.showDrawer && (

@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
             showDetail: false,
             last3days: false,
             last7days: false,
+            lastMonth: false,
             chartData: {
                 columns: [
                     ['Found Violations', 0, 0, 0, 0, 0, 0],
@@ -340,6 +341,10 @@ class Dashboard extends React.Component {
         })
     }
 
+    lastMonth = () => {
+        
+    }
+
     showDetail = (e) => {
         console.log(e.target.id);
         this.setState({
@@ -520,6 +525,7 @@ class Dashboard extends React.Component {
                             }
                             {this.props.rules.length !== 0 && this.props.accounts.length !== 0 && this.state.scanComplete && (
                             <div className="dashboard-max">
+                                <div className="dashboard-top">
                                 <div className="dashboard-title-short">Headline</div>
                                 <div className="dashboard-filters">
                                     <div style={{ paddingRight: "1rem" }}>Filters: </div>
@@ -537,6 +543,7 @@ class Dashboard extends React.Component {
                                             Configuration
                                         </Button>
                                     </Button.Group>
+                                </div>
                                 </div>
                                 <div className="dashboard-headlines">
                                 <div className="dashboard-score">
@@ -906,29 +913,29 @@ class Dashboard extends React.Component {
                             </div>
 
                             <div className="dashboard-trends-graph">
-                            <Card>
-                                <Card.Header>
-                                    <div className="history-chart-header">
-                                        <div className="history-chart-header-title">
-                                            Violations Over Time
+                                <Card>
+                                    <Card.Header>
+                                        <div className="history-chart-header">
+                                            <div className="history-chart-header-title">
+                                                Violations Over Time
+                                            </div>
+                                            <div className="history-chart-header-filters">
+                                                <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
+                                                <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
+                                                <Button type="link">MTD</Button>
+                                                <Button type="link">Last Month</Button>
+                                                <Button type="link">Last 3 Months</Button>
+                                                <Button type="link">YTD</Button>
+                                                <Button type="link">Last Year</Button>
+                                            </div>
                                         </div>
-                                        <div className="history-chart-header-filters">
-                                            <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
-                                            <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
-                                            <Button type="link">MTD</Button>
-                                            <Button type="link">Last Month</Button>
-                                            <Button type="link">Last 3 Months</Button>
-                                            <Button type="link">YTD</Button>
-                                            <Button type="link">Last Year</Button>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <div style={{ backgroundColor: "white" }}>
+                                            <C3Chart data={this.state.chartData} />
                                         </div>
-                                    </div>
-                                </Card.Header>
-                                <Card.Body>
-                                    <div style={{ backgroundColor: "white" }}>
-                                        <C3Chart data={this.state.chartData} />
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                                    </Card.Body>
+                                </Card>
                             </div>
                             </div>
                             </div>
