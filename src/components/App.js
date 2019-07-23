@@ -15,6 +15,7 @@ import SupportPage from '../components/SupportPage'
 import Settings from '../components/Settings'
 import Docs from '../components/Docs';
 import History from '../components/History';
+import SAML from './SAML';
 
 import store from '../store'
 
@@ -33,6 +34,7 @@ const App = ({ children }) => (
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
             <Home path="/" />
+            <SAML path="/saml/:token" />
         </Router>
     </Provider>
   )

@@ -691,6 +691,7 @@ input  {
     padding: 4rem 0 2rem 0;
     width: 80%;
     margin: auto;
+    max-width: 1300px;
 }
 
 .feature-focus-text {
@@ -1131,6 +1132,7 @@ input  {
 .pricing-main {
     width: 80%;
     margin: auto;
+    max-width: 1200px;
 }
 
 .pricing-header-new {
@@ -2041,6 +2043,30 @@ th, td {
         flex-direction: column-reverse;
     }
 
+    .history-chart-header {
+        flex-wrap: wrap;
+    }
+
+    .user-name {
+        margin-right: 0;
+    }
+
+    .settings-subscription {
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .history-chart-header-title {
+        width: 100%;
+    }
+
+    .history-chart-header-filters {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
     .dashboard-trends-container {
         flex-direction: column;
         align-items: stretch;
@@ -2117,6 +2143,7 @@ th, td {
 
     .support-right-side {
         width: 100%;
+        align-items: center;
     }
 
     .support-screen-header {
@@ -2128,7 +2155,7 @@ th, td {
     }
 
     .settings-main {
-        width: 90%;
+        width: 95%;
     }
 
     .settings-row {
