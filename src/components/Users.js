@@ -15,7 +15,7 @@ class Users extends React.Component {
     }
 
     componentDidMount = async () => {
-        await this.props.getCurrentUser()
+        await this.props.getCurrentUser();
         this.props.fetchUsers(this.props.user.CustomerId);
     }
 

@@ -14,7 +14,7 @@ export const postTicket = (values) => async (dispatch, getState) => {
             CustomerId: getState().user.CustomerId
         },
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
     console.log(myRequest);
@@ -38,7 +38,7 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
             Status: 'New'
         },
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
     purify.post('/accounts', myRequest).then(
@@ -61,7 +61,7 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
             Role: RoleArn
         },
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -76,7 +76,7 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -93,7 +93,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -127,6 +127,9 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
         body: {
             CustomerId: user.CustomerId,
             status: status
+        },
+        headers: {
+            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -193,7 +196,7 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
     let myRequest = {
         body: { customerId },
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
     const response = await purify.get('/settings', myRequest)
@@ -233,7 +236,7 @@ export const saveUser = (user) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'jvtFUGnz5U3o1ZYNAMm9V6ELYaUthXTO9GcUSy6y'
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -253,7 +256,7 @@ export const getCurrentUser = () => async dispatch => {
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'jvtFUGnz5U3o1ZYNAMm9V6ELYaUthXTO9GcUSy6y'
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -280,7 +283,10 @@ export const validateCompany = async (user) => {
                 email: user.email, 
                 company: user.company,
                 userName: user.username
-            }
+            },
+        headers: {
+            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
     };
 
     let postResponse;
@@ -306,7 +312,7 @@ export const getRules = (user) => async dispatch => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -340,7 +346,7 @@ export const getHistory = (user) => async dispatch => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -365,7 +371,7 @@ export const disableRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            Authorization: user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -399,7 +405,7 @@ export const enableRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            Authorization: user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -433,7 +439,7 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            Authorization: user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -486,7 +492,7 @@ export const toggleAWS = () => async (dispatch, getState) => {
             NewValue: newValue
         },
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
@@ -510,7 +516,7 @@ export const fetchTickets = () => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            Authorization: getState().user.IdToken
+            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -555,12 +561,5 @@ export const addUser = (user) => async (dispatch, getState) => {
 
 export const confirmUser = (username) => async dispatch => {
 
-    // const response = await Auth.resendSignUp(username);
-
     const secondResponse = await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
-
-    console.log(secondResponse);
-
-    // console.log(response);
-
 }
