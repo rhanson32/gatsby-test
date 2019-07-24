@@ -215,7 +215,10 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
 
 export const getFeatures = () => async dispatch => {
     let myRequest = {
-        body: {}
+        body: {},
+        headers: {
+            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
     };
     const featureResponse = await purify.get('/features', myRequest);
     console.log(featureResponse);
