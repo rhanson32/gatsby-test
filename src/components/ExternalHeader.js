@@ -29,7 +29,7 @@ class ExternalHeader extends React.Component {
                     <Link activeClassName="active-link" to="/">PurifyCloud</Link>  
                 </div>
                 <div className="mobile-menu-button">
-                    <Button type="primary" onClick={this.toggleMobile}>Menu</Button>
+                    <Button onClick={this.toggleMobile}>Menu</Button>
                 </div>
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
@@ -40,16 +40,18 @@ class ExternalHeader extends React.Component {
                     <Link className="login-link" to="/app/login">Log In</Link>
                     <Button onClick={this.signUp} type="default">Sign Up</Button>
                 </div>
-                <Modal
-                    title={null}
-                    visible={this.state.showMobile}
-                    onCancel={this.toggleMobile}
-                    closable
-                    style={{ margin: "auto", right: "22px" }}
-                    footer={null}
-                    >
-                    <MobileMenu />
-                </Modal>
+                <div className="modal-container">
+                    <Modal
+                        title={null}
+                        visible={this.state.showMobile}
+                        onCancel={this.toggleMobile}
+                        closable
+                        style={{ margin: "auto" }}
+                        footer={null}
+                        >
+                        <MobileMenu />
+                    </Modal>
+                </div>
             </div>
         )
     }

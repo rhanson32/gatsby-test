@@ -82,14 +82,9 @@ input  {
 
 .features-header {
     display: flex;
-    max-height: 50vh;
     padding: 3rem 0;
     width: 100%;
     justify-content: center;
-}
-
-.features-header img {
-    max-width: 30%;
 }
 
 .features-header-message {
@@ -1242,7 +1237,7 @@ input  {
 /**************** Login Page *************************/
 
 .login-screen, .signup-screen {
-    background: #0984e3;  /* fallback for old browsers */ 
+    background-color: #F5F7FB;  /* fallback for old browsers */ 
     width: 100%;
     height: 100vh;
     display: flex;
@@ -1252,12 +1247,12 @@ input  {
 }
 
 .login-header, .signup-header {
-    background-color: #00b894;
-    text-align: center;
+    background-color: white;
+    padding: 1rem;
     line-height: 4rem;
     height: 4rem;
-    width: 100%;
-    color: white;
+    width: 80%;
+    color: #333;
     font-size: 1.4rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -1279,7 +1274,7 @@ input  {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid #0984e3;
+    border: 1px solid #CCC;
     background-color: white;
     border-radius: 5px;
     height: auto;
@@ -2037,6 +2032,15 @@ th, td {
         width: 100%;
     }
 
+    .features-header-message {
+        width: 90%;
+        font-size: 1.5rem;
+    }
+
+    .pricing-card-new {
+        width: 90%;
+    }
+
     .dashboard-top {
         display: flex;
         width: 100%;
@@ -2407,8 +2411,14 @@ th, td {
         margin: 1rem;
     }
 
+    .modal-container {
+        width: 90%;
+        margin: auto;
+    }
+
     .feature-focus-image {
-        width: 100%;
+        width: 90%;
+        border: 1px solid #EEE;
     }
 
     .feature-focus-header {
@@ -2417,10 +2427,20 @@ th, td {
         font-weight: 700;
     }
 
+    .docs-menu {
+        padding: 2rem 0 2rem 20%;
+    }
+
     .splash {
         background-size: 100% 100%;
         height: 50vh;
         width: 100%;
+    }
+    
+    .docs-section ul, .docs-section h2, .docs-section h3 {
+        margin: 1rem 1rem;
+        line-height: 140%;
+        font-size: 1.4rem;
     }
 
     .splash-title {
@@ -2438,7 +2458,8 @@ th, td {
     }
 
     .docs-section {
-        width: 100%;
+        width: 95%;
+        padding: 2rem 0;
     }
 
     .splash-subtitle {
@@ -2519,6 +2540,8 @@ th, td {
 
     .docs-main {
         flex-wrap: wrap;
+        background-color: #F3F3F3;
+        justify-content: center;
     }
 
     .external-menu, .right-menu {
@@ -2542,6 +2565,14 @@ th, td {
         padding-right: 0.5rem;
     }
 
+    .features-header {
+        flex-wrap: wrap;
+    }
+
+    .features-header img {
+        width: 90%;
+    }
+
     .mobile-menu {
         display: flex;
         flex-direction: column;
@@ -2560,6 +2591,10 @@ th, td {
         color: black;
         line-height: 3.5rem;
         font-size: 1.5rem;
+    }
+
+    .mobile-menu a:hover {
+        background-color: #DDD;
     }
 
     .mobile-menu a {
@@ -2601,6 +2636,10 @@ th, td {
 
     .dashboard-score {
         width: 65%;
+    }
+
+    .features-header img {
+        max-width: 30%;
     }
 
     .card-wrapper {
@@ -2743,10 +2782,22 @@ th, td {
         width: 75%;
     }
 
+    .features-header {
+        max-height: 50vh;
+    }
+
+    .feature-header-message {
+        width: 50%;
+    }
+
     .dashboard-top {
         width: 100%;
         display: flex;
         justify-content: space-between;
+    }
+
+    .features-header img {
+        max-width: 30%;
     }
 
     .card-metric-wrapper {
