@@ -2,10 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration, logout } from '../utils/auth';
+import { getExpiration } from '../utils/auth';
 import TabsCard from './TabsCard';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions';
-import { Icon, Button } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import moment from 'moment';

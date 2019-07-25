@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getCurrentUser, fetchUsers } from '../actions';
-import { isLoggedIn, getExpiration, logout } from '../utils/auth';
-import { Table, Spin, Drawer, Button } from 'antd';
+import { getExpiration } from '../utils/auth';
+import { Table, Spin, Drawer, Button, message } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import AddUserForm from './AddUserForm';
+import moment from 'moment';
 
 class Users extends React.Component {
 
@@ -15,6 +17,15 @@ class Users extends React.Component {
     }
 
     componentDidMount = async () => {
+        if(moment(getExpiration()) < moment())
+        {
+            console.log("User session has expired");
+            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+            setTimeout(async () => {
+                await Auth.signOut();
+                navigate('/app/login');
+            }, 2000); 
+        }
         await this.props.getCurrentUser();
         this.props.fetchUsers(this.props.user.CustomerId);
     }

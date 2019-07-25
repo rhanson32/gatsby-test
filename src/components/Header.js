@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router'
-import { Icon, Button } from 'antd';
+import { Button } from 'antd';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify';
 import { Avatar } from 'tabler-react';
@@ -26,7 +26,7 @@ class Header extends React.Component {
                                 {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
                             </div>
                             <div style={{ fontSize: "16px", maxHeight: "16px" }}>
-                                {this.props.user && this.props.user.Group && this.props.user.Group.includes('Administrator') ? ' ' + 'Administrator' : 'Auditor'}
+                                {this.props.user && this.props.user.Group && this.props.user.Group.includes('Administrator') ? 'Administrator' : 'Auditor'}
                             </div>
                         </div>
                         

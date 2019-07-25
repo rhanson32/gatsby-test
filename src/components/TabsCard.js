@@ -3,7 +3,6 @@ import { Card, Table, Button, Modal, Input, Drawer } from 'antd';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
-import AddAccount from './AddAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
 import { updateCustomerStatus } from '../actions';
@@ -172,6 +171,19 @@ class TabsCard extends React.Component {
               key: 'roleName'
           }
       ];
+
+      const webColumns = [
+        {
+            title: 'Master Account Id',
+            dataIndex: 'accountId',
+            key: 'accountId'
+        },
+        {
+            title: 'Role',
+            dataIndex: 'roleName',
+            key: 'roleName'
+        }
+    ];
       
       const contentListNoTitle = {
         General: <div>
@@ -222,12 +234,12 @@ class TabsCard extends React.Component {
             this.props.accounts.find(account => account.Type === 'Master') && (
                 <div className="settings-row">
                     <div className="account-list">
-                        {
-                            !this.props.accounts.find(account => account.Type === 'Master') && (
-                                <AddAccount />
-                            )
-                        }
-                        <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
+                        <div className="web-accounts">
+                            <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
+                        </div>
+                        <div className="mobile-accounts">
+                            <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={webColumns} />
+                        </div>
                     </div>
                 </div>
             )

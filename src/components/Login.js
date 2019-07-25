@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import { setUser, isLoggedIn, setExpiration } from '../utils/auth'
+import { setUser, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
@@ -106,8 +106,6 @@ class Login extends React.Component {
   confirmMFA = async () => {
     const response = await Auth.confirmSignIn(this.state.user, this.state.mfaCode, "SOFTWARE_TOKEN_MFA").catch(err => console.log(err));
 
-    console.log(response);
-
     if(response)
     {
       navigate('/app/dashboard');
@@ -123,14 +121,13 @@ class Login extends React.Component {
       this.setState({
         user
       });
-      console.log(user);
+
       const userInfo = {
         ...user.attributes,
         username: user.username,
         // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
       }
 
-      console.log(userInfo);
       setUser(userInfo);
       await this.props.saveUser(userInfo);
       setExpiration(moment().add(8, 'hours').toISOString());
@@ -146,7 +143,6 @@ class Login extends React.Component {
         console.log("Navigating to new page...");
         navigate("/app/dashboard");
       }
-      console.log(this.state.inputMFA);
     } catch (err) {
       this.setState({ error: err })
       console.log('Error: ', err);

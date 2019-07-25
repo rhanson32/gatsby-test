@@ -4,14 +4,14 @@ import C3Chart from 'react-c3js';
 import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration, logout } from '../utils/auth';
-import { Spin, Table, Statistic, Modal, Input, Button, message, DatePicker, notification, Icon, Dropdown, Menu } from 'antd';
-import { StatsCard, Tabs, Tab, Avatar, Card, Progress } from "tabler-react";
+import { isLoggedIn, getExpiration } from '../utils/auth';
+import { Spin, Table, Modal, Input, Button, message, notification } from 'antd';
+import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import Header from './Header';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus } from '../actions';
-import { VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryAnimation } from 'victory';
+import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
@@ -273,7 +273,6 @@ class Dashboard extends React.Component {
             this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
             this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
         ];
-        console.log(foundData);
 
         this.setState({
             chartData: {
@@ -404,23 +403,6 @@ class Dashboard extends React.Component {
 
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
-        const sampleData = [
-            { x: 1, y: 2 },
-            { x: 2, y: 5 },
-            { x: 3, y: 1 },
-        ];
-
-        const data = {
-            columns: [
-              ['data1', 30, 200, 100, 400, 150, 250],
-              ['data2', 50, 20, 10, 40, 15, 25]
-            ],
-            types: {
-                data1: 'bar',
-                data2: 'bar'
-            }
-          };
-
         const dataSourceAll = this.props.rules.map((rule, index) => {
             return {
                 key: index.toString(),
@@ -497,13 +479,6 @@ class Dashboard extends React.Component {
             }
           ];
 
-          const menu = (
-              <Menu>
-                  <Menu.Item>
-                      Test
-                  </Menu.Item>
-              </Menu>
-          )
         return (
             <div className="dashboard-page">
                     <Header />
@@ -543,10 +518,7 @@ class Dashboard extends React.Component {
                   </Modal>
                 )}
                         <div className="dashboard">
-                            {
-                                !this.state.scanComplete && <div className="spin-container"><Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" /></div>
-                            }
-                            {this.props.rules.length !== 0 && this.props.accounts.length !== 0 && this.state.scanComplete && (
+                           
                             <div className="dashboard-max">
                                 <div className="dashboard-top">
                                 <div className="dashboard-title-short">Headline</div>
@@ -576,11 +548,13 @@ class Dashboard extends React.Component {
                                             Purify Score
                                         </div>
                                         <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
-                                            {this.state.percent}
+                                            {this.state.scanComplete && this.state.percent}
+                                            {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
                                         </div>
                                         <Progress>
-                                            <Progress.Bar color="green" width={this.state.percent}>
-                                            </Progress.Bar>
+                                            {
+                                                this.state.scanComplete && <Progress.Bar color="green" width={this.state.percent} />
+                                            }
                                         </Progress>
                                     </Card.Body>
                                 </Card>
@@ -590,13 +564,14 @@ class Dashboard extends React.Component {
                                 <Card>
                                 <Card.Body>
                                     <div className="card-metric-wrapper">
-                                        {this.state.showAll && this.props.rules.filter(rule => rule.Enabled).length}
-                                        {this.state.showSecurity && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
-                                        {this.state.showWaste && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
-                                        {this.state.showConfiguration && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
+                                        {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                        {this.state.showAll && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled).length}
+                                        {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
+                                        {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
+                                        {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
-                                    Active Rules
+                                        Active Rules
                                     </div>
                                 </Card.Body>
                             </Card>
@@ -606,13 +581,14 @@ class Dashboard extends React.Component {
                             <Card>
                                 <Card.Body>
                                     <div className="card-metric-wrapper">
-                                        {this.state.showAll && this.props.rules.length}
-                                        {this.state.showSecurity && this.props.rules.filter(rule => rule.Category === 'Security').length}
-                                        {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').length}
-                                        {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
+                                        {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                        {this.state.showAll && this.state.scanComplete && this.props.rules.length}
+                                        {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
+                                        {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
+                                        {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
-                                    Available Rules
+                                        Available Rules
                                     </div>
                                 </Card.Body>
                             </Card>
@@ -621,7 +597,8 @@ class Dashboard extends React.Component {
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
-                                                {this.props.accounts.filter(account => account.Enabled).length}
+                                                {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                                {this.state.scanComplete && this.props.accounts.filter(account => account.Enabled).length}
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
                                             Enabled Accounts
@@ -633,10 +610,11 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                            {this.props.accounts.length}
+                                            {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                            {this.state.scanComplete && this.props.accounts.length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Total Accounts
+                                            Total Accounts
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -819,25 +797,25 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                            {this.state.showAll && this.state.scanComplete && (
+                                            {this.state.showAll && (
                                                 <div>
-                                                    {this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations}
+                                                    {this.state.scanComplete ? this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showSecurity && this.state.scanComplete && (
+                                            {this.state.showSecurity && (
                                                 <div>
-                                                    {this.state.securityViolations}
+                                                    {this.state.scanComplete ? this.state.securityViolations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && this.state.scanComplete && <div>{this.state.wasteViolations}</div>}
-                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                            {this.state.showWaste && <div>{this.state.scanComplete ? this.state.wasteViolations : <Spin style={{ fontSize: "48px" }} />}</div>}
+                                            {this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.configurationViolations}
+                                                    {this.state.scanComplete ? this.state.configurationViolations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Violations
+                                            Violations
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -846,24 +824,24 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                            {this.state.showAll && this.state.scanComplete && (
+                                            {this.state.showAll && (
                                                 <div>
-                                                    {this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations}
+                                                    {this.state.scanComplete ? this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showSecurity && this.state.scanComplete && (
+                                            {this.state.showSecurity && (
                                                 <div>
-                                                    {this.state.securityEvaluations}
+                                                    {this.state.scanComplete ? this.state.securityEvaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && this.state.scanComplete && (
+                                            {this.state.showWaste && (
                                                 <div>
-                                                    {this.state.wasteEvaluations}
+                                                    {this.state.scanComplete ? this.state.wasteEvaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                            {this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.configurationEvaluations}
+                                                    {this.state.scanComplete ? this.state.configurationEvaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
@@ -877,9 +855,9 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                        {this.state.showAll && this.state.scanComplete && (
+                                            {this.state.showAll && (
                                                 <div>
-                                                    {Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100)}
+                                                    {this.state.scanComplete ? this.state.securityEvaluations === 0 || this.state.configurationEvaluations === 0 || this.state.wasteEvaluations === 0 ? 'Unavailable' : Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && this.state.scanComplete && (
@@ -894,7 +872,7 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showConfiguration && this.state.scanComplete && (
                                                 <div>
-                                                    {Math.round((this.state.configurationViolations / this.state.configurationEvaluations) * 100)}
+                                                    {this.state.configurationViolations === 0 ? 'Unavailable' : Math.round((this.state.configurationViolations / this.state.configurationEvaluations) * 100)}
                                                 </div>
                                             )}
                                         </div>
@@ -965,8 +943,6 @@ class Dashboard extends React.Component {
                             </div>
                             </div>
                                 </div>
-                    
-                            )}
                         </div>
             </div>
         )
