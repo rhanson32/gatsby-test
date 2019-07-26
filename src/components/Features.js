@@ -41,7 +41,7 @@ class Features extends React.Component {
                                 style={{ width: 500, margin: "1rem" }}
                                 cover={<img alt="example" src={checklist} />}
                             >
-                                <Meta title="Pre-Defined Rule Sets" description="Start out way ahead of the game. Deploy PurifyCloud and immediately get feedback across 100+ parameters about the state of your cloud." />
+                                <Meta title="Standards-Based Rule Sets" description="Use our pre-configured rule sets and instantly validate your environment across dozens of industry standards and best practices." />
                             </Card>
                             <Card
                                 hoverable
