@@ -52,6 +52,7 @@ input  {
     justify-content: flex-start;
     align-items: center;
     margin-left: 0.5rem;
+    width: 30%;
 }
 
 .external-title a {
@@ -102,13 +103,13 @@ input  {
 }
 
 .external-header {
-    width: 100vw;
+    width: 100%;
     height: 4rem;
     background-color: #0984e3;
     color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 0.5rem 0;
     line-height: 2rem;
@@ -116,11 +117,12 @@ input  {
 
 .right-menu {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     font-size: 1.5rem; 
     line-height: 2rem;
     padding-right: 2rem;
+    width: 28%;
 }
 
 .orange-button {
@@ -1408,6 +1410,7 @@ input  {
     align-items: center;
     font-size: 1.5rem;
     line-height: 2rem;
+    width: 40%;
 }
 
 .external-menu a, .right-menu a {
@@ -2500,6 +2503,7 @@ th, td {
         padding: 0 0.5rem;
         justify-content: space-around;
         text-align: center;
+        width: 60%;
     }
 
     .external-title a {
