@@ -67,10 +67,8 @@ class Features extends React.Component {
                         </div>
                     ) 
                 }       
-                        {this.props.features.length > 0 && <ActionCall />}
-                        {this.props.features.length > 0 && <SiteMap />}
-                    )
-                }
+                {this.props.features.length > 0 && <ActionCall />}
+                {this.props.features.length > 0 && <SiteMap />}
              </div>   
         )
     }  

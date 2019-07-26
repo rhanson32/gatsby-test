@@ -1,8 +1,11 @@
 import React from 'react';
+import NotFoundHeader from '../components/NotFoundHeader';
+import TopMenu from '../components/TopMenu';
 
 const NotFoundPage = () => (
   <div>
-    Test
+    <NotFoundHeader />
+    <TopMenu />
   </div>
 )
 

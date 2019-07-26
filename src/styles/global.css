@@ -170,7 +170,7 @@ input  {
     background-color: #F5F7FB;
     display: flex;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 100%;
     justify-content: flex-start;
 }
 
@@ -715,7 +715,7 @@ input  {
 }
 
 .feature-focus-header {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #333;
     margin: 1rem;
 }
@@ -747,9 +747,9 @@ input  {
 }
 
 .users-max {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
 }
 
 /************************ Support Page ************************/
@@ -976,6 +976,14 @@ input  {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    
+}
+
+.accounts-max {
+    max-width: 900px;
+}
+
+.rules-max {
     max-width: 1100px;
 }
 
@@ -2066,6 +2074,10 @@ th, td {
         align-items: stretch;
     }
 
+    .login-header, .signup-header, .login-form label, .signup-form label {
+        font-size: 0.9rem;
+    }
+
     .history-chart-header-title {
         width: 100%;
     }
@@ -2554,7 +2566,7 @@ th, td {
 
     .docs-main {
         flex-wrap: wrap;
-        background-color: #F3F3F3;
+        background-color: #F5F7FB;
         justify-content: center;
     }
 
@@ -2798,6 +2810,14 @@ th, td {
 
     .features-header {
         max-height: 50vh;
+    }
+
+    .feature-focus {
+        width: 90%;
+    }
+
+    .feature-focus img {
+        border: 1px solid #DDD;
     }
 
     .feature-header-message {

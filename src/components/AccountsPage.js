@@ -197,7 +197,7 @@ class Accounts extends React.Component {
                   }
                     {this.props.accounts.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
                     <div className="web-accounts">
-                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ width: "80%", maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={columns} />}
+                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} dataSource={dataSource} columns={columns} />}
                     </div>
                     <div className="mobile-accounts">
                       {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}

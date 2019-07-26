@@ -518,7 +518,6 @@ class Dashboard extends React.Component {
                   </Modal>
                 )}
                         <div className="dashboard">
-                           
                             <div className="dashboard-max">
                                 <div className="dashboard-top">
                                 <div className="dashboard-title-short">Headline</div>
@@ -625,20 +624,19 @@ class Dashboard extends React.Component {
                                 <div className="web-metrics">
                                 <Card>
                                     <Card.Header>
-                                    <div className="dashboard-card-header">
-                                        <div>
-                                            {this.state.showAll && "All Categories"}
-                                            {this.state.showSecurity && "Security"}
-                                            {this.state.showWaste && "Waste"}
-                                            {this.state.showConfiguration && "Configuration"}
-                                        </div>
-                                            
+                                        <div className="dashboard-card-header">
+                                            <div>
+                                                {this.state.showAll && "All Categories"}
+                                                {this.state.showSecurity && "Security"}
+                                                {this.state.showWaste && "Waste"}
+                                                {this.state.showConfiguration && "Configuration"}
+                                            </div> 
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
                                     <div className="progress-items">
-
-                                    {this.state.showAll && (
+                                    {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
+                                    {this.state.showAll && this.state.scanComplete && (
                                     <div className="victory-chart">
                                         <svg viewBox="0 0 400 400" width="100%" height="100%">
                                             <VictoryPie
@@ -776,7 +774,8 @@ class Dashboard extends React.Component {
                                         </svg> 
                                     </div>
                                 )}
-                                {this.state.showAll && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceAll} columns={columns} />}
+                                {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "60%" }} />}
+                                {this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceAll} columns={columns} />}
                                 {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceSecurity} columns={columns} />}
                                 {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%" }} dataSource={dataSourceConfiguration} columns={columns} />}
                                 {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceWaste} columns={columns} />}
@@ -893,7 +892,8 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                            {this.props.accounts.length}
+                                            {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
+                                            {this.state.scanComplete && this.props.accounts.length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                             New Violations
@@ -905,7 +905,8 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
-                                            {this.props.accounts.length}
+                                            {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
+                                            {this.state.scanComplete && this.props.accounts.length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                         Fixed Violations
