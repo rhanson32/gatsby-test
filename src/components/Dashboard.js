@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import C3Chart from 'react-c3js';
+import BarChart from './BarChart';
 import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
@@ -43,19 +43,14 @@ class Dashboard extends React.Component {
             securityViolations: 0,
             configurationViolations: 0,
             wasteViolations: 0,
+            securityEvaluations: 0,
+            configurationEvaluations: 0,
+            wasteEvaluations: 0,
             showDetail: false,
             last3days: false,
             last7days: false,
             lastMonth: false,
             chartData: {
-                columns: [
-                    ['Found Violations', 0, 0, 0, 0, 0, 0],
-                    ['Fixed Violations', 10, 12, 3, 0, 1, 7]
-                  ],
-                  types: {
-                      'Found Violations': 'bar',
-                      'Fixed Violations': 'bar'
-                  }
              }
           };
     }
@@ -215,6 +210,8 @@ class Dashboard extends React.Component {
             wasteData: this.getData(this.state.wastePercent),
             configurationData: this.getData(this.state.configurationPercent)
           });
+
+        console.log(this.state.chartData);  
     }
 
     componentWillUnmount = () => {
@@ -276,16 +273,17 @@ class Dashboard extends React.Component {
 
         this.setState({
             chartData: {
-                columns: [
-                ['Found Violations', ...foundData],
-                ['Fixed Violations', ...fixedData]
-              ],
-              types: {
-                  'Fixed Violations': 'bar',
-                  'Found Violations': 'bar'
-              }
+                'x': [
+                    moment().subtract(3, 'days').date(),
+                    moment().subtract(2, 'days').date(),
+                    moment().subtract(1, 'days').date()
+                ],
+                'Found Violations': foundData,
+                'Fixed Violations': fixedData
             }
         });
+
+        console.log(this.state.chartData);
     }
 
     last7Days = () => {
@@ -308,62 +306,73 @@ class Dashboard extends React.Component {
             this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
             this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
         ];
-        const dates = [
-            moment().subtract(7, 'days').format('YYYY-MM-DD'), 
-            moment().subtract(6, 'days').format('YYYY-MM-DD'),
-            moment().subtract(5, 'days').format('YYYY-MM-DD'),
-            moment().subtract(4, 'days').format('YYYY-MM-DD'),
-            moment().subtract(3, 'days').format('YYYY-MM-DD'),
-            moment().subtract(2, 'days').format('YYYY-MM-DD'),
-            moment().subtract(1, 'days').format('YYYY-MM-DD')
-        ]
-        console.log(foundData);
-        console.log(dates);
+
         this.setState({
             chartData: {
-                x: 'x', 
-                columns: [
-                ['x', ...dates],
-                ['Found Violations', ...foundData],
-                ['Fixed Violations', ...fixedData]
-              ],
-              types: {
-                  'Fixed Violations': 'bar',
-                  'Found Violations': 'bar'
-              }
+                'x': [
+                    moment().subtract(7, 'days').date(),
+                    moment().subtract(6, 'days').date(),
+                    moment().subtract(5, 'days').date(),
+                    moment().subtract(4, 'days').date(),
+                    moment().subtract(3, 'days').date(),
+                    moment().subtract(2, 'days').date(),
+                    moment().subtract(1, 'days').date()
+                ],
+                'Found Violations': foundData,
+                'Fixed Violations': fixedData
             },
             chartAxis: {
-                x: {
                     type: 'timeseries',
                     tick: {
                         format: '%Y-%m-%d'
                     }
                 }
-            }
-            
-        })
+        });
     }
 
     lastMonth = () => {
         const currentMonth = moment().month();
-        console.log(currentMonth);
-        const foundData = [
-            12,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'months'), 'month') && moment(item.ActionDate).date() < 8).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'months'), 'month') && moment(item.ActionDate).date() > 7 && moment(item.ActionDate).date() < 15).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'months'), 'month') && moment(item.ActionDate).date() > 14 && moment(item.ActionDate).date() < 22).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'months'), 'month') && moment(item.ActionDate).date() > 21 && moment(item.ActionDate).date() < 29).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'months'), 'month') && moment(item.ActionDate).date() > 28).length
-        ];
+        let numDays = moment().subtract(1, 'months').daysInMonth();
+
+        const startDate = moment().set({'year': currentMonth === 0 ? moment().year() - 1 : moment().year(), 'month': currentMonth - 1, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+
+        let foundData = []; 
+        let labels = [];
+        let tempDate;
+
+        for(let i = 0; i < numDays; i++)
+        {
+            tempDate = startDate;
+            labels.push(i + 1);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+        }
 
         this.setState({
             chartData: {
-                columns: [
-                ['Found Violations', ...foundData]
-              ],
-              types: {
-                  'Found Violations': 'bar'
-              }
+                'x': labels,
+                'Found Violations': foundData
+            }
+        });
+    }
+
+    monthToDate = () => {
+        let foundData = []; 
+        let labels = [];
+        let tempDate;
+        const currentDayOfMonth = moment().date();
+        const startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+
+        for(let i = 0; i < currentDayOfMonth; i++)
+        {
+            tempDate = startDate;
+            labels.push(i + 1);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+        }
+
+        this.setState({
+            chartData: {
+                'x': labels,
+                'Found Violations': foundData
             }
         });
     }
@@ -551,9 +560,7 @@ class Dashboard extends React.Component {
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
                                         </div>
                                         <Progress>
-                                            {
-                                                this.state.scanComplete && <Progress.Bar color="green" width={this.state.percent} />
-                                            }
+                                            {this.state.scanComplete && <Progress.Bar color="green" width={this.state.percent} />}
                                         </Progress>
                                     </Card.Body>
                                 </Card>
@@ -926,7 +933,7 @@ class Dashboard extends React.Component {
                                             <div className="history-chart-header-filters">
                                                 <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
                                                 <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
-                                                <Button type="link">MTD</Button>
+                                                <Button onClick={this.monthToDate} type="link">MTD</Button>
                                                 <Button onClick={this.lastMonth}  type="link">Last Month</Button>
                                                 <Button type="link">Last 3 Months</Button>
                                                 <Button type="link">YTD</Button>
@@ -936,7 +943,7 @@ class Dashboard extends React.Component {
                                     </Card.Header>
                                     <Card.Body>
                                         <div style={{ backgroundColor: "white" }}>
-                                            <C3Chart data={this.state.chartData} axis={this.state.chartAxis || null} />
+                                            <BarChart data={this.state.chartData} axis={this.state.chartAxis} />
                                         </div>
                                     </Card.Body>
                                 </Card>
