@@ -72,6 +72,16 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
     
 }
 
+export const addGlobalNotification = (recipient) => async (dispatch, getState) => {
+    console.log(recipient);
+
+    console.log(getState().settings);
+    let Notifications = getState().settings.Notifications;
+    Notifications.push(recipient);
+
+    dispatch({ type: 'ADD_NOTIFICATION', payload: Notifications });
+}
+
 export const fetchUsers = (id) => async (dispatch, getState) => {
     let myRequest = {
         body: {},

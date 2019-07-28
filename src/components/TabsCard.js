@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Drawer } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag } from 'antd';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
-import { updateCustomerStatus } from '../actions';
+import { updateCustomerStatus, addGlobalNotification } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -125,6 +125,11 @@ class TabsCard extends React.Component {
 
   }
 
+    submitNotification = () => {
+        console.log(this.state.recipient);
+        this.props.addGlobalNotification(this.state.recipient);
+    } 
+
   render() {
 
     const tabListNoTitle = [
@@ -220,6 +225,34 @@ class TabsCard extends React.Component {
                     </Modal>
                 </div>
             </div>
+            <hr style={{ width: "80%", margin: "2rem auto" }} />
+            <div className="settings-row">
+                <div className="settings-left-side">
+                    Global Notifications  
+                </div>
+                <div className="settings-subscription">
+                    Add email addresses below to receive ALL notifications for new violations that are found in any account (notifications may also be set on individual rules for more granular control).
+                    <br /><br />Currently configured notification recipients:
+                    {this.props.settings.Notifications.length === 0 ? 'None' : ''}
+                    <div className="notification-group">
+                    {
+                        this.props.settings.Notifications.map(notification => {
+                            return (
+                                <Tag key={notification} closable>
+                                    {notification}
+                                </Tag>
+                            )
+                        })
+                    }
+                    </div>
+                    <div className="add-notifications">
+                    <Input name="recipient" value={this.state.recipient} onChange={this.handleUpdate} /> 
+                    <Button type="primary" onClick={this.submitNotification}>
+                        <Icon style={{ fontWeight: "700" }} type="plus" /> Add
+                    </Button>  
+                    </div> 
+                </div>
+            </div>
         </div>,
         AWS: <div>
         {
@@ -295,4 +328,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus })(TabsCard);
+export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification })(TabsCard);

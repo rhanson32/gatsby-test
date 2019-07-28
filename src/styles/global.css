@@ -739,6 +739,22 @@ input  {
     font-size: 1.6rem;
 }
 
+.add-notifications {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+}
+
+.add-notifications input {
+    width: 70%;
+}
+
+.notification-group {
+    width: 100%;
+    padding: 1rem 2rem;
+    min-height: 4rem;
+}
+
 /********************** User Page *************************/
 
 .add-user-form {

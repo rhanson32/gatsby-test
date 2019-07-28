@@ -123,13 +123,15 @@ const ticketReducer = (state = [], action) => {
     }
 }
 
-const settingsReducer = (state = { Providers: [ ] }, action) => {
+const settingsReducer = (state = { Providers: [ ], Notifications: [ ] }, action) => {
     switch(action.type)
     {
         case 'FETCH_SETTINGS':
-            return action.payload
+            return { ...action.payload, Notifications: state.Notifications }
         case 'TOGGLE_AWS':
             return { ...state, Providers: action.payload }
+        case 'ADD_NOTIFICATION': 
+            return { ...state, Notifications: action.payload }
         default:
             return state;
     }

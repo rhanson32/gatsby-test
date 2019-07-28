@@ -337,6 +337,7 @@ class Dashboard extends React.Component {
         const startDate = moment().set({'year': currentMonth === 0 ? moment().year() - 1 : moment().year(), 'month': currentMonth - 1, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
 
         let foundData = []; 
+        let fixedData = [];
         let labels = [];
         let tempDate;
 
@@ -345,12 +346,14 @@ class Dashboard extends React.Component {
             tempDate = startDate;
             labels.push(i + 1);
             foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
         }
 
         this.setState({
             chartData: {
                 'x': labels,
-                'Found Violations': foundData
+                'Found Violations': foundData,
+                'FixedViolations': fixedData
             }
         });
     }
