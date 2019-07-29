@@ -73,21 +73,47 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
 }
 
 export const addGlobalNotification = (recipient) => async (dispatch, getState) => {
+    let myRequest = {
+        body: {
+            event: 'ADD_GLOBAL_NOTIFICATION',
+            recipient,
+            CustomerId: getState().user.CustomerId
+        },
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    };
     console.log(recipient);
-
+    console.log(getState());
     console.log(getState().settings);
     let Notifications = getState().settings.Notifications;
     Notifications.push(recipient);
 
+    console.log(myRequest);
     dispatch({ type: 'ADD_NOTIFICATION', payload: Notifications });
+    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    console.log(response);
+}
+
+export const removeGlobalNotification = (recipient) => async (dispatch, getState) => {
+    let myRequest = {
+        body: {
+            event: 'REMOVE_GLOBAL_NOTIFICATION',
+            CustomerId: getState().user.CustomerId,
+            recipient
+        },
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    };
+
+    let Notifications = getState().settings.Notifications;
+    Notifications = Notifications.filter(item => item !== recipient);
+
+    dispatch({ type: 'REMOVE_NOTIFICATION', payload: Notifications });
+    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const fetchUsers = (id) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
-        headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
     const usersResponse = await purify.get('/users?id=' + id, myRequest).catch(err => console.log(err));
@@ -102,9 +128,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
 
     let myRequest = {
         body: {},
-        headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
     const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
@@ -204,12 +228,16 @@ export const submitSubscription = async (id, user) => {
 
 export const getSettings = (customerId) => async (dispatch, getState) => {
     let myRequest = {
-        body: { customerId },
+        body: { },
         headers: {
             "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
-    const response = await purify.get('/settings', myRequest)
+
+    console.log(myRequest);
+    const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
+
+    console.log(response);
 
     const settings =  {
         Providers: response.data[0].Providers.L.map(provider => {
@@ -217,7 +245,8 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
                 Name: provider.M.Name.S,
                 Enabled: provider.M.Enabled.BOOL
             }
-        })
+        }),
+        Notifications: response.data[0].Notifications.L.map(notification => notification.S)
     }
 
     dispatch({ type: 'FETCH_SETTINGS', payload: settings })

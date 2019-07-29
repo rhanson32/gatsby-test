@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
-import { updateCustomerStatus, addGlobalNotification } from '../actions';
+import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -127,8 +127,21 @@ class TabsCard extends React.Component {
 
     submitNotification = () => {
         console.log(this.state.recipient);
-        this.props.addGlobalNotification(this.state.recipient);
+        if(!this.props.settings.Notifications.includes(this.state.recipient) && this.state.recipient.includes('@'))
+        {
+            this.props.addGlobalNotification(this.state.recipient);
+        }   
+        else
+        {
+            console.log("Invalid entry");
+        }
     } 
+
+    deleteNotification = (tag) => {
+        console.log(tag);
+
+        this.props.removeGlobalNotification(tag);
+    }
 
   render() {
 
@@ -233,12 +246,12 @@ class TabsCard extends React.Component {
                 <div className="settings-subscription">
                     Add email addresses below to receive ALL notifications for new violations that are found in any account (notifications may also be set on individual rules for more granular control).
                     <br /><br />Currently configured notification recipients:
-                    {this.props.settings.Notifications.length === 0 ? 'None' : ''}
+                    {this.props.settings.Notifications.length === 0 && this.props.scanComplete ? ' None' : ''}
                     <div className="notification-group">
                     {
-                        this.props.settings.Notifications.map(notification => {
+                        this.props.settings.Notifications.map((notification, index) => {
                             return (
-                                <Tag key={notification} closable>
+                                <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
                                     {notification}
                                 </Tag>
                             )
@@ -328,4 +341,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification })(TabsCard);
+export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification })(TabsCard);

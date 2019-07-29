@@ -127,10 +127,12 @@ const settingsReducer = (state = { Providers: [ ], Notifications: [ ] }, action)
     switch(action.type)
     {
         case 'FETCH_SETTINGS':
-            return { ...action.payload, Notifications: state.Notifications }
+            return { ...action.payload }
         case 'TOGGLE_AWS':
             return { ...state, Providers: action.payload }
         case 'ADD_NOTIFICATION': 
+            return { ...state, Notifications: action.payload }
+        case 'REMOVE_NOTIFICATION': 
             return { ...state, Notifications: action.payload }
         default:
             return state;

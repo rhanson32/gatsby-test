@@ -21,7 +21,8 @@ class Settings extends React.Component {
         },
         AddAccount: false,
         Menu: 'General',
-        showKey: false
+        showKey: false,
+        scanComplete: false
     };
 
     componentDidMount = async () => {
@@ -34,13 +35,16 @@ class Settings extends React.Component {
                 navigate('/app/login');
             }, 2000); 
         }
-        await this.props.getCurrentUser()
-        this.props.getSettings()
-        this.props.getAccounts(this.props.user.CustomerId)
+        await this.props.getCurrentUser().catch(err => console.log(err));
+        await this.props.getSettings(this.props.user.CustomerId);
+        this.setState({
+            scanComplete: true
+        });
+        this.props.getAccounts(this.props.user.CustomerId);
     }
 
     toggleAWSState = () => {
-        this.props.toggleAWS()
+        this.props.toggleAWS();
     }
 
     showKey = () => {
@@ -59,7 +63,7 @@ class Settings extends React.Component {
                     <h1>Settings</h1>
                 </div>
             <div className="settings-main">
-                <TabsCard />
+                <TabsCard scanComplete={this.state.scanComplete} />
             </div>
         </div>
         

@@ -209,9 +209,7 @@ class Dashboard extends React.Component {
             allData: this.getData(this.state.percent),
             wasteData: this.getData(this.state.wastePercent),
             configurationData: this.getData(this.state.configurationPercent)
-          });
-
-        console.log(this.state.chartData);  
+          }); 
     }
 
     componentWillUnmount = () => {
@@ -282,8 +280,6 @@ class Dashboard extends React.Component {
                 'Fixed Violations': fixedData
             }
         });
-
-        console.log(this.state.chartData);
     }
 
     last7Days = () => {
@@ -353,29 +349,57 @@ class Dashboard extends React.Component {
             chartData: {
                 'x': labels,
                 'Found Violations': foundData,
-                'FixedViolations': fixedData
+                'Fixed Violations': fixedData
             }
         });
     }
 
     monthToDate = () => {
         let foundData = []; 
+        let fixedData = [];
         let labels = [];
         let tempDate;
         const currentDayOfMonth = moment().date();
         const startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
-
+        
         for(let i = 0; i < currentDayOfMonth; i++)
         {
             tempDate = startDate;
             labels.push(i + 1);
             foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
         }
 
         this.setState({
             chartData: {
                 'x': labels,
-                'Found Violations': foundData
+                'Found Violations': foundData,
+                'Fixed Violations': fixedData
+            }
+        });
+    }
+
+    yearToDate = () => {
+        let foundData = []; 
+        let fixedData = [];
+        let labels = [];
+        let tempDate;
+        const currentDayOfYear = moment().dayOfYear();
+        const startDate = moment().set({'year': moment().year(), 'month': 0, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+
+        for(let i = 0; i < currentDayOfYear; i++)
+        {
+            tempDate = startDate;
+            labels.push(i + 1);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+        }
+
+        this.setState({
+            chartData: {
+                'x': labels,
+                'Found Violations': foundData,
+                'Fixed Violations': fixedData
             }
         });
     }
@@ -939,7 +963,7 @@ class Dashboard extends React.Component {
                                                 <Button onClick={this.monthToDate} type="link">MTD</Button>
                                                 <Button onClick={this.lastMonth}  type="link">Last Month</Button>
                                                 <Button type="link">Last 3 Months</Button>
-                                                <Button type="link">YTD</Button>
+                                                <Button onClick={this.yearToDate} type="link">YTD</Button>
                                                 <Button type="link">Last Year</Button>
                                             </div>
                                         </div>
