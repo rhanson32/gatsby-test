@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
             {
                 await this.props.getCurrentUser();
                 await this.props.getRules(this.props.user);
-                await this.props.getHistory(this.props.user);
+                this.props.getHistory(this.props.user);
                 this.last3Days();
             }
             catch(err)
@@ -121,8 +121,9 @@ class Dashboard extends React.Component {
                 configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
-            await this.props.getAccounts(this.props.user.CustomerId);
+
             this.setState({ scanComplete: true });
+            this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
@@ -135,7 +136,7 @@ class Dashboard extends React.Component {
             try
             {
                 await this.props.getRules(this.props.user);
-                await this.props.getHistory(this.props.user);
+                this.props.getHistory(this.props.user);
                 this.last3Days();
             }
             catch(err)
@@ -169,9 +170,9 @@ class Dashboard extends React.Component {
                 configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
-
-            await this.props.getAccounts(this.props.user.CustomerId);
             this.setState({ scanComplete: true });
+            await this.props.getAccounts(this.props.user.CustomerId);
+           
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
@@ -330,7 +331,7 @@ class Dashboard extends React.Component {
         const currentMonth = moment().month();
         let numDays = moment().subtract(1, 'months').daysInMonth();
 
-        const startDate = moment().set({'year': currentMonth === 0 ? moment().year() - 1 : moment().year(), 'month': currentMonth - 1, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+        let startDate = moment().set({'year': currentMonth === 0 ? moment().year() - 1 : moment().year(), 'month': currentMonth - 1, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
 
         let foundData = []; 
         let fixedData = [];
@@ -339,10 +340,10 @@ class Dashboard extends React.Component {
 
         for(let i = 0; i < numDays; i++)
         {
-            tempDate = startDate;
+            startDate.add(1, 'days');
             labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
         }
 
         this.setState({
@@ -360,14 +361,14 @@ class Dashboard extends React.Component {
         let labels = [];
         let tempDate;
         const currentDayOfMonth = moment().date();
-        const startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
-        
+        let startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+
         for(let i = 0; i < currentDayOfMonth; i++)
         {
-            tempDate = startDate;
+            startDate.add(1, 'days');
             labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
         }
 
         this.setState({
@@ -383,16 +384,15 @@ class Dashboard extends React.Component {
         let foundData = []; 
         let fixedData = [];
         let labels = [];
-        let tempDate;
         const currentDayOfYear = moment().dayOfYear();
-        const startDate = moment().set({'year': moment().year(), 'month': 0, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
+        let startDate = moment().set({'year': moment().year(), 'month': 0, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
 
         for(let i = 0; i < currentDayOfYear; i++)
         {
-            tempDate = startDate;
+            startDate.add(1, 'days');
             labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(tempDate.add(i, 'days'), 'day')).length);
+            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
+            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
         }
 
         this.setState({
