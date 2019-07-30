@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip } from 'antd';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -17,7 +17,8 @@ class TabsCard extends React.Component {
     title: ``,
     oldPassword: ``,
     newPassword: ``,
-    showMFASetup: false
+    showMFASetup: false,
+    recipient: ``
   };
 
     showKey = () => {
@@ -39,8 +40,7 @@ class TabsCard extends React.Component {
   handleUpdate = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    })
-    console.log(event.target.value);
+    });
   }
 
   changePassword = async () => {
@@ -126,10 +126,12 @@ class TabsCard extends React.Component {
   }
 
     submitNotification = () => {
-        console.log(this.state.recipient);
         if(!this.props.settings.Notifications.includes(this.state.recipient) && this.state.recipient.includes('@'))
         {
             this.props.addGlobalNotification(this.state.recipient);
+            this.setState({
+                recipient: ``
+            });
         }   
         else
         {
@@ -138,8 +140,6 @@ class TabsCard extends React.Component {
     } 
 
     deleteNotification = (tag) => {
-        console.log(tag);
-
         this.props.removeGlobalNotification(tag);
     }
 
@@ -241,13 +241,13 @@ class TabsCard extends React.Component {
             <hr style={{ width: "80%", margin: "2rem auto" }} />
             <div className="settings-row">
                 <div className="settings-left-side">
-                    Global Notifications  
+                    <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
+                    Global Notification Emails
+                    </Tooltip> 
                 </div>
                 <div className="settings-subscription">
-                    Add email addresses below to receive ALL notifications for new violations that are found in any account (notifications may also be set on individual rules for more granular control).
-                    <br /><br />Currently configured notification recipients:
-                    {this.props.settings.Notifications.length === 0 && this.props.scanComplete ? ' None' : ''}
                     <div className="notification-group">
+                    {this.props.settings.Notifications.length === 0 && this.props.scanComplete && 'None' }
                     {
                         this.props.settings.Notifications.map((notification, index) => {
                             return (

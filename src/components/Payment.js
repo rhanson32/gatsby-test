@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import { getExpiration } from '../utils/auth';
 import CheckoutForm from './CheckoutForm';
-import LeftMenu from './LeftMenu';
+import TopMenu from './TopMenu';
 import Header from './Header';
 import { Alert, message } from 'antd';
 import { getCurrentUser } from '../actions';
@@ -32,7 +32,7 @@ class Payment extends Component {
     return (
         <div className="payments-screen">
             <Header />
-            <LeftMenu />
+            <TopMenu />
             <div className="payments-main">
             <Alert
               message="Upgrade to Standard today!"

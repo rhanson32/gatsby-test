@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from 'react-redux';
-import { Button, message } from 'antd';
+import { Button, message, Input } from 'antd';
 import { submitSubscription } from '../actions';
 
 const createOptions = () => {
@@ -24,6 +24,9 @@ const createOptions = () => {
   };
 
 class CheckoutForm extends Component {
+  state = {
+    discount: ''
+  }
 
   handleChange = ({error}) => {
     if (error) {
@@ -60,6 +63,7 @@ class CheckoutForm extends Component {
             onChange={this.handleChange}
             {...createOptions()}
         />
+        Discount Code: <Input value={this.state.discount} />
         <Button style={{ margin: "2rem 0" }} type="primary" onClick={this.handleSubmit}>Submit Payment</Button>
         <p>Your card will be billed monthly until your Purify plan is cancelled. Cancel anytime.</p>
       </div>

@@ -4,8 +4,28 @@ import { Checkbox, Form, Row, Col } from 'antd';
 
 class DemoForm extends React.Component  {
 
+    state = {
+        allRegions: false
+    }
+
     handleSubmit = () => {
         console.log("Submitted!")
+    }
+
+    onAllRegions = (e) => {
+        console.log(e);
+        if(e.target.checked)
+        {
+            this.setState({
+                allRegions: true
+            })
+        }
+        else
+        {
+            this.setState({
+                allRegions: false
+            })
+        }
     }
 
     render() {
@@ -19,37 +39,37 @@ class DemoForm extends React.Component  {
                     <Checkbox.Group style={{ width: '100%' }}>
                     <Row>
                         <Col span={8}>
-                        <Checkbox value="all">All Regions</Checkbox>
+                        <Checkbox onChange={this.onAllRegions} value="all">All Regions</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="us-east-1">U.S. East 1 (N. Virginia)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="us-east-1">U.S. East 1 (N. Virginia)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="us-east-2">U.S. East 2 (Ohio)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="us-east-2">U.S. East 2 (Ohio)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="us-west-1">U.S. West 1 (N. California)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="us-west-1">U.S. West 1 (N. California)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="us-west-2">U.S. West 2 (Oregon)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="us-west-2">U.S. West 2 (Oregon)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-east-1">Asia Pacific (Hong Kong)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-east-1">Asia Pacific (Hong Kong)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-south-1">Asia Pacific (Mumbai)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-south-1">Asia Pacific (Mumbai)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-northeast-1">Asia Pacific (Tokyo)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-northeast-1">Asia Pacific (Tokyo)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-northeast-2">Asia Pacific (Seoul)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-northeast-2">Asia Pacific (Seoul)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-southeast-1">Asia Pacific (Singapore)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-southeast-1">Asia Pacific (Singapore)</Checkbox>
                         </Col>
                         <Col span={8}>
-                        <Checkbox value="ap-southeast-2">Asia Pacific (Sydney)</Checkbox>
+                        <Checkbox disabled={this.state.allRegions} value="ap-southeast-2">Asia Pacific (Sydney)</Checkbox>
                         </Col>
                     </Row>
                     </Checkbox.Group>,

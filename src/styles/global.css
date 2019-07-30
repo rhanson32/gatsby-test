@@ -404,6 +404,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     background-color: #F3F3F3;
+    min-height: 100vh;
 }
 
 .payments {
@@ -429,6 +430,7 @@ input  {
     flex-direction: column;
     justify-content: flex-start;
     width: 95%;
+    min-height: 85vh;
 }
 
 .checkout {
@@ -752,7 +754,9 @@ input  {
 .notification-group {
     width: 100%;
     padding: 1rem 2rem;
-    min-height: 4rem;
+    min-height: 3rem;
+    display: flex;
+    justify-content: center;
 }
 
 /********************** User Page *************************/
