@@ -921,7 +921,7 @@ class Dashboard extends React.Component {
                                 <div className="dashboard-title">Trends</div>
                                 
                                 <div className="dashboard-trends-container">
-                            <div className="dashboard-sidebar">
+                            <div className="dashboard-sidebar-2">
                                 <div className="trend-card-wrapper">
                                 <Card>
                                     <Card.Body>

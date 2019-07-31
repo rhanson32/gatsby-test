@@ -45,19 +45,19 @@ class RuleItem extends React.Component {
         });
     }
     render() {
-        console.log(this.props.rule);
         return (
             <div>
-                <h2>Name</h2>
-                <p>{this.props.rule.Name}</p>
                 <h3>Category</h3>
                 <p>{this.props.rule.Category}</p>
                 <h3>Mode</h3>
                 <p>Monitor</p>
                 <h3>Description</h3>
-                <p>Exceptions</p>
-                <h3>None</h3>
                 <p> {this.props.rule.Description}</p>
+                <h3>Exceptions</h3>
+                <p>None</p>
+                <h3>Notifications</h3>
+                <p>None</p>
+                
                 {this.props.rule.Configurable && <Button type="primary" onClick={this.editRule}>Configure</Button>}
             </div>
         )
