@@ -937,11 +937,30 @@ input  {
     padding: 0 0.5rem;
 }
 
+.rules-drawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.rules-drawer-top {
+    padding-bottom: 5rem;
+}
+
+.rules-drawer-bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rules-drawer-configuration button {
+    margin: 2rem;
+}
+
 .user-name {
     display: flex;
     margin-right: 1rem;
     align-items: flex-start;
-    padding-bottom: 1rem;
 }
 
 .progress-text {
@@ -1782,6 +1801,10 @@ input  {
     margin: 0;
     padding: 0.5rem;
     border-bottom: 1px solid black;
+}
+
+.table-header-2 {
+    background-color: red;
 }
 
 th, td {
@@ -2728,7 +2751,6 @@ th, td {
     }
 
     .web-rules, .web-accounts {
-        width: 90%;
         margin: auto;
         max-width: 1000px;
         box-shadow: 0 0 5 5;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'antd';
+import { Table } from 'tabler-react';
 
 class SupportList extends React.Component {
 
@@ -41,8 +41,43 @@ class SupportList extends React.Component {
         return (
             <div>
 
-        {this.props.tickets.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 8, hideOnSinglePage: true }} footer={() => 'You may also reach us with any questions at support@purify.cloud.'} style={{ width: "100%", margin: "auto", minHeight: "300px", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} />} 
-
+        {/* {this.props.tickets.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 8, hideOnSinglePage: true }} footer={() => 'You may also reach us with any questions at support@purify.cloud.'} style={{ width: "100%", margin: "auto", minHeight: "300px", maxWidth: "1400px" }} dataSource={dataSource} columns={columns} />}  */}
+          <Table striped={true}>
+            <Table.Header className="table-header-2">
+              <Table.ColHeader>
+                ID
+              </Table.ColHeader>
+              <Table.ColHeader>
+                Headline
+              </Table.ColHeader>
+              <Table.ColHeader>
+                Description
+              </Table.ColHeader>
+              <Table.ColHeader>
+                Status
+              </Table.ColHeader>
+            </Table.Header>
+            <Table.Body>
+              {this.props.tickets.map((ticket, index) => {
+                return (
+                  <Table.Row>
+                  <Table.Col>
+                    {ticket.TicketId}
+                  </Table.Col>
+                  <Table.Col>
+                    {ticket.Headline}
+                  </Table.Col>
+                  <Table.Col>
+                    {ticket.Description}
+                  </Table.Col>
+                  <Table.Col>
+                    {ticket.Status}
+                  </Table.Col>
+                  </Table.Row>
+                )
+              })}
+            </Table.Body>
+          </Table>
          </div>
         )
     }

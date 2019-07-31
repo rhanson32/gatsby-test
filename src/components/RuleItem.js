@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { toggleRule } from '../actions';
 
 class RuleItem extends React.Component {
@@ -44,9 +44,15 @@ class RuleItem extends React.Component {
             showDescription: !this.state.showDescription
         });
     }
+
+    addNotification = () => {
+        console.log('adding user to notifications');
+    }
+
     render() {
         return (
-            <div>
+            <div className="rules-drawer">
+                <div className="rules-drawer-top">
                 <h3>Category</h3>
                 <p>{this.props.rule.Category}</p>
                 <h3>Mode</h3>
@@ -56,9 +62,18 @@ class RuleItem extends React.Component {
                 <h3>Exceptions</h3>
                 <p>None</p>
                 <h3>Notifications</h3>
-                <p>None</p>
-                
-                {this.props.rule.Configurable && <Button type="primary" onClick={this.editRule}>Configure</Button>}
+                {!this.state.edit && <p>None</p>}   
+                {this.state.edit && (
+                    <div className="rules-drawer-configuration">
+                        <Input />
+                        <Button type="primary" onClick={this.addNotification}>Submit</Button>
+                    </div>
+                )} 
+                </div>
+                <div className="rules-drawer-bottom">            
+                    {this.props.rule.Configurable && !this.state.edit && <Button type="primary" onClick={this.editRule}>Configure</Button>}
+                    {this.props.rule.Configurable && this.state.edit && <Button type="primary" onClick={this.completeUpdates}>Done</Button>}
+                </div>
             </div>
         )
     }

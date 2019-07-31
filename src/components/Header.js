@@ -19,12 +19,12 @@ class Header extends React.Component {
                 <div className="header-menu">
                     <div className="user-name">
                         {this.props.user.email && (
-                            <div>
+                            <div style={{ paddingTop: "0.3rem" }}>
                                 <Avatar size="lg" icon="user" />
                             </div>
                         )}
                         
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", padding: "0 0.5rem" }}>
+                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", padding: "0 0.5rem 1rem 0.5rem" }}>
                             <div style={{ fontSize: "20px", maxHeight: "24px", display: "flex", alignItems: "flex-start" }}>
                                 {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
                             </div>
