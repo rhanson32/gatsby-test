@@ -55,6 +55,11 @@ input  {
     width: 30%;
 }
 
+.external-title-name {
+    margin: 0 1rem;
+    color: white;
+}
+
 .external-title a {
     text-decoration: none;
     color: white;
@@ -66,6 +71,7 @@ input  {
     width: 30%;
     display: flex;
     align-items: center;
+    padding-left: 0.7rem;
 }
 
 .header-menu {
@@ -143,6 +149,18 @@ input  {
     font-size: 40px;
     font-weight: 400;
     width: 100%;
+    line-height: 160%;
+}
+
+.dashboard-trends-header {
+    display: flex;
+    width: 100%;
+}
+
+.dashboard-trends-title {
+    width: 30%;
+    font-size: 40px;
+    font-weight: 400;
     line-height: 160%;
 }
 
@@ -975,7 +993,7 @@ input  {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 95%;
+    width: 100%;
     min-height: 90vh;
 }
 
@@ -1200,6 +1218,11 @@ input  {
 
 .pricing-description {
     font-size: 24px;
+}
+
+.pricing-note {
+    margin-top: 1rem;
+    font-size: 16px;
 }
 
 .pricing-cards {
@@ -1536,17 +1559,24 @@ input  {
 }
 
 .site-map-logo {
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: 700;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .site-map-logo a:link, .site-map-logo a:visited {
     text-decoration: none;
-    color: black;
+    color: #0984e3;
+}
+
+.site-map-logo h1 {
+    color: #0984e3;
+    font-size: 4rem;
+    font-weight: 700;
 }
 
 .site-map-item {
@@ -1650,7 +1680,7 @@ input  {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 95%;
+    width: 100%;
     min-height: 90vh;
     background-color: #F5F7FB;
 }
@@ -1801,6 +1831,10 @@ input  {
     margin: 0;
     padding: 0.5rem;
     border-bottom: 1px solid black;
+}
+
+.dashboard-trends-header {
+    width: 100%;
 }
 
 .table-header-2 {
@@ -2751,7 +2785,6 @@ th, td {
     }
 
     .web-rules, .web-accounts {
-        margin: auto;
         max-width: 1000px;
         box-shadow: 0 0 5 5;
     }
@@ -2783,14 +2816,6 @@ th, td {
 
     .feature-cards {
         width: 95%;
-    }
-
-    .support-screen {
-        width: 90%;
-    }
-
-    .users-main {
-        width: 90%;
     }
 
     .left-menu {

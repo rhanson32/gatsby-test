@@ -56,7 +56,7 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
-        <p style={{ fontWeight: "bold", fontSize: "24px" }}>$99 per month (limited time only)</p>
+        <p style={{ fontWeight: "bold", fontSize: "24px" }}>$299 per month</p>
         <p style={{ fontSize: "20px" }}>Enter credit card details below to complete the purchase</p>
         <CardElement 
             style={{ backgroundColor: "green" }}

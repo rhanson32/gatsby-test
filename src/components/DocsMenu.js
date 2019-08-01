@@ -31,50 +31,41 @@ class DocsMenu extends React.Component {
     render() {
 
         return (
-    <div className="docs-menu">
-        <div className="docs-menu-header">
-            Where To Begin
-        </div>
-        <div className="docs-menu-item">
-            <button className="docs-menu-link" onClick={this.showWorks}>
-                How It Works
-            </button>
-        </div>
-        <div className="docs-menu-item">
-            <button className="docs-menu-link" onClick={this.showPrerequisites}>
-                Prerequisites
-            </button>
-        </div>
-        <div className="docs-menu-item">
-            <button className="docs-menu-link" onClick={this.showSigningUp}>
-                Signing Up
-            </button>
-            
-        </div>
-        <div className="docs-menu-header">
-            One-Time Setup
-        </div>
-        <div className="docs-menu-item">
-            <button className="docs-menu-link" onClick={this.showAddingUsers}>
-                Adding Users
-            </button>
-        </div>
-        <div className="docs-menu-item">
-            <button className="docs-menu-link" onClick={this.showGettingStarted}>
-                Getting Started
-            </button>
-            
-        </div>
-        <div className="docs-menu-item">
-            Configuring Purify
-        </div>
-        <div className="docs-menu-item">
-            Automated Remediation
-        </div>
-        <div className="docs-menu-header">
-            Advanced Configuration
-        </div>
-    </div>
+            <div className="docs-menu">
+                <div className="docs-menu-header">
+                    Where To Begin
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showWorks}>
+                        How It Works
+                    </button>
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showPrerequisites}>
+                        Prerequisites
+                    </button>
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showSigningUp}>
+                        Signing Up
+                    </button>
+                    
+                </div>
+                <div className="docs-menu-header">
+                    One-Time Setup
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showAddingUsers}>
+                        Adding Users
+                    </button>
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showGettingStarted}>
+                        Getting Started
+                    </button>
+                    
+                </div>
+            </div>
         )
     }
 }

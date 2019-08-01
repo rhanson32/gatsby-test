@@ -36,30 +36,22 @@ class SignUp extends React.Component {
       let signUpResponse
       try {
         this.setState({ error: null });
-        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company }}).catch(err => console.log(err));
+        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.toLowerCase().replace(' ', '-') }}).catch(err => console.log(err));
 
         if(signUpResponse)
         {
             valid = await validateCompany(this.state);
             if(!valid)
             {
-              this.setState({ error: { message: 'Company already exists. Please ask your administrator for access.' } })
+              this.setState({ error: { message: 'Company name already exists. Please ask your administrator for access.' } })
             }
             else
             {
-              console.log("Proceeding to sign up");
-              
               this.setState({ stage: 1 });
-              console.log(signUpResponse);
             }
         }
-        else 
-        {
-            console.log("Must delete user with email:", email);
-        }
       } catch (err) {
-        this.setState({ error: err })
-        console.log('error signing up...', err)
+        this.setState({ error: err });
       }
     }
 

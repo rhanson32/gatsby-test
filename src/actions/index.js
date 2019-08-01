@@ -323,12 +323,10 @@ export const validateCompany = async (user) => {
     let myRequest = {
         body:   { 
                 email: user.email, 
-                company: user.company,
+                company: user.company.toLowerCase().replace(" ", "-"),
                 userName: user.username
             },
-        headers: {
-            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     let postResponse;

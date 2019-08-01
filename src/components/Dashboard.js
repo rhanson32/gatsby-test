@@ -918,7 +918,18 @@ class Dashboard extends React.Component {
                                 </div>
                                 </div>
                                 <div className="dashboard-trends">
-                                <div className="dashboard-title">Trends</div>
+                                    <div className="dashboard-trends-header">
+                                        <div className="dashboard-trends-title">Trends</div>
+                                        <div className="history-chart-header-filters">
+                                            <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
+                                            <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
+                                            <Button onClick={this.monthToDate} type="link">MTD</Button>
+                                            <Button onClick={this.lastMonth}  type="link">Last Month</Button>
+                                            <Button type="link">Last 3 Months</Button>
+                                            <Button onClick={this.yearToDate} type="link">YTD</Button>
+                                            <Button type="link">Last Year</Button>
+                                        </div>
+                                    </div>
                                 
                                 <div className="dashboard-trends-container">
                             <div className="dashboard-sidebar-2">
@@ -956,15 +967,6 @@ class Dashboard extends React.Component {
                                         <div className="history-chart-header">
                                             <div className="history-chart-header-title">
                                                 Violations Over Time
-                                            </div>
-                                            <div className="history-chart-header-filters">
-                                                <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
-                                                <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
-                                                <Button onClick={this.monthToDate} type="link">MTD</Button>
-                                                <Button onClick={this.lastMonth}  type="link">Last Month</Button>
-                                                <Button type="link">Last 3 Months</Button>
-                                                <Button onClick={this.yearToDate} type="link">YTD</Button>
-                                                <Button type="link">Last Year</Button>
                                             </div>
                                         </div>
                                     </Card.Header>

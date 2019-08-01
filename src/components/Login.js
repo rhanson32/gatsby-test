@@ -131,7 +131,7 @@ class Login extends React.Component {
       setUser(userInfo);
       await this.props.saveUser(userInfo);
       setExpiration(moment().add(8, 'hours').toISOString());
-      console.log(this.state.user.challengeName);
+
       if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
       {
         this.setState({
@@ -144,7 +144,7 @@ class Login extends React.Component {
         navigate("/app/dashboard");
       }
     } catch (err) {
-      this.setState({ error: err })
+      this.setState({ error: err, loading: false, buttonText: 'Sign In' })
       console.log('Error: ', err);
       console.log(err.code);
       if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")

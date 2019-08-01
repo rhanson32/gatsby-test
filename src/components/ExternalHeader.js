@@ -5,6 +5,7 @@ import { Link } from 'gatsby';
 import { Button, Modal } from 'antd';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
+import logo3 from '../../static/PurifyWhiteLogo_2.png';
 
 class ExternalHeader extends React.Component {
     state = {
@@ -25,9 +26,11 @@ class ExternalHeader extends React.Component {
     render() {
         return (
             <div className="external-header">
-                <div className="external-title">
-                    <Link activeClassName="active-link" to="/">PurifyCloud</Link>  
-                </div>
+            
+                <Link className="external-title" activeClassName="active-link" to="/">
+                    <img src={logo3} height="55" />
+                    <div className="external-title-name">Purify</div>
+                </Link>  
                 <div className="mobile-menu-button">
                     <Button onClick={this.toggleMobile}>Menu</Button>
                 </div>

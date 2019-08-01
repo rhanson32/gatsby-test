@@ -21,10 +21,10 @@ class Pricing extends React.Component {
                     Pricing
                 </div>
                 <div className="pricing-description">
-                    All prices shown are monthly prices, charged on a subscription model until cancellation.
+                    All prices shown are monthly subscription prices.
                 </div>
-                <div className="pricing-description">
-                    Our product is currently in beta testing. While we are in beta, use the code PURIFYFREE to use the Standard plan for free for 90 days.
+                <div className="pricing-note">
+                    Note: Our product is currently in beta. For a limited time, use the code 'PURIFYFREE' at checkout to upgrade to the Standard plan for free for 3 months.
                 </div>
                 <div className="pricing-cards">
                 

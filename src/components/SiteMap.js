@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'gatsby'
+import { Link } from 'gatsby';
+import logo2 from '../../static/PurifyBlueLogo_2.png';
 
 const SiteMap = () => (
     <div className="site-map">
         <div className="site-map-logo">
-        <Link to="/">PurifyCloud</Link>
+        <Link className="site-map-logo" to="/">
+            <img src={logo2} />
+            <h1>Purify</h1>
+        </Link>
         </div>
         <div className="site-map-item">
             <div className="site-map-item-header">
