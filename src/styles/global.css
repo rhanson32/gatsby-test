@@ -1848,10 +1848,6 @@ input  {
     border-bottom: 1px solid black;
 }
 
-.dashboard-trends-header {
-    width: 100%;
-}
-
 .table-header-2 {
     background-color: red;
 }
@@ -2178,6 +2174,10 @@ th, td {
 
     .pricing-card-new {
         width: 90%;
+    }
+
+    .dashboard-trends-header {
+        flex-wrap: wrap;
     }
 
     .dashboard-top {
@@ -3112,6 +3112,27 @@ th, td {
 
     .dashboard-sidebar-2 {
         flex-direction: row;
+    }
+
+    .dashboard-trends-header {
+        flex-wrap: wrap;
+    }
+
+    .history-chart-header-filters {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard-trends-title {
+        width: 100%;
+    }
+
+    .dashboard-title-short {
+        width: 30%;
+    }
+
+    .dashboard-filters {
+        width: 70%;
     }
 
 }

@@ -8,6 +8,8 @@ import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button } from 'antd';
 import moment from 'moment';
+import google from '../../static/btn_google_signin_dark_normal_web.png';
+import { IoTJobsDataPlane } from 'aws-sdk';
 
 Amplify.configure({
   Auth: {
@@ -29,6 +31,62 @@ class Login extends React.Component {
     loading: false,
     confirmUser: false
   }
+
+  componentDidMount() {
+    const ga = window.gapi && window.gapi.auth2 ? 
+        window.gapi.auth2.getAuthInstance() : 
+        null;
+    if (!ga) this.createScript();
+  }
+
+  createScript = () => {
+      // load the Google SDK
+      const script = document.createElement('script');
+      script.src = 'https://apis.google.com/js/platform.js';
+      script.async = true;
+      script.onload = this.initGapi;
+      document.body.appendChild(script);
+  }
+  
+  signIn() {
+    const ga = window.gapi.auth2.getAuthInstance();
+    ga.signIn().then(
+        googleUser => {
+            this.getAWSCredentials(googleUser);
+        },
+        error => {
+            console.log(error);
+        }
+    );
+  }
+  
+  initGapi = () => {
+    // init the Google SDK client
+    const g = window.gapi;
+    g.load('auth2', function() {
+        g.auth2.init({
+            client_id: '1024277314293-hophqvo9ih3lk5gba37evbm6k83qmi2c.apps.googleusercontent.com',
+            // authorized scopes
+            scope: 'email'
+        });
+    });
+}
+
+  getAWSCredentials = async (googleUser) => {
+    const { id_token, expires_at } = googleUser.getAuthResponse();
+    const profile = googleUser.getBasicProfile();
+    let user = {
+        email: profile.getEmail(),
+        name: profile.getName()
+    };
+    
+    const credentials = await Auth.federatedSignIn(
+        'google',
+        { token: id_token, expires_at },
+        user
+    );
+    console.log('credentials', credentials);
+} 
 
   handleUpdate = (event) => {
     this.setState({
@@ -186,6 +244,7 @@ class Login extends React.Component {
                   Forgot password? 
                 </Button>
                 </div>
+            <Button onClick={this.signIn}><img src={google} /></Button>
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
               </div>
             </div>
