@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import Header from './Header';
-import LeftMenu from './LeftMenu';
+import TopMenu from './TopMenu';
 import moment from 'moment';
 import { Auth } from 'aws-amplify';
 import { message } from 'antd';
+import { Table } from 'tabler-react';
 import { getExpiration } from '../utils/auth';
 import { getHistory, getCurrentUser } from '../actions';
 
@@ -32,14 +33,41 @@ class History extends React.Component {
     }
 
     render() {
-        console.log(this.props.history);
         return (
             <div className="history-page">
                 <Header />
-                <LeftMenu />
+                <TopMenu />
                 <div className="history-main">
-                    <div className="support-screen-header">
-                        <h1>History</h1>
+                    <div className="history-max">
+                        <div className="support-screen-header">
+                            <h1>History</h1>
+                        </div>
+                        <Table>
+                            <Table.Header>
+                                <Table.ColHeader>
+                                    Event Date
+                                </Table.ColHeader>
+                                <Table.ColHeader>
+                                    Event
+                                </Table.ColHeader>
+                                <Table.ColHeader>
+                                    Event Data
+                                </Table.ColHeader>
+                            </Table.Header>
+                            <Table.Body>
+                            <Table.Row>
+                                <Table.Col>
+                                    {this.props.history.length && this.props.history[0].ActionDate}
+                                </Table.Col>
+                                <Table.Col>
+                                    {this.props.history.length && this.props.history[0].Event}
+                                </Table.Col>
+                                <Table.Col>
+                                    {this.props.history.length && this.props.history[0].EventData}
+                                </Table.Col>
+                            </Table.Row>
+                            </Table.Body>
+                        </Table>
                     </div>
                 </div>    
             </div>

@@ -127,7 +127,7 @@ input  {
     align-items: center;
     font-size: 1.5rem; 
     line-height: 2rem;
-    padding-right: 2rem;
+    padding-right: 1rem;
     width: 28%;
 }
 
@@ -1205,7 +1205,7 @@ input  {
 }
 
 .pricing-main {
-    width: 80%;
+    width: 70%;
     margin: auto;
     max-width: 1200px;
 }
@@ -1434,11 +1434,9 @@ input  {
     color: black;
 }
 
-
-
 .external-menu a:hover, .right-menu a:hover {
     color: #DDD;
-    border-bottom: #CCC;
+    text-decoration: underline;
 }
 
 .action-call {
@@ -1482,8 +1480,11 @@ input  {
     width: 40%;
 }
 
-.external-menu a, .right-menu a {
+.external-menu a:link, .right-menu a:link {
     text-decoration: none;
+}
+
+.external-menu a, .right-menu a {
     margin: 0.4rem 1rem;
     color: white;
 }
@@ -1547,11 +1548,24 @@ input  {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: flex-start;
+    align-items: center;
     width: 100vw;
     height: auto;
-    background-color: #F5F7FB;
+    background-color: #2d3436;
     padding: 2rem 0;
+}
+
+.footer-button {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: cemter;
+}
+
+.footer-button-header {
+    color: white;
+    padding: 2rem 0;
+    font-size: 24px;
 }
 
 .header-menu a, .header-menu p {
@@ -1577,6 +1591,7 @@ input  {
     color: #0984e3;
     font-size: 4rem;
     font-weight: 700;
+    margin-bottom: 0;
 }
 
 .site-map-item {
@@ -1851,9 +1866,14 @@ th, td {
     width: 100%;
 }
 
+.history-max {
+    width: 80%;
+    margin: auto;
+}
+
 .history-main {
-    width: 95%;
-    background-color: #F3F3F3;
+    min-height: 90vh;
+    background-color: #F5F7FB;
 }
 
 .button-unselected {
@@ -2131,6 +2151,20 @@ th, td {
 
     .feature-card {
         width: 100%;
+    }
+
+    .site-map {
+        flex-direction: column-reverse;
+    }
+
+    .footer-button {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+
+    .footer-button-header {
+        display: flex;
+        justify-content: center;
     }
 
     .trend-card-wrapper {
@@ -2645,6 +2679,8 @@ th, td {
     .site-map-logo, .site-map-item {
         font-size: 0.8rem;
         font-size: 700;
+        display: flex;
+        justify-content: center;
     }
 
     .pricing-card-price {
@@ -3046,10 +3082,6 @@ th, td {
 
     .site-map-item-header {
         font-size: 1.7rem;
-    }
-
-    .site-map {
-        justify-content: center;
     }
 
     .site-map-item {

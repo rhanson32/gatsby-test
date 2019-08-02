@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
+import { Button } from 'tabler-react';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
 import logo3 from '../../static/PurifyWhiteLogo_2.png';
@@ -32,7 +33,9 @@ class ExternalHeader extends React.Component {
                     <div className="external-title-name">Purify</div>
                 </Link>  
                 <div className="mobile-menu-button">
-                    <Button onClick={this.toggleMobile}>Menu</Button>
+                    <Button.List>
+                        <Button color="green" pill onClick={this.toggleMobile}>Menu</Button>
+                    </Button.List>
                 </div>
                 <div className="external-menu">
                     <Link activeClassName="active-link" to="/app/features">Why Purify?</Link>
@@ -41,7 +44,9 @@ class ExternalHeader extends React.Component {
                 </div>
                 <div className="right-menu">
                     <Link className="login-link" to="/app/login">Log In</Link>
-                    <Button onClick={this.signUp} type="default">Sign Up</Button>
+                    <Button.List>
+                        <Button pill size="lg" onClick={this.signUp} color="green">Sign Up</Button>
+                    </Button.List>
                 </div>
                 <div className="modal-container">
                     <Modal

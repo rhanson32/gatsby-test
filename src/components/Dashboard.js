@@ -47,6 +47,7 @@ class Dashboard extends React.Component {
             configurationEvaluations: 0,
             wasteEvaluations: 0,
             showDetail: false,
+            detailId: ``,
             last3days: false,
             last7days: false,
             lastMonth: false,
@@ -821,7 +822,13 @@ class Dashboard extends React.Component {
                                         </div>
                                     )
                                 }
-                                
+                                 {  
+                                     this.state.showDetail && (
+                                         <div>
+                                             {this.state.showDetail && 'True'}
+                                         </div>
+                                     )
+                                 }
                                     </Card.Body>
                                 </Card>
                                 </div>

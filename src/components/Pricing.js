@@ -50,10 +50,19 @@ class Pricing extends React.Component {
                             1 Cloud Provider
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Notifications
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> 2-Factor Authentication
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> Email Support
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="red-icon" name="x" /> Automated Remediation
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="red-icon" name="x" /> Audit Trail
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="red-icon" name="x" /> Latest Features
@@ -92,10 +101,19 @@ class Pricing extends React.Component {
                             Multiple Cloud Providers
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Notifications
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> 2-Factor Authentication
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> Email Support
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Automated Remediation
+                        </PricingCard.AttributeItem>
+                        <PricingCard.AttributeItem>
+                            <Icon className="green-icon" name="check" /> Audit Trail
                         </PricingCard.AttributeItem>
                         <PricingCard.AttributeItem>
                             <Icon className="green-icon" name="check" /> Latest Features

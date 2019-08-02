@@ -11,6 +11,7 @@ const TopMenu = () => (
             <Nav.Item icon="user" onClick={() => navigate('/app/users')}>Users</Nav.Item>
             <Nav.Item icon="settings" onClick={() => navigate('/app/settings')}>Settings</Nav.Item>
             <Nav.Item icon="help-circle" onClick={() => navigate('/app/support')}>Support</Nav.Item>
+            <Nav.Item icon="activity" onClick={() => navigate('/app/history')}>Audit Trail</Nav.Item>
         </Nav>
     </div>
 )

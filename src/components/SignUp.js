@@ -62,8 +62,7 @@ class SignUp extends React.Component {
           alert('Successfully signed up! Click OK to go to the login screen.')
           navigate("/app/login")
         } catch (err) {
-          this.setState({ error: err })
-          console.log('error confirming signing up...', err)
+          this.setState({ error: err });
         }
       }
 

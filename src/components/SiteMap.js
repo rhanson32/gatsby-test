@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import logo2 from '../../static/PurifyBlueLogo_2.png';
+import { Button } from 'tabler-react';
 
 const SiteMap = () => (
     <div className="site-map">
@@ -10,32 +11,15 @@ const SiteMap = () => (
             <h1>Purify</h1>
         </Link>
         </div>
-        <div className="site-map-item">
-            <div className="site-map-item-header">
-                Product
+        <div className="footer-button">
+            <div className="footer-button-header">
+                No obligation. Try us today.
             </div>
-            <div className="site-map-item-link">
-                <Link to="/app/features">Why Purify</Link>
-            </div>
-            <div className="site-map-item-link">
-                <Link to="/app/pricing">Pricing</Link>
-            </div>
-        </div>
-        <div className="site-map-item">
-            <div className="site-map-item-header">
-                Resources
-            </div>
-            <div className="site-map-item-link">
-                <Link to="/app/docs">Docs</Link>
-            </div>
-        </div>
-        <div className="site-map-item">
-            <div className="site-map-item-header">
-                Company
-            </div>
-            <div className="site-map-item-link">
-                About Us
-            </div>
+            <Button.List>
+                <Button pill block>
+                    Free Trial
+                </Button>
+            </Button.List>
         </div>
     </div>
 );

@@ -18,7 +18,6 @@ class Home extends React.Component {
                 <ExternalHeader />
                 {this.props.features.length > 0  && <Splash mobileMenu={this.props.mobile.mobileMenu} />}
                 {this.props.features && this.props.features.map((feature, index) => <FeatureFocus index={index} key={feature.FeatureId} title={feature.Title} description={feature.Description} image={feature.Image} />)}
-                {this.props.features.length > 0  && <ActionCall />}
                 {this.props.features.length > 0  && <SiteMap />}
             </div>
         )
