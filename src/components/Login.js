@@ -76,11 +76,12 @@ class Login extends React.Component {
   getAWSCredentials = async (googleUser) => {
     const { id_token, expires_at } = googleUser.getAuthResponse();
     const profile = googleUser.getBasicProfile();
+    console.log(profile);
     let user = {
         email: profile.getEmail(),
         name: profile.getName()
     };
-    
+    console.log(id_token);
     const credentials = await Auth.federatedSignIn(
         'google',
         { token: id_token, expires_at },
@@ -246,8 +247,9 @@ class Login extends React.Component {
                   Forgot password? 
                 </Button>
                 </div>
-            <Button onClick={this.signIn}><img src={google} /></Button>
+      
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
+                <a onClick={this.signIn}><img src={google} /></a>
               </div>
             </div>
           )
