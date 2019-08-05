@@ -34,7 +34,7 @@ const App = ({ children }) => (
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
             <Home path="/" />
-            <SAML path="/saml/:token" />
+            <SAML path="/app/saml" />
         </Router>
     </Provider>
   )
