@@ -17,6 +17,7 @@ import Docs from '../components/Docs';
 import Users from '../components/Users';
 import History from '../components/History';
 import Payment from '../components/Payment';
+import SAML from '../components/SAML';
 
 import store from '../store'
 
@@ -40,6 +41,7 @@ const App = () => (
             <Features path="/app/features" />
             <Pricing path="/app/pricing" />
             <Docs path="/app/docs" />
+            <SAML path="/app/saml" />
         </Router>
     </Provider>
   )
