@@ -85,7 +85,7 @@ class Login extends React.Component {
         'google',
         { token: id_token, expires_at },
         user
-    );
+    ).catch(err => console.log(err));
     console.log('credentials', credentials);
 } 
 
