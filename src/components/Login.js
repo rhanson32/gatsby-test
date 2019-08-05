@@ -48,24 +48,12 @@ class Login extends React.Component {
       document.body.appendChild(script);
   }
   
-  signIn() {
+  signIn = () => {
     const ga = window.gapi.auth2.getAuthInstance();
     console.log(ga);
     ga.signIn().then(
         googleUser => {
-          const { id_token, expires_at } = googleUser.getAuthResponse();
-          const profile = googleUser.getBasicProfile();
-          let user = {
-              email: profile.getEmail(),
-              name: profile.getName()
-          };
-          
-          const credentials = await Auth.federatedSignIn(
-              'google',
-              { token: id_token, expires_at },
-              user
-          );
-          console.log('credentials', credentials);
+            this.getAWSCredentials(googleUser);
         },
         error => {
             console.log(error);
