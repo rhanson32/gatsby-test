@@ -250,6 +250,12 @@ class Login extends React.Component {
       
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>
                 <a onClick={this.signIn}><img src={google} /></a>
+
+                <button
+                  onClick={() => Auth.federatedSignIn({provider: 'Google'})}
+                >
+                  Sign In with Google
+                </button>
               </div>
             </div>
           )
