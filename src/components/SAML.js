@@ -7,12 +7,15 @@ class SAML extends React.Component {
         test: 'test'
     }
 
+    componentDidMount = () => {
+        console.log(this.props);
+    }
+
     render() {
         console.log(this.state);
         return (
             <div>
                 Hello World! sfwdhfudhfsfsdfjsdk
-                {this.props}
             </div>
         )
     }
