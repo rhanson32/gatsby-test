@@ -364,7 +364,7 @@ export const getToken = (inputs) => async dispatch => {
     console.log(tokenResponse);
     if(tokenResponse)
     {
-        return true;
+        return tokenResponse;
     }
     else
     {
