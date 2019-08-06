@@ -1,20 +1,12 @@
 const isBrowser = typeof window !== `undefined`
 
-export const setUser = user => (window.localStorage.gatsbyUser = JSON.stringify(user));
+export const setUser = user => (window.localStorage.purifyUser = JSON.stringify(user));
 
 const getUser = () => {
-  if (window.localStorage.gatsbyUser !== "null") 
+  if (window.localStorage.purifyUser !== "null") 
   {
-    let user = JSON.parse(window.localStorage.gatsbyUser)
+    let user = JSON.parse(window.localStorage.purifyUser)
     console.log("local user:", user);
-    return user ? user : {}
-  }
-  else if(window.localStorage.SSO-User)
-  {
-    let user = {
-      username: window.localStorage.SSO-user
-    }
-    console.log(user);
     return user ? user : {}
   }
   return {}

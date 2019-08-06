@@ -27,9 +27,11 @@ class SAML extends React.Component {
             console.log(token);
             if(token)
             {
-                localStorage.setItem('SSO-user', token.data.email);
-                localStorage.setItem('SSO-sub', token.data.sub);
-                localStorage.setItem('SSO-Expiration', moment().add(12, 'hours').toISOString())
+                localStorage.setItem('purifyUser', JSON.stringify({
+                    username: token.data.email,
+                    expiration: moment().add(12, 'hours').toISOString(),
+                    type: 'federated'
+                }));
                 navigate('/app/dashboard');
             }
         }
