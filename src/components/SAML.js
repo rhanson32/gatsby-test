@@ -34,6 +34,10 @@ class SAML extends React.Component {
                 }));
                 navigate('/app/dashboard');
             }
+            else
+            {
+                navigate('/app/login');
+            }
         }
     }
 

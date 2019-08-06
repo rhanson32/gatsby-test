@@ -443,8 +443,11 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        if (!isLoggedIn()) navigate('/app/login');
-
+        if (!isLoggedIn()) 
+        {
+            console.log(isLoggedIn());
+            navigate('/app/login');
+        }
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
         const dataSourceAll = this.props.rules.map((rule, index) => {

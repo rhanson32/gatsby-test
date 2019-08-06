@@ -227,8 +227,7 @@ class Login extends React.Component {
   }
 
   render() {
-    // if (isLoggedIn()) navigate('/app/dashboard');
-    console.log(window.location.search);
+    if (isLoggedIn()) navigate('/app/dashboard');
     return (
       <div className="login-screen">
         <ExternalHeader />
