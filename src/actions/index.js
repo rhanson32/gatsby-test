@@ -349,6 +349,17 @@ export const validateCompany = async (user) => {
 
 export const getToken = (inputs) => async dispatch => {
     console.log(inputs);
+
+    let myRequest = {
+        body: {},
+        headers: {
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    };
+
+    const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id, myRequest);
+
+    console.log(tokenResponse);
 }
 
 export const getRules = (user) => async dispatch => {
