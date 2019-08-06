@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
+import { getToken } from '../actions';
 
 class SAML extends React.Component {
 
@@ -17,16 +19,21 @@ class SAML extends React.Component {
             result[pair[0]] = decodeURIComponent(pair[1] || '');
         });
         console.log(result);
+
+        if(result.code && result.client_id)
+        {
+            this.props.getToken(result);
+        }
     }
 
     render() {
         console.log(this.state);
         return (
             <div>
-                Hello World! sfwdhfudhfsfsdfjsdk
+                Retrieving credentials from Cognito...
             </div>
         )
     }
 }
 
-export default SAML;
+export default connect(null, { getToken })(SAML);

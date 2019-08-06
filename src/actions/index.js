@@ -347,6 +347,10 @@ export const validateCompany = async (user) => {
     }
 };
 
+export const getToken = (inputs) => async dispatch => {
+    console.log(inputs);
+}
+
 export const getRules = (user) => async dispatch => {
 
     let myRequest = {
