@@ -20,7 +20,6 @@ class SAML extends React.Component {
             pair = pair.split('=');
             result[pair[0]] = decodeURIComponent(pair[1] || '');
         });
-        console.log(result);
 
         if(result.client_id && result.code)
         {
