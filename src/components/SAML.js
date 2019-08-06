@@ -25,9 +25,9 @@ class SAML extends React.Component {
 
         // console.log(user);
 
-        if(event.client_id && event.code)
+        if(result.client_id && result.code)
         {
-            this.props.getToken();
+            this.props.getToken(result);
         }
     }
 
