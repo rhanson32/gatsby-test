@@ -38,8 +38,8 @@ class SAML extends React.Component {
     render() {
         console.log(this.state);
         return (
-            <div>
-                Retrieving credentials from Cognito...
+            <div className="saml-message">
+                Retrieving application credentials...
             </div>
         )
     }

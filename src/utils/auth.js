@@ -5,6 +5,7 @@ export const setUser = user => (window.localStorage.gatsbyUser = JSON.stringify(
 const getUser = () => {
   if (window.localStorage.gatsbyUser) {
     let user = JSON.parse(window.localStorage.gatsbyUser)
+    console.log("local user:", user);
     return user ? user : {}
   }
   if(window.localStorage.SSO-User)
@@ -12,6 +13,7 @@ const getUser = () => {
     let user = {
       username: window.localStorage.SSO-user
     }
+    console.log(user);
     return user ? user : {}
   }
   return {}

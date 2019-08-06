@@ -108,6 +108,15 @@ input  {
     width: 100%;
 }
 
+.saml-message {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
 .external-header {
     width: 100%;
     height: 4rem;
