@@ -4,7 +4,7 @@ import BarChart from './BarChart';
 import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration } from '../utils/auth';
+import { isLoggedIn, getExpiration, getSSOExpiration } from '../utils/auth';
 import { Spin, Table, Modal, Input, Button, message, notification } from 'antd';
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
 
-        if(moment(getExpiration()) < moment())
+        if(moment(getExpiration()) < moment() || moment(getSSOExpiration()) < moment())
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');

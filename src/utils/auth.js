@@ -30,6 +30,8 @@ export const setExpiration = (date) => isBrowser && (window.localStorage.expirat
 
 export const getExpiration = () => isBrowser && window.localStorage.getItem('expirationDate');
 
+export const getSSOExpiration = () => isBrowser && window.localStorage.getItem('SSO-Expiration');
+
 export const logout = callback => {
     if (!isBrowser) return
     setUser({})
