@@ -9,6 +9,14 @@ class SAML extends React.Component {
 
     componentDidMount = () => {
         console.log(this.props);
+        let pairs = location.search.slice(1).split('&');
+
+        let result = {};
+        pairs.forEach(pair => {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+        console.log(result);
     }
 
     render() {
