@@ -25,7 +25,7 @@ class SAML extends React.Component {
         if(result.client_id && result.code)
         {
             token = await this.props.getToken(result);
-
+            console.log(token);
             if(token)
             {
                 localStorage.setItem('SSO', token);
