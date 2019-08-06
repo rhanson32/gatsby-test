@@ -21,14 +21,14 @@ class SAML extends React.Component {
         });
         console.log(result);
 
-        // const user = await Auth.currentAuthenticatedUser();
-
-        // console.log(user);
-
         if(result.client_id && result.code)
         {
-            this.props.getToken(result);
+            await this.props.getToken(result);
         }
+
+        const user = await Auth.currentAuthenticatedUser();
+
+        console.log(user);
     }
 
     render() {
