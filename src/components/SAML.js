@@ -28,7 +28,7 @@ class SAML extends React.Component {
 
             if(token)
             {
-                localStorage.setItem('test', 'test123');
+                localStorage.setItem('SSO', token);
             }
         }
     }
