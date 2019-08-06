@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { getToken } from '../actions';
 import { Auth } from 'aws-amplify';
+import moment from 'moment';
 
 class SAML extends React.Component {
 
@@ -29,6 +30,7 @@ class SAML extends React.Component {
             {
                 localStorage.setItem('SSO-user', token.data.email);
                 localStorage.setItem('SSO-sub', token.data.sub);
+                localStorage.setItem('SSO-Expiration', moment().add(12, 'hours').toISOString())
             }
         }
     }

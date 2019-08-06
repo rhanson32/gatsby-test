@@ -7,6 +7,13 @@ const getUser = () => {
     let user = JSON.parse(window.localStorage.gatsbyUser)
     return user ? user : {}
   }
+  if(window.localStorage.SSO-User)
+  {
+    let user = {
+      username: window.localStorage.SSO-user
+    }
+    return user ? user : {}
+  }
   return {}
 }
 
