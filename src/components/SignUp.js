@@ -36,7 +36,7 @@ class SignUp extends React.Component {
       let signUpResponse
       try {
         this.setState({ error: null });
-        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.toLowerCase().replace(' ', '-') }}).catch(err => {
+        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.toLowerCase().replace(/ /g, '-') }}).catch(err => {
           console.log(err)
           if(err.code === 'UsernameExistsException')
           {
@@ -67,7 +67,7 @@ class SignUp extends React.Component {
     confirmSignUp = async() => {
         const { email, authCode } = this.state
         try {
-          await Auth.confirmSignUp(email, authCode)
+          await Auth.confirmSignUp(email, authCode).catch(err => console.log(err));
           alert('Successfully signed up! Click OK to go to the login screen.')
           navigate("/app/login")
         } catch (err) {
