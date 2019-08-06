@@ -36,7 +36,16 @@ class SignUp extends React.Component {
       let signUpResponse
       try {
         this.setState({ error: null });
-        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.toLowerCase().replace(' ', '-') }}).catch(err => console.log(err));
+        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.toLowerCase().replace(' ', '-') }}).catch(err => {
+          console.log(err)
+          if(err.code === 'UsernameExistsException')
+          {
+            this.setState({
+              error: 'Username already exists. Please login with username and password or use another email address.'
+            })
+          }
+          this.setState({ loading: false });
+        });
 
         if(signUpResponse)
         {
