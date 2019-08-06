@@ -10,7 +10,7 @@ class SAML extends React.Component {
         test: 'test'
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         console.log(this.props);
         let pairs = location.search.slice(1).split('&');
 
@@ -21,12 +21,9 @@ class SAML extends React.Component {
         });
         console.log(result);
 
-        console.log(Auth.currentAuthenticatedUser());
+        const user = await Auth.currentAuthenticatedUser();
 
-        if(result.code && result.client_id)
-        {
-            this.props.getToken(result);
-        }
+        console.log(user);
     }
 
     render() {
