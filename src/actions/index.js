@@ -357,9 +357,19 @@ export const getToken = (inputs) => async dispatch => {
         }
     };
 
-    const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id, myRequest);
-
+    const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id, myRequest)
+    .catch(err => {
+        console.log(err);
+    });
     console.log(tokenResponse);
+    if(tokenResponse)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 export const getRules = (user) => async dispatch => {

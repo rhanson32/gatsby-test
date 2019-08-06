@@ -15,6 +15,7 @@ class SAML extends React.Component {
         let pairs = location.search.slice(1).split('&');
 
         let result = {};
+        let token;
         pairs.forEach(pair => {
             pair = pair.split('=');
             result[pair[0]] = decodeURIComponent(pair[1] || '');
@@ -23,12 +24,13 @@ class SAML extends React.Component {
 
         if(result.client_id && result.code)
         {
-            await this.props.getToken(result);
+            token = await this.props.getToken(result);
+
+            if(token)
+            {
+                localStorage.setItem('test', 'test123');
+            }
         }
-
-        const user = await Auth.currentAuthenticatedUser();
-
-        console.log(user);
     }
 
     render() {
