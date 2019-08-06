@@ -12,7 +12,7 @@ class SAML extends React.Component {
 
     componentDidMount = async () => {
         console.log(this.props);
-        let pairs = location.search.slice(1).split('&');
+        let pairs = window.location.search.slice(1).split('&');
 
         let result = {};
         let token;
@@ -27,7 +27,8 @@ class SAML extends React.Component {
             console.log(token);
             if(token)
             {
-                localStorage.setItem('SSO', token);
+                localStorage.setItem('SSO-user', token.data.email);
+                localStorage.setItem('SSO-sub', token.data.sub);
             }
         }
     }

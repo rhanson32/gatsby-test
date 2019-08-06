@@ -371,6 +371,14 @@ export const getToken = (inputs) => async dispatch => {
     }
 }
 
+export const enableSaml = () => async dispatch => {
+    dispatch({ type: 'ENABLE_SAML', payload: true });
+}
+
+export const disableSaml = () => async dispatch => {
+    dispatch({ type: 'DISABLE_SAML', payload: false });
+}
+
 export const getRules = (user) => async dispatch => {
 
     let myRequest = {

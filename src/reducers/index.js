@@ -134,6 +134,10 @@ const settingsReducer = (state = { Providers: [ ], Notifications: [ ] }, action)
             return { ...state, Notifications: action.payload }
         case 'REMOVE_NOTIFICATION': 
             return { ...state, Notifications: action.payload }
+        case 'ENABLE_SAML': 
+            return { ...state, saml: action.payload }
+        case 'DISABLE_SAML': 
+            return { ...state, saml: action.payload }
         default:
             return state;
     }

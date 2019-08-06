@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
-import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification } from '../actions';
+import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -106,6 +106,14 @@ class TabsCard extends React.Component {
       
   }
 
+  enableSaml = async () => {
+    this.props.enableSaml();
+  }
+
+  disableSaml = async () => {
+    this.props.disableSaml();
+  }
+
   setupMFA = async () => {
       console.log("Clicked!");
       const user = await Auth.currentAuthenticatedUser();
@@ -153,6 +161,10 @@ class TabsCard extends React.Component {
         {
           key: 'AWS',
           tab: 'AWS',
+        },
+        {
+            key: 'SSO',
+            tab: 'SSO'
         }
       ];
 
@@ -242,7 +254,7 @@ class TabsCard extends React.Component {
             <div className="settings-row">
                 <div className="settings-left-side">
                     <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
-                    Global Notification Emails
+                        Global Notification Emails
                     </Tooltip> 
                 </div>
                 <div className="settings-subscription">
@@ -296,7 +308,49 @@ class TabsCard extends React.Component {
         <div className="settings-row">
             <ServicesForm />
         </div>  
-      </div>
+      </div>,
+      SSO: <div>
+      {
+          !this.props.settings.saml && (
+              <div className="settings-row">
+                <div className="settings-left-side">
+                    SSO Status:
+                </div>
+                <div className="settings-subscription">
+                    <Button onClick={this.enableSaml}>
+                        Disabled
+                    </Button>
+                </div>
+              </div>
+          )
+      }
+      {
+          this.props.settings.saml && (
+              <div className="settings-row">
+                <div className="settings-left-side">
+                    SSO Status:
+                </div>
+                <div className="settings-subscription">
+                    <Button type="primary" onClick={this.disableSaml}>
+                        Enabled
+                    </Button>
+                </div>
+              </div>
+          )
+      }
+      {
+          this.props.settings.saml && (
+              <div className="settings-row">
+                <div className="settings-left-side">
+                    Upload Metadata file:
+                </div>
+                <div className="settings-subscription">
+                    <input type="file" name="file" />
+                </div>
+              </div>
+          )
+      }
+    </div>
       };
 
     return (
@@ -341,4 +395,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification })(TabsCard);
+export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml })(TabsCard);
