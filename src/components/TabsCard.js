@@ -222,8 +222,8 @@ class TabsCard extends React.Component {
                     Subscription  
                 </div>
                 <div className="settings-subscription">
-                    {this.props.user.Plan === "Free" && <Button type="primary" size="large" onClick={this.showPlans}>Change Subscription</Button>}
-                
+                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
+                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
                     <Button type="danger" size="large" onClick={this.showConfirm}>
                         Cancel Subscription
                     </Button>      

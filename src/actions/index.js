@@ -313,9 +313,7 @@ export const getCurrentUser = () => async dispatch => {
 
     let myRequest = {
         body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
     if(purifyUser.type === 'federated')
