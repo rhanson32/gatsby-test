@@ -3,34 +3,26 @@ import { Switch } from 'antd';
 import { connect } from 'react-redux';
 import { updateAccount } from '../actions';
 
-class SwitchWrap extends React.Component {
+class SwitchWrapAccount extends React.Component {
 
     changeSwitch = (newState) => {
  
-        const newAccount = {
-            ...this.props.account,
-            Enabled: newState
-        };
-        console.log(newAccount);
-        this.updateAccount(newAccount, this.props.account.RoleName);
-    }
-
-    updateAccount = (id, user) => {
-        // const enabledCount = this.props.rules.filter(rule => rule.Enabled).length;
-        
-        // if(enabledCount >= 10 && this.props.user.Plan === "Free")
-        // {
-        //     console.log("Cannot add more rules. Please upgrade to the Standard Plan to enable more rules.");
-        //     this.error();
-        // }
-        // else
-        // {
-            this.props.updateAccount(id, user); 
-       // }
-    }
-
-    disableRule = (id) => {
-        this.props.updateAccount(id); 
+        if(this.props.user.Group.includes('Administrators'))
+        {
+            const newAccount = {
+                ...this.props.account,
+                Enabled: newState
+            };
+            console.log(newAccount);
+            this.props.updateAccount(newAccount, this.props.account.RoleName);
+        } 
+        else
+        {
+            notification.error({
+                message: 'Access Denied',
+                description: 'You are not permitted to take this action.'
+            })
+        }
     }
 
     render() {
@@ -47,4 +39,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateAccount })(SwitchWrap);
+export default connect(mapStateToProps, { updateAccount })(SwitchWrapAccount);

@@ -97,16 +97,13 @@ class RulesPage extends React.Component {
     }
 
     showDetail = (e) => {
-        console.log(e.target.name);
-        console.log(e.target);
-        console.log(this.props.Rules);
+ 
         this.setState({
             description: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Description,
             visible: true,
             title: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Name,
             rule: this.props.Rules.filter(rule => rule.Name === e.target.name)[0]
         });
-        console.log(this.state);
     }
 
     handleUpdate = (event) => {

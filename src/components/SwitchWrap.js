@@ -53,14 +53,11 @@ class SwitchWrap extends React.Component {
         else
         {
             this.props.disableRule(id, user); 
-        }
-        
+        }  
     }
 
     render() {
-        return (
-            <Switch checked={this.props.checked} onChange={this.changeSwitch} />
-        )
+        return <Switch checked={this.props.checked} onChange={this.changeSwitch} />
     }
 }
 
