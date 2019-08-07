@@ -292,30 +292,55 @@ export const saveUser = (user) => async (dispatch, getState) => {
     dispatch({ type: 'STORE_USER', payload: user });
 }
 
+export const addDefaultGroup = (client) => async dispatch => {
+
+    let myRequest = {
+        body: {
+
+        },
+        headers: {
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    }
+
+    const addResponse = await purify.post('/groups', myRequest);
+
+}
+
 export const getCurrentUser = () => async dispatch => {
-    const user = await Auth.currentAuthenticatedUser();
+    const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
 
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
-    const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
-
-    const userInfo = {
-        ...user.attributes,
-        IdToken: user.signInUserSession.idToken.jwtToken,
-        CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
-        Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
-        Plan: customerResponse.data[0].Plan.S,
-        Status: customerResponse.data[0].Status.S,
-        Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
-        MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
+    if(purifyUser.type === 'federated')
+    {
+        const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest);
     }
+    else
+    {
+        const user = await Auth.currentAuthenticatedUser().catch(err => console.log(err));
 
-    dispatch({ type: 'STORE_USER', payload: userInfo })
+        const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
+
+        const userInfo = {
+            ...user.attributes,
+            IdToken: user.signInUserSession.idToken.jwtToken,
+            CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
+            Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
+            Plan: customerResponse.data[0].Plan.S,
+            Status: customerResponse.data[0].Status.S,
+            Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
+            MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
+        }
+
+        dispatch({ type: 'STORE_USER', payload: userInfo })
+    }
+    
 }
 
 export const validateCompany = async (user) => {
