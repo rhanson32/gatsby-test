@@ -230,27 +230,32 @@ class TabsCard extends React.Component {
                 </div>
             </div>
             <hr style={{ width: "80%", margin: "2rem auto" }} />
-            <div className="settings-row">
-                <div className="settings-left-side"> 
-                    Credentials
-                </div>
-                <div className="settings-subscription">
-                    <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
-                    {!this.props.user.MFA && this.props.user.Type === 'Native' && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
-                    {this.props.user.MFA && this.props.user.Type === 'Native' && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
-                    <Modal
-                        visible={this.state.showMFASetup}
-                        onOk={this.submitMFA}
-                        onCancel={this.cancelMFA}
-                    >
-                        <QRCode value={this.state.qrCode} />
-                        <label>Authenticator Code</label>
-                        <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
-                        
-                    </Modal>
-                </div>
-            </div>
-            <hr style={{ width: "80%", margin: "2rem auto" }} />
+            {
+                this.props.user.Type === 'Native' && (
+                    <div className="settings-row">
+                        <div className="settings-left-side"> 
+                            Credentials
+                        </div>
+                        <div className="settings-subscription">
+                            <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
+                            {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
+                            {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
+                            <Modal
+                                visible={this.state.showMFASetup}
+                                onOk={this.submitMFA}
+                                onCancel={this.cancelMFA}
+                            >
+                                <QRCode value={this.state.qrCode} />
+                                <label>Authenticator Code</label>
+                                <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
+                                
+                            </Modal>
+                        </div>
+                    </div>
+                )
+            }
+            
+            {this.props.user.Type === 'Native' && <hr style={{ width: "80%", margin: "2rem auto" }} />}
             <div className="settings-row">
                 <div className="settings-left-side">
                     <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
