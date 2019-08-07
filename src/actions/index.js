@@ -321,6 +321,17 @@ export const getCurrentUser = () => async dispatch => {
     if(purifyUser.type === 'federated')
     {
         const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest);
+
+        const userInfo = {
+            CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
+            Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
+            Plan: customerResponse.data[0].Plan.S,
+            Status: customerResponse.data[0].Status.S,
+            Group: 'None',
+            MFA: false
+        }
+
+        dispatch({ type: 'STORE_USER', payload: userInfo });
     }
     else
     {
@@ -339,7 +350,7 @@ export const getCurrentUser = () => async dispatch => {
             MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
         }
 
-        dispatch({ type: 'STORE_USER', payload: userInfo })
+        dispatch({ type: 'STORE_USER', payload: userInfo });
     }
     
 }
