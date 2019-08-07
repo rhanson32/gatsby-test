@@ -292,18 +292,18 @@ export const saveUser = (user) => async (dispatch, getState) => {
     dispatch({ type: 'STORE_USER', payload: user });
 }
 
-export const addDefaultGroup = (client) => async dispatch => {
+export const addDefaultGroup = (company) => async dispatch => {
+
+    const groupName = company.replace('SSO', 'Auditors');
 
     let myRequest = {
         body: {
-
+            name: groupName
         },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
-    const addResponse = await purify.post('/groups', myRequest);
+    const addResponse = await purify.post('/groups', myRequest).catch(err => console.log(err));
 
 }
 

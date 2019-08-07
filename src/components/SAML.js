@@ -29,7 +29,11 @@ class SAML extends React.Component {
                     type: 'federated',
                     client: token.data.aud
                 }));
-                this.props.addDefaultGroup(token.data.Identities[0].providerName);
+                if(token.data["cognito:groups"].length === 1 && token.data["cognito:groups"].find(group => group.includes('SSO')))
+                {
+                    await this.props.addDefaultGroup(token.data.Identities[0].providerName);
+                }
+                
                 navigate('/app/dashboard');
             }
             else
