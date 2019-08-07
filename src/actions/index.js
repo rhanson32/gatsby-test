@@ -330,7 +330,8 @@ export const getCurrentUser = () => async dispatch => {
             Plan: customerResponse.data[0].Plan.S,
             Status: customerResponse.data[0].Status.S,
             Group: 'None',
-            MFA: false
+            MFA: false,
+            email: customerResponse.data[0].Email.S
         }
 
         dispatch({ type: 'STORE_USER', payload: userInfo });
