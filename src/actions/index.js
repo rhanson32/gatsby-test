@@ -329,6 +329,7 @@ export const getCurrentUser = () => async dispatch => {
             Status: customerResponse.data[0].Status.S,
             Group: 'None',
             MFA: false,
+            Type: 'Federated',
             email: customerResponse.data[0].Email.S
         }
 
@@ -347,13 +348,13 @@ export const getCurrentUser = () => async dispatch => {
             Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
             Plan: customerResponse.data[0].Plan.S,
             Status: customerResponse.data[0].Status.S,
+            Type: 'Native',
             Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
             MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
         }
 
         dispatch({ type: 'STORE_USER', payload: userInfo });
-    }
-    
+    } 
 }
 
 export const validateCompany = async (user) => {

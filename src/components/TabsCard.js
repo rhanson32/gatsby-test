@@ -236,8 +236,8 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
-                    {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
-                    {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
+                    {!this.props.user.MFA && this.props.user.Type === 'Native' && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
+                    {this.props.user.MFA && this.props.user.Type === 'Native' && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
                     <Modal
                         visible={this.state.showMFASetup}
                         onOk={this.submitMFA}
