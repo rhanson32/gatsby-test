@@ -8,8 +8,8 @@ import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button } from 'antd';
 import moment from 'moment';
+import { isLoggedIn } from '../utils/auth';
 import google from '../../static/btn_google_signin_dark_normal_web.png';
-import { IoTJobsDataPlane } from 'aws-sdk';
 
 Amplify.configure({
   Auth: {
