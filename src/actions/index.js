@@ -292,13 +292,14 @@ export const saveUser = (user) => async (dispatch, getState) => {
     dispatch({ type: 'STORE_USER', payload: user });
 }
 
-export const addDefaultGroup = (company) => async dispatch => {
+export const addDefaultGroup = (token) => async dispatch => {
 
-    const groupName = company.replace('SSO', 'Auditors');
+    const groupName = token.identities[0].providerName.replace('SSO', 'Auditors');
 
     let myRequest = {
         body: {
-            name: groupName
+            name: groupName,
+            user: token["cognito:username"]
         },
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }

@@ -31,7 +31,7 @@ class SAML extends React.Component {
                 }));
                 if(token.data["cognito:groups"].length === 1 && token.data["cognito:groups"].find(group => group.includes('SSO')))
                 {
-                    await this.props.addDefaultGroup(token.data.Identities[0].providerName);
+                    await this.props.addDefaultGroup(token.data);
                 }
                 
                 navigate('/app/dashboard');
