@@ -47,7 +47,8 @@ class Users extends React.Component {
             return {
                 key: index.toString(),
                 name: user.Username,
-                role: user.Group === 'Administrators' ? 'Administrator': 'Auditor'
+                role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
+                type: user.Type
             }    
         });
 
@@ -58,6 +59,13 @@ class Users extends React.Component {
               key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortDirections: ['descend', 'ascend']
+            },
+            {
+                title: 'User Type',
+                dataIndex: 'type',
+                key: 'type',
+                  sorter: (a, b) => a.type.length - b.type.length,
+                  sortDirections: ['descend', 'ascend']
             },
             {
               title: 'Role',
