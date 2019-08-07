@@ -320,7 +320,9 @@ export const getCurrentUser = () => async dispatch => {
 
     if(purifyUser.type === 'federated')
     {
-        const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest);
+        const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest).catch(err => console.log(err));
+
+        console.log(customerResponse);
 
         const userInfo = {
             CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
