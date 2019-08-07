@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'antd';
+import { Switch, notification } from 'antd';
 import { connect } from 'react-redux';
 import { updateAccount } from '../actions';
 
