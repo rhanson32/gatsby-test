@@ -6,7 +6,6 @@ import pay from '../../static/pay.jpg';
 import checklist from '../../static/checklist.jpg';
 import circle from '../../static/circle.png';
 import ExternalHeader from './ExternalHeader';
-import ActionCall from './ActionCall';
 import SiteMap from './SiteMap';
 import { Card } from 'antd';
 import { getFeatures } from '../actions';

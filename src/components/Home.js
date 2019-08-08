@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Splash from './Splash';
 import FeatureFocus from './FeatureFocus';
 import ExternalHeader from './ExternalHeader';
-import ActionCall from './ActionCall';
 import SiteMap from './SiteMap';
 import { getFeatures } from '../actions';
 

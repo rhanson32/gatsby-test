@@ -138,10 +138,10 @@ class RulesPage extends React.Component {
             {
               title: 'Name',
               render: (text, record) => (
-                  <span>
+                  <div className="rules-table-name">
                       {record.name}
                       <Button name={record.name} type="link" onClick={this.showDetail}>View</Button>
-                  </span>
+                  </div>
               ),
               key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,

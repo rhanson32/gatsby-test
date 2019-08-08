@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Input } from 'antd';
-import { toggleRule } from '../actions';
+import { Button, Input, Tag, message } from 'antd';
+import { toggleRule, addRuleNotification } from '../actions';
 
 class RuleItem extends React.Component {
     state = {
         showDescription: false,
         edit: false
     }
+
+    handleUpdate = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        })
+      }
 
     enableRule = (event) => {
         const enabledCount = this.props.Rules.filter(rule => rule.Enabled).length;
@@ -39,6 +45,12 @@ class RuleItem extends React.Component {
         });
     }
 
+    completeUpdates = () => {
+        this.setState({
+            edit: false
+        });
+    }
+
     toggleDescription = () => {
         this.setState({
             showDescription: !this.state.showDescription
@@ -47,6 +59,25 @@ class RuleItem extends React.Component {
 
     addNotification = () => {
         console.log('adding user to notifications');
+        console.log(this.state.email);
+        if(this.props.rule.Notifications.find(notification => notification === this.state.email))
+        {
+            message.error('User is already added to this rule');
+        }
+        else
+        {
+            const newRule = {
+                ...this.props.rule,
+                Notifications: [ ...this.props.rule.Notifications, this.state.email]
+            };
+
+            this.props.addRuleNotification(newRule);
+        }
+        
+    }
+
+    deleteNotification = () => {
+        console.log('Deleting notification');
     }
 
     render() {
@@ -62,10 +93,29 @@ class RuleItem extends React.Component {
                 <h3>Exceptions</h3>
                 <p>None</p>
                 <h3>Notifications</h3>
-                {!this.state.edit && <p>None</p>}   
+                {
+                    this.props.rule.Notifications && this.state.edit && this.props.rule.Notifications.map((notification, index) => {
+                        return (
+                            <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
+                                {notification}
+                            </Tag>
+                        )
+                    })
+                } 
+                {
+                    this.props.rule.Notifications && !this.state.edit && this.props.rule.Notifications.map((notification, index) => {
+                        return (
+                            <Tag color="blue" key={index}>
+                                {notification}
+                            </Tag>
+                        )
+                    })
+                } 
+                {!this.props.rule.Notifications && <p>None</p>}
                 {this.state.edit && (
                     <div className="rules-drawer-configuration">
-                        <Input />
+                        <label style={{ width: "100%" }}>Email Address</label>
+                        <Input name="email" placeholder="email address" value={this.state.email} onChange={this.handleUpdate} />
                         <Button type="primary" onClick={this.addNotification}>Submit</Button>
                     </div>
                 )} 
@@ -86,4 +136,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { toggleRule })(RuleItem);
+export default connect(mapStateToProps, { toggleRule, addRuleNotification })(RuleItem);

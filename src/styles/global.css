@@ -969,6 +969,7 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    min-height: 80vh;
 }
 
 .rules-drawer-top {
@@ -978,6 +979,21 @@ input  {
 .rules-drawer-bottom {
     display: flex;
     justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.rules-drawer-configuration {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 1rem;
+}
+
+.rules-table-name {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .rules-drawer-configuration button {
@@ -1009,6 +1025,7 @@ input  {
 .support-screen-max {
     width: 80%;
     margin: 0 auto;
+    max-width: 1100px;
 }
 
 .support-right-side {

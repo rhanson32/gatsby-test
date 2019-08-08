@@ -445,7 +445,6 @@ class Dashboard extends React.Component {
     render() {
         if (!isLoggedIn()) 
         {
-            console.log(isLoggedIn());
             navigate('/app/login');
         }
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
@@ -667,6 +666,7 @@ class Dashboard extends React.Component {
                             <div className="dashboard-metrics">
                             <div className="dashboard-title">Category Metrics</div>
                                 <div className="web-metrics">
+                                {!this.state.showDetail && (
                                 <Card>
                                     <Card.Header>
                                         <div className="dashboard-card-header">
@@ -832,15 +832,18 @@ class Dashboard extends React.Component {
                                         </div>
                                     )
                                 }
-                                 {  
-                                     this.state.showDetail && (
-                                         <div>
-                                             {this.state.showDetail && 'True'}
-                                         </div>
-                                     )
-                                 }
                                     </Card.Body>
-                                </Card>
+                                </Card>)
+                                }
+                                {
+                                    this.state.showDetail && (
+                                        <Card>
+                                            <Card.Body>
+                                                Some text
+                                            </Card.Body>
+                                        </Card>
+                                    )
+                                }
                                 </div>
                                 <div className="dashboard-sidebar">
                                 <div className="metric-card-wrapper">

@@ -440,6 +440,7 @@ export const getRules = (user) => async dispatch => {
             Description: item.Description.S,
             Enabled: item.Enabled.BOOL,
             Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
+            Notifications: item.Notifications && item.Notifications.L.map(violation => violation.S),
             Violations: item.Violations.L.map(violation => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S,
@@ -452,12 +453,16 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
+export const addRuleNotification = (rule) => async dispatch => {
+    console.log(rule);
+}
+
 export const getHistory = (user) => async dispatch => {
 
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -550,7 +555,7 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
