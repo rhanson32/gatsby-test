@@ -2141,6 +2141,24 @@ th, td {
     align-items: center;
 }
 
+.feature-card-new {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #F5F7FB;
+    padding: 1rem;
+}
+
+.feature-card-new-title {
+    margin: 1rem;
+    width: 100%;
+}
+
+.feature-card-new-image {
+    max-width: 500px;
+    max-height: 500px;
+}
+
 .history-chart-header-filters {
     display: flex;
     justify-content: flex-end;
