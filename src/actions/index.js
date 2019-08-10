@@ -173,11 +173,12 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
-export const modifyRules = (action, id) => async (dispatch, getState) => {
+export const modifyRules = (action, id, email) => async (dispatch, getState) => {
     let myRequest = {
         body: { 
             action,
-            id
+            id,
+            email
          }
     };
 
@@ -190,6 +191,8 @@ export const modifyRules = (action, id) => async (dispatch, getState) => {
                 Enabled: false
             }
         });
+
+        dispatch({ type: 'UPDATE_RULES', payload: rules });
     }
     else if(action === 'monitor')
     {
@@ -199,9 +202,26 @@ export const modifyRules = (action, id) => async (dispatch, getState) => {
                 Enabled: true
             }
         });
-    }
 
-    dispatch({ type: 'UPDATE_RULES', payload: rules });
+        dispatch({ type: 'UPDATE_RULES', payload: rules });
+    }
+    else if(action === 'addNotification')
+    {
+        rules = rules.map(rule => {
+            if(rule.RuleId === id)
+            {
+                return {
+                    ...rule,
+                    Notifications: [ ...rule.Notifications, email]
+                }
+            }
+            else
+            {
+                return rule;
+            }
+        })
+        dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: rules });
+    }
 
     await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
@@ -423,7 +443,7 @@ export const getRules = (user) => async dispatch => {
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -453,8 +473,31 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
-export const addRuleNotification = (rule) => async dispatch => {
-    console.log(rule);
+export const addRuleNotification = (rule, email) => async dispatch => {
+    let myRequest = {
+        body: {
+            id: rule.CustomerId,
+            action: 'addNotification',
+            email,
+            ruleId: rule.RuleId
+        },
+        headers: {
+            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    }
+
+    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
+
+    const newRule = {
+        ...rule,
+        Notifications: [ ...rule.Notifications ]
+    }
+
+    console.log(newRule);
+
+    dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: newRule });
+
+    console.log(response);
 }
 
 export const getHistory = (user) => async dispatch => {

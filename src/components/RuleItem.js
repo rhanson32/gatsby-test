@@ -68,10 +68,10 @@ class RuleItem extends React.Component {
         {
             const newRule = {
                 ...this.props.rule,
-                Notifications: [ ...this.props.rule.Notifications, this.state.email]
+                Notifications: [ ...this.props.rule.Notifications, this.state.email ]
             };
 
-            this.props.addRuleNotification(newRule);
+            this.props.addRuleNotification(newRule, this.state.email);
         }
         
     }

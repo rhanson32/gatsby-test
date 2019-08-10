@@ -34,6 +34,8 @@ const ruleReducer = (state = [], action) => {
             return [ ...action.payload ]
         case 'UPDATE_RULES':
             return [ ...action.payload ]
+        case 'ADD_RULE_NOTIFICATION':
+            return [ ...state.rules, action.payload ]
         default:
             return state;
     }
