@@ -659,8 +659,8 @@ input  {
 .feature-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 4rem auto;
+    justify-content: space-around;
+    margin: 4rem 0;
     max-width: 1400px;
     width: 80%;
 }
@@ -1220,6 +1220,10 @@ input  {
 .user-radio {
     width: 1rem;
     margin-right: 0.5rem;
+}
+
+.features-page {
+    justify-content: center;
 }
 
 /********************* Pricing Page ***********************/
@@ -2145,18 +2149,29 @@ th, td {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid #F5F7FB;
-    padding: 1rem;
+    margin: 4rem 1rem;
 }
 
 .feature-card-new-title {
     margin: 1rem;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .feature-card-new-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.feature-card-new-image img {
     max-width: 500px;
-    max-height: 500px;
+    max-height: 350px;
+}
+
+.feature-card-new-description {
+    padding: 1rem 2rem;
 }
 
 .history-chart-header-filters {
@@ -2420,7 +2435,7 @@ th, td {
 
     .feature-cards {
         width: 100%;
-        margin: 2rem auto;
+        margin: 2rem 0;
     }
 
     .rules-options {
@@ -2982,10 +2997,6 @@ th, td {
         width: 90%;
     }
 
-    .feature-focus img {
-        border: 1px solid #DDD;
-    }
-
     .feature-header-message {
         width: 50%;
     }
@@ -3069,10 +3080,6 @@ th, td {
 
     .settings-menu-item {
         width: 10rem;
-    }
-
-    .feature-cards {
-        width: 1100px;
     }
 
     .payments {

@@ -1,9 +1,17 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { navigate } from '@reach/router';
 import logo2 from '../../static/PurifyBlueLogo_2.png';
 import { Button } from 'tabler-react';
 
-const SiteMap = () => (
+class SiteMap extends React.Component {
+
+    signUp = () => {
+        navigate('/app/signup');
+    }
+
+    render() {
+    return (
     <div className="site-map">
         <div className="site-map-logo">
         <Link className="site-map-logo" to="/">
@@ -16,12 +24,14 @@ const SiteMap = () => (
                 No obligation. Try us today.
             </div>
             <Button.List>
-                <Button pill block>
+                <Button pill block onClick={this.signUp}>
                     Free Trial
                 </Button>
             </Button.List>
         </div>
     </div>
-);
+    )
+    }
+}
 
 export default SiteMap;
