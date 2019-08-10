@@ -58,8 +58,9 @@ class Dashboard extends React.Component {
     
 
     componentDidMount = async () => {
-
-        if(moment(getExpiration()) < moment())
+        console.log(getExpiration());
+        console.log(getSSOExpiration());
+        if(moment(getExpiration()) < moment() && moment(getSSOExpiration()) < moment())
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
@@ -74,7 +75,6 @@ class Dashboard extends React.Component {
                 navigate('/app/login');
             }, 2000); 
         }
-        {}
         if(this.props.rules.length > 0)
         {
             this.setState({ 
