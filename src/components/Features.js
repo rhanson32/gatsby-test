@@ -62,8 +62,8 @@ class Features extends React.Component {
                             No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices.
                         </div>
                     </div>
-                    <div  className="feature-card-new">
-                        <div style={{ width: "500px" }}>
+                    <div className="feature-card-new">
+                        <div className="feature-card-new-image">
                             <img src={preferences} />
                         </div>
                         <div className="feature-card-new-title">
@@ -74,7 +74,7 @@ class Features extends React.Component {
                         </div>
                     </div>
                     <div className="feature-card-new">
-                        <div style={{ width: "500px" }}>
+                        <div className="feature-card-new-image">
                             <img src={cloud} />
                         </div>
                         <div className="feature-card-new-title">
@@ -111,10 +111,10 @@ class Features extends React.Component {
                             <img src={dashboard} />
                         </div>
                         <div className="feature-card-new-title">
-                            Unlimited Cloud Accounts. One View.
+                            Unlimited Accounts. One View.
                         </div>
                         <div className="feature-card-new-description">
-                            Get one view of all of your accounts, no matter how many you have. See everything at once, and take action on any account with just a few clicks.
+                            Get one view of all your cloud accounts, no matter how many you have. See everything at once, and take action on any account with just a few clicks.
                         </div>
                     </div>
                     

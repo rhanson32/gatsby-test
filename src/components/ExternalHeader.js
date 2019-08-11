@@ -28,13 +28,13 @@ class ExternalHeader extends React.Component {
         return (
             <div className="external-header">
             
-                <Link className="external-title" activeClassName="active-link" to="/">
+                <Link className="external-title" to="/">
                     <img src={logo3} height="55" />
                     <div className="external-title-name">Purify</div>
                 </Link>  
                 <div className="mobile-menu-button">
                     <Button.List>
-                        <Button color="green" pill onClick={this.toggleMobile}>Menu</Button>
+                        <Button color="green" onClick={this.toggleMobile}>Menu</Button>
                     </Button.List>
                 </div>
                 <div className="external-menu">
@@ -43,10 +43,7 @@ class ExternalHeader extends React.Component {
                     <Link activeClassName="active-link" to="/app/docs">Docs</Link>       
                 </div>
                 <div className="right-menu">
-                    <Link className="login-link" to="/app/login">Log In</Link>
-                    <Button.List>
-                        <Button pill size="lg" onClick={this.signUp} color="green">Sign Up</Button>
-                    </Button.List>
+                    <Link className="login-link" to="/app/login">Sign In</Link>
                 </div>
                 <div className="modal-container">
                     <Modal

@@ -119,8 +119,9 @@ input  {
 
 .external-header {
     width: 100%;
-    height: 4rem;
+    height: 5rem;
     background-color: #0984e3;
+    opacity: 0.95;
     color: white;
     display: flex;
     flex-wrap: wrap;
@@ -729,10 +730,13 @@ input  {
     justify-content: space-around;
     align-items: center;
     height: auto;
-    padding: 4rem 0 2rem 0;
+    margin: 4rem 0;
     width: 80%;
-    margin: auto;
     max-width: 1300px;
+}
+
+.home {
+    justify-content: center;
 }
 
 .feature-focus-text {
@@ -746,7 +750,6 @@ input  {
 
 .feature-focus-image {
     width:45%;
-    height: 20rem;
 }
 
 .feature-focus-image img {
@@ -1537,8 +1540,6 @@ input  {
 /******************** Home Page ***************************/
 
 .splash {
-    background-image: url(../../static/optimization-gears.jpg);
-    background-repeat: no-repeat;
     background-size: cover;
     height: 70vh;
     width: 100%;
@@ -1546,6 +1547,23 @@ input  {
     justify-content: flex-end;
     align-items: flex-start;
     z-index: 1;
+}
+
+.splash-text {
+    display: flex;
+    flex-direction: column;
+    color: white; 
+    width: 70%;
+}
+
+.splash-image {
+    transform: scale(1.5);
+}
+
+.splash-image-container {
+    width: 40%;
+    display: flex;
+    justify-content: center;
 }
 
 .splash-title {
@@ -1558,22 +1576,36 @@ input  {
 }
 
 .splash-subtitle {
-    font-size: 2.8rem;
+    font-size: 2rem;
     line-height: 160%;
-    width: 75%;
-    margin-top: 4rem;
+    width: 100%;
     color: white;
     z-index: 200;
 }
 
-.splash-overlay {
-    height: 100%;
-    width: 100%;
-    opacity: 0.95;
-    background-color: #3d5878;
+.splash-signup {
+    height: 5rem;
     display: flex;
+    width: 70%;
     justify-content: center;
     align-items: center;
+}
+
+.splash-subtitle-new {
+    font-size: 1.5rem;
+    width: 70%;
+}
+
+.splash-overlay {
+    height: 70vh;
+    width: 100%;
+    opacity: 0.95;
+    background-color: #0984e3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom-right-radius: 70% 20%;
+    border-bottom-left-radius: 30% 5%;
 }
 
 .site-map {
@@ -1583,15 +1615,15 @@ input  {
     align-items: center;
     width: 100vw;
     height: auto;
-    background-color: #2d3436;
-    padding: 2rem 0;
+    background-color: #636e72;
+    padding: 4rem 0;
 }
 
 .footer-button {
-    width: 25%;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: cemter;
+    justify-content: center;
 }
 
 .footer-button-header {
@@ -1609,6 +1641,7 @@ input  {
     font-weight: 700;
     height: 100%;
     display: flex;
+    weight: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
@@ -1616,11 +1649,11 @@ input  {
 
 .site-map-logo a:link, .site-map-logo a:visited {
     text-decoration: none;
-    color: #0984e3;
+    color: white;
 }
 
 .site-map-logo h1 {
-    color: #0984e3;
+    color: white;
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 0;
@@ -2216,13 +2249,51 @@ th, td {
         max-width: 325px;
     }
 
+    .feature-card-new {
+        margin: 2rem;
+    }
+
+    .footer-button button {
+        display: block;
+        width: 100%;
+    }
+
+    .splash-overlay {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 3rem;
+        border-bottom-right-radius: 70% 8%;
+        border-bottom-left-radius: 30% 2%;
+    }
+
+    .feature-card-new-description {
+        font-size: 16px;
+    }
+
+    .splash-text {
+        width: 95%;
+        margin: 2rem auto;
+    }
+
+    .splash-subtitle-new {
+        font-size: 1rem;
+    }
+
     .feature-card-new-title {
         flex-wrap: wrap;
         font-size: 20px;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
     }
 
     .site-map {
         flex-direction: column-reverse;
+        padding: 2rem 0;
+    }
+
+    .site-map-logo {
+        width: 100%;
+        align-items: center;
     }
 
     .footer-button {
@@ -2233,6 +2304,7 @@ th, td {
     .footer-button-header {
         display: flex;
         justify-content: center;
+        font-size: 16px;
     }
 
     .trend-card-wrapper {
@@ -2242,6 +2314,7 @@ th, td {
     .features-header-message {
         width: 90%;
         font-size: 1.5rem;
+        margin-top: 2rem;
     }
 
     .pricing-card-new {
@@ -2551,10 +2624,11 @@ th, td {
     .feature-focus {
         flex-wrap: wrap;
         padding: 1rem 0;
+        margin: 0;
     }
 
     .external-header {
-        height: 4rem;
+        height: 5rem;
     }
 
     .action-header {
@@ -2603,8 +2677,8 @@ th, td {
 
     .feature-header-description {
         width: 80%;
-        font-size: 2rem;
-        margin: 2rem auto;
+        font-size: 4rem;
+        margin: 2rem auto 1rem auto;
     }
 
     .feature-icon {
@@ -2641,7 +2715,6 @@ th, td {
 
     .feature-focus-image {
         width: 90%;
-        border: 1px solid #EEE;
     }
 
     .feature-focus-header {
@@ -2687,8 +2760,17 @@ th, td {
 
     .splash-subtitle {
         font-size: 1.5rem;
-        width: 75%;
-        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .splash-subtitle-new {
+        width: 100%;
+    }
+
+    .splash-signup {
+        width: 100%;
+        margin-top: 4rem;
     }
 
     .external-title {
@@ -2793,6 +2875,7 @@ th, td {
 
     .features-header {
         flex-wrap: wrap;
+        padding: 4rem 0 1rem 0;
     }
 
     .features-header img {
@@ -2852,6 +2935,10 @@ th, td {
 
     .support-drawer {
         width: 50%;
+    }
+
+    .feature-focus-image {
+        height: 20rem;
     }
 
     .dashboard-top {
@@ -2992,10 +3079,12 @@ th, td {
 
 @media screen and (min-width: 1200px) {
     .splash-subtitle {
-        font-size: 4rem;
+        font-size: 2.5rem;
         line-height: 160%;
-        margin-top: 6rem;
-        width: 75%;
+    }
+
+    .feature-focus-image {
+        height: 20rem;
     }
 
     .feature-card-new {
