@@ -706,8 +706,10 @@ input  {
 .feature-header-description {
     width: 60%;
     margin: 2rem auto;
-    font-size: 2rem;
+    font-size: 4rem;
     line-height: 160%;
+    display: flex;
+    justify-content: center;
 }
 
 .feature-icon {
@@ -2149,11 +2151,11 @@ th, td {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 4rem 1rem;
+    margin: 3rem 1rem;
 }
 
 .feature-card-new-title {
-    margin: 1rem;
+    margin: 2rem 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -2167,11 +2169,13 @@ th, td {
 
 .feature-card-new-image img {
     max-width: 500px;
-    max-height: 350px;
+    max-height: 345px;
 }
 
 .feature-card-new-description {
     padding: 1rem 2rem;
+    font-size: 20px;
+    line-height: 150%;
 }
 
 .history-chart-header-filters {
@@ -2206,6 +2210,15 @@ th, td {
 
     .feature-card {
         width: 100%;
+    }
+
+    .feature-card-new-image img {
+        max-width: 325px;
+    }
+
+    .feature-card-new-title {
+        flex-wrap: wrap;
+        font-size: 20px;
     }
 
     .site-map {
@@ -2434,7 +2447,7 @@ th, td {
     }
 
     .feature-cards {
-        width: 100%;
+        width: 90%;
         margin: 2rem 0;
     }
 
@@ -2590,7 +2603,7 @@ th, td {
 
     .feature-header-description {
         width: 80%;
-        font-size: 1rem;
+        font-size: 2rem;
         margin: 2rem auto;
     }
 
@@ -2851,10 +2864,6 @@ th, td {
         width: 65%;
     }
 
-    .features-header img {
-        max-width: 30%;
-    }
-
     .card-wrapper {
         width: 30%;
     }
@@ -2989,8 +2998,16 @@ th, td {
         width: 75%;
     }
 
+    .feature-card-new {
+        max-width: 500px;
+    }
+
+    .feature-card-new-title {
+        font-size: 32px;
+    }
+
     .features-header {
-        max-height: 50vh;
+        max-height: 70vh;
     }
 
     .feature-focus {
@@ -3006,10 +3023,6 @@ th, td {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-    }
-
-    .features-header img {
-        max-width: 30%;
     }
 
     .card-metric-wrapper {
