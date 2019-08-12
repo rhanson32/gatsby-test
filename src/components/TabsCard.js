@@ -91,6 +91,10 @@ class TabsCard extends React.Component {
     })
   }
 
+  submitMetadata = () => {
+      this.props.uploadMetadata(this.state.metadataFile);
+  }
+
   submitMFA = async () => {
 
     const user = await Auth.currentAuthenticatedUser();
