@@ -26,6 +26,7 @@ const accountReducer = (state = [], action) => {
 
 const ruleReducer = (state = [], action) => {
 
+    console.log(state);
     switch(action.type)
     {
         case 'FETCH_RULES':
@@ -35,7 +36,7 @@ const ruleReducer = (state = [], action) => {
         case 'UPDATE_RULES':
             return [ ...action.payload ]
         case 'ADD_RULE_NOTIFICATION':
-            return [ ...state.rules, action.payload ]
+            return [ ...state, action.payload ]
         default:
             return state;
     }

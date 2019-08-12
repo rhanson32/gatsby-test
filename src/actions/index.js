@@ -491,7 +491,7 @@ export const addRuleNotification = (rule, email) => async dispatch => {
     const newRule = {
         ...rule,
         Notifications: [ ...rule.Notifications ]
-    }
+    };
 
     console.log(newRule);
 
