@@ -103,7 +103,7 @@ class TabsCard extends React.Component {
   }
 
   disableMFA = async () => {
-      
+      console.log('Test');
   }
 
   enableSaml = async () => {
