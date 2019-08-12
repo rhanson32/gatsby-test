@@ -22,7 +22,7 @@ export const getCurrentUser = () => isBrowser && getUser()
 
 export const setExpiration = (date) => isBrowser && (window.localStorage.expirationDate = date)
 
-export const getExpiration = () => isBrowser && window.localStorage.getItem('expirationDate');
+export const getExpiration = () => isBrowser && JSON.parse(window.localStorage.getItem('purifyUser')).expiration;
 
 export const getSSOExpiration = () => isBrowser && window.localStorage.getItem('SSO-Expiration');
 
