@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Spin } from 'antd';
+
 import mail from '../../static/undraw_Mail_sent.svg';
 import progress from '../../static/undraw_progress_tracking.svg';
 import preferences from '../../static/undraw_preferences.svg';
@@ -9,25 +9,22 @@ import cloud from '../../static/undraw_cloud_hosting.svg';
 import list from '../../static/undraw_to_do_list.svg';
 import dashboard from '../../static/undraw_dashboard.svg';
 import sync from '../../static/undraw_synchronize.svg';
-import checklist from '../../static/checklist.jpg';
-import circle from '../../static/circle.png';
+import team from '../../static/undraw_team_page.svg';
 import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap';
 import { Card } from 'antd';
-import { getFeatures } from '../actions';
 
 const { Meta } = Card;
 
 class Features extends React.Component {
     componentDidMount() {
-        this.props.getFeatures();
+
     }
 
     render() {
         return (
             <div className="features-page">
                 <ExternalHeader />
-                {this.props.features.length === 0 && <Spin tip="Loading..." style={{ margin: "40vh auto 0 auto", width: "100vw", height: "100vh" }} size="large" />}
                 <div className="features-header">
                     <img src={sync} />
                     <div className="features-header-message">
@@ -117,10 +114,20 @@ class Features extends React.Component {
                             Get one view of all your cloud accounts, no matter how many you have. See everything at once, and take action on any account with just a few clicks.
                         </div>
                     </div>
-                    
+                    <div className="feature-card-new">
+                        <div className="feature-card-new-image">
+                            <img src={team} />
+                        </div>
+                        <div className="feature-card-new-title">
+                            AD Integration
+                        </div>
+                        <div className="feature-card-new-description">
+                            Integrated with Active Directory, so you can log in to Purify with your existing users without having to manage another username and password.
+                        </div>
+                    </div>
                 </div>
        
-                {this.props.features.length > 0 && <SiteMap />}
+                <SiteMap />
              </div>   
         )
     }  
@@ -128,9 +135,8 @@ class Features extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        features: state.features,
         mobile: state.mobile
     }
 };
 
-export default connect(mapStateToProps, { getFeatures })(Features);
+export default connect(mapStateToProps, null)(Features);

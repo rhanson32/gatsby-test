@@ -23,11 +23,13 @@ class SiteMap extends React.Component {
             <div className="footer-button-header">
                 No obligation or credit card required. Try us today. Upgrade to a paid account later for all features.
             </div>
+            <div className="footer-button-main">
             <Button.List>
-                <Button color="green" onClick={this.signUp}>
+                <Button block color="green" onClick={this.signUp}>
                     Create Account
                 </Button>
             </Button.List>
+            </div>
         </div>
     </div>
     )

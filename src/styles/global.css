@@ -90,7 +90,7 @@ input  {
 .features-header {
     display: flex;
     padding: 3rem 0;
-    width: 100%;
+    width: 90%;
     justify-content: center;
 }
 
@@ -99,7 +99,7 @@ input  {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-size: 32px;
 }
 
 .navigation {
@@ -727,12 +727,12 @@ input  {
 
 .feature-focus {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: auto;
     margin: 4rem 0;
     width: 80%;
-    max-width: 1300px;
+    max-width: 1200px;
 }
 
 .home {
@@ -2258,6 +2258,14 @@ th, td {
         width: 100%;
     }
 
+    .footer-button {
+        align-items: center;
+    }
+
+    .footer-button-main {
+        width: 60%;
+    }
+
     .splash-overlay {
         flex-direction: column;
         justify-content: flex-start;
@@ -2624,7 +2632,7 @@ th, td {
     .feature-focus {
         flex-wrap: wrap;
         padding: 1rem 0;
-        margin: 0;
+        margin: 1rem 0;
     }
 
     .external-header {
@@ -2941,6 +2949,16 @@ th, td {
         height: 20rem;
     }
 
+    .splash-text {
+        width: 60%;
+        align-items: center;
+    }
+
+    .splash-subtitle-new {
+        width: 100%;
+        padding: 0 2rem;
+    }
+
     .dashboard-top {
         width: 100%;
         display: flex;
@@ -3099,12 +3117,20 @@ th, td {
         max-height: 70vh;
     }
 
-    .feature-focus {
-        width: 90%;
-    }
-
     .feature-header-message {
         width: 50%;
+    }
+
+    .footer-button {
+        align-items: center;
+    }
+
+    .footer-button-main {
+        width: 30%;
+    }
+
+    .splash-signup {
+        height: 7rem;
     }
 
     .dashboard-top {
@@ -3255,6 +3281,35 @@ th, td {
         align-items: stretch;
     }
 
+    .splash-subtitle {
+        font-size: 1.65rem;
+    }
+
+    .splash-signup {
+        margin-top: 1rem;
+    }
+
+    .footer-button-main {
+        width: 50%;
+    }
+
+    .footer-button {
+        align-items: center;
+    }
+
+    .splash-image {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    .splash-subtitle-new {
+        font-size: 1.3rem;
+    }
+
+    .splash-text {
+        width: 55%;
+    }
+
     .dashboard-trends-graph {
         width: 100%;
     }
@@ -3297,6 +3352,14 @@ th, td {
     .web-metrics {
         width: 100%;
         align-items: stretch;
+    }
+
+    .footer-button-main {
+        width: 40%;
+    }
+
+    .footer-button {
+        align-items: center;
     }
 
     .dashboard-trends-graph {

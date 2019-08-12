@@ -28,7 +28,7 @@ const App = () => (
         </Helmet>
         <Router>
             <Home path="/" />
-            <PrivateRoute path="app/dashboard" component={Dashboard} />
+            <PrivateRoute path="/app/dashboard" component={Dashboard} />
             <PrivateRoute path="/app/rules" component={RulesPage} />
             <PrivateRoute path="/app/accounts" component={AccountsPage} />
             <PrivateRoute path="/app/users" component={Users} />
