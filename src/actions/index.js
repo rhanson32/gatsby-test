@@ -430,12 +430,38 @@ export const getToken = (inputs) => async dispatch => {
     }
 }
 
-export const enableSaml = () => async dispatch => {
+export const enableSaml = () => async (dispatch, getState) => {
     dispatch({ type: 'ENABLE_SAML', payload: true });
+
+    let myRequest = {
+        body: {
+            event: 'ENABLE_SAML',
+            CustomerId: getState().user.CustomerId
+        },
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    };
+
+    console.log(myRequest);
+
+    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    console.log(response);
 }
 
-export const disableSaml = () => async dispatch => {
+export const disableSaml = () => async (dispatch, getState) => {
     dispatch({ type: 'DISABLE_SAML', payload: false });
+
+    let myRequest = {
+        body: {
+            event: 'DISABLE_SAML',
+            CustomerId: getState().user.CustomerId
+        },
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    };
+
+    console.log(myRequest);
+
+    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    console.log(response);
 }
 
 export const getRules = (user) => async dispatch => {

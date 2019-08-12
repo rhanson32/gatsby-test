@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import { Link } from 'gatsby';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
-import { getExpiration } from '../utils/auth';
+import { getExpiration, getSSOExpiration } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer } from 'antd';
 import Header from './Header';
 import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
@@ -25,6 +25,8 @@ class RulesPage extends React.Component {
     }
 
     componentDidMount = async () => {
+        console.log(getExpiration());
+        console.log(getSSOExpiration());
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
