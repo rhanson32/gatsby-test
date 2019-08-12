@@ -28,8 +28,6 @@ export const postTicket = (values) => async (dispatch, getState) => {
 
 export const postAccount = (item, customerId) => async (dispatch, getState) => {
 
-    console.log(item)
-    console.log(customerId)
     let myRequest = {
         body: {
             ...item,
@@ -266,20 +264,38 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
                 Enabled: provider.M.Enabled.BOOL
             }
         }),
-        Notifications: response.data[0].Notifications.L.map(notification => notification.S)
+        Notifications: response.data[0].Notifications.L.map(notification => notification.S),
+        saml: response.data[0].SAML.BOOL
     }
 
     dispatch({ type: 'FETCH_SETTINGS', payload: settings })
+}
+
+export const uploadMetadata = (file) => async (dispatch, getState) => {
+    let myRequest = {
+        body: {
+            metadatafile: file,
+            CustomerId: getState().user.CustomerId
+        },
+        headers: {
+            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    };
+
+    const response = await purify.post('/saml', myRequest).catch(err => console.log(err));
+
+    console.log(response);
+
 }
 
 export const getFeatures = () => async dispatch => {
     let myRequest = {
         body: {},
         headers: {
-            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
-    const featureResponse = await purify.get('/features', myRequest);
+    const featureResponse = await purify.get('/features', myRequest).catch(err => console.log(err));
     console.log(featureResponse);
     const Items = featureResponse.data.Items.map(item => {
         return {

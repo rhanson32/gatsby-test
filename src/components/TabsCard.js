@@ -84,6 +84,13 @@ class TabsCard extends React.Component {
       });
   }
 
+  onChangeHandler = (e) => {
+    console.log(e.target.files);
+    this.setState({
+        metadataFile: e.target.files[0]
+    })
+  }
+
   submitMFA = async () => {
 
     const user = await Auth.currentAuthenticatedUser();
@@ -116,9 +123,9 @@ class TabsCard extends React.Component {
 
   setupMFA = async () => {
       console.log("Clicked!");
-      const user = await Auth.currentAuthenticatedUser();
+      const user = await Auth.currentAuthenticatedUser().catch(err => console.log(err));
       console.log(user);
-      const response = await Auth.setupTOTP(user);
+      const response = await Auth.setupTOTP(user).catch(err => console.log(err));
         this.setState({
             mfaCode: response
         });
@@ -350,7 +357,7 @@ class TabsCard extends React.Component {
                     Upload Metadata file:
                 </div>
                 <div className="settings-subscription">
-                    <input type="file" name="file" />
+                    <input type="file" name="file" onChange={this.onChangeHandler} />
                 </div>
               </div>
           )

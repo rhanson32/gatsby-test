@@ -11,7 +11,6 @@ import logo from '../../static/PurifyWhiteLogo_1.png';
 class Header extends React.Component {
 
     render() {
-        console.log(this.props.user);
         return (
             <div className="purify-header" autoscroll="true">
                 <div className="header-title">
@@ -21,7 +20,7 @@ class Header extends React.Component {
                     <div className="user-name">
                         {this.props.user.email && (
                             <div style={{ paddingTop: "0.3rem" }}>
-                                <Avatar size="lg" icon="user" />
+                                <Avatar color="cyan" size="lg" icon="user" />
                             </div>
                         )}
                         
