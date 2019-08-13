@@ -183,6 +183,7 @@ class Login extends React.Component {
       const userInfo = {
         ...user.attributes,
         username: user.username,
+        expiration: moment().add('12', hours).toISOString
         // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
       }
 
