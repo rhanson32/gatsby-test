@@ -362,6 +362,9 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <input type="file" name="file" onChange={this.onChangeHandler} />
+                    <Button onClick={this.submitMetadata}>
+                        Upload
+                    </Button>
                 </div>
               </div>
           )
