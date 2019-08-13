@@ -92,7 +92,9 @@ class TabsCard extends React.Component {
   }
 
   submitMetadata = () => {
-      this.props.uploadMetadata(this.state.metadataFile);
+      const data = new FormData();
+      data.append('file', this.state.metadataFile);
+      this.props.uploadMetadata(data);
   }
 
   submitMFA = async () => {
@@ -362,7 +364,7 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <Input type="file" name="file" onChange={this.onChangeHandler} />
-                    <Button onClick={this.submitMetadata}>
+                    <Button type="primary" onClick={this.submitMetadata}>
                         Upload
                     </Button>
                 </div>
