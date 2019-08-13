@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
-import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml } from '../actions';
+import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -361,7 +361,7 @@ class TabsCard extends React.Component {
                     Upload Metadata file:
                 </div>
                 <div className="settings-subscription">
-                    <input type="file" name="file" onChange={this.onChangeHandler} />
+                    <Input type="file" name="file" onChange={this.onChangeHandler} />
                     <Button onClick={this.submitMetadata}>
                         Upload
                     </Button>
@@ -414,4 +414,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml })(TabsCard);
+export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata })(TabsCard);
