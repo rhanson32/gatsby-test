@@ -644,7 +644,7 @@ class Dashboard extends React.Component {
                                                 {this.state.scanComplete && this.props.accounts.filter(account => account.Enabled).length}
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Enabled Accounts
+                                                Enabled Accounts
                                             </div>
                                         </Card.Body>
                                     </Card>

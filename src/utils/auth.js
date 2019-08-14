@@ -6,6 +6,7 @@ const getUser = () => {
   if (window.localStorage.purifyUser !== "null") 
   {
     let user = JSON.parse(window.localStorage.purifyUser)
+    console.log(user);
     return user ? user : {}
   }
   return {}

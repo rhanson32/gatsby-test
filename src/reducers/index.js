@@ -87,6 +87,8 @@ const userReducer = (state = {}, action) => {
             return action.payload
         case 'UPDATE_STATUS':
             return { ...state, Status: action.payload }
+        case 'UPDATE_PLAN':
+            return { ...state, Plan: action.payload }
         default:
             return state;
     }

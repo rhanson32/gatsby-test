@@ -31,10 +31,10 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    const ga = window.gapi && window.gapi.auth2 ? 
-        window.gapi.auth2.getAuthInstance() : 
-        null;
-    if (!ga) this.createScript();
+    // const ga = window.gapi && window.gapi.auth2 ? 
+    //     window.gapi.auth2.getAuthInstance() : 
+    //     null;
+    // if (!ga) this.createScript();
   }
 
   createScript = () => {
@@ -174,7 +174,7 @@ class Login extends React.Component {
     const { username, password } = this.state
     try {
       this.setState({ loading: true, buttonText: 'Signing In...' });
-      const user = await Auth.signIn(username, password);
+      const user = await Auth.signIn(username, password).catch(err => console.log(err));
 
       this.setState({
         user
@@ -187,9 +187,10 @@ class Login extends React.Component {
         // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
       }
 
+      console.log(userInfo);
+
       setUser(userInfo);
       await this.props.saveUser(userInfo);
-      setExpiration(moment().add(8, 'hours').toISOString());
 
       if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
       {

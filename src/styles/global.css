@@ -1560,6 +1560,10 @@ input  {
     width: 70%;
 }
 
+.coupon {
+    padding: 1rem 0;
+}
+
 .splash-image {
     transform: scale(1.5);
 }
@@ -1645,7 +1649,7 @@ input  {
     font-weight: 700;
     height: 100%;
     display: flex;
-    weight: 50%;
+    width: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;

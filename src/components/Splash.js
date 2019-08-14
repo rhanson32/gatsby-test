@@ -17,7 +17,7 @@ class Splash extends React.Component {
     render() {
         return (
                 <div className="splash-overlay">
-                    <div className="splash-image-container"><img className="splash-image" src={logo} /></div>
+                    <div className="splash-image-container"><img src={logo} /></div>
                     <div className="splash-text">
                         <h2 className="splash-subtitle">Cloud Governance that fits your budget</h2>
                         <div className="splash-subtitle-new">Automated discovery of issues. Instant notification to anyone and everyone. Live metrics across all accounts. All for a flat, affordable monthly price.</div>

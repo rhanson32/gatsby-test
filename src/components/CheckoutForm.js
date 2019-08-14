@@ -25,7 +25,8 @@ const createOptions = () => {
 
 class CheckoutForm extends Component {
   state = {
-    discount: ''
+    discount: '',
+    stage: 0
   }
 
   handleChange = ({error}) => {
@@ -34,6 +35,12 @@ class CheckoutForm extends Component {
     }
   };
 
+  handleUpdate = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   handleSubmit = async (ev) => {
     // User clicked submit
     ev.preventDefault();
@@ -41,31 +48,56 @@ class CheckoutForm extends Component {
     console.log("Submitting!");
     const { token } = await this.props.stripe.createToken();
 
-    console.log(token);
-    if(token)
+    if(this.state.discount === '' || this.state.discount === 'ALWAYSFREE' || this.state.discount === 'PURIFYFREE')
     {
-      const response = await submitSubscription(token.id, this.props.user);
-      console.log(response);
+      if(token)
+      {
+        const response = await this.props.submitSubscription(token.id, this.props.user, this.state.discount);
+        console.log(response);
+        this.setState({
+          stage: 1
+        });
+      }
+      else
+      {
+        message.error('Unable to process payment. Please refresh the page and try again.');
+      }
     }
     else
     {
-      message.error('Unable to process payment. Please refresh the page and try again.');
+      message.error('Invalid discount code.');
     }
   }
 
   render() {
     return (
       <div className="checkout">
-        <p style={{ fontWeight: "bold", fontSize: "24px" }}>$299 per month</p>
-        <p style={{ fontSize: "20px" }}>Enter credit card details below to complete the purchase</p>
-        <CardElement 
-            style={{ backgroundColor: "green" }}
-            onChange={this.handleChange}
-            {...createOptions()}
-        />
-        Discount Code: <Input value={this.state.discount} />
-        <Button style={{ margin: "2rem 0" }} type="primary" onClick={this.handleSubmit}>Submit Payment</Button>
-        <p>Your card will be billed monthly until your Purify plan is cancelled. Cancel anytime.</p>
+        {this.state.stage === 0 && (
+          <div>
+          <p style={{ fontWeight: "bold", fontSize: "24px" }}>$299 per month</p>
+          <p style={{ fontSize: "20px" }}>Enter credit card details below to complete the purchase</p>
+          <CardElement 
+              style={{ backgroundColor: "green" }}
+              onChange={this.handleChange}
+              {...createOptions()}
+          />
+          <div className="coupon">
+            <label>
+              Discount Code:
+            </label> 
+            <Input name="discount" value={this.state.discount} onChange={this.handleUpdate} />
+          </div>
+          <Button style={{ margin: "2rem 0" }} type="primary" onClick={this.handleSubmit}>Submit Payment</Button>
+          <p>Your card will be billed monthly until your Purify plan is cancelled. Cancel anytime.</p>
+          </div>
+        )}
+        {
+          this.state.stage === 1 && (
+            <div>
+              Thank you for your purchase. Your plan has now been upgraded to Standard.
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -77,4 +109,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default injectStripe(connect(mapStateToProps, null)(CheckoutForm));
+export default injectStripe(connect(mapStateToProps, { submitSubscription })(CheckoutForm));

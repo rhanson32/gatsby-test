@@ -161,7 +161,7 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
             status: status
         },
         headers: {
-            'x-api-key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -224,7 +224,7 @@ export const modifyRules = (action, id, email) => async (dispatch, getState) => 
     await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
 
-export const submitSubscription = async (id, user) => {
+export const submitSubscription = (id, user, discount) => async dispatch => {
 
     console.log(user);
     const { email, CustomerId } = user;
@@ -233,22 +233,30 @@ export const submitSubscription = async (id, user) => {
         body: { 
             id,
             email,
-            CustomerId
-        }
+            CustomerId,
+            discount
+        },
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     console.log(id);
 
-    const response = await purify.post('/stripe', myRequest);
+    await purify.post('/stripe', myRequest).then(data => {
+        console.log(data);
+        dispatch({ type: 'UPDATE_PLAN', payload: 'Standard' });
+    }).catch(err => {
+        console.log(err);
+    });
+   
 
-    console.log(response);
+    
 }
 
 export const getSettings = (customerId) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -314,7 +322,7 @@ export const saveUser = (user) => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -346,6 +354,7 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
+    console.log("User locally:", purifyUser);
 
     let myRequest = {
         body: {},

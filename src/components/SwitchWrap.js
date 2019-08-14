@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, notification } from 'antd';
+import { Link } from 'gatsby';
+import { Switch, notification, message } from 'antd';
 import { connect } from 'react-redux';
 import { enableRule, disableRule } from '../actions';
 
@@ -20,6 +21,15 @@ class SwitchWrap extends React.Component {
             this.disableRule(id, user);
         }
     }
+
+    error = () => {
+        const RulesMessage = () => (
+            <div>
+                Free plan users may only enable 10 rules at one time. Please <Link to="/app/payment">upgrade</Link> to the Standard plan to remove the cap on rules.
+            </div>
+        )
+        message.error(<RulesMessage />, 5);
+    };
 
     enableRule = (id, user) => {
         const enabledCount = this.props.rules.filter(rule => rule.Enabled).length;

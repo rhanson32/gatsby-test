@@ -9,7 +9,8 @@
 import Amplify, { Auth } from 'aws-amplify'
 import { setUser } from './src/utils/auth'
 import 'normalize.css';
-import "./src/styles/global.css"
+import "./src/styles/global.css";
+import moment from 'moment';
 
 Amplify.configure({
   Auth: {
@@ -30,7 +31,8 @@ export const onRouteUpdate = (state, page, pages) => {
     .then(user => {
       const userInfo = {
         ...user.attributes,
-        username: user.username
+        username: user.username,
+        expiration: localStorage.getItem('purifyUser').expiration || null
       }
       setUser(userInfo)
     })

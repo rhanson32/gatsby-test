@@ -34,24 +34,26 @@ class Payment extends Component {
             <Header />
             <TopMenu />
             <div className="payments-main">
-            <Alert
-              message="Upgrade to Standard today!"
-              description="Fill out the form below to begin using our Standard plan today. Remove all restrictions from your Purify account, so that unlimited rules can be managed and unlimited users can view/edit your account."
-              type="info"
-              showIcon
-              closable
-              style={{ width: "80%", margin: "2rem auto" }}
-            />
-            <StripeProvider apiKey="pk_test_Kqcfc50dM018fN5E1HgPe7Ob002W4ops7h">
-              <div className="payments">
-                <h1>Upgrade to Standard</h1>
-                <Elements>
-                  <CheckoutForm />
-                </Elements>
+              <div>
+                Current subscription: {this.props.user.Plan}
               </div>
-            </StripeProvider>
-            </div>
-            
+              <Alert
+                message="Upgrade to Standard today!"
+                description="Fill out the form below to begin using our Standard plan today. Remove all restrictions from your Purify account, so that unlimited rules can be managed and unlimited users can view/edit your account."
+                type="info"
+                showIcon
+                closable
+                style={{ width: "80%", margin: "2rem auto" }}
+              />
+              <StripeProvider apiKey="pk_test_Kqcfc50dM018fN5E1HgPe7Ob002W4ops7h">
+                <div className="payments">
+                  <h1>Upgrade to Standard</h1>
+                  <Elements>
+                    <CheckoutForm />
+                  </Elements>
+                </div>
+              </StripeProvider>
+            </div>    
       </div>
     );
   }

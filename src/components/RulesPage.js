@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { Link } from 'gatsby';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
 import { getExpiration, getSSOExpiration } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer } from 'antd';
 import Header from './Header';
-import { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
+import { getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
 import RuleItem from './RuleItem';
 import TopMenu from './TopMenu';
 
@@ -44,34 +43,6 @@ class RulesPage extends React.Component {
         else {
             this.props.getRules(this.props.User);
         }
-    }
-
-    error = () => {
-        const RulesMessage = () => (
-            <div>
-                Free plan users may only enable 10 rules at one time. Please <Link to="/app/payment">upgrade</Link> to the Standard plan to remove the cap on rules.
-            </div>
-        )
-        message.error(<RulesMessage />, 5);
-    };
-
-    enableRule = (event) => {
-        const enabledCount = this.props.Rules.filter(rule => rule.Enabled).length;
-        console.log(enabledCount);
-        
-        if(enabledCount >= 10 && this.props.User.Plan === "Free")
-        {
-            console.log("Cannot add more rules. Please upgrade to the Standard Plan to enable more rules.");
-            this.error();
-        }
-        else
-        {
-            this.props.enableRule(event.target.id, this.props.User); 
-        }
-    }
-
-    disableRule = (event) => {
-        this.props.disableRule(event.target.id, this.props.User); 
     }
 
     disableAll = () => {
@@ -273,4 +244,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { saveUser, getRules, getCurrentUser, enableRule, disableRule, modifyRules })(RulesPage);
+export default connect(mapStateToProps, { getRules, getCurrentUser, enableRule, disableRule, modifyRules })(RulesPage);
