@@ -96,10 +96,10 @@ class RuleItem extends React.Component {
                 {
                     this.props.rule.Notifications && this.state.edit && this.props.rule.Notifications.map((notification, index) => {
                         return (
-                            <div className="rule-notification-tag">
-                            <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
-                                {notification}
-                            </Tag>
+                            <div key={index} className="rule-notification-tag">
+                                <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
+                                    {notification}
+                                </Tag>
                             </div>
                         )
                     })

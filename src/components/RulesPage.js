@@ -24,16 +24,25 @@ class RulesPage extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(getExpiration());
-        console.log(getSSOExpiration());
+        const user = await getCurrentUser();
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                await Auth.signOut();
-                navigate('/app/login');
-            }, 2000); 
+            if(user.type !== 'federated')
+            {
+                setTimeout(async () => {
+                    await Auth.signOut();
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            else
+            {
+                setTimeout(async () => {
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            
         }
         if(!this.props.User.email)
         {

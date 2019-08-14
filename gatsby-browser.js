@@ -37,6 +37,6 @@ export const onRouteUpdate = (state, page, pages) => {
       setUser(userInfo)
     })
     .catch(err => {
-      window.localStorage.setItem('gatsbyUser', null)
+      // window.localStorage.setItem('gatsbyUser', null)
     })
 }

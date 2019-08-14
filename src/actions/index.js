@@ -515,7 +515,8 @@ export const getRules = (user) => async dispatch => {
             Violations: item.Violations.L.map(violation => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S,
-                    ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None"
+                    ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None",
+                    AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown"
                 }
             }),
             Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0

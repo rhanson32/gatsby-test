@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { navigate } from '@reach/router';
 import { setUser, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'
@@ -6,7 +6,7 @@ import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
 import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
-import { Input, Button } from 'antd';
+import { Input, Button, notification } from 'antd';
 import moment from 'moment';
 
 Amplify.configure({
@@ -174,34 +174,51 @@ class Login extends React.Component {
     const { username, password } = this.state
     try {
       this.setState({ loading: true, buttonText: 'Signing In...' });
-      const user = await Auth.signIn(username, password).catch(err => console.log(err));
+      const user = await Auth.signIn(username, password).catch(err => {
+        console.log(err);
+        if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to authenticate user due to network error. Please check your network connection and try again.'
+          });
 
-      this.setState({
-        user
+          this.setState({ loading: false, buttonText: 'Sign In' })
+        }
       });
 
-      const userInfo = {
-        ...user.attributes,
-        username: user.username,
-        expiration: moment().add(12, 'hours').toISOString()
-        // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
-      }
-
-      console.log(userInfo);
-
-      setUser(userInfo);
-      await this.props.saveUser(userInfo);
-
-      if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
+      if(user !== undefined)
       {
         this.setState({
-          inputMFA: true
+          user
         });
-      }
-      else
-      {
-        console.log("Navigating to new page...");
-        navigate("/app/dashboard");
+
+        console.log(user);
+
+        const userInfo = {
+          ...user.attributes,
+          username: user.username,
+          expiration: moment().add(12, 'hours').toISOString()
+          // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
+        }
+
+        console.log(userInfo);
+
+        setUser(userInfo);
+        setExpiration(moment().add(12, 'hours').toISOString());
+        await this.props.saveUser(userInfo);
+
+        if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
+        {
+          this.setState({
+            inputMFA: true
+          });
+        }
+        else
+        {
+          console.log("Navigating to new page...");
+          navigate("/app/dashboard");
+        }
       }
     } catch (err) {
       this.setState({ error: err, loading: false, buttonText: 'Sign In' })
@@ -235,7 +252,7 @@ class Login extends React.Component {
           !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && !this.state.inputMFA && (
             <div className="login-form">
               <div className="login-header">Login to your PurifyCloud account</div>
-              {this.state.error && <Error errorMessage={this.state.error}/>}
+              {this.state.error.code !== 'NetworkError' && this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
                 <label>Email</label>
                 <Input placeholder="Email" allowClear name="username" value={this.state.username} onChange={this.handleUpdate} onKeyPress={this.handleKeyPress} />

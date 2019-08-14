@@ -7,11 +7,9 @@ import SiteMap from './SiteMap';
 import dashboard from '../../static/undraw_dashboard.svg';
 import list from '../../static/undraw_to_do_list.svg';
 import agreement from '../../static/undraw_agreement.svg';
-import { getFeatures } from '../actions';
 
 class Home extends React.Component {
     componentDidMount() {
-        this.props.getFeatures()
     }
 
     render() {
@@ -36,4 +34,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getFeatures })(Home);
+export default connect(mapStateToProps, null)(Home);

@@ -6,7 +6,6 @@ const getUser = () => {
   if (window.localStorage.purifyUser !== "null") 
   {
     let user = JSON.parse(window.localStorage.purifyUser)
-    console.log(user);
     return user ? user : {}
   }
   return {}
@@ -21,9 +20,9 @@ export const isLoggedIn = () => {
   
 export const getCurrentUser = () => isBrowser && getUser()
 
-export const setExpiration = (date) => isBrowser && (window.localStorage.expirationDate = date)
+export const setExpiration = (date) => isBrowser && window.localStorage.setItem('expirationDate', date);
 
-export const getExpiration = () => isBrowser && JSON.parse(window.localStorage.getItem('purifyUser')).expiration;
+export const getExpiration = () => isBrowser && window.localStorage.getItem('expirationDate');
 
 export const getSSOExpiration = () => isBrowser && window.localStorage.getItem('SSO-Expiration');
 

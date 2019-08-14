@@ -4,12 +4,13 @@ import BarChart from './BarChart';
 import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { isLoggedIn, getExpiration, getSSOExpiration } from '../utils/auth';
+import { isLoggedIn, getExpiration } from '../utils/auth';
 import { Spin, Table, Modal, Input, Button, message, notification } from 'antd';
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import Header from './Header';
+import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus } from '../actions';
 import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
@@ -58,23 +59,27 @@ class Dashboard extends React.Component {
     
 
     componentDidMount = async () => {
-        console.log(getExpiration());
-        console.log(getSSOExpiration());
-        if(moment(getExpiration()) < moment() && moment(getSSOExpiration()) < moment())
+        const user = await getCurrentUser();
+        if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                await Auth.signOut();
-                navigate('/app/login');
-            }, 2000); 
+            if(user.type !== 'federated')
+            {
+                setTimeout(async () => {
+                    await Auth.signOut();
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            else
+            {
+                setTimeout(async () => {
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            
         }
-        if(moment(getSSOExpiration()) < moment())
-        {
-            setTimeout(async () => {
-                navigate('/app/login');
-            }, 2000); 
-        }
+
         if(this.props.rules.length > 0)
         {
             this.setState({ 
@@ -344,7 +349,6 @@ class Dashboard extends React.Component {
         let foundData = []; 
         let fixedData = [];
         let labels = [];
-        let tempDate;
 
         for(let i = 0; i < numDays; i++)
         {
@@ -367,7 +371,7 @@ class Dashboard extends React.Component {
         let foundData = []; 
         let fixedData = [];
         let labels = [];
-        let tempDate;
+
         const currentDayOfMonth = moment().date();
         let startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
 
@@ -838,8 +842,11 @@ class Dashboard extends React.Component {
                                 {
                                     this.state.showDetail && (
                                         <Card>
+                                            <Card.Header>
+                                                Violation Detail
+                                            </Card.Header>
                                             <Card.Body>
-                                                Some text
+                                                <ViolationTable id={this.state.detailId} rule={this.props.rules.find(rule => rule.RuleId === this.state.detailId)} />
                                             </Card.Body>
                                         </Card>
                                     )
