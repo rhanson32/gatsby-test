@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
             wasteEvaluations: 0,
             showDetail: false,
             detailId: ``,
-            last3days: false,
+            last3days: true,
             last7days: false,
             lastMonth: false,
             chartData: {
@@ -92,7 +92,7 @@ class Dashboard extends React.Component {
             {
                 await this.props.getCurrentUser();
                 await this.props.getRules(this.props.user);
-                this.props.getHistory(this.props.user);
+                await this.props.getHistory(this.props.user);
                 this.last3Days();
             }
             catch(err)
@@ -149,7 +149,7 @@ class Dashboard extends React.Component {
             try
             {
                 await this.props.getRules(this.props.user);
-                this.props.getHistory(this.props.user);
+                await this.props.getHistory(this.props.user);
                 this.last3Days();
             }
             catch(err)
@@ -843,7 +843,8 @@ class Dashboard extends React.Component {
                                     this.state.showDetail && (
                                         <Card>
                                             <Card.Header>
-                                                Violation Detail
+                                                <div>Violation Detail</div>
+                                                <div><Button onClick={this.hideDetail} type="link">Close</Button></div>
                                             </Card.Header>
                                             <Card.Body>
                                                 <ViolationTable id={this.state.detailId} rule={this.props.rules.find(rule => rule.RuleId === this.state.detailId)} />
@@ -965,7 +966,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.accounts.length}
+                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                             New Violations
@@ -978,7 +979,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.accounts.length}
+                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                         Fixed Violations
