@@ -382,7 +382,10 @@ export const getCurrentUser = () => async dispatch => {
     }
     else
     {
-        const user = await Auth.currentAuthenticatedUser().catch(err => console.log(err));
+        const user = await Auth.currentAuthenticatedUser().catch(err => {
+            console.log(err);
+            
+        });
 
         const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
 

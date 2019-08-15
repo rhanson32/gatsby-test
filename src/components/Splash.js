@@ -20,7 +20,7 @@ class Splash extends React.Component {
                     <div className="splash-image-container"><img src={logo} /></div>
                     <div className="splash-text">
                         <h2 className="splash-subtitle">Cloud Governance that fits your budget</h2>
-                        <div className="splash-subtitle-new">Automated discovery of issues. Instant notification to anyone and everyone. Live metrics across all accounts. All for a flat, affordable monthly price.</div>
+                        <div className="splash-subtitle-new">Automated discovery of issues. Instant notification to anyone and everyone. Live metrics across all accounts. All for a flat, affordable monthly price. Cancel anytime.</div>
                         <div className="splash-signup">
                             <Button.List>
                                 <Button size="lg" onClick={this.learnMore} color="white">Learn More</Button>

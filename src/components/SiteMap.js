@@ -14,7 +14,7 @@ class SiteMap extends React.Component {
     return (
     <div className="site-map">
         <div className="site-map-logo">
-        <Link className="site-map-logo" to="/">
+        <Link to="/">
             <img src={logo2} />
             <h1>Purify</h1>
         </Link>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -32,9 +32,7 @@ class TabsCard extends React.Component {
   };
 
   cancelAccount = async () => {
-      console.log("Cancelling account...");
       await this.props.updateCustomerStatus('Cancelled');
-      console.log("Account cancelled.");
   }
 
   handleUpdate = (event) => {
@@ -44,14 +42,37 @@ class TabsCard extends React.Component {
   }
 
   changePassword = async () => {
-      const user = await Auth.currentAuthenticatedUser();
-        const response = await Auth.changePassword(user, this.state.oldPassword, this.state.newPassword).catch(err => console.log(err));
+      const user = await Auth.currentAuthenticatedUser().catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+                notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to retrieve user information due to network error. Please check your network connection and try again.'
+                });
+            }
+      });
+
+      if(user)
+      {
+        const response = await Auth.changePassword(user, this.state.oldPassword, this.state.newPassword).catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+                notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to change password due to network error. Please check your network connection and try again.'
+                });
+            }
+        });
 
         console.log(response);
         this.setState({ 
             oldPassword: ``,
             newPassword: ``
         });
+      }
+        
   }
 
   showConfirm = () => {
@@ -99,14 +120,61 @@ class TabsCard extends React.Component {
 
   submitMFA = async () => {
 
-    const user = await Auth.currentAuthenticatedUser();
-    const response = await Auth.verifyTotpToken(user, this.state.challengeAnswer);
-    console.log(response);
-    Auth.setPreferredMFA(user, 'TOTP').then(data => console.log(data));
-    Auth.currentAuthenticatedUser().then(data => console.log(data));
-    this.setState({
-        showMFASetup: false
+    const user = await Auth.currentAuthenticatedUser().catch(err => {
+        console.log(err);
+        if(err.code === 'NetworkError')
+        {
+            notification.error({
+                message: 'Network Error',
+                description: 'Unable to retrieve user information due to network error. Please check your network connection and try again.'
+            });
+        }
     });
+    if(user)
+    {
+        const response = await Auth.verifyTotpToken(user, this.state.challengeAnswer).catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+                notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to verify authentication code due to network error. Please check your network connection and try again.'
+                });
+            }
+        });
+        if(response)
+        {
+            Auth.setPreferredMFA(user, 'TOTP').then(data => {
+                console.log(data);
+                this.setState({
+                    showMFASetup: false
+                });
+                notification.success({
+                    message: 'MFA Setup Complete',
+                    description: 'You may now use MFA to secure this account.'
+                });
+            }).catch(err => {
+                console.log(err);
+                if(err.code === 'NetworkError')
+                {
+                    notification.error({
+                        message: 'Network Error',
+                        description: 'Unable to set preferred MFA due to network error. Please check your network connection and try again.'
+                    });
+                }
+            });
+            Auth.currentAuthenticatedUser().then(data => console.log(data)).catch(err => {
+                console.log(err);
+                if(err.code === 'NetworkError')
+                {
+                    notification.error({
+                        message: 'Network Error',
+                        description: 'Unable to verify authentication code due to network error. Please check your network connection and try again.'
+                    });
+                }
+            });  
+        } 
+    }
   }
 
   cancelMFA = () => {
@@ -129,21 +197,48 @@ class TabsCard extends React.Component {
 
   setupMFA = async () => {
       console.log("Clicked!");
-      const user = await Auth.currentAuthenticatedUser().catch(err => console.log(err));
-      console.log(user);
-      const response = await Auth.setupTOTP(user).catch(err => console.log(err));
-        this.setState({
-            mfaCode: response
-        });
-
-    const issuer = 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_wMiZuxWyI';
-      console.log(response);
-      const str = "otpauth://totp/AWSCognito:"+ this.props.user.sub + "?secret=" + this.state.mfaCode + "&issuer=" + issuer;
-    this.setState({
-        qrCode: str,
-        showMFASetup: true
-    });
-
+      const user = await Auth.currentAuthenticatedUser().catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+                notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to start MFA setup process due to network error. Please check your network connection and try again.'
+                });
+            }
+      });
+      if(user)
+      {
+            const response = await Auth.setupTOTP(user).catch(err => {
+                console.log(err);
+                if(err.code === 'NetworkError')
+                {
+                    notification.error({
+                        message: 'Network Error',
+                        description: 'Unable to verify MFA setup due to network error. Please check your network connection and try again.'
+                    });
+                }
+                else
+                {
+                    notification.error({
+                        message: 'Unknown Error',
+                        description: 'Unable to link MFA to your account at this time. Please try again later.'
+                    });
+                }
+            });
+            if(response)
+            {
+                this.setState({
+                    mfaCode: response
+                });
+                const issuer = 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_wMiZuxWyI';
+                const str = "otpauth://totp/AWSCognito:"+ this.props.user.sub + "?secret=" + this.state.mfaCode + "&issuer=" + issuer;
+                this.setState({
+                    qrCode: str,
+                    showMFASetup: true
+                });
+            }
+      }
   }
 
     submitNotification = () => {
@@ -154,9 +249,20 @@ class TabsCard extends React.Component {
                 recipient: ``
             });
         }   
-        else
+        else if(this.props.settings.Notifications.includes(this.state.recipient))
         {
             console.log("Invalid entry");
+            notification.warning({
+                message: 'Duplicate Entry',
+                description: 'User is already set up to be notified.'
+            });
+        }
+        else if(!this.state.recipient.includes('@') || !this.state.recipient.includes('.'))
+        {
+            notification.error({
+                message: 'Invalid Format',
+                description: 'Please verify the format of your entry to include an email address.'
+            });
         }
     } 
 
@@ -236,6 +342,7 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
+                    {this.props.user.Plan === "Standard" && this.props.user.Group.includes('Administrators') && <Button type="disabled" size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
                     {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
                     <Button type="danger" size="large" onClick={this.showConfirm}>
                         Cancel Subscription
@@ -320,12 +427,12 @@ class TabsCard extends React.Component {
                 </div>
             )
         } 
-        <div className="settings-row">
+        {/* <div className="settings-row">
             <RegionsForm />
         </div>  
         <div className="settings-row">
             <ServicesForm />
-        </div>  
+        </div>   */}
       </div>,
       SSO: <div>
       {

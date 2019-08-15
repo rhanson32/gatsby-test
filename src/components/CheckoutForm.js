@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from 'react-redux';
-import { Button, message, Input } from 'antd';
+import { Button, message, Input, notification } from 'antd';
 import { submitSubscription } from '../actions';
 
 const createOptions = () => {
@@ -44,19 +44,36 @@ class CheckoutForm extends Component {
   handleSubmit = async (ev) => {
     // User clicked submit
     ev.preventDefault();
+    const { discount } = this.state;
     console.log(this.props);
     console.log("Submitting!");
-    const { token } = await this.props.stripe.createToken();
+    const { token } = await this.props.stripe.createToken().catch(err => {
+      console.log(err);
+      notification.error({
+        message: 'Payment Error',
+        description: 'Unable to connect with payment provider. Please try again in a few minutes.'
+      });
+    });
 
-    if(this.state.discount === '' || this.state.discount === 'ALWAYSFREE' || this.state.discount === 'PURIFYFREE')
+    if(discount === '' || discount === 'ALWAYSFREE' || discount === 'PURIFYFREE')
     {
       if(token)
       {
-        const response = await this.props.submitSubscription(token.id, this.props.user, this.state.discount);
-        console.log(response);
-        this.setState({
-          stage: 1
+        const response = await this.props.submitSubscription(token.id, this.props.user, this.state.discount).catch(err => {
+          console.log(err);
+          notification.error({
+            message: 'Subscription Error',
+            description: 'Unable to subscribe to plan. Please try again in a few minutes.'
+          });
         });
+        console.log(response);
+        if(response)
+        {
+          this.setState({
+            stage: 1
+          });
+        }
+        
       }
       else
       {
@@ -65,7 +82,7 @@ class CheckoutForm extends Component {
     }
     else
     {
-      message.error('Invalid discount code.');
+      message.error('Invalid discount code. Please re-enter code to redeem or clear code input to submit without coupon.');
     }
   }
 

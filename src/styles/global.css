@@ -2967,6 +2967,46 @@ th, td {
         padding: 0 2rem;
     }
 
+    .splash-subtitle {
+        padding: 0 2rem;
+    }
+
+    .feature-card-new-title {
+        font-size: 2rem;
+        margin: 4rem 0 2rem 0;
+    }
+
+    .feature-card-new-description {
+        line-height: 160%;
+    }
+
+    .site-map-logo {
+        width: 30%;
+    }
+
+    .footer-button {
+        width: 60%;
+    }
+
+    .features-header {
+        flex-wrap: wrap;
+    }
+
+    .features-header-message {
+        width: 100%;
+        margin-top: 3rem;
+        line-height: 160%;
+    }
+
+    .footer-button-header {
+        font-size: 20px;
+    }
+
+    .site-map-logo h1 {
+        display: flex;
+        justify-content: flex-end;
+    }
+
     .dashboard-top {
         width: 100%;
         display: flex;
@@ -3384,5 +3424,9 @@ th, td {
     .dashboard-sidebar-2 {
         width: 28%;
         justify-content: stretch;
+    }
+
+    .splash-signup {
+        margin-top: 2rem;
     }
 }

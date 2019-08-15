@@ -67,7 +67,7 @@ class Features extends React.Component {
                             Audit Trail
                         </div>
                         <div className="feature-card-new-description">
-                            Audit history of found violations, fixed violations, and more, going back over a year. Snapshots of individual days included.
+                            Audit history of found and fixed violations, and more, going back over a year. Historical Snapshots included.
                         </div>
                     </div>
                     <div className="feature-card-new">
@@ -75,7 +75,7 @@ class Features extends React.Component {
                             <img src={cloud} />
                         </div>
                         <div className="feature-card-new-title">
-                            Multi-Cloud
+                            Multi-Cloud Support
                         </div>
                         <div className="feature-card-new-description">
                             AWS support available today. Azure support available by the end of 2019. Additional cloud platform support in 2020.

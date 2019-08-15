@@ -16,9 +16,9 @@ class Home extends React.Component {
         return (
             <div className="home">
                 <ExternalHeader />
-                {this.props.features.length > 0  && <Splash mobileMenu={this.props.mobile.mobileMenu} />}
-                <FeatureFocus title="Unlimited Accounts. One View." description="Get one view of all of your accounts, no matter how many you have. See everything at once, and take action on any account with just a few clicks." image={dashboard} />
-                <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based (CIS, etc) rule sets to quickly align yourself with best practices." image={list} reverse={true} />
+                <Splash mobileMenu={this.props.mobile.mobileMenu} />
+                <FeatureFocus title="Unlimited Accounts. One View." description="See one view of all your accounts, no matter how many you have. View everything at once, and take action on any account with just a few clicks." image={dashboard} />
+                <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based (CIS, etc) rule sets to quickly align yourself with proven best practices." image={list} reverse={true} />
                 <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices." image={agreement} />
                 
                 {this.props.features.length > 0  && <SiteMap />}

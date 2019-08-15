@@ -116,7 +116,18 @@ class Login extends React.Component {
 
   requestPassword = async () => {
       const { username } = this.state;
-      await Auth.forgotPassword(username).catch(err => console.log(err));
+      await Auth.forgotPassword(username).catch(err => {
+        console.log(err);
+        if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to initiate forgotten password workflow due to network error. Please check your network connection and try again.'
+          });
+
+          this.setState({ loading: false, buttonText: 'Sign In' })
+        }
+      });
       this.setState({ 
         acceptCode: true,
         forgotPassword: false
@@ -125,28 +136,72 @@ class Login extends React.Component {
 
   resendCode = async () => {
     const { username } = this.state;
-    const response = await Auth.resendSignUp(username).catch(err => console.log(err));
+    const response = await Auth.resendSignUp(username).catch(err => {
+      console.log(err);
+      if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to send authentication code due to network error. Please check your network connection and try again.'
+          });
+
+          this.setState({ loading: false, buttonText: 'Sign In' })
+        }
+    });
     console.log(response);
   }
 
   submitPassword = async () => {
     const { username, code, password } = this.state;
     console.log("Submitting new password!");
-    await Auth.forgotPasswordSubmit(username, code, password).catch(err => console.log(err));
-    console.log("Password changed!");
-    this.setState({
-      acceptCode: false
+    await Auth.forgotPasswordSubmit(username, code, password).then(data => {
+      console.log("Password changed!");
+      this.setState({
+        acceptCode: false
+      })
     })
+    .catch(err => {
+      console.log(err);
+      if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to submit new password due to network error. Please check your network connection and try again.'
+          });
+        }
+    });
+    
   }
 
   confirmUser = async () => {
     const { username, code, password } = this.state;
-    const response = await Auth.confirmSignUp(username, code).catch(err => console.log(err));
-    console.log(response);
+    const response = await Auth.confirmSignUp(username, code).catch(err => {
+      console.log(err);
+      if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to confirm user due to network error. Please check your network connection and try again.'
+          });
+        }
+    });
+
     if(response)
     {
-      await Auth.signIn(username, password).catch(err => console.log(err));
-      navigate('/app/dashboard');
+      await Auth.signIn(username, password).then(data => {
+        navigate('/app/dashboard');
+      })
+      .catch(err => {
+        console.log(err);
+        if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to sign in and redirect user due to network error. Please check your network connection and try again.'
+          });
+        }
+      });
+      
     }
   }
 
@@ -162,7 +217,16 @@ class Login extends React.Component {
   }
 
   confirmMFA = async () => {
-    const response = await Auth.confirmSignIn(this.state.user, this.state.mfaCode, "SOFTWARE_TOKEN_MFA").catch(err => console.log(err));
+    const response = await Auth.confirmSignIn(this.state.user, this.state.mfaCode, "SOFTWARE_TOKEN_MFA").catch(err => {
+      console.log(err);
+      if(err.code === 'NetworkError')
+        {
+          notification.error({
+            message: 'Network Error',
+            description: 'Unable to confirm MFA due to network error. Please check your network connection and try again.'
+          });
+        }
+    });
 
     if(response)
     {
