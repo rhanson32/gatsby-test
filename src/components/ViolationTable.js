@@ -1,9 +1,9 @@
 import React from 'react';
 import { Table } from 'tabler-react';
+import moment from 'moment';
 
 class ViolationTable extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <Table>
                 <Table.Header>
@@ -26,7 +26,7 @@ class ViolationTable extends React.Component {
                                         {violation.ResourceId}
                                     </Table.Col>
                                     <Table.Col>
-                                        {violation.ViolationDate}
+                                        {moment(violation.ViolationDate).format("MMMM Do YYYY, h:mm:ss a")}
                                     </Table.Col>
                                     <Table.Col>
                                         {violation.AccountId}

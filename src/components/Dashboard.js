@@ -215,7 +215,6 @@ class Dashboard extends React.Component {
                     return accumulator + currentValue;
                 }, 0)
             });
-            console.log("Interval function invoked:", this.state.interval);
         }, 30000)});
 
         this.setState({
@@ -417,7 +416,6 @@ class Dashboard extends React.Component {
     }
 
     showDetail = (e) => {
-        console.log(e.target.id);
         this.setState({
             showDetail: true,
             detailId: e.target.id

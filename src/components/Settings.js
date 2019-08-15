@@ -26,7 +26,6 @@ class Settings extends React.Component {
     };
 
     componentDidMount = async () => {
-        console.log(getExpiration());
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");

@@ -225,7 +225,7 @@ class RulesPage extends React.Component {
                         }
                         </div>
                         <div className="web-rules">
-                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 10 }} dataSource={dataSource} columns={columns} />}   
+                            {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} dataSource={dataSource} columns={columns} />}   
                         </div>
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 

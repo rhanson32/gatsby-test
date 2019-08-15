@@ -22,14 +22,6 @@ class History extends React.Component {
                 navigate('/app/login');
             }, 2000); 
         }
-        if(moment(getSSOExpiration()) < moment())
-        {
-            console.log("User session has expired");
-            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                navigate('/app/login');
-            }, 2000); 
-        }
         if(!this.props.user.email)
         {
             await this.props.getCurrentUser();
@@ -93,7 +85,7 @@ class History extends React.Component {
                         <div className="support-screen-header">
                             <h1>Audit Log</h1>
                         </div>
-                        <Table pagination={{ position: "bottom", pageSize: 10 }} dataSource={dataSource} columns={columns} />
+                        <Table pagination={{ position: "bottom", pageSize: 8 }} dataSource={dataSource} columns={columns} />
                     </div>
                 </div>    
             </div>

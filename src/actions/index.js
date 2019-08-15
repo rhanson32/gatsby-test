@@ -252,7 +252,7 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
     
 }
 
-export const getSettings = (customerId) => async (dispatch, getState) => {
+export const getSettings = (customerId) => async dispatch => {
     let myRequest = {
         body: { },
         headers: {
@@ -260,10 +260,7 @@ export const getSettings = (customerId) => async (dispatch, getState) => {
         }
     }
 
-    console.log(myRequest);
     const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
-
-    console.log(response);
 
     const settings =  {
         Providers: response.data[0].Providers.L.map(provider => {
@@ -293,7 +290,6 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
     const response = await purify.post('/saml', myRequest).catch(err => console.log(err));
 
     console.log(response);
-
 }
 
 export const getFeatures = () => async dispatch => {
@@ -354,7 +350,6 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
-    console.log("User locally:", purifyUser);
 
     let myRequest = {
         body: {},
@@ -384,10 +379,11 @@ export const getCurrentUser = () => async dispatch => {
     {
         const user = await Auth.currentAuthenticatedUser().catch(err => {
             console.log(err);
-            
         });
 
-        const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest);
+        const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest).catch(err => {
+            console.log(err);
+        });
 
         const userInfo = {
             ...user.attributes,
@@ -419,12 +415,12 @@ export const validateCompany = async (user) => {
     let postResponse;
 
     let queryString = '?company=' + user.company;
-    const customerResponse = await purify.get('/customers' + queryString)
+    const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
     console.log(customerResponse);
 
     if(customerResponse.data.length === 0)
     {
-        postResponse = await purify.put('/customers', myRequest)
+        postResponse = await purify.put('/customers', myRequest).catch(err => console.log(err));
         console.log(postResponse);
         return true;
     }
@@ -503,7 +499,7 @@ export const getRules = (user) => async dispatch => {
 
     const { CustomerId } = user;
 
-    const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest);
+    const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest).catch(err => console.log(err));
 
     const Items = rulesResponse.data.map(item => {
         return {
@@ -585,7 +581,7 @@ export const disableRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -706,11 +702,11 @@ export const toggleAWS = () => async (dispatch, getState) => {
             NewValue: newValue
         },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
-    const settingsUpdateResponse = await purify.put('/settings', myRequest);
+    const settingsUpdateResponse = await purify.put('/settings', myRequest).catch(err => console.log(err));
     console.log(settingsUpdateResponse);
 }
 
@@ -730,11 +726,11 @@ export const fetchTickets = () => async (dispatch, getState) => {
     let myRequest = {
         body: {},
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
-    const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest);
+    const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest).catch(err => console.log(err));
 
     const items = ticketResponse.data.map(item => {
         return { 

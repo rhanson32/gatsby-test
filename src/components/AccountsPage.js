@@ -63,7 +63,6 @@ class Accounts extends React.Component {
     }
 
     showDrawer = (event) => {
-      console.log(event.target.id);
       this.setState({
         accountId: event.target.id,
         showDrawer: true
