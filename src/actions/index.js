@@ -14,7 +14,7 @@ export const postTicket = (values) => async (dispatch, getState) => {
             CustomerId: getState().user.CustomerId
         },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
     console.log(myRequest);
@@ -36,7 +36,7 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
             Status: 'New'
         },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
     purify.post('/accounts', myRequest).then(
@@ -47,8 +47,6 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
 }
 
 export const updateAccount = (account, role) => async (dispatch, getState) => {
-    console.log(account);
-    console.log(role);
 
     let RoleArn = 'arn:aws:iam::' + account.AccountId + ':role/' + role;
 
@@ -59,7 +57,7 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
             Role: RoleArn
         },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -385,6 +383,8 @@ export const getCurrentUser = () => async dispatch => {
             console.log(err);
         });
 
+        console.log(customerResponse);
+
         const userInfo = {
             ...user.attributes,
             IdToken: user.signInUserSession.idToken.jwtToken,
@@ -406,7 +406,7 @@ export const validateCompany = async (user) => {
     let myRequest = {
         body:   { 
                 email: user.email, 
-                company: user.company.replace(/ /g, "-"),
+                company: user.company.trim().replace(/ /g, "-"),
                 userName: user.username
             },
         headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
@@ -615,7 +615,7 @@ export const enableRule = (id, user) => async (dispatch, getState) => {
     let myRequest = {
         body: { },
         headers: {
-            "x-api-key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 

@@ -5,7 +5,7 @@ import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
 import ExternalHeader from './ExternalHeader';
-import { Input, Button } from 'antd';
+import { Input, Button, notification } from 'antd';
 
 const initialState = {
   username: ``,
@@ -37,19 +37,25 @@ class SignUp extends React.Component {
       try {
         this.setState({ error: null });
         signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.replace(/ /g, '-') }}).catch(err => {
-          console.log(err)
+          console.log(err);
           if(err.code === 'UsernameExistsException')
           {
             this.setState({
               error: 'Username already exists. Please login with username and password or use another email address.'
-            })
+            });
+          }
+          else
+          {
+            this.setState({
+              error: 'An error occurred. Please try again.'
+            });
           }
           this.setState({ loading: false });
         });
 
         if(signUpResponse)
         {
-            valid = await validateCompany(this.state);
+            valid = await validateCompany(this.state).catch(err => console.log(err));
             if(!valid)
             {
               this.setState({ error: { message: 'Company name already exists. Please ask your administrator for access.' } })
@@ -57,19 +63,26 @@ class SignUp extends React.Component {
             else
             {
               this.setState({ stage: 1 });
+              notification.success({
+                message: 'Sign Up Complete',
+                description: 'Account created successfully.'
+              });
             }
         }
       } catch (err) {
-        this.setState({ error: err });
+        this.setState({ 
+          error: err,
+          loading: false
+        });
       }
     }
 
     confirmSignUp = async() => {
-        const { email, authCode } = this.state
+        const { email, authCode } = this.state;
         try {
           await Auth.confirmSignUp(email, authCode).catch(err => console.log(err));
-          alert('Successfully signed up! Click OK to go to the login screen.')
-          navigate("/app/login")
+          alert('Successfully signed up! Click OK to go to the login screen.');
+          navigate("/app/login");
         } catch (err) {
           this.setState({ error: err });
         }
@@ -83,34 +96,39 @@ class SignUp extends React.Component {
               this.state.stage === 0 && (
                 <div className="signup-form">
                   <div className="signup-header">Welcome to PurifyCloud</div>
-                  {this.state.error && <Error errorMessage={this.state.error}/>}
+                    {this.state.error && <Error errorMessage={this.state.error}/>}
                   <div className="signup-container">
-                  <label>Email</label>
-                  <Input 
-                    onChange={this.handleUpdate}
-                    placeholder='you@yourcompany.com'
-                    name='email'
-                    value={this.state.email}
-                    allowClear
-                  />
-                  <label>Password</label>
-                  <Input 
-                    onChange={this.handleUpdate}
-                    placeholder='Password'
-                    name='password'
-                    value={this.state.password}
-                    type='password'
-                    allowClear
-                  />
-                  <label>Company</label>
-                  <Input 
-                    onChange={this.handleUpdate}
-                    placeholder='YourCorp'
-                    name='company'
-                    value={this.state.company}
-                    allowClear
-                  />
-                  <Button loading={this.state.loading} onClick={this.signUp} type="primary">{this.state.buttonText}</Button>
+                    <label>Email</label>
+                    <Input 
+                      onChange={this.handleUpdate}
+                      placeholder='you@yourcompany.com'
+                      name='email'
+                      value={this.state.email}
+                      allowClear
+                    />
+                    <label>Password</label>
+                    <Input 
+                      onChange={this.handleUpdate}
+                      placeholder='Password'
+                      name='password'
+                      value={this.state.password}
+                      type='password'
+                      allowClear
+                    />
+                    <label>Company</label>
+                    <Input 
+                      onChange={this.handleUpdate}
+                      placeholder='YourCorp'
+                      name='company'
+                      value={this.state.company}
+                      allowClear
+                    />
+                    <Button 
+                      loading={this.state.loading} 
+                      onClick={this.signUp} 
+                      type="primary">
+                        {this.state.buttonText}
+                    </Button>
                   </div>  
                 </div>
           )

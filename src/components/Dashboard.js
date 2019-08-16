@@ -11,7 +11,7 @@ import "tabler-react/dist/Tabler.css";
 import TopMenu from './TopMenu';
 import Header from './Header';
 import ViolationTable from './ViolationTable';
-import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus } from '../actions';
+import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
 
@@ -140,9 +140,15 @@ class Dashboard extends React.Component {
             this.props.fetchUsers(this.props.user.CustomerId);
 
             if(this.props.user.Status === "Cancelled")
-            this.setState({ visible: true })
+            {
+                this.setState({ visible: true });
+            }
+                
             if(this.props.user.Status === "New")
-            this.setState({ welcomeScreen: true })
+            {
+                this.setState({ welcomeScreen: true });
+            }
+                
         }
         else
         {
@@ -231,6 +237,16 @@ class Dashboard extends React.Component {
 
     getData = (percent) => {
         return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }];
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    submitAccount = () => {
+        
     }
 
     showAll = () => {
@@ -441,7 +457,14 @@ class Dashboard extends React.Component {
     }
 
     handleSubmit = () => {
-
+        const item = {
+            id: this.state.accountId,
+            provider: 'AWS'
+        };
+        this.props.postAccount(item, this.props.user.CustomerId);
+        this.setState({
+            welcomeScreen: false
+        });
     }
 
     render() {
@@ -540,14 +563,10 @@ class Dashboard extends React.Component {
                     cancelText="Dismiss"
                 >
                     <div className="new-account-modal">
-                        <p>In order to get started quickly, please input the role information for your AWS master account below.</p>
+                        <p>In order to get started quickly, please input the Account Id for your AWS master account below.</p>
                         <div className="new-account-modal-input">
                             <label>Account Id</label>
-                            <Input value={this.state.account} onChange={this.handleChange}></Input>
-                        </div>
-                        <div className="new-account-modal-input">
-                        <label>Role Name</label>
-                        <Input></Input>
+                            <Input name="accountId" value={this.state.accountId} onChange={this.handleChange} />
                         </div>
                         <p>Unsure how to deploy a role with sufficient permissions in your account? Use our CloudFormation template available <a href="#">here</a></p>
                     </div>
@@ -1021,4 +1040,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getHistory, fetchUsers, updateCustomerStatus })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getHistory, fetchUsers, updateCustomerStatus, postAccount })(Dashboard);
