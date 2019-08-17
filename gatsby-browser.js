@@ -8,9 +8,8 @@
 
 import Amplify, { Auth } from 'aws-amplify'
 import { setUser } from './src/utils/auth'
-import 'normalize.css';
+import 'normalize.css/normalize.css';
 import "./src/styles/global.css";
-import moment from 'moment';
 
 Amplify.configure({
   Auth: {

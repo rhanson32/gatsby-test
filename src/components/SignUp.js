@@ -137,13 +137,14 @@ class SignUp extends React.Component {
           this.state.stage === 1 && (
             <div className="confirm-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
+              <label>Authorization Code</label>
               <Input
                 onChange={this.handleUpdate}
                 placeholder='Authorization Code'
                 name='authCode'
                 value={this.state.authCode}
               />
-              <Button onClick={this.confirmSignUp}>
+              <Button type="primary" onClick={this.confirmSignUp}>
                 Confirm Sign Up
               </Button>
             </div>
