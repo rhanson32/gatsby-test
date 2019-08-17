@@ -140,7 +140,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
                 RoleName: (item.RoleName && item.RoleName.S) || 'None',
                 CustomerId: item.CustomerId.S,
                 Status: item.Status.S,
-                Enabled: item.Enabled.BOOL
+                Enabled: (item.Enabled && item.Enabled.BOOL) || false
             }
         });
         dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
@@ -268,7 +268,7 @@ export const getSettings = (customerId) => async dispatch => {
             }
         }),
         Notifications: response.data[0].Notifications.L.map(notification => notification.S),
-        saml: response.data[0].SAML.BOOL
+        saml: (response.data[0].SAML && response.data[0].SAML.BOOL) || false
     }
 
     dispatch({ type: 'FETCH_SETTINGS', payload: settings })
