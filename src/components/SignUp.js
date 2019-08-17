@@ -137,6 +137,9 @@ class SignUp extends React.Component {
           this.state.stage === 1 && (
             <div className="confirm-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
+              <div>
+                Please enter the authorization code you received by email to validate your email address.
+              </div>
               <label>Authorization Code</label>
               <Input
                 onChange={this.handleUpdate}
@@ -146,6 +149,9 @@ class SignUp extends React.Component {
               />
               <Button type="primary" onClick={this.confirmSignUp}>
                 Confirm Sign Up
+              </Button>
+              <Button type="link">
+                Send me another code
               </Button>
             </div>
           )

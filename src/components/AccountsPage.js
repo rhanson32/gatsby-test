@@ -83,8 +83,7 @@ class Accounts extends React.Component {
                 <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
                     Invalid
                 </Button>,
-                state: <SwitchWrapAccount checked={account.Enabled} account={account} />,
-                action: <Button type="link" id={account.AccountId} onClick={this.showDrawer}>Edit</Button>
+                state: <SwitchWrapAccount checked={account.Enabled} account={account} />
             }    
         });
 
@@ -143,11 +142,6 @@ class Accounts extends React.Component {
               title: 'State',
               dataIndex: 'state',
               key: 'state'
-            },
-            {
-              title: ' ',
-              dataIndex: 'action',
-              key: 'action'
             }
           ];
 
@@ -163,11 +157,6 @@ class Accounts extends React.Component {
               title: 'Role',
               dataIndex: 'role',
               key: 'role'
-            },
-            {
-              title: ' ',
-              dataIndex: 'action',
-              key: 'action'
             }
           ];
 

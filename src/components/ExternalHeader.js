@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
 import { Modal } from 'antd';
-import { Button } from 'tabler-react';
+import { Button, Icon } from 'tabler-react';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
 import logo3 from '../../static/PurifyWhiteLogo_2.png';
@@ -43,7 +43,7 @@ class ExternalHeader extends React.Component {
                     <Link activeClassName="active-link" to="/app/docs">Docs</Link>       
                 </div>
                 <div className="right-menu">
-                    <Link className="login-link" to="/app/login">Sign In</Link>
+                    <Link className="login-link" to="/app/login">Sign In <Icon name="log-in" /></Link>
                 </div>
                 <div className="modal-container">
                     <Modal

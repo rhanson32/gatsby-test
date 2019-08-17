@@ -244,10 +244,9 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
         dispatch({ type: 'UPDATE_PLAN', payload: 'Standard' });
     }).catch(err => {
         console.log(err);
+        return false;
     });
-   
-
-    
+    return true;
 }
 
 export const getSettings = (customerId) => async dispatch => {
@@ -391,6 +390,7 @@ export const getCurrentUser = () => async dispatch => {
             CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
             Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
             Plan: customerResponse.data[0].Plan.S,
+            SignedUrl: customerResponse.data[0].SignedUrl.S,
             Status: customerResponse.data[0].Status.S,
             Type: 'Native',
             Group: user.signInUserSession.idToken.payload['cognito:groups'][0],

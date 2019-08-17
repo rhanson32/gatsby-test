@@ -4,7 +4,7 @@ import { navigate } from '@reach/router'
 import { Button } from 'antd';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify';
-import { Avatar } from 'tabler-react';
+import { Avatar, Icon } from 'tabler-react';
 import logo from '../../static/PurifyWhiteLogo_1.png';
 
 
@@ -42,7 +42,7 @@ class Header extends React.Component {
                                 type="default"
                                 onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
                             >
-                                Sign Out
+                                Sign Out <Icon name="log-out" />
                             </Button>
                         )
                     }

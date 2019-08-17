@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import BarChart from './BarChart';
 import 'c3/c3.css';
-import { navigate } from '@reach/router';
+import { navigate, Link } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
 import { Spin, Table, Modal, Input, Button, message, notification } from 'antd';
@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            ModalText: 'Content of the modal',
+            ModalText: 'This account has been cancelled. Visit the Settings page to re-enable this account.',
             visible: false,
             confirmLoading: false,
             welcomeScreen: false,
@@ -91,6 +91,15 @@ class Dashboard extends React.Component {
             try
             {
                 await this.props.getCurrentUser();
+                if(this.props.user.Status === "Cancelled")
+                {
+                    this.setState({ visible: true });
+                }
+                    
+                if(this.props.user.Status === "New")
+                {
+                    this.setState({ welcomeScreen: true });
+                }
                 await this.props.getRules(this.props.user);
                 await this.props.getHistory(this.props.user);
                 this.last3Days();
@@ -139,15 +148,7 @@ class Dashboard extends React.Component {
             this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId);
 
-            if(this.props.user.Status === "Cancelled")
-            {
-                this.setState({ visible: true });
-            }
-                
-            if(this.props.user.Status === "New")
-            {
-                this.setState({ welcomeScreen: true });
-            }
+            
                 
         }
         else
@@ -453,7 +454,7 @@ class Dashboard extends React.Component {
 
     handleDismiss = () => {
         this.props.updateCustomerStatus("Active");
-        this.setState({ welcomeScreen: false })
+        this.setState({ welcomeScreen: false });
     }
 
     handleSubmit = () => {
@@ -561,14 +562,29 @@ class Dashboard extends React.Component {
                     confirmLoading={confirmLoading}
                     onCancel={this.handleDismiss}
                     cancelText="Dismiss"
+                    width="80%"
                 >
                     <div className="new-account-modal">
-                        <p>In order to get started quickly, please input the Account Id for your AWS master account below.</p>
-                        <div className="new-account-modal-input">
-                            <label>Account Id</label>
-                            <Input name="accountId" value={this.state.accountId} onChange={this.handleChange} />
-                        </div>
-                        <p>Unsure how to deploy a role with sufficient permissions in your account? Use our CloudFormation template available <a href="#">here</a></p>
+                        <h1>Getting Started with Purify on AWS</h1>
+                        <ol>
+                            <li>Download the <a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> CloudFormation template.</li>
+                            <li>Deploy the template from Step 1 in your AWS master account.</li>
+                            <li>Visit the AWS tab of the <Link to="/app/settings">Settings</Link> page.</li>
+                            <li>Enable AWS.</li>
+                            <li>Enter your AWS master account ID.</li>
+                            <li>We take care of the rest!</li>
+                        </ol>
+                    </div>
+                </Modal>
+                
+                <Modal
+                    visible={this.props.rules.length === 0 && this.props.accounts.length === 0}
+                    width="80%"
+                    centered={true}
+                >
+                    <div className="loading-modal">
+                        <Spin style={{ fontSize: "48px" }} />
+                            <div>Retrieving latest data...</div>
                     </div>
                 </Modal>
 

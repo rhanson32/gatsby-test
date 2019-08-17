@@ -89,7 +89,7 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
-        {this.state.stage === 0 && (
+        {this.state.stage === 0 && this.props.user && this.props.user.Plan === 'Free' && (
           <div>
           <p style={{ fontWeight: "bold", fontSize: "24px" }}>$299 per month</p>
           <p style={{ fontSize: "20px" }}>Enter credit card details below to complete the purchase</p>

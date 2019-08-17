@@ -249,6 +249,15 @@ class Login extends React.Component {
 
           this.setState({ loading: false, buttonText: 'Sign In' })
         }
+        else if(err.code === 'UserNotConfirmedException')
+        {
+          Auth.resendSignUp(this.state.username).catch(err => {
+            console.log(err);
+          });
+          this.setState({
+            confirmUser: true
+          });
+        }
       });
 
       if(user !== undefined)
@@ -391,7 +400,7 @@ class Login extends React.Component {
                   value={this.state.code}
                   onKeyPress={this.handleKeyPress}
                 />
-                <Button onClick={this.requestPassword}>Resend Code</Button>
+                
                 <label>
                   New Password
                 </label>
@@ -404,6 +413,7 @@ class Login extends React.Component {
                   onKeyPress={this.handleKeyPress}
                 />
                 <Button onClick={this.submitPassword} type="primary">Submit</Button>
+                <Button type="link" onClick={this.requestPassword}>Send Me Another Code</Button>
               </div>
             </div>
           )
@@ -423,8 +433,8 @@ class Login extends React.Component {
                   value={this.state.code}
                   onKeyPress={this.handleKeyPress}
                 />
-                <Button onClick={this.resendCode}>Resend Code</Button>
                 <Button onClick={this.confirmUser} type="primary">Submit</Button>
+                <Button type="link" onClick={this.resendCode}>Send Me Another Code</Button>
               </div>
             </div>
           )
