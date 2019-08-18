@@ -106,7 +106,7 @@ class TabsCard extends React.Component {
   }
 
   onChangeHandler = (e) => {
-    console.log(e.target.files);
+    console.log(e.target.files[0]);
     this.setState({
         metadataFile: e.target.files[0]
     })
@@ -114,7 +114,9 @@ class TabsCard extends React.Component {
 
   submitMetadata = () => {
       const data = new FormData();
+      console.log(this.state.metadataFile);
       data.append('file', this.state.metadataFile);
+      console.log(data);
       this.props.uploadMetadata(data);
   }
 

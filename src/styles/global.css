@@ -752,6 +752,10 @@ input  {
     margin: auto 3rem;
 }
 
+.web-metrics {
+    transition: height 5s;
+}
+
 .feature-focus {
     display: flex;
     justify-content: space-between;
