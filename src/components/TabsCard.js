@@ -3,6 +3,8 @@ import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notifica
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
+import { FilePond, registerPlugin } from "react-filepond";
+import "filepond/dist/filepond.min.css";
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
 import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
@@ -18,13 +20,15 @@ class TabsCard extends React.Component {
     oldPassword: ``,
     newPassword: ``,
     showMFASetup: false,
-    recipient: ``
+    recipient: ``,
+    files: [],
+    fileUpload: false
   };
 
     showKey = () => {
         this.setState({
             showKey: !this.state.showKey
-        })
+        });
     }
 
   onTabChange = (key, type) => {
@@ -34,6 +38,10 @@ class TabsCard extends React.Component {
   cancelAccount = async () => {
       await this.props.updateCustomerStatus('Cancelled');
   }
+
+    handleInit() {
+        console.log('FilePond instance has initialised', this.pond);
+    }
 
   handleUpdate = (event) => {
     this.setState({
@@ -118,6 +126,18 @@ class TabsCard extends React.Component {
       data.append('file', this.state.metadataFile);
       console.log(data);
       this.props.uploadMetadata(data);
+  }
+
+  showBrowser = () => {
+      this.setState({
+          fileUpload: true
+      })
+  }
+
+  hideBrowser = () => {
+      this.setState({
+          fileUpload: false
+      })
   }
 
   submitMFA = async () => {
@@ -273,7 +293,7 @@ class TabsCard extends React.Component {
     }
 
   render() {
-
+    console.log(this.state);
     const tabListNoTitle = [
         {
           key: 'General',
@@ -471,9 +491,9 @@ class TabsCard extends React.Component {
                     Upload Metadata file:
                 </div>
                 <div className="settings-subscription">
-                    <input type="file" name="file" onChange={this.onChangeHandler} />
-                    <Button type="primary" onClick={this.submitMetadata}>
-                        Upload
+                    
+                    <Button type="primary" onClick={this.showBrowser}>
+                        Open File Browser
                     </Button>
                 </div>
               </div>
@@ -494,6 +514,26 @@ class TabsCard extends React.Component {
             >
                 {contentListNoTitle[this.state.noTitleKey]}
             </Card>
+            <Modal
+                visible={this.state.fileUpload}
+                onCancel={this.hideBrowser}
+                onOk={this.submitMetadata}
+            >
+                <FilePond ref={ref => this.pond = ref}
+                    files={this.state.files}
+                    allowMultiple={false}
+                    maxFiles={1}
+                    server="https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test/saml"
+                    oninit={() => this.handleInit() }
+                    onupdatefiles={(fileItems) => {
+                        // Set current file objects to this.state
+                        this.setState({
+                            files: fileItems.map(fileItem => fileItem.file)
+                        });
+                    }}>
+                </FilePond>
+            </Modal>
+            
             <Drawer
                 title={this.state.title}
                 placement="right"

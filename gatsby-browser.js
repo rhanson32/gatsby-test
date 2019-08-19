@@ -10,6 +10,7 @@ import Amplify, { Auth } from 'aws-amplify'
 import { setUser } from './src/utils/auth'
 import 'normalize.css/normalize.css';
 import "./src/styles/global.css";
+import "filepond/dist/filepond.min.css";
 
 Amplify.configure({
   Auth: {
