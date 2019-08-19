@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
-import { Modal } from 'antd';
+import { Modal, Drawer } from 'antd';
 import { Button, Icon } from 'tabler-react';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
@@ -45,7 +45,7 @@ class ExternalHeader extends React.Component {
                 <div className="right-menu">
                     <Link className="login-link" to="/app/login">Sign In <Icon name="log-in" /></Link>
                 </div>
-                <div className="modal-container">
+                {/* <div className="modal-container">
                     <Modal
                         title={null}
                         visible={this.state.showMobile}
@@ -56,7 +56,16 @@ class ExternalHeader extends React.Component {
                         >
                         <MobileMenu />
                     </Modal>
-                </div>
+                </div> */}
+                <Drawer
+                    title={this.state.title}
+                    placement="right"
+                    closable={false}
+                    onClose={this.toggleMobile}
+                    visible={this.state.showMobile}
+                    >
+                    {this.state.ruleId !== null && <MobileMenu />}
+                </Drawer>
             </div>
         )
     }

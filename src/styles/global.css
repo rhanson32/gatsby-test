@@ -89,7 +89,7 @@ input  {
 
 .features-header {
     display: flex;
-    padding: 3rem 0;
+    padding: 3rem 0 2rem 0;
     width: 90%;
     justify-content: center;
 }
@@ -128,7 +128,6 @@ input  {
     opacity: 0.95;
     color: white;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0;
@@ -141,7 +140,7 @@ input  {
     align-items: center;
     font-size: 1.5rem; 
     line-height: 2rem;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     width: 28%;
 }
 
@@ -679,9 +678,8 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 4rem 0;
+    margin: 2rem 0;
     max-width: 1400px;
-    width: 80%;
 }
 
 .feature-card {
@@ -761,7 +759,7 @@ input  {
     justify-content: space-between;
     align-items: center;
     height: auto;
-    margin: 4rem 0;
+    margin: 3rem 0;
     width: 80%;
     max-width: 1200px;
 }
@@ -1190,6 +1188,16 @@ input  {
 
 .docs-section p {
     line-height: 140%;
+}
+
+.docs-architecture {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.docs-architecture img {
+    max-width: 80%;
 }
 
 .sign-up-link {
@@ -1628,11 +1636,9 @@ input  {
 
 .splash-subtitle-new {
     font-size: 1.5rem;
-    width: 70%;
 }
 
 .splash-overlay {
-    height: 70vh;
     width: 100%;
     opacity: 0.95;
     background-color: #0984e3;
@@ -2326,6 +2332,15 @@ th, td {
         font-size: 16px;
     }
 
+    .feature-focus-image {
+        margin: 0 auto;
+    }
+
+    .site-map-logo h1 {
+        display: flex;
+        justify-content: center;
+    }
+
     .splash-text {
         width: 95%;
         margin: 2rem auto;
@@ -2685,6 +2700,7 @@ th, td {
 
     .external-header {
         height: 5rem;
+        justify-content: space-around;
     }
 
     .action-header {
@@ -3148,7 +3164,7 @@ th, td {
     }
 
     .right-menu {
-        width: 30%;
+        width: 20%;
         font-size: 1.2rem;
         justify-content: flex-end;
     }
@@ -3198,6 +3214,10 @@ th, td {
         padding: 2rem;
     }
 
+    .splash-overlay {
+        height: 70vh;
+    }
+
     .splash-subtitle {
         font-size: 2.5rem;
         line-height: 160%;
@@ -3205,6 +3225,15 @@ th, td {
 
     .feature-focus-image {
         height: 20rem;
+    }
+
+    .site-map-logo {
+        align-items: center;
+    }
+
+    .site-map-logo h1 {
+        display: flex;
+        justify-content: center;
     }
 
     .feature-card-new {
@@ -3464,6 +3493,10 @@ th, td {
         align-items: center;
     }
 
+    .splash-overlay {
+        height: 70vh;
+    }
+
     .dashboard-trends-graph {
         width: 70%;
     }
@@ -3483,4 +3516,66 @@ th, td {
     .splash-signup {
         margin-top: 2rem;
     }
+}
+
+/**************************************************************************/
+
+@media screen and (max-width: 600px) and (orientation: landscape) {
+
+    .right-menu {
+        width: 20%;
+    }
+
+}
+
+/**************************************************************************/
+
+@media screen and (max-width: 600px) and (orientation: portrait) {
+
+    .right-menu {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        width: 50%;
+    }
+
+    .external-title {
+        width: 50%;
+    }
+
+}
+
+/**************************************************************************/
+
+@media screen and (orientation: portrait) {
+
+    .splash-overlay {
+        height: 70vh;
+    }
+
+}
+
+/**************************************************************************/
+
+@media screen and (min-width: 600px) and (max-width: 900px) and (orientation: landscape) {
+
+    .right-menu {
+        width: 20%;
+    }
+
+    .splash-subtitle {
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding: 0;
+    }
+
+    .splash-subtitle-new {
+        font-size: 1.2rem;
+    }
+
+    .splash-text {
+        padding-bottom: 2rem;
+    }
+
 }
