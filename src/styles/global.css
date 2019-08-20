@@ -3412,6 +3412,10 @@ th, td {
         align-items: stretch;
     }
 
+    .login-header {
+        font-size: 1rem;
+    }
+
     .splash-subtitle {
         font-size: 1.65rem;
     }

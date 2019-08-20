@@ -36,15 +36,6 @@ class Login extends React.Component {
     //     null;
     // if (!ga) this.createScript();
   }
-
-  createScript = () => {
-      // load the Google SDK
-      const script = document.createElement('script');
-      script.src = 'https://apis.google.com/js/platform.js';
-      script.async = true;
-      script.onload = this.initGapi;
-      document.body.appendChild(script);
-  }
   
   signIn = () => {
     const ga = window.gapi.auth2.getAuthInstance();
@@ -58,35 +49,6 @@ class Login extends React.Component {
         }
     );
   }
-  
-  initGapi = () => {
-    // init the Google SDK client
-    const g = window.gapi;
-    g.load('auth2', function() {
-        g.auth2.init({
-            client_id: '1024277314293-hophqvo9ih3lk5gba37evbm6k83qmi2c.apps.googleusercontent.com',
-            // authorized scopes
-            scope: 'email'
-        });
-    });
-}
-
-  getAWSCredentials = async (googleUser) => {
-    const { id_token, expires_at } = googleUser.getAuthResponse();
-    const profile = googleUser.getBasicProfile();
-    console.log(profile);
-    let user = {
-        email: profile.getEmail(),
-        name: profile.getName()
-    };
-    console.log(id_token);
-    const credentials = await Auth.federatedSignIn(
-        'google',
-        { token: id_token, expires_at },
-        user
-    ).catch(err => console.log(err));
-    console.log('credentials', credentials);
-} 
 
   handleUpdate = (event) => {
     this.setState({

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification } from 'antd';
 import { connect } from 'react-redux';
-import { Auth } from 'aws-amplify';
+import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
-import { FilePond, registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
-import { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
+import axios from 'axios';
+import { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -22,8 +21,13 @@ class TabsCard extends React.Component {
     showMFASetup: false,
     recipient: ``,
     files: [],
-    fileUpload: false
+    fileUpload: false,
+    metadataFile: ``,
+    file: null
   };
+
+  componentDidMount = async () => {
+  }
 
     showKey = () => {
         this.setState({
@@ -38,10 +42,6 @@ class TabsCard extends React.Component {
   cancelAccount = async () => {
       await this.props.updateCustomerStatus('Cancelled');
   }
-
-    handleInit() {
-        console.log('FilePond instance has initialised', this.pond);
-    }
 
   handleUpdate = (event) => {
     this.setState({
@@ -131,6 +131,49 @@ class TabsCard extends React.Component {
   showBrowser = () => {
       this.setState({
           fileUpload: true
+      })
+  }
+
+  uploadFile = (e) => {
+    e.preventDefault();
+    var formData = new FormData();
+    console.log(this.state.metadataFile);
+    formData.append('username', 'abc123');
+    formData.append('file', this.state.metadataFile);
+    console.log(formData);
+    this.props.testSaml(formData);
+  }
+
+  onChange(e) {
+    const file = e.target.files[0];
+    Storage.put(this.props.user.CustomerId + '-metadata.xml', file, {
+        contentType: 'text/xml'
+    })
+    .then (result => console.log(result))
+    .catch(err => console.log(err));
+}
+
+  handleFile = (e) => {
+
+    let file = e.target.files[0];
+      this.setState({ file: file })
+  }
+
+  handleUpload = (e) => {
+      console.log(this.state);
+
+      let file = this.state.file;
+
+      let formdata = new FormData();
+      formdata.append('file', file);
+      formdata.append('name', 'test');
+
+      axios({
+          url: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test/saml',
+          method: 'POST',
+          data: formdata
+      }).then((res) =>{
+          console.log(res);
       })
   }
 
@@ -293,7 +336,7 @@ class TabsCard extends React.Component {
     }
 
   render() {
-    console.log(this.state);
+
     const tabListNoTitle = [
         {
           key: 'General',
@@ -491,10 +534,10 @@ class TabsCard extends React.Component {
                     Upload Metadata file:
                 </div>
                 <div className="settings-subscription">
-                    
-                    <Button type="primary" onClick={this.showBrowser}>
-                        Open File Browser
-                    </Button>
+                <input
+                    type="file" accept='text/xml'
+                    onChange={(e) => this.onChange(e)}
+                />
                 </div>
               </div>
           )
@@ -514,25 +557,6 @@ class TabsCard extends React.Component {
             >
                 {contentListNoTitle[this.state.noTitleKey]}
             </Card>
-            <Modal
-                visible={this.state.fileUpload}
-                onCancel={this.hideBrowser}
-                onOk={this.submitMetadata}
-            >
-                <FilePond ref={ref => this.pond = ref}
-                    files={this.state.files}
-                    allowMultiple={false}
-                    maxFiles={1}
-                    server="https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test/saml"
-                    oninit={() => this.handleInit() }
-                    onupdatefiles={(fileItems) => {
-                        // Set current file objects to this.state
-                        this.setState({
-                            files: fileItems.map(fileItem => fileItem.file)
-                        });
-                    }}>
-                </FilePond>
-            </Modal>
             
             <Drawer
                 title={this.state.title}
@@ -564,4 +588,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata })(TabsCard);
+export default connect(mapStateToProps, { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata })(TabsCard);

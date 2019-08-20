@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
+import { setUser, setExpiration } from '../utils/auth'
 import { getToken, addDefaultGroup } from '../actions';
 import moment from 'moment';
 
@@ -8,6 +9,7 @@ class SAML extends React.Component {
 
     componentDidMount = async () => {
         console.log(this.props);
+        setExpiration(moment().add(12, 'hours').toISOString());
         let pairs = window.location.search.slice(1).split('&');
 
         let result = {};
@@ -23,12 +25,14 @@ class SAML extends React.Component {
             console.log(token);
             if(token)
             {
+                console.log(token);
                 localStorage.setItem('purifyUser', JSON.stringify({
                     username: token.data.email,
                     expiration: moment().add(12, 'hours').toISOString(),
                     type: 'federated',
                     client: token.data.aud
                 }));
+                
                 if(token.data["cognito:groups"].length === 1 && token.data["cognito:groups"].find(group => group.includes('SSO')))
                 {
                     await this.props.addDefaultGroup(token.data);

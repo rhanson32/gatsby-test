@@ -524,6 +524,18 @@ export const getRules = (user) => async dispatch => {
     dispatch({ type: 'FETCH_RULES', payload: Items });
 }
 
+export const testSaml = (formData) => async dispatch => {
+    let myRequest = {
+        body: { data: formData },
+        headers: {
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    };
+    console.log(formData);
+
+    const samlTest = await purify.post('/saml', myRequest).catch(err => console.log(err));
+}
+
 export const addRuleNotification = (rule, email) => async dispatch => {
     let myRequest = {
         body: {

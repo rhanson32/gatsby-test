@@ -42,7 +42,7 @@ class Header extends React.Component {
                                 type="default"
                                 onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
                             >
-                                Sign Out &nsbp; <Icon name="log-out" />
+                                Sign Out &nbsp; <Icon name="log-out" />
                             </Button>
                         )
                     }

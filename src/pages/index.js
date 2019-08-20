@@ -3,6 +3,13 @@ import React from "react";
 import App from '../components/App';
 import { Helmet } from 'react-helmet';
 import Amplify from 'aws-amplify';
+const AWS = require('aws-sdk');
+
+// set the default config object
+var creds = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:593d52ae-0e06-4627-acde-2f77873aae2c'
+});
+AWS.config.credentials = creds;
 
 Amplify.configure({
     Auth: {  
@@ -10,6 +17,12 @@ Amplify.configure({
         userPoolId: 'us-east-1_wMiZuxWyI',
         userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb',
         identityPoolId: 'us-east-1:593d52ae-0e06-4627-acde-2f77873aae2c'
+    },
+    Storage: {
+        AWSS3: {
+            bucket: 'purify-metadata', //REQUIRED -  Amazon S3 bucket
+            region: 'us-east-1', //OPTIONAL -  Amazon service region
+        }
     }
 });
 
