@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { getCurrentUser, fetchUsers } from '../actions';
+import { getCurrentUser, fetchUsers, updateUser } from '../actions';
 import { getExpiration } from '../utils/auth';
 import { Table, Spin, Drawer, Button, message } from 'antd';
 import TopMenu from './TopMenu';
@@ -30,6 +30,16 @@ class Users extends React.Component {
         this.props.fetchUsers(this.props.user.CustomerId);
     }
 
+    makeAuditor = (e) => {
+        console.log(e.target.name);
+        this.props.updateUser({ sub: e.target.name, group: 'Auditors' })
+    }
+
+    makeAdministrator = (e) => {
+        console.log(e.target.name);
+        this.props.updateUser({ sub: e.target.name, group: 'Administrators' })
+    }
+
     showDrawer = () => {
         this.setState({
           visible: true,
@@ -44,13 +54,28 @@ class Users extends React.Component {
 
     render() {
         const dataSource = this.props.users.map((user, index) => {
-            return {
-                key: index.toString(),
-                name: user.Username,
-                role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
-                type: user.Type,
-                action: user.Group === 'Administrators' ? <Button type="link">Make Auditor</Button> : <Button type="link">Make Administrator</Button>
-            }    
+
+            if(this.props.user.Group.includes('Administrators'))
+            {
+                return {
+                    key: index.toString(),
+                    name: user.Username,
+                    role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
+                    type: user.Type,
+                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button onClick={this.makeAdministrator} type="link">Make Administrator</Button>
+                } 
+            }
+            else
+            {
+                return {
+                    key: index.toString(),
+                    name: user.Username,
+                    role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
+                    type: user.Type,
+                    action: ''
+                } 
+            }
+               
         });
 
         const columns = [
@@ -137,4 +162,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, fetchUsers })(Users);
+export default connect(mapStateToProps, { getCurrentUser, fetchUsers, updateUser })(Users);

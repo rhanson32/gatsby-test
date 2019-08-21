@@ -778,7 +778,7 @@ input  {
     justify-content: space-between;
     align-items: center;
     margin: 0;
-    width: 45%;
+    width: 47%;
 }
 
 .feature-focus-image {
@@ -1416,7 +1416,7 @@ input  {
     height: 4rem;
     width: 80%;
     color: #333;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -1450,6 +1450,7 @@ input  {
     justify-content: flex-start;
     align-items: center;
     background-color: white;
+    border: 1px solid #CCC;
     border-radius: 4px;
     width: 40%;
 }
@@ -1674,7 +1675,7 @@ input  {
 
 .footer-button-header {
     color: white;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     font-size: 24px;
     max-width: 700px;
 }
@@ -3120,10 +3121,6 @@ th, td {
         display: none;
     }
 
-    .feature-focus-header {
-        font-size: 2rem;
-    }
-
     .payments {
         min-height: 500px;
         min-width: 400px;
@@ -3418,6 +3415,10 @@ th, td {
         align-items: stretch;
     }
 
+    .feature-focus-header {
+        font-size: 1.5rem;
+    }
+
     .users-max {
         width: 90%;
     }
@@ -3427,7 +3428,13 @@ th, td {
     }
 
     .splash-subtitle {
-        font-size: 1.65rem;
+        font-size: 1.4rem;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+    }
+
+    .splash-subtitle-new {
+        font-size: 1.2rem;
     }
 
     .splash-signup {
@@ -3445,10 +3452,6 @@ th, td {
     .splash-image {
         -webkit-transform: scale(1.2);
         transform: scale(1.2);
-    }
-
-    .splash-subtitle-new {
-        font-size: 1.3rem;
     }
 
     .splash-text {
@@ -3499,6 +3502,14 @@ th, td {
         align-items: stretch;
     }
 
+    .feature-focus-description {
+        font-size: 1.3rem;
+    }
+
+    .feature-focus-header {
+        font-size: 1.7rem;
+    }
+
     .users-max {
         width: 90%;
     }
@@ -3513,6 +3524,14 @@ th, td {
 
     .splash-overlay {
         height: 70vh;
+    }
+
+    .splash-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .splash-subtitle-new {
+        font-size: 1.2rem;
     }
 
     .dashboard-trends-graph {
@@ -3580,6 +3599,10 @@ th, td {
 
     .right-menu {
         width: 20%;
+    }
+
+    .splash-overlay {
+        height: 50vh;
     }
 
     .splash-subtitle {

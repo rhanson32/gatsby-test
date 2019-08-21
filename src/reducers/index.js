@@ -62,6 +62,20 @@ const usersReducer = (state = [], action) => {
             return [ ...action.payload ]
         case 'ADD_USER': 
             return [ ...state, { Username: action.payload.email, Group: action.payload.group }]
+        case 'UPDATE_USER':
+            return state.map(user => {
+                if(user.Sub === action.payload.sub)
+                {
+                    return {
+                        ...user,
+                        Group: action.payload.group
+                    }
+                }
+                else
+                {
+                    return user
+                }
+            })
         default:
             return state;
     }
@@ -89,6 +103,8 @@ const userReducer = (state = {}, action) => {
             return { ...state, Status: action.payload }
         case 'UPDATE_PLAN':
             return { ...state, Plan: action.payload }
+        case 'UPDATE_USER':
+            return { ...state, Group: action.payload.group }
         default:
             return state;
     }

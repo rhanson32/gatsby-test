@@ -46,6 +46,23 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
     dispatch({ type: 'ADD_ACCOUNT', payload: item });
 }
 
+export const updateUser = (user) => async dispatch => {
+    let myRequest = {
+        body: {
+            ...user
+        },
+        headers: {
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    };
+
+    dispatch({ type: 'UPDATE_USER', payload: myRequest.body });
+    const response = await purify.patch('/users', myRequest).catch(err => console.log(err));
+
+    console.log(response);
+
+}
+
 export const updateAccount = (account, role) => async (dispatch, getState) => {
 
     let RoleArn = 'arn:aws:iam::' + account.AccountId + ':role/' + role;
