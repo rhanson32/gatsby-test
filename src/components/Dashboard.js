@@ -148,10 +148,7 @@ class Dashboard extends React.Component {
 
             this.setState({ scanComplete: true });
             this.props.getAccounts(this.props.user.CustomerId);
-            this.props.fetchUsers(this.props.user.CustomerId);
-
-            
-                
+            this.props.fetchUsers(this.props.user.CustomerId);    
         }
         else
         {
@@ -580,13 +577,19 @@ class Dashboard extends React.Component {
                 </Modal>
                 
                 <Modal
-                    visible={this.props.rules.length === 0 && this.props.accounts.length === 0}
+                    visible={this.props.rules.length == 0 || this.props.accounts.length === 0}
                     width="80%"
                     centered={true}
+                    okButtonProps={{ disabled: true }}
+                    cancelButtonProps={{ disabled: true }}
                 >
                     <div className="loading-modal">
                         <Spin style={{ fontSize: "48px" }} />
                             <div>Retrieving latest data...</div>
+                            <Progress>
+                                <Progress.Bar color="green" width={50} />
+                            </Progress>
+
                     </div>
                 </Modal>
 

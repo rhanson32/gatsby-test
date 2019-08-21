@@ -13,7 +13,7 @@ Amplify.configure({
   Auth: {
       region: 'us-east-1',
       userPoolId: 'us-east-1_wMiZuxWyI',
-      userPoolWebClientId: '1ng8vh5ghq0jmjfcecloklp5jb'
+      userPoolWebClientId: '460d418243ki5gtsqebnsbt1na'
   }
 });
 
@@ -31,24 +31,9 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    // const ga = window.gapi && window.gapi.auth2 ? 
-    //     window.gapi.auth2.getAuthInstance() : 
-    //     null;
-    // if (!ga) this.createScript();
+ 
   }
   
-  signIn = () => {
-    const ga = window.gapi.auth2.getAuthInstance();
-    console.log(ga);
-    ga.signIn().then(
-        googleUser => {
-            this.getAWSCredentials(googleUser);
-        },
-        error => {
-            console.log(error);
-        }
-    );
-  }
 
   handleUpdate = (event) => {
     this.setState({
@@ -161,6 +146,17 @@ class Login extends React.Component {
             message: 'Network Error',
             description: 'Unable to sign in and redirect user due to network error. Please check your network connection and try again.'
           });
+
+          this.setState({ loading: false, buttonText: 'Sign In' });
+        }
+        else if(err.code === 'NotAuthorizedException')
+        {
+          notification.error({
+            message: 'Not Authorized',
+            description: 'Unable to sign in to Purify app. Please contact support@purify.cloud for assistance.'
+          });
+
+          this.setState({ loading: false, buttonText: 'Sign In' });
         }
       });
       
@@ -209,7 +205,7 @@ class Login extends React.Component {
             description: 'Unable to authenticate user due to network error. Please check your network connection and try again.'
           });
 
-          this.setState({ loading: false, buttonText: 'Sign In' })
+          this.setState({ loading: false, buttonText: 'Sign In' });
         }
         else if(err.code === 'UserNotConfirmedException')
         {

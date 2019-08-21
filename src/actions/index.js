@@ -382,8 +382,6 @@ export const getCurrentUser = () => async dispatch => {
             console.log(err);
         });
 
-        console.log(customerResponse);
-
         const userInfo = {
             ...user.attributes,
             IdToken: user.signInUserSession.idToken.jwtToken,

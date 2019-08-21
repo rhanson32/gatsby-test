@@ -121,6 +121,10 @@ input  {
     margin: 0.5rem 0;
 }
 
+.metadata-upload {
+    max-width: 300px;
+}
+
 .external-header {
     width: 100%;
     height: 5rem;
@@ -1800,7 +1804,7 @@ input  {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     min-height: 90vh;
     background-color: #F5F7FB;
@@ -3412,6 +3416,10 @@ th, td {
         align-items: stretch;
     }
 
+    .users-max {
+        width: 90%;
+    }
+
     .login-header {
         font-size: 1rem;
     }
@@ -3487,6 +3495,10 @@ th, td {
     .web-metrics {
         width: 100%;
         align-items: stretch;
+    }
+
+    .users-max {
+        width: 90%;
     }
 
     .footer-button-main {

@@ -45,6 +45,10 @@ class SAML extends React.Component {
                 navigate('/app/login');
             }
         }
+        else
+        {
+            navigate('/app/login');
+        }
     }
 
     render() {

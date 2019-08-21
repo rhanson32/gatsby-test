@@ -5,6 +5,7 @@ import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import RegionsForm from './RegionsForm';
 import ServicesForm from './ServicesForm';
+import { Form } from 'tabler-react';
 import axios from 'axios';
 import { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
 import { navigate } from '@reach/router';
@@ -146,6 +147,7 @@ class TabsCard extends React.Component {
 
   onChange(e) {
     const file = e.target.files[0];
+    console.log(e);
     Storage.put(this.props.user.CustomerId + '-metadata.xml', file, {
         contentType: 'text/xml'
     })
@@ -534,10 +536,9 @@ class TabsCard extends React.Component {
                     Upload Metadata file:
                 </div>
                 <div className="settings-subscription">
-                <input
-                    type="file" accept='text/xml'
-                    onChange={(e) => this.onChange(e)}
-                />
+                    <div className="metadata-upload">
+                        <Form.FileInput onChange={(e) => this.onChange(e)} />
+                    </div>
                 </div>
               </div>
           )
@@ -557,7 +558,6 @@ class TabsCard extends React.Component {
             >
                 {contentListNoTitle[this.state.noTitleKey]}
             </Card>
-            
             <Drawer
                 title={this.state.title}
                 placement="right"

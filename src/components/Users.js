@@ -48,7 +48,8 @@ class Users extends React.Component {
                 key: index.toString(),
                 name: user.Username,
                 role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
-                type: user.Type
+                type: user.Type,
+                action: user.Group === 'Administrators' ? <Button type="link">Make Auditor</Button> : <Button type="link">Make Administrator</Button>
             }    
         });
 
@@ -84,6 +85,11 @@ class Users extends React.Component {
                 onFilter: (value, record) => record.role.indexOf(value) === 0,
                 sorter: (a, b) => a.role.length - b.role.length,
                 sortDirections: ['descend', 'ascend']
+            },
+            {
+                title: '',
+                dataIndex: 'action',
+                key: 'action'
             }
           ];
         
