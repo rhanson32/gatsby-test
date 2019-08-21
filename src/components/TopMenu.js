@@ -3,7 +3,7 @@ import { Nav } from 'tabler-react';
 import { navigate } from '@reach/router';
 
 const TopMenu = () => (
-    <div className="navigation-wrapper" style={{ width: "100%", backgroundColor: "white", fontSize: "1rem" }}>
+    <div className="navigation-wrapper" style={{ margin: "0", borderBottom: "1px solid #dee2e6", width: "100%", backgroundColor: "white", fontSize: "1rem" }}>
         <Nav className="navigation">
             <Nav.Item icon="globe" onClick={() => navigate('/app/dashboard')}>Dashboard</Nav.Item>
             <Nav.Item icon="list" onClick={() => navigate('/app/rules')}>Rules</Nav.Item>
