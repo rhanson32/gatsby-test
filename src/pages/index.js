@@ -20,8 +20,8 @@ Amplify.configure({
     },
     Storage: {
         AWSS3: {
-            bucket: 'purify-metadata', //REQUIRED -  Amazon S3 bucket
-            region: 'us-east-1', //OPTIONAL -  Amazon service region
+            bucket: 'purify-metadata',
+            region: 'us-east-1'
         }
     }
 });
@@ -29,7 +29,7 @@ Amplify.configure({
 
 const IndexPage = () => (
     <App>
-        <Helmet>
+        <Helmet title="Clean up your cloud">
             <title>Clean up your cloud</title>
         </Helmet>
     </App>

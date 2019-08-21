@@ -103,7 +103,7 @@ export const removeGlobalNotification = (recipient) => async (dispatch, getState
     Notifications = Notifications.filter(item => item !== recipient);
 
     dispatch({ type: 'REMOVE_NOTIFICATION', payload: Notifications });
-    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const fetchUsers = (id) => async (dispatch, getState) => {
@@ -341,8 +341,7 @@ export const addDefaultGroup = (token) => async dispatch => {
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
-    const addResponse = await purify.post('/groups', myRequest).catch(err => console.log(err));
-
+    await purify.post('/groups', myRequest).catch(err => console.log(err));
 }
 
 export const getCurrentUser = () => async dispatch => {
@@ -531,7 +530,7 @@ export const testSaml = (formData) => async dispatch => {
     };
     console.log(formData);
 
-    const samlTest = await purify.post('/saml', myRequest).catch(err => console.log(err));
+    await purify.post('/saml', myRequest).catch(err => console.log(err));
 }
 
 export const addRuleNotification = (rule, email) => async dispatch => {
@@ -781,5 +780,5 @@ export const addUser = (user) => async (dispatch, getState) => {
 
 export const confirmUser = (username) => async dispatch => {
 
-    const secondResponse = await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
+    await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
 }

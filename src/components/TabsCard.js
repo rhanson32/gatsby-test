@@ -3,8 +3,6 @@ import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notifica
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
-import RegionsForm from './RegionsForm';
-import ServicesForm from './ServicesForm';
 import { Form } from 'tabler-react';
 import axios from 'axios';
 import { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';

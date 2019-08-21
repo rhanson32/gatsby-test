@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
-import { Modal, Drawer } from 'antd';
+import { Drawer } from 'antd';
 import { Button, Icon } from 'tabler-react';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
@@ -29,7 +29,7 @@ class ExternalHeader extends React.Component {
             <div className="external-header">
             
                 <Link className="external-title" to="/">
-                    <img src={logo3} height="55" />
+                    <img src={logo3} height="55" alt="Purify Cloud Logo" />
                     <div className="external-title-name">Purify</div>
                 </Link>  
                 <div className="mobile-menu-button">

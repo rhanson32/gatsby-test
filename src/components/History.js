@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Auth } from 'aws-amplify';
 import { message } from 'antd';
 import { Table } from 'antd';
-import { getExpiration, getSSOExpiration } from '../utils/auth';
+import { getExpiration } from '../utils/auth';
 import { getHistory, getCurrentUser } from '../actions';
 
 class History extends React.Component {

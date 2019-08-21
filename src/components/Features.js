@@ -12,9 +12,6 @@ import sync from '../../static/undraw_synchronize.svg';
 import team from '../../static/undraw_team_page.svg';
 import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap';
-import { Card } from 'antd';
-
-const { Meta } = Card;
 
 class Features extends React.Component {
     componentDidMount() {
@@ -26,7 +23,7 @@ class Features extends React.Component {
             <div className="features-page">
                 <ExternalHeader />
                 <div className="features-header">
-                    <img src={sync} />
+                    <img src={sync} alt="Purify discovers, alerts and remediates your cloud, in near real-time." />
                     <div className="features-header-message">
                     When your cloud changes, <br />Purify responds in seconds.
                     </div>
@@ -39,7 +36,7 @@ class Features extends React.Component {
                     
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={list} />
+                            <img src={list} alt="Pre-defined rules mean you can get started immediately with minimal effort." />
                         </div>
                         <div className="feature-card-new-title">
                             Standards-Based Rule Sets
@@ -50,7 +47,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={agreement} />
+                            <img src={agreement} alt="Know exactly what you are paying and enjoy flat pricing for everything." />
                         </div>
                         <div className="feature-card-new-title">
                             Transparent Pricing
@@ -61,7 +58,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={preferences} />
+                            <img src={preferences} alt="Audit trail shows all events in your cloud." />
                         </div>
                         <div className="feature-card-new-title">
                             Audit Trail
@@ -72,7 +69,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={cloud} />
+                            <img src={cloud} alt="Supports multiple cloud platforms." />
                         </div>
                         <div className="feature-card-new-title">
                             Multi-Cloud Support
@@ -83,7 +80,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={mail} />
+                            <img src={mail} alt="Notifications tell you when there's an issue." />
                         </div>
                         <div className="feature-card-new-title">
                             Automated notifications
@@ -94,7 +91,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={progress} />
+                            <img src={progress} alt="Customize our product to your needs." />
                         </div>
                         <div className="feature-card-new-title">
                             Customize, customize, customize.
@@ -105,7 +102,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={dashboard} />
+                            <img src={dashboard} alt="Single dashboard for everything." />
                         </div>
                         <div className="feature-card-new-title">
                             Unlimited Accounts. One View.
@@ -116,7 +113,7 @@ class Features extends React.Component {
                     </div>
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
-                            <img src={team} />
+                            <img src={team} alt="Integrate with your existing Active Directory." />
                         </div>
                         <div className="feature-card-new-title">
                             AD Integration

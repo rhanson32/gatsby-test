@@ -5,7 +5,7 @@ import 'c3/c3.css';
 import { navigate, Link } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Table, Modal, Input, Button, message, notification } from 'antd';
+import { Spin, Table, Modal, Button, message, notification } from 'antd';
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
@@ -577,7 +577,7 @@ class Dashboard extends React.Component {
                 </Modal>
                 
                 <Modal
-                    visible={this.props.rules.length == 0 || this.props.accounts.length === 0}
+                    visible={this.props.rules.length === 0 || this.props.accounts.length === 0}
                     width="80%"
                     centered={true}
                     okButtonProps={{ disabled: true }}

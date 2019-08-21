@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
-import { setUser, setExpiration } from '../utils/auth'
+import { setExpiration } from '../utils/auth'
 import { getToken, addDefaultGroup } from '../actions';
 import moment from 'moment';
 

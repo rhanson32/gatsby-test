@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { navigate } from '@reach/router';
 import { setUser, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'

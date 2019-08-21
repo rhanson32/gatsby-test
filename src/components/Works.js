@@ -13,13 +13,13 @@ const Works = () => (
         <p>The first template is a CloudFormation stack, consisting of an IAM role and an inline policy for that role. This role will be used to deploy a CloudFormation Stack Set in each account for evaluation and management of resources across your estate.</p>
         <p>Here is a diagram of how your AWS master account will look after deploying our Master Account CloudFormation template:</p>
         <div className="docs-architecture">
-            <img src={master} />
+            <img src={master} alt="One IAM role is deployed in Master account to enable deployment of Stack Set" />
         </div>
         <p>The role which is created is called PurifyController.</p>
         <h3>Our Responsibility</h3>
         <p>The newly provisioned PurifyController IAM role will automatically deploy a CloudFormation Stack Set with Stack Instances in each AWS account in the same organization. As part of the stack set, each AWS account will receive a new role called PurifyManager. This role will execute the majority of the activities Purify runs against your accounts.</p>
         <div className="docs-architecture">
-            <img src={child} />
+            <img src={child} alt="Stack instances deployed to all accounts for evaluation of rules" />
         </div>
         <p>We use this stack set to update the permissions of the PurifyManager account as we release new features and support additional AWS services.</p>
         <p>We also will deploy this Stack Set into new AWS accounts as we discover them.</p>

@@ -8,7 +8,7 @@ import { getExpiration } from '../utils/auth';
 import CheckoutForm from './CheckoutForm';
 import TopMenu from './TopMenu';
 import Header from './Header';
-import { Alert, message } from 'antd';
+import { message } from 'antd';
 import { getCurrentUser } from '../actions';
 
 class Payment extends Component {

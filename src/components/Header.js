@@ -14,7 +14,7 @@ class Header extends React.Component {
         return (
             <div className="purify-header" autoscroll="true">
                 <div className="header-title">
-                    <img src={logo} height="55" />
+                    <img src={logo} height="55" alt="Purify Cloud Logo" />
                 </div>
                 <div className="header-menu">
                     <div className="user-name">

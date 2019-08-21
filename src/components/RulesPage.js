@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
-import { getExpiration, getSSOExpiration } from '../utils/auth';
+import { getExpiration } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer } from 'antd';
 import Header from './Header';
 import { getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
