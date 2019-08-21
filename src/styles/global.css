@@ -1640,6 +1640,7 @@ input  {
 
 .splash-subtitle-new {
     font-size: 1.5rem;
+    max-width: 700px;
 }
 
 .splash-overlay {
@@ -1675,6 +1676,7 @@ input  {
     color: white;
     padding: 2rem 0;
     font-size: 24px;
+    max-width: 700px;
 }
 
 .header-menu a, .header-menu p {
