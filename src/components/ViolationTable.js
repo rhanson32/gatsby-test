@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'tabler-react';
+import { Button } from 'antd';
 import moment from 'moment';
 
 class ViolationTable extends React.Component {
@@ -7,15 +8,20 @@ class ViolationTable extends React.Component {
         return (
             <Table>
                 <Table.Header>
-                    <Table.ColHeader>
-                        Resource Identifier
-                    </Table.ColHeader>
-                    <Table.ColHeader>
-                        Violation Date
-                    </Table.ColHeader>
-                    <Table.ColHeader>
-                        Account ID
-                    </Table.ColHeader>
+                    <Table.Row>
+                        <Table.ColHeader>
+                            Resource Identifier
+                        </Table.ColHeader>
+                        <Table.ColHeader>
+                            Violation Date
+                        </Table.ColHeader>
+                        <Table.ColHeader>
+                            Account ID
+                        </Table.ColHeader>
+                        <Table.ColHeader>
+                            Actions
+                        </Table.ColHeader>
+                    </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {
@@ -30,6 +36,16 @@ class ViolationTable extends React.Component {
                                     </Table.Col>
                                     <Table.Col>
                                         {violation.AccountId}
+                                    </Table.Col>
+                                    <Table.Col>
+                                       
+                                            <Button type="link">
+                                                Defer
+                                            </Button>
+                                            <Button type="link">
+                                                Dismiss
+                                            </Button>
+                                        
                                     </Table.Col>
                                 </Table.Row>
                             )

@@ -9,6 +9,7 @@ import cloud from '../../static/undraw_cloud_hosting.svg';
 import list from '../../static/undraw_to_do_list.svg';
 import dashboard from '../../static/undraw_dashboard.svg';
 import sync from '../../static/undraw_synchronize.svg';
+import cleanup from '../../static/CleanUp.png';
 import team from '../../static/undraw_team_page.svg';
 import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap';
@@ -23,10 +24,7 @@ class Features extends React.Component {
             <div className="features-page">
                 <ExternalHeader />
                 <div className="features-header">
-                    <img src={sync} alt="Purify discovers, alerts and remediates your cloud, in near real-time." />
-                    <div className="features-header-message">
-                    When your cloud changes, <br />Purify responds in seconds.
-                    </div>
+                    <img src={cleanup} alt="Clean up your cloud, and keep it clean. With Purify." />
                 </div>
                 
                 <div className="feature-header-description">

@@ -58,6 +58,7 @@ input  {
 .external-title-name {
     margin: 0 1rem;
     color: white;
+    font-size: 2.5rem;
 }
 
 .external-title a {
@@ -1310,6 +1311,14 @@ input  {
     align-items: stretch;
     margin: 4rem 0;
     width: 100%;
+}
+
+.feature-teaser {
+    width: 100%;
+    padding: 4rem 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
 .pricing-card {
@@ -3248,7 +3257,7 @@ th, td {
     }
 
     .features-header {
-        max-height: 70vh;
+        max-height: 90vh;
     }
 
     .feature-header-message {
@@ -3552,6 +3561,14 @@ th, td {
 
     .splash-signup {
         margin-top: 2rem;
+    }
+
+    .feature-card-new {
+        width: 45%;
+    }
+
+    .feature-card-new-image img {
+        max-height: 300px;
     }
 }
 

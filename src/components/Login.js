@@ -216,6 +216,25 @@ class Login extends React.Component {
             confirmUser: true
           });
         }
+        else if(err.code === 'NotAuthorizedException' && err.message === 'Incorrect username or password.')
+        {
+          notification.error({
+            message: 'Access Error',
+            description: err.message + ' Please check your login details and try again.'
+          });
+        }
+        else
+        {
+          notification.error({
+            message: 'Unknown Error',
+            description: 'Please try to log on again.'
+          });
+        }
+
+        this.setState({
+          loading: false,
+          buttonText: 'Sign In'
+        });
       });
 
       if(user !== undefined)
