@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { notification } from 'antd';
 import { addUser } from '../actions';
 
 const generator = require('generate-password');
@@ -27,10 +28,18 @@ class AddUser extends React.Component {
         if(this.state.email === '')
         {
             console.log("Enter an email address");
+            notification.error({
+                message: 'Email address required',
+                description: 'Please enter a valid email address.'
+            });
         }
         else if(!this.state.email.includes('@'))
         {
             console.log('Please enter a valid email format');
+            notification.error({
+                message: 'Email address required',
+                description: 'Please enter a valid email address with the correct format.'
+            });
         }
         else 
         {
@@ -62,7 +71,7 @@ class AddUser extends React.Component {
                         <input 
                             onChange={this.handleUpdate}
                             className="user-email"
-                            type="text"
+                            type="email"
                             placeholder="user@company.com" 
                             name="email"
                         />

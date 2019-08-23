@@ -8,7 +8,6 @@ import agreement from '../../static/undraw_agreement.svg';
 import cloud from '../../static/undraw_cloud_hosting.svg';
 import list from '../../static/undraw_to_do_list.svg';
 import dashboard from '../../static/undraw_dashboard.svg';
-import sync from '../../static/undraw_synchronize.svg';
 import cleanup from '../../static/CleanUp.png';
 import team from '../../static/undraw_team_page.svg';
 import ExternalHeader from './ExternalHeader';

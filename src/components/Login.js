@@ -7,6 +7,7 @@ import Amplify, { Auth } from 'aws-amplify'
 import { saveUser, confirmUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
+import { Icon } from 'tabler-react';
 import moment from 'moment';
 
 Amplify.configure({
@@ -334,7 +335,7 @@ class Login extends React.Component {
                   autoFocus
                 />
                 <Button type="primary" onClick={this.confirmMFA}>Submit</Button>
-                <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
+                <Button onClick={this.returnToLogin} type="link">Back to Login <Icon name="arrow-right" /></Button>
               </div>
             </div>
           )

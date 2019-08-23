@@ -39,11 +39,14 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
             "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
+
+    dispatch({ type: 'ADD_ACCOUNT', payload: item });
+
     purify.post('/accounts', myRequest).then(
         response => {
             console.log(response);
     }).catch(err => console.log(err));
-    dispatch({ type: 'ADD_ACCOUNT', payload: item });
+    
 }
 
 export const updateUser = (user) => async dispatch => {
@@ -55,6 +58,8 @@ export const updateUser = (user) => async dispatch => {
             "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
+
+    console.log(myRequest);
 
     dispatch({ type: 'UPDATE_USER', payload: myRequest.body });
     const response = await purify.patch('/users', myRequest).catch(err => console.log(err));
@@ -180,10 +185,12 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
         }
     };
 
+    dispatch({ type: 'UPDATE_STATUS', payload: status });
+
     const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
     console.log(response);
 
-    dispatch({ type: 'UPDATE_STATUS', payload: status });
+    
 }
 
 export const modifyRules = (action, id, email) => async (dispatch, getState) => {
@@ -343,7 +350,6 @@ export const saveUser = (user) => async (dispatch, getState) => {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
         user.customerId = customerResponse.data[0].CustomerId.S
     }
-    dispatch({ type: 'STORE_USER', payload: user });
 }
 
 export const addDefaultGroup = (token) => async dispatch => {
@@ -563,8 +569,6 @@ export const addRuleNotification = (rule, email) => async dispatch => {
         }
     }
 
-    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
-
     const newRule = {
         ...rule,
         Notifications: [ ...rule.Notifications ]
@@ -573,6 +577,8 @@ export const addRuleNotification = (rule, email) => async dispatch => {
     console.log(newRule);
 
     dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: newRule });
+
+    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
 
     console.log(response);
 }
@@ -790,12 +796,14 @@ export const addUser = (user) => async (dispatch, getState) => {
             password: 'Test1234!'
         }
     }
+
+    dispatch({ type: 'ADD_USER', payload: user });
+
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));
     console.log(response);
-    dispatch({ type: 'ADD_USER', payload: user })
+    
 }
 
 export const confirmUser = (username) => async dispatch => {
-
     await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
 }

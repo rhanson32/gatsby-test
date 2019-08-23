@@ -54,7 +54,7 @@ class Users extends React.Component {
 
     render() {
         const dataSource = this.props.users.map((user, index) => {
-
+            console.log(user);
             if(this.props.user.Group.includes('Administrators'))
             {
                 return {
@@ -62,7 +62,7 @@ class Users extends React.Component {
                     name: user.Username,
                     role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
                     type: user.Type,
-                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button onClick={this.makeAdministrator} type="link">Make Administrator</Button>
+                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button name={user.Sub} onClick={this.makeAdministrator} type="link">Make Administrator</Button>
                 } 
             }
             else
