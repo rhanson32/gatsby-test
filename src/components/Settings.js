@@ -30,16 +30,20 @@ class Settings extends React.Component {
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                await Auth.signOut();
-                navigate('/app/login');
-            }, 2000); 
+            if(user.type !== 'federated')
+            {
+                setTimeout(async () => {
+                    await Auth.signOut();
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            else
+            {
+                setTimeout(async () => {
+                    navigate('/app/login');
+                }, 2000); 
+            }
         }
-        await this.props.getCurrentUser().catch(err => console.log(err));
-        await this.props.getSettings(this.props.user.CustomerId);
-        this.setState({
-            scanComplete: true
-        });
         this.props.getAccounts(this.props.user.CustomerId);
     }
 

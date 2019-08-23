@@ -21,15 +21,27 @@ class Accounts extends React.Component {
   }
 
     componentDidMount = async () => {
+
       if(moment(getExpiration()) < moment())
-        {
-            console.log("User session has expired");
-            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                await Auth.signOut();
-                navigate('/app/login');
-            }, 2000); 
-        }
+      {
+          console.log("User session has expired");
+          message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+          if(user.type !== 'federated')
+          {
+              setTimeout(async () => {
+                  await Auth.signOut();
+                  navigate('/app/login');
+              }, 2000); 
+          }
+          else
+          {
+              setTimeout(async () => {
+                  navigate('/app/login');
+              }, 2000); 
+          }
+          
+      }
+
         if(!this.props.user || !this.props.user.CustomerId)
         {
             await this.props.getCurrentUser()

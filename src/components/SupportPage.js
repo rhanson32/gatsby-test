@@ -24,10 +24,20 @@ class SupportPage extends React.Component {
         {
             console.log("User session has expired");
             message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
-            setTimeout(async () => {
-                await Auth.signOut();
-                navigate('/app/login');
-            }, 2000); 
+            if(user.type !== 'federated')
+            {
+                setTimeout(async () => {
+                    await Auth.signOut();
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            else
+            {
+                setTimeout(async () => {
+                    navigate('/app/login');
+                }, 2000); 
+            }
+            
         }
         if(!this.props.user.email)
         {

@@ -14,14 +14,24 @@ import { getCurrentUser } from '../actions';
 class Payment extends Component {
   componentDidMount = () => {
     if(moment(getExpiration()) < moment())
+    {
+        console.log("User session has expired");
+        message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
+        if(user.type !== 'federated')
         {
-            console.log("User session has expired");
-            message.warning('Your session has expired. Redirecting to login page in 2 seconds.');
             setTimeout(async () => {
                 await Auth.signOut();
                 navigate('/app/login');
             }, 2000); 
         }
+        else
+        {
+            setTimeout(async () => {
+                navigate('/app/login');
+            }, 2000); 
+        }
+        
+    }
     if(!this.props.user.email)
     {
         this.props.getCurrentUser();
