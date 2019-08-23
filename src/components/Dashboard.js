@@ -105,7 +105,7 @@ class Dashboard extends React.Component {
                 this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
                 this.setState({ loadingProgress: 50 });
-                await this.props.getHistory(this.props.user);
+                this.props.getHistory(this.props.user);
                 this.setState({ loadingProgress: 75 });
                 this.props.getMetrics(this.props.user.CustomerId);
                 this.last3Days();
@@ -546,12 +546,24 @@ class Dashboard extends React.Component {
                 render: (text, record) => {
                     return (
                     <span>
-                        {record.violations.length} 
-                        {record.violations.length > 0 && <Button name={record.name} id={record.id} type="link" onClick={this.showDetail}>View</Button>}
+                        {record.violations.length}
                     </span>
                     )
                 },
                 key: 'violations',
+                sorter: (a, b) => a.violations.length - b.violations.length,
+                sortDirections: ['descend', 'ascend']
+            },
+            {
+                title: 'Actions',
+                render: (text, record) => {
+                    return (
+                    <span>
+                        {record.violations.length > 0 && <Button name={record.name} id={record.id} type="link" onClick={this.showDetail}>View</Button>}
+                    </span>
+                    )
+                },
+                key: 'actions',
                 sorter: (a, b) => a.violations - b.violations,
             }
           ];
@@ -914,7 +926,7 @@ class Dashboard extends React.Component {
                                         <div className="card-metric-wrapper">
                                             {this.state.showAll && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && (
@@ -941,7 +953,7 @@ class Dashboard extends React.Component {
                                         <div className="card-metric-wrapper">
                                             {this.state.showAll && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && (
@@ -951,12 +963,12 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showWaste && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.wasteEvaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.configurationEvaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
@@ -972,7 +984,7 @@ class Dashboard extends React.Component {
                                         <div className="card-metric-wrapper">
                                             {this.state.showAll && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityEvaluations === 0 || this.state.configurationEvaluations === 0 || this.state.wasteEvaluations === 0 ? ' ' : Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations === 0 || this.props.metrics.Configuration.Evaluations === 0 || this.props.metrics.Waste.Evaluations === 0 ? ' ' : Math.round((this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && this.state.scanComplete && (
@@ -982,12 +994,12 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showWaste && this.state.scanComplete && (
                                                 <div>
-                                                    {Math.round((this.state.wasteViolations / this.state.wasteEvaluations) * 100)}
+                                                    {Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
                                                 </div>
                                             )}
                                             {this.state.showConfiguration && this.state.scanComplete && (
                                                 <div>
-                                                    {this.state.configurationViolations === 0 ? 'Unavailable' : Math.round((this.state.configurationViolations / this.state.configurationEvaluations) * 100)}
+                                                    {this.props.metrics.Configuration.Violations === 0 ? 'Unavailable' : Math.round((this.props.metrics.Configuration.Violations / this.props.metrics.Configuration.Evaluations) * 100)}
                                                 </div>
                                             )}
                                         </div>

@@ -2325,7 +2325,7 @@ th, td {
     }
 
     .feature-card-new {
-        margin: 2rem;
+        margin: 1.5rem;
     }
 
     .footer-button button {
@@ -2344,9 +2344,10 @@ th, td {
     .splash-overlay {
         flex-direction: column;
         justify-content: flex-start;
-        padding-top: 3rem;
+        padding-top: 2rem;
         border-bottom-right-radius: 70% 8%;
         border-bottom-left-radius: 30% 2%;
+        height: 80vh;
     }
 
     .feature-card-new-description {
@@ -2613,7 +2614,7 @@ th, td {
 
     .feature-cards {
         width: 90%;
-        margin: 2rem 0;
+        margin: 1rem 0;
     }
 
     .rules-options {
@@ -2770,8 +2771,8 @@ th, td {
 
     .feature-header-description {
         width: 80%;
-        font-size: 4rem;
-        margin: 2rem auto 1rem auto;
+        font-size: 3rem;
+        margin: 1rem auto 1rem auto;
     }
 
     .feature-icon {
@@ -2852,18 +2853,21 @@ th, td {
     }
 
     .splash-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: center;
     }
 
     .splash-subtitle-new {
         width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-left: 1rem;
     }
 
     .splash-signup {
         width: 100%;
-        margin-top: 4rem;
+        margin-top: 3rem;
     }
 
     .external-title {
@@ -2984,8 +2988,9 @@ th, td {
         margin-left: 0.5rem;
     }
 
-    .mobile-menu a:nth-child(odd) {
+    .mobile-menu a:hover {
         background-color: #EEE;
+        border-bottom: 1px solid #0984e3;
     }
 
     .mobile-menu a:link, .mobile-menu a:visited {
@@ -3611,7 +3616,7 @@ th, td {
 
 /**************************************************************************/
 
-@media screen and (orientation: portrait) {
+@media screen and (min-width: 600px) and (orientation: portrait) {
 
     .splash-overlay {
         height: 70vh;
