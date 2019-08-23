@@ -3633,7 +3633,28 @@ th, td {
     }
 
     .splash-overlay {
-        height: 50vh;
+        height: 70vh;
+    }
+
+    .external-title-name {
+        font-size: 1.5rem;
+    }
+
+    .external-menu {
+        font-size: 1rem;
+        justify-content: flex-end;
+    }
+
+    .splash-image-container {
+        width: 30%;
+    }
+
+    .splash-text {
+        width: 65%;
+    }
+
+    .external-menu a {
+        margin: 0.4rem;
     }
 
     .splash-subtitle {
@@ -3643,7 +3664,7 @@ th, td {
     }
 
     .splash-subtitle-new {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .splash-text {
