@@ -11,7 +11,7 @@ import "tabler-react/dist/Tabler.css";
 import TopMenu from './TopMenu';
 import Header from './Header';
 import ViolationTable from './ViolationTable';
-import { getCurrentUser, getRules, getAccounts, fetchUsers, getHistory, updateCustomerStatus, postAccount } from '../actions';
+import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
 
@@ -41,6 +41,7 @@ class Dashboard extends React.Component {
             data: this.getData(0),
             allData: this.getData(0),
             interval: 0,
+            loadingProgress: 0,
             securityViolations: 0,
             configurationViolations: 0,
             wasteViolations: 0,
@@ -60,8 +61,7 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
         const user = await getCurrentUser();
-        console.log(getExpiration());
-        console.log("Expiration status:", moment(getExpiration()) < moment());
+    
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -102,9 +102,14 @@ class Dashboard extends React.Component {
                 {
                     this.setState({ welcomeScreen: true });
                 }
+                this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
+                this.setState({ loadingProgress: 50 });
                 await this.props.getHistory(this.props.user);
+                this.setState({ loadingProgress: 75 });
+                this.props.getMetrics(this.props.user.CustomerId);
                 this.last3Days();
+                this.setState({ loadingProgress: 100 });
             }
             catch(err)
             {
@@ -146,14 +151,15 @@ class Dashboard extends React.Component {
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
 
-            this.setState({ scanComplete: true });
             this.props.getAccounts(this.props.user.CustomerId);
+            this.setState({ scanComplete: true });
             this.props.fetchUsers(this.props.user.CustomerId);    
         }
         else
         {
             try
             {
+                this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
                 await this.props.getHistory(this.props.user);
                 this.last3Days();
@@ -584,25 +590,25 @@ class Dashboard extends React.Component {
                     cancelButtonProps={{ disabled: true }}
                 >
                     <div className="loading-modal">
-                        <Spin style={{ fontSize: "48px" }} />
-                            <div>Retrieving latest data...</div>
+                        <div>Retrieving latest data...</div>
+                        <div className="dashboard-loading-progress">
                             <Progress>
-                                <Progress.Bar color="green" width={50} />
+                                <Progress.Bar color="green" width={this.state.loadingProgress} />
                             </Progress>
-
+                        </div>
                     </div>
                 </Modal>
 
                 {this.props.user.Status === "Cancelled" && (
                     <Modal
-                    title="Inactive Account"
-                    visible={visible}
-                    onOk={this.handleOk}
-                    confirmLoading={confirmLoading}
-                    onCancel={this.handleCancel}
-                    cancelText="Logout"
-                  >
-                    <p>{ModalText}</p>
+                        title="Inactive Account"
+                        visible={visible}
+                        onOk={this.handleOk}
+                        confirmLoading={confirmLoading}
+                        onCancel={this.handleCancel}
+                        cancelText="Logout"
+                    >
+                        <p>{ModalText}</p>
                   </Modal>
                 )}
                         <div className="dashboard">
@@ -632,14 +638,24 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
-                                            Purify Score
+                                            {this.state.scanComplete && this.state.showAll && "Purify Score"}
+                                            {this.state.scanComplete && this.state.showSecurity && "Security Score"}
+                                            {this.state.scanComplete && this.state.showWaste && "Waste Score"}
+                                            {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
                                         </div>
                                         <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
-                                            {this.state.scanComplete && this.state.percent}
+                                            {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
+                                            {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
+                                            {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
+                                            {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.ConfigurationScore}
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
                                         </div>
                                         <Progress>
-                                            {this.state.scanComplete && <Progress.Bar color="green" width={this.state.percent} />}
+                                            {this.state.scanComplete && this.state.showAll && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />}
+                                            {this.state.scanComplete && this.state.showSecurity && <Progress.Bar color="green" width={this.props.metrics.SecurityScore} />}
+                                            {this.state.scanComplete && this.state.showWaste && <Progress.Bar color="green" width={this.props.metrics.WasteScore} />}
+                                            {this.state.scanComplete && this.state.showConfiguration && <Progress.Bar color="green" width={this.props.metrics.ConfigurationScore} />}
+                                            {/* {this.state.scanComplete && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />} */}
                                         </Progress>
                                     </Card.Body>
                                 </Card>
@@ -903,7 +919,7 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showSecurity && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityViolations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showWaste && <div>{this.state.scanComplete ? this.state.wasteViolations : <Spin style={{ fontSize: "48px" }} />}</div>}
@@ -930,7 +946,7 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showSecurity && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityEvaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showWaste && (
@@ -956,12 +972,12 @@ class Dashboard extends React.Component {
                                         <div className="card-metric-wrapper">
                                             {this.state.showAll && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.securityEvaluations === 0 || this.state.configurationEvaluations === 0 || this.state.wasteEvaluations === 0 ? 'Unavailable' : Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete ? this.state.securityEvaluations === 0 || this.state.configurationEvaluations === 0 || this.state.wasteEvaluations === 0 ? ' ' : Math.round((this.state.securityViolations + this.state.configurationViolations + this.state.wasteViolations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && this.state.scanComplete && (
                                                 <div>
-                                                    {Math.round((this.state.securityViolations / this.state.securityEvaluations) * 100)}
+                                                    {this.props.metrics.Security && Math.round((this.props.metrics.Security.Violations / this.props.metrics.Security.Evaluations) * 100)}
                                                 </div>
                                             )}
                                             {this.state.showWaste && this.state.scanComplete && (
@@ -1057,8 +1073,9 @@ const mapStateToProps = state => {
         user: state.user,
         rules: state.rules,
         accounts: state.accounts,
-        history: state.history
+        history: state.history,
+        metrics: state.metrics
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getHistory, fetchUsers, updateCustomerStatus, postAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, getHistory, fetchUsers, updateCustomerStatus, postAccount })(Dashboard);

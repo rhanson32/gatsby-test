@@ -142,6 +142,23 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
     }
 }
 
+export const getMetrics = (id) => async (dispatch, getState) => {
+
+    console.log(id);
+    let myRequest = {
+        body: {},
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    }
+
+    const metricResponse = await purify.get('/metrics?id=' + id, myRequest).catch(err => console.log(err));
+
+    console.log(metricResponse);
+    if(metricResponse)
+    {
+        dispatch({ type: 'FETCH_METRICS', payload: metricResponse.data });
+    }
+}
+
 export const getAccounts = (id) => async (dispatch, getState) => {
 
     let myRequest = {

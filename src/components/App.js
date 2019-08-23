@@ -16,8 +16,7 @@ import Settings from '../components/Settings'
 import Docs from '../components/Docs';
 import History from '../components/History';
 import SAML from '../components/SAML';
-
-import store from '../store'
+import store from '../store';
 
 const App = ({ children }) => (
     <Provider store={store}>

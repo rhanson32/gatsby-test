@@ -23,8 +23,8 @@ import store from '../store'
 
 const App = () => (
     <Provider store={store}>
-        <Helmet>
-            <link href="node_modules\c3\c3.css" rel="stylesheet" />
+        <Helmet title="Clean up your cloud">
+            <title>Clean up your cloud</title>
         </Helmet>
         <Router>
             <Home path="/" />

@@ -24,6 +24,18 @@ const accountReducer = (state = [], action) => {
 
 };
 
+const metricReducer = (state = {}, action) => {
+
+    switch(action.type)
+    {
+        case 'FETCH_METRICS':
+            return { ...action.payload }
+        default:
+            return state;
+    }
+
+};
+
 const ruleReducer = (state = [], action) => {
 
     switch(action.type)
@@ -196,5 +208,6 @@ export default combineReducers({
     mobile: mobileReducer,
     documentation: documentationReducer,
     users: usersReducer,
-    history: historyReducer
+    history: historyReducer,
+    metrics: metricReducer
 });

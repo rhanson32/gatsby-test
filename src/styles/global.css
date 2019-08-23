@@ -710,7 +710,7 @@ input  {
 }
 
 .loading-modal {
-    min-height: 40vh;
+    min-height: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -2157,6 +2157,11 @@ th, td {
     background-color: #27ae60;
     color: #FFF;
     height: 2rem;
+}
+
+.dashboard-loading-progress {
+    min-height: 4rem;
+    min-width: 80%;
 }
 
 .disabled-button {
