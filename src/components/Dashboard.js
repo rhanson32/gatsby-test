@@ -992,7 +992,7 @@ class Dashboard extends React.Component {
                                                     {this.props.metrics.Security && Math.round((this.props.metrics.Security.Violations / this.props.metrics.Security.Evaluations) * 100)}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && this.state.scanComplete && (
+                                            {this.state.showWaste && this.state.scanComplete && this.props.metrics.Waste && (
                                                 <div>
                                                     {Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
                                                 </div>
