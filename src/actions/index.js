@@ -205,9 +205,7 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     dispatch({ type: 'UPDATE_STATUS', payload: status });
 
     const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
-    console.log(response);
-
-    
+    console.log(response); 
 }
 
 export const modifyRules = (action, id, email) => async (dispatch, getState) => {
@@ -258,6 +256,22 @@ export const modifyRules = (action, id, email) => async (dispatch, getState) => 
             }
         })
         dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: rules });
+    }
+    else if(action === 'dismissViolation')
+    {
+        rules = rules.map(rule => {
+            if(rule.RuleId === id)
+            {
+                return {
+                    ...rule
+                }
+            }
+            else
+            {
+                return rule;
+            }
+        })
+        dispatch({ type: 'DISMISS_VIOLATION', payload: rules });
     }
 
     await purify.post('/rules', myRequest).catch(err => console.log(err));

@@ -4,9 +4,18 @@ import { Button } from 'antd';
 import moment from 'moment';
 
 class ViolationTable extends React.Component {
+
+    handleDefer = () => {
+        console.log("Defer!");
+    }
+
+    handleDismiss = () => {
+        console.log("Dismiss!");
+    }
+
     render() {
         return (
-            <Table>
+            <Table striped>
                 <Table.Header>
                     <Table.Row>
                         <Table.ColHeader>
@@ -39,10 +48,10 @@ class ViolationTable extends React.Component {
                                     </Table.Col>
                                     <Table.Col>
                                        
-                                            <Button type="link">
+                                            <Button type="link" onClick={this.handleDefer}>
                                                 Defer
                                             </Button>
-                                            <Button type="link">
+                                            <Button type="link" onClick={this.handleDismiss}>
                                                 Dismiss
                                             </Button>
                                         

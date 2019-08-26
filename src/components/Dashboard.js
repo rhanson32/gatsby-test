@@ -235,6 +235,7 @@ class Dashboard extends React.Component {
             wasteData: this.getData(this.state.wastePercent),
             configurationData: this.getData(this.state.configurationPercent)
           }); 
+
     }
 
     componentWillUnmount = () => {

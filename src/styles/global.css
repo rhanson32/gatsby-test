@@ -560,6 +560,22 @@ input  {
     align-items: center;
 }
 
+.settings-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.settings-buttons button {
+    margin: 0.5rem 0;
+}
+
+.settings-sso-status {
+    display: flex;
+    align-items: center;
+}
+
 .settings-subscription {
     width: 70%;
     display: flex;
@@ -2434,7 +2450,14 @@ th, td {
 
     .settings-subscription {
         width: 100%;
-        align-items: stretch;
+    }
+
+    .add-notifications {
+        width: 80%;
+    }
+
+    .add-notifications button {
+        margin-left: 1rem;
     }
 
     .login-header, .signup-header, .login-form label, .signup-form label {

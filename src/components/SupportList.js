@@ -10,6 +10,7 @@ class SupportList extends React.Component {
             <div>
           <Table striped={true}>
             <Table.Header className="table-header-2">
+              <Table.Row>
               <Table.ColHeader>
                 ID
               </Table.ColHeader>
@@ -22,11 +23,12 @@ class SupportList extends React.Component {
               <Table.ColHeader>
                 Status
               </Table.ColHeader>
+              </Table.Row>
             </Table.Header>
             <Table.Body>
               {this.props.tickets.map((ticket, index) => {
                 return (
-                  <Table.Row>
+                  <Table.Row key={index}>
                   <Table.Col>
                     {ticket.TicketId}
                   </Table.Col>

@@ -21,10 +21,12 @@ class TabsCard extends React.Component {
     files: [],
     fileUpload: false,
     metadataFile: ``,
-    file: null
+    file: null,
+    uploadFile: false
   };
 
   componentDidMount = async () => {
+      
   }
 
     showKey = () => {
@@ -111,13 +113,24 @@ class TabsCard extends React.Component {
       });
   }
 
+  showFileBrowser = () => {
+      this.setState({
+          uploadFile: true
+      });
+  }
+
   onChange = (e) => {
     const file = e.target.files[0];
     console.log(e);
     Storage.put(this.props.user.CustomerId + '-metadata.xml', file, {
         contentType: 'text/xml'
     })
-    .then (result => console.log(result))
+    .then (result => {
+        console.log(result);
+        this.setState({
+            uploadFile: false
+        })
+    })
     .catch(err => {
         console.log(err);
         notification.error({
@@ -349,11 +362,18 @@ class TabsCard extends React.Component {
                     Subscription  
                 </div>
                 <div className="settings-subscription">
-                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
-                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans}>Upgrade Subscription</Button>}
-                    <Button type="danger" size="large" onClick={this.showConfirm}>
+                    <div className="settings-buttons">
+                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans} block>Upgrade Subscription</Button>}
+                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans} block>Upgrade Subscription</Button>}
+                    {this.props.user.Plan !== "Free" && (
+                        <Button type="danger" size="large" onClick={this.showConfirm} block>
+                            Downgrade Subscription
+                        </Button>
+                    )}   
+                    <Button type="danger" size="large" onClick={this.showConfirm} block>
                         Cancel Subscription
                     </Button>      
+                    </div>
                 </div>
             </div>
             <hr style={{ width: "80%", margin: "2rem auto" }} />
@@ -364,9 +384,11 @@ class TabsCard extends React.Component {
                             Credentials
                         </div>
                         <div className="settings-subscription">
+                            <div className="settings-buttons">
                             <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
                             {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
                             {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
+                            </div>
                             <Modal
                                 visible={this.state.showMFASetup}
                                 onOk={this.submitMFA}
@@ -375,7 +397,6 @@ class TabsCard extends React.Component {
                                 <QRCode value={this.state.qrCode} />
                                 <label>Authenticator Code</label>
                                 <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
-                                
                             </Modal>
                         </div>
                     </div>
@@ -446,11 +467,12 @@ class TabsCard extends React.Component {
           this.props.scanComplete && !this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-left-side">
-                    SSO Status:
+                    SSO Status
                 </div>
                 <div className="settings-subscription">
-                    <Button onClick={this.enableSaml}>
-                        Disabled
+                    <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
+                    <Button type="link" onClick={this.enableSaml}>
+                        Enable SSO
                     </Button>
                 </div>
               </div>
@@ -460,25 +482,42 @@ class TabsCard extends React.Component {
           this.props.scanComplete && this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-left-side">
-                    SSO Status:
+                    SSO Status
                 </div>
                 <div className="settings-subscription">
-                    <Button type="primary" onClick={this.disableSaml}>
-                        Enabled
+                    <div className="settings-sso-status">
+                    <Icon type="check" style={{ color: "green", fontSize: "30px" }} />
+                    <Button type="link" onClick={this.disableSaml}>
+                        Disable SSO
                     </Button>
+                    </div>
                 </div>
               </div>
           )
       }
       {
-          this.props.scanComplete && this.props.settings.saml && (
+          this.props.scanComplete && this.props.settings.saml && this.state.uploadFile && (
               <div className="settings-row">
                 <div className="settings-left-side">
-                    Upload Metadata file:
+                    Upload Metadata File
                 </div>
                 <div className="settings-subscription">
                     <div className="metadata-upload">
                         <Form.FileInput onChange={(e) => this.onChange(e)} />
+                    </div>
+                </div>
+              </div>
+          )
+      }
+      {
+          this.props.scanComplete && this.props.settings.saml && !this.state.uploadFile && (
+              <div className="settings-row">
+                <div className="settings-left-side">
+                    Metadata File Status
+                </div>
+                <div className="settings-subscription">
+                    <div className="metadata-upload">
+                        <Icon type="check" style={{ color: "green", fontSize: "30px" }} /> Metadata.xml <Button type="link" onClick={this.showFileBrowser}>Upload new file</Button>
                     </div>
                 </div>
               </div>

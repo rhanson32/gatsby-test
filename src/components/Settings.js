@@ -44,6 +44,11 @@ class Settings extends React.Component {
                 }, 2000); 
             }
         }
+
+        if(!this.props.user.email)
+        {
+            await this.props.getCurrentUser()
+        }
         this.props.getAccounts(this.props.user.CustomerId);
         await this.props.getSettings(this.props.user.CustomerId);
         this.setState({
