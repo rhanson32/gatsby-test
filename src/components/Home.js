@@ -20,7 +20,7 @@ class Home extends React.Component {
                 <ExternalHeader />
                 <Splash mobileMenu={this.props.mobile.mobileMenu} />
                 <FeatureFocus title="Unlimited Accounts. One View." description="See one view of all your accounts, no matter how many you have. View everything at once, and take action on any account with just a few clicks." image={dashboard} />
-                <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based (CIS, etc) rule sets to quickly align yourself with proven best practices." image={list} reverse={true} />
+                <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based (CIS) rule sets to quickly align yourself with proven best practices." image={list} reverse={true} />
                 <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices." image={agreement} />
                 <div className="feature-teaser">
                     <Link to="/app/features">See the rest of our features <Icon name="arrow-right" /></Link>

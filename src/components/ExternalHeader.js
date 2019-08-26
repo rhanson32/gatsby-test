@@ -45,7 +45,7 @@ class ExternalHeader extends React.Component {
                     <Link activeClassName="active-link" to="/app/docs">Docs</Link>       
                 </div>
                 <div className="right-menu">
-                    <Link className="login-link" to="/app/login">Sign In <Icon name="log-in" /></Link>
+                    <Link className="login-link" to="/app/login">Sign In</Link>
                 </div>
                 {/* <div className="modal-container">
                     <Modal

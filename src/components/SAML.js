@@ -7,17 +7,22 @@ import moment from 'moment';
 
 class SAML extends React.Component {
 
+    state = {
+        error: ``
+    }
+
     componentDidMount = async () => {
         console.log(this.props);
         setExpiration(moment().add(12, 'hours').toISOString());
         let pairs = window.location.search.slice(1).split('&');
-
+        console.log(pairs);
         let result = {};
         let token;
         pairs.forEach(pair => {
             pair = pair.split('=');
             result[pair[0]] = decodeURIComponent(pair[1] || '');
         });
+        console.log(result);
 
         if(result.client_id && result.code)
         {
@@ -47,6 +52,9 @@ class SAML extends React.Component {
         }
         else
         {
+            this.setState({
+                error: 'Unable to validate user with Identity Provider. Please check your provider settings and try again.'
+            });
             navigate('/app/login');
         }
     }
@@ -55,6 +63,9 @@ class SAML extends React.Component {
         return (
             <div className="saml-message">
                 Retrieving application credentials...
+                <div>
+                    {this.state.error}
+                </div>
             </div>
         )
     }
