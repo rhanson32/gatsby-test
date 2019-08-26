@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
 import { Drawer, Badge } from 'antd';
-import { Button, Icon } from 'tabler-react';
+import { Button } from 'tabler-react';
 import { showMobile } from '../actions';
 import MobileMenu from './MobileMenu';
 import logo3 from '../../static/PurifyWhiteLogo_2.png';

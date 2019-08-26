@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import { Form } from 'tabler-react';
-import axios from 'axios';
 import { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
@@ -112,79 +111,23 @@ class TabsCard extends React.Component {
       });
   }
 
-  onChangeHandler = (e) => {
-    console.log(e.target.files[0]);
-    this.setState({
-        metadataFile: e.target.files[0]
-    })
-  }
-
-  submitMetadata = () => {
-      const data = new FormData();
-      console.log(this.state.metadataFile);
-      data.append('file', this.state.metadataFile);
-      console.log(data);
-      this.props.uploadMetadata(data);
-  }
-
-  showBrowser = () => {
-      this.setState({
-          fileUpload: true
-      })
-  }
-
-  uploadFile = (e) => {
-    e.preventDefault();
-    var formData = new FormData();
-    console.log(this.state.metadataFile);
-    formData.append('username', 'abc123');
-    formData.append('file', this.state.metadataFile);
-    console.log(formData);
-    this.props.testSaml(formData);
-  }
-
-  onChange(e) {
+  onChange = (e) => {
     const file = e.target.files[0];
     console.log(e);
     Storage.put(this.props.user.CustomerId + '-metadata.xml', file, {
         contentType: 'text/xml'
     })
     .then (result => console.log(result))
-    .catch(err => console.log(err));
-}
-
-  handleFile = (e) => {
-
-    let file = e.target.files[0];
-      this.setState({ file: file })
-  }
-
-  handleUpload = (e) => {
-      console.log(this.state);
-
-      let file = this.state.file;
-
-      let formdata = new FormData();
-      formdata.append('file', file);
-      formdata.append('name', 'test');
-
-      axios({
-          url: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test/saml',
-          method: 'POST',
-          data: formdata
-      }).then((res) =>{
-          console.log(res);
-      })
-  }
-
-  hideBrowser = () => {
-      this.setState({
-          fileUpload: false
-      })
-  }
+    .catch(err => {
+        console.log(err);
+        notification.error({
+            message: 'Upload Error',
+            description: 'Unable to upload metadata. Please verify your network connection and try again.'
+        });
+    });
+    }
 
   submitMFA = async () => {
-
     const user = await Auth.currentAuthenticatedUser().catch(err => {
         console.log(err);
         if(err.code === 'NetworkError')
@@ -500,7 +443,7 @@ class TabsCard extends React.Component {
       </div>,
       SSO: <div>
       {
-          !this.props.settings.saml && (
+          this.props.scanComplete && !this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-left-side">
                     SSO Status:
@@ -514,7 +457,7 @@ class TabsCard extends React.Component {
           )
       }
       {
-          this.props.settings.saml && (
+          this.props.scanComplete && this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-left-side">
                     SSO Status:
@@ -528,7 +471,7 @@ class TabsCard extends React.Component {
           )
       }
       {
-          this.props.settings.saml && (
+          this.props.scanComplete && this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-left-side">
                     Upload Metadata file:

@@ -934,10 +934,14 @@ class Dashboard extends React.Component {
                                                     {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && <div>{this.state.scanComplete ? this.state.wasteViolations : <Spin style={{ fontSize: "48px" }} />}</div>}
+                                            {this.state.showWaste && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
                                             {this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.scanComplete ? this.state.configurationViolations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
@@ -963,12 +967,12 @@ class Dashboard extends React.Component {
                                             )}
                                             {this.state.showWaste && (
                                                 <div>
-                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
@@ -992,14 +996,14 @@ class Dashboard extends React.Component {
                                                     {this.props.metrics.Security && Math.round((this.props.metrics.Security.Violations / this.props.metrics.Security.Evaluations) * 100)}
                                                 </div>
                                             )}
-                                            {this.state.showWaste && this.state.scanComplete && this.props.metrics.Waste && (
+                                            {this.state.showWaste && this.state.scanComplete && (
                                                 <div>
-                                                    {Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
+                                                    {this.props.metrics.Waste && Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
                                                 </div>
                                             )}
                                             {this.state.showConfiguration && this.state.scanComplete && (
                                                 <div>
-                                                    {this.props.metrics.Configuration.Violations === 0 ? 'Unavailable' : Math.round((this.props.metrics.Configuration.Violations / this.props.metrics.Configuration.Evaluations) * 100)}
+                                                    {this.props.metrics.Configuration && this.props.metrics.Configuration.Violations === 0 ? '' : Math.round((this.props.metrics.Configuration.Violations / this.props.metrics.Configuration.Evaluations) * 100)}
                                                 </div>
                                             )}
                                         </div>

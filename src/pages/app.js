@@ -23,7 +23,7 @@ import store from '../store'
 
 const App = () => (
     <Provider store={store}>
-        <Helmet title="Clean up your cloud">
+        <Helmet>
             <title>Clean up your cloud</title>
         </Helmet>
         <Router>

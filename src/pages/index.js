@@ -29,7 +29,7 @@ Amplify.configure({
 
 const IndexPage = () => (
     <App>
-        <Helmet title="Clean up your cloud">
+        <Helmet>
             <title>Clean up your cloud</title>
         </Helmet>
     </App>

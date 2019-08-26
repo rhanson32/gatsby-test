@@ -300,15 +300,17 @@ export const getSettings = (customerId) => async dispatch => {
 
     const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
 
+    console.log(response);
+
     const settings =  {
-        Providers: response.data[0].Providers.L.map(provider => {
+        Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
             return {
                 Name: provider.M.Name.S,
                 Enabled: provider.M.Enabled.BOOL
             }
         }),
-        Notifications: response.data[0].Notifications.L.map(notification => notification.S),
-        saml: (response.data[0].SAML && response.data[0].SAML.BOOL) || false
+        Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
+        saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false
     }
 
     dispatch({ type: 'FETCH_SETTINGS', payload: settings })
@@ -612,6 +614,8 @@ export const getHistory = (user) => async dispatch => {
     const { CustomerId } = user;
 
     const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
+
+    console.log(historyResponse);
 
     const Items = historyResponse.data.map(item => {
         return {

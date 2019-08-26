@@ -62,7 +62,7 @@ class SAML extends React.Component {
     render() {
         return (
             <div className="saml-message">
-                Retrieving application credentials...
+                {this.state.error === `` && "Retrieving application credentials..."}
                 <div>
                     {this.state.error}
                 </div>

@@ -45,6 +45,10 @@ class Settings extends React.Component {
             }
         }
         this.props.getAccounts(this.props.user.CustomerId);
+        await this.props.getSettings(this.props.user.CustomerId);
+        this.setState({
+            scanComplete: true
+        })
     }
 
     toggleAWSState = () => {

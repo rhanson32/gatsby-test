@@ -42,12 +42,12 @@ class Users extends React.Component {
 
     makeAuditor = (e) => {
         console.log(e.target.name);
-        this.props.updateUser({ sub: e.target.name, group: 'Auditors' })
+        this.props.updateUser({ sub: e.target.name, group: 'Auditors', company: this.props.user["custom:company"] ? this.props.user["custom:company"] : null });
     }
 
     makeAdministrator = (e) => {
         console.log(e.target.name);
-        this.props.updateUser({ sub: e.target.name, group: 'Administrators' })
+        this.props.updateUser({ sub: e.target.name, group: 'Administrators', company: this.props.user["custom:company"] ? this.props.user["custom:company"] : null });
     }
 
     showDrawer = () => {
@@ -64,7 +64,6 @@ class Users extends React.Component {
 
     render() {
         const dataSource = this.props.users.map((user, index) => {
-            console.log(user);
             if(this.props.user.Group.includes('Administrators'))
             {
                 return {

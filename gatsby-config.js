@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Auth Starter AWS Amplify',
+    title: 'Clean up your cloud',
   },
   plugins: [
     {

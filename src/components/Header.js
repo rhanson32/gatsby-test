@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify';
 import { Avatar, Icon } from 'tabler-react';
-import logo from '../../static/PurifyWhiteLogo_1.png';
+import logo from '../../static/PurifyWhiteLogo_2.png';
 
 
 class Header extends React.Component {
@@ -34,7 +34,6 @@ class Header extends React.Component {
                                 </div>
                             )}
                         </div>
-                        
                     </div>
                     {
                         isLoggedIn() && this.props.user.email && (
