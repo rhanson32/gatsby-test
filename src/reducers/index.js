@@ -48,6 +48,32 @@ const ruleReducer = (state = [], action) => {
             return [ ...action.payload ]
         case 'ADD_RULE_NOTIFICATION':
             return [ ...state, action.payload ]
+        case 'MANAGE_VIOLATION':
+            return state.map(rule => {
+                if(rule.RuleId === action.payload.id)
+                {
+                    return {
+                        ...rule,
+                        Violations: rule.Violations.map(violation => {
+                            if(violation.ResourceId === action.payload.resourceId)
+                            {
+                                return {
+                                    ...violation,
+                                    Status: action.payload.action === 'defer' ? 'Deferred' : 'Dismissed'
+                                }
+                            }
+                            else
+                            {
+                                return violation;
+                            }
+                        })
+                    }
+                }
+                else
+                {
+                    return rule;
+                }
+            })
         default:
             return state;
     }

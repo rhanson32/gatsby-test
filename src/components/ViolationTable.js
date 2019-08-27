@@ -1,19 +1,38 @@
 import React from 'react';
 import { Table } from 'tabler-react';
+import { connect } from 'react-redux';
 import { Button } from 'antd';
+import { manageViolations } from '../actions';
 import moment from 'moment';
 
 class ViolationTable extends React.Component {
 
-    handleDefer = () => {
-        console.log("Defer!");
+    handleDefer = (e) => {
+        this.props.manageViolations({
+            id: this.props.rule.RuleId,
+            resourceId: e.target.name,
+            action: 'defer',
+            customerId: this.props.user.CustomerId,
+            accountId: this.props.rule.Violations.find(violation => violation.ResourceId === e.target.name).AccountId,
+            type: this.props.rule.Violations.find(violation => violation.ResourceId === e.target.name).ResourceType,
+            category: this.props.rule.Category
+        });
     }
 
-    handleDismiss = () => {
-        console.log("Dismiss!");
+    handleDismiss = (e) => {
+        this.props.manageViolations({
+            id: this.props.rule.RuleId,
+            resourceId: e.target.name,
+            action: 'dismiss',
+            customerId: this.props.user.CustomerId,
+            accountId: this.props.rule.Violations.find(violation => violation.ResourceId === e.target.name).AccountId,
+            type: this.props.rule.Violations.find(violation => violation.ResourceId === e.target.name).ResourceType,
+            category: this.props.rule.Category
+        });
     }
 
     render() {
+        console.log(this.props);
         return (
             <Table striped>
                 <Table.Header>
@@ -34,9 +53,9 @@ class ViolationTable extends React.Component {
                 </Table.Header>
                 <Table.Body>
                     {
-                        this.props.rule.Violations.map((violation, index) => {
+                        this.props.rule.Violations.filter(violation => !violation.Status || (violation.Status && violation.Status === 'Active')).map((violation, index) => {
                             return (
-                                <Table.Row>
+                                <Table.Row key={index}>
                                     <Table.Col>
                                         {violation.ResourceId}
                                     </Table.Col>
@@ -48,10 +67,10 @@ class ViolationTable extends React.Component {
                                     </Table.Col>
                                     <Table.Col>
                                        
-                                            <Button type="link" onClick={this.handleDefer}>
+                                            <Button type="link" account={violation.AccountId} name={violation.ResourceId} onClick={this.handleDefer}>
                                                 Defer
                                             </Button>
-                                            <Button type="link" onClick={this.handleDismiss}>
+                                            <Button type="link" name={violation.ResourceId} onClick={this.handleDismiss}>
                                                 Dismiss
                                             </Button>
                                         
@@ -67,4 +86,10 @@ class ViolationTable extends React.Component {
 
 }
 
-export default ViolationTable;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, { manageViolations })(ViolationTable);

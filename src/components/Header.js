@@ -11,7 +11,6 @@ import logo from '../../static/PurifyWhiteLogo_2.png';
 class Header extends React.Component {
 
     render() {
-        console.log(this.props.user);
         return (
             <div className="purify-header" autoscroll="true">
                 <div className="header-title">

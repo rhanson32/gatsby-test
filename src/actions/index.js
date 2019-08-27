@@ -7,7 +7,7 @@ const purify = axios.create({
 });
 
 export const postTicket = (values) => async (dispatch, getState) => {
-    console.log(values);
+
     let myRequest = {
         body: {
             ...values,
@@ -17,11 +17,8 @@ export const postTicket = (values) => async (dispatch, getState) => {
             "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
-    console.log(myRequest);
 
     const ticketResponse = await purify.post('/tickets', myRequest).catch(err => console.log(err));
-
-    console.log(ticketResponse);
 
     dispatch({ type: 'POST_TICKET', payload: ticketResponse.data });
 }
@@ -59,13 +56,8 @@ export const updateUser = (user) => async dispatch => {
         }
     };
 
-    console.log(myRequest);
-
     dispatch({ type: 'UPDATE_USER', payload: myRequest.body });
     const response = await purify.patch('/users', myRequest).catch(err => console.log(err));
-
-    console.log(response);
-
 }
 
 export const updateAccount = (account, role) => async (dispatch, getState) => {
@@ -85,9 +77,6 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
 
     dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
     const response = await purify.put('/accounts', myRequest).catch(err => console.log(err));
-
-    console.log(response);
-    
 }
 
 export const addGlobalNotification = (recipient) => async (dispatch, getState) => {
@@ -99,16 +88,11 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
         },
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
-    console.log(recipient);
-    console.log(getState());
-    console.log(getState().settings);
     let Notifications = getState().settings.Notifications;
     Notifications.push(recipient);
 
-    console.log(myRequest);
     dispatch({ type: 'ADD_NOTIFICATION', payload: Notifications });
     const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
-    console.log(response);
 }
 
 export const removeGlobalNotification = (recipient) => async (dispatch, getState) => {
@@ -144,7 +128,6 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
 
 export const getMetrics = (id) => async (dispatch, getState) => {
 
-    console.log(id);
     let myRequest = {
         body: {},
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
@@ -152,7 +135,6 @@ export const getMetrics = (id) => async (dispatch, getState) => {
 
     const metricResponse = await purify.get('/metrics?id=' + id, myRequest).catch(err => console.log(err));
 
-    console.log(metricResponse);
     if(metricResponse)
     {
         dispatch({ type: 'FETCH_METRICS', payload: metricResponse.data });
@@ -190,7 +172,6 @@ export const getAccounts = (id) => async (dispatch, getState) => {
 
 export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     const user = getState().user;
-    console.log(user);
 
     let myRequest = {
         body: {
@@ -205,7 +186,6 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     dispatch({ type: 'UPDATE_STATUS', payload: status });
 
     const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
-    console.log(response); 
 }
 
 export const modifyRules = (action, id, email) => async (dispatch, getState) => {
@@ -279,7 +259,6 @@ export const modifyRules = (action, id, email) => async (dispatch, getState) => 
 
 export const submitSubscription = (id, user, discount) => async dispatch => {
 
-    console.log(user);
     const { email, CustomerId } = user;
 
     let myRequest = {
@@ -295,7 +274,7 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
     console.log(id);
 
     await purify.post('/stripe', myRequest).then(data => {
-        console.log(data);
+        console.log('Success');
         dispatch({ type: 'UPDATE_PLAN', payload: 'Standard' });
     }).catch(err => {
         console.log(err);
@@ -314,8 +293,6 @@ export const getSettings = (customerId) => async dispatch => {
 
     const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
 
-    console.log(response);
-
     const settings =  {
         Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
             return {
@@ -330,6 +307,19 @@ export const getSettings = (customerId) => async dispatch => {
     dispatch({ type: 'FETCH_SETTINGS', payload: settings })
 }
 
+export const manageViolations = (event) => async dispatch => {
+    let myRequest = {
+        body: event,
+        headers: {
+            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    };
+
+    dispatch({ type: 'MANAGE_VIOLATION', payload: event });
+
+    const response = await purify.patch('/rules', myRequest).catch(err => console.log(err));
+}
+
 export const uploadMetadata = (file) => async (dispatch, getState) => {
     let myRequest = {
         body: {
@@ -342,8 +332,6 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
     };
 
     const response = await purify.post('/saml', myRequest).catch(err => console.log(err));
-
-    console.log(response);
 }
 
 export const getFeatures = () => async dispatch => {
@@ -354,7 +342,7 @@ export const getFeatures = () => async dispatch => {
         }
     };
     const featureResponse = await purify.get('/features', myRequest).catch(err => console.log(err));
-    console.log(featureResponse);
+
     const Items = featureResponse.data.Items.map(item => {
         return {
             FeatureId: item.FeatureId.S,
@@ -412,8 +400,6 @@ export const getCurrentUser = () => async dispatch => {
     {
         const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest).catch(err => console.log(err));
 
-        console.log(customerResponse);
-
         const userInfo = {
             CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
             Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
@@ -455,7 +441,7 @@ export const getCurrentUser = () => async dispatch => {
 }
 
 export const validateCompany = async (user) => {
-    console.log(user);
+
     let myRequest = {
         body:   { 
                 email: user.email, 
@@ -469,12 +455,11 @@ export const validateCompany = async (user) => {
 
     let queryString = '?company=' + user.company;
     const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
-    console.log(customerResponse);
 
     if(customerResponse.data.length === 0)
     {
         postResponse = await purify.put('/customers', myRequest).catch(err => console.log(err));
-        console.log(postResponse);
+
         return true;
     }
     else
@@ -496,7 +481,7 @@ export const getToken = (inputs) => async dispatch => {
     .catch(err => {
         console.log(err);
     });
-    console.log(tokenResponse);
+
     if(tokenResponse)
     {
         return tokenResponse;
@@ -518,10 +503,7 @@ export const enableSaml = () => async (dispatch, getState) => {
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    console.log(myRequest);
-
     const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
-    console.log(response);
 }
 
 export const disableSaml = () => async (dispatch, getState) => {
@@ -535,10 +517,7 @@ export const disableSaml = () => async (dispatch, getState) => {
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    console.log(myRequest);
-
     const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
-    console.log(response);
 }
 
 export const getRules = (user) => async dispatch => {
@@ -568,7 +547,9 @@ export const getRules = (user) => async dispatch => {
                 return {
                     ViolationDate: violation.M.ViolationDate.S,
                     ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None",
-                    AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown"
+                    AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown",
+                    Status: (violation.M.Status && violation.M.Status.S) || 'Active',
+                    ResourceType: (violation.M.ResourceType && violation.M.ResourceType.S) || 'Unknown'
                 }
             }),
             Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
@@ -584,7 +565,6 @@ export const testSaml = (formData) => async dispatch => {
             "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
-    console.log(formData);
 
     await purify.post('/saml', myRequest).catch(err => console.log(err));
 }
@@ -607,13 +587,9 @@ export const addRuleNotification = (rule, email) => async dispatch => {
         Notifications: [ ...rule.Notifications ]
     };
 
-    console.log(newRule);
-
     dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: newRule });
 
     const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
-
-    console.log(response);
 }
 
 export const getHistory = (user) => async dispatch => {
@@ -629,16 +605,14 @@ export const getHistory = (user) => async dispatch => {
 
     const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
 
-    console.log(historyResponse);
-
-    const Items = historyResponse.data.map(item => {
+    const Items = historyResponse ? historyResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
             ActionDate: item.ActionDate.S,
             Event: item.Event.S,
             EventData: item.EventData ? item.EventData.M : "None"
         }
-    });
+    }) : [];
     dispatch({ type: 'FETCH_HISTORY', payload: Items });
 }
 
@@ -745,9 +719,8 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
 }
 
 export const toggleAWS = () => async (dispatch, getState) => {
-    console.log(getState().settings);
+
     const customerId = getState().user.CustomerId;
-    console.log(customerId);
     const newValue = getState().settings.Providers.map(provider => {
         if(provider.Name === 'AWS')
         {
@@ -761,7 +734,7 @@ export const toggleAWS = () => async (dispatch, getState) => {
             return provider
         }
     });
-    console.log(newValue);
+
     let myRequest = {
         body: {
             customerId,
@@ -774,12 +747,10 @@ export const toggleAWS = () => async (dispatch, getState) => {
     }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
     const settingsUpdateResponse = await purify.put('/settings', myRequest).catch(err => console.log(err));
-    console.log(settingsUpdateResponse);
 }
 
 export const toggleAddAccount = () => async (dispatch, getState) => {
     const prevState = getState();
-    console.log(prevState);
 
     dispatch({type: 'TOGGLE_ADD_ACCOUNT', payload: !prevState.flags.AddAccount })
 }
@@ -815,7 +786,6 @@ export const fetchTickets = () => async (dispatch, getState) => {
 
 export const showMobile = () => async (dispatch, getState) => {
     const state = getState();
-    console.log(state);
     dispatch({ type: 'TOGGLE_MOBILE', payload: !state.mobile.mobileMenu });
 }
 
@@ -834,9 +804,7 @@ export const addUser = (user) => async (dispatch, getState) => {
 
     dispatch({ type: 'ADD_USER', payload: user });
 
-    const response = await purify.post('/users', myRequest).catch(err => console.log(err));
-    console.log(response);
-    
+    const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
 }
 
 export const confirmUser = (username) => async dispatch => {

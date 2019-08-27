@@ -11,7 +11,7 @@ import "tabler-react/dist/Tabler.css";
 import TopMenu from './TopMenu';
 import Header from './Header';
 import ViolationTable from './ViolationTable';
-import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, getHistory, updateCustomerStatus, postAccount } from '../actions';
+import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import moment from 'moment';
 
@@ -153,7 +153,9 @@ class Dashboard extends React.Component {
 
             this.props.getAccounts(this.props.user.CustomerId);
             this.setState({ scanComplete: true });
-            this.props.fetchUsers(this.props.user.CustomerId);    
+            this.props.fetchUsers(this.props.user.CustomerId); 
+            this.props.getSettings(this.props.user.CustomerId); 
+            this.props.fetchTickets();  
         }
         else
         {
@@ -197,8 +199,9 @@ class Dashboard extends React.Component {
             });
             this.setState({ scanComplete: true });
             await this.props.getAccounts(this.props.user.CustomerId);
-           
             this.props.fetchUsers(this.props.user.CustomerId);
+            this.props.getSettings(this.props.user.CustomerId);
+            this.props.fetchTickets();
 
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
@@ -547,7 +550,7 @@ class Dashboard extends React.Component {
                 render: (text, record) => {
                     return (
                     <span>
-                        {record.violations.length}
+                        {record.violations.filter(violation => !violation.Status || (violation.Status && violation.Status === 'Active')).length}
                     </span>
                     )
                 },
@@ -1095,4 +1098,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, getHistory, fetchUsers, updateCustomerStatus, postAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, getHistory, fetchUsers, fetchTickets, getSettings, updateCustomerStatus, postAccount })(Dashboard);
