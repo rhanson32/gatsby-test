@@ -104,11 +104,12 @@ class Dashboard extends React.Component {
                     this.setState({ welcomeScreen: true });
                 }
                 this.setState({ loadingProgress: 25 });
+                this.props.getMetrics(this.props.user.CustomerId);
                 await this.props.getRules(this.props.user);
                 this.setState({ loadingProgress: 50 });
                 this.props.getHistory(this.props.user);
                 this.setState({ loadingProgress: 75 });
-                this.props.getMetrics(this.props.user.CustomerId);
+                
                 this.last3Days();
                 this.setState({ loadingProgress: 100 });
             }
@@ -162,6 +163,7 @@ class Dashboard extends React.Component {
         {
             try
             {
+                this.props.getMetrics(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
                 await this.props.getHistory(this.props.user);
@@ -483,6 +485,7 @@ class Dashboard extends React.Component {
         {
             navigate('/app/login');
         }
+        console.log(this.state);
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
         const dataSourceAll = this.props.rules.map((rule, index) => {
@@ -666,6 +669,7 @@ class Dashboard extends React.Component {
                                             {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
                                             {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.ConfigurationScore}
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
+                                            {!this.state.scanComplete && ' '}
                                         </div>
                                         <Progress>
                                             {this.state.scanComplete && this.state.showAll && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />}

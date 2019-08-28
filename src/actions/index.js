@@ -605,6 +605,8 @@ export const getHistory = (user) => async dispatch => {
 
     const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
 
+    console.log(historyResponse);
+
     const Items = historyResponse ? historyResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
