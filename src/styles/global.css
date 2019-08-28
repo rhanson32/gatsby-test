@@ -775,6 +775,12 @@ input  {
     transition: height 5s;
 }
 
+.chartist-test {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+}
+
 .feature-focus {
     display: flex;
     justify-content: space-between;

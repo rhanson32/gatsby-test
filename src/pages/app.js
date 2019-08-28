@@ -25,6 +25,8 @@ const App = () => (
     <Provider store={store}>
         <Helmet>
             <title>Clean up your cloud</title>
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
+            <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
         </Helmet>
         <Router>
             <Home path="/" />

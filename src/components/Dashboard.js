@@ -13,6 +13,7 @@ import Header from './Header';
 import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
+import Line from './Line';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
@@ -1074,11 +1075,13 @@ class Dashboard extends React.Component {
                                     </Card.Header>
                                     <Card.Body>
                                         <div style={{ backgroundColor: "white" }}>
-                                            <BarChart data={this.state.chartData} axis={this.state.chartAxis} />
+                                            {/* <BarChart data={this.state.chartData} axis={this.state.chartAxis} /> */}
+                                            <Line />
                                         </div>
                                     </Card.Body>
                                 </Card>
                             </div>
+                            
                             </div>
                             </div>
                                 </div>
