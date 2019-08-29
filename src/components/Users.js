@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getCurrentUser, fetchUsers, updateUser } from '../actions';
 import { getExpiration } from '../utils/auth';
-import { Table, Spin, Drawer, Button, message } from 'antd';
+import { Table, Spin, Button, message, Modal } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import AddUserForm from './AddUserForm';
@@ -148,16 +148,21 @@ class Users extends React.Component {
                         this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
                     }
                     </div>
-                    <Drawer
+                    <Modal
                         title="Add User"
-                        placement="right"
-                        closable={false}
-                        onClose={this.onClose}
                         visible={this.state.visible}
-                        >
+                        onOk={this.onClose}
+                        onCancel={this.onClose}
+                        width="80%"
+                        okText="Done"
+                        footer={[
+                            <Button type="primary" onClick={this.onClose}>
+                                Done
+                            </Button>
+                        ]}
+                    >
                         <AddUserForm />
-                    </Drawer>
-                    
+                    </Modal>
                 </div>   
             </div>
         )

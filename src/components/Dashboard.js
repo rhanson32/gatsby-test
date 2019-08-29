@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import BarChart from './BarChart';
 import 'c3/c3.css';
 import { navigate, Link } from '@reach/router';
 import { Auth } from 'aws-amplify';
@@ -485,7 +484,6 @@ class Dashboard extends React.Component {
         {
             navigate('/app/login');
         }
-        console.log(this.state);
         const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
 
         const dataSourceAll = this.props.rules.map((rule, index) => {
@@ -608,6 +606,8 @@ class Dashboard extends React.Component {
                     centered={true}
                     okButtonProps={{ disabled: true }}
                     cancelButtonProps={{ disabled: true }}
+                    footer={null}
+                    closable={false}
                 >
                     <div className="loading-modal">
                         <div>Retrieving latest data...</div>
@@ -658,7 +658,7 @@ class Dashboard extends React.Component {
                                 <Card>
                                     <Card.Body>
                                         <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
-                                            {this.state.scanComplete && this.state.showAll && "Purify Score"}
+                                            {this.state.scanComplete && this.state.showAll && "Purify (Overall) Score"}
                                             {this.state.scanComplete && this.state.showSecurity && "Security Score"}
                                             {this.state.scanComplete && this.state.showWaste && "Waste Score"}
                                             {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
@@ -676,7 +676,6 @@ class Dashboard extends React.Component {
                                             {this.state.scanComplete && this.state.showSecurity && <Progress.Bar color="green" width={this.props.metrics.SecurityScore} />}
                                             {this.state.scanComplete && this.state.showWaste && <Progress.Bar color="green" width={this.props.metrics.WasteScore} />}
                                             {this.state.scanComplete && this.state.showConfiguration && <Progress.Bar color="green" width={this.props.metrics.ConfigurationScore} />}
-                                            {/* {this.state.scanComplete && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />} */}
                                         </Progress>
                                     </Card.Body>
                                 </Card>
@@ -760,7 +759,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                     <div className="progress-items">
                                     {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
-                                    {this.state.showAll && this.state.scanComplete && (
+                                    {/* {this.state.showAll && this.state.scanComplete && (
                                     <div className="victory-chart">
                                         <svg viewBox="0 0 400 400" width="100%" height="100%">
                                             <VictoryPie
@@ -794,8 +793,8 @@ class Dashboard extends React.Component {
                                         </svg>    
                                     </div>
                                     )
-                                }
-                                {this.state.showSecurity && (
+                                } */}
+                                {/* {this.state.showSecurity && (
                                     <div className="victory-chart">
                                         <svg viewBox="0 0 400 400" width="100%" height="100%">
                                             <VictoryPie
@@ -829,8 +828,8 @@ class Dashboard extends React.Component {
                                         </svg>
                                     </div>
                                     )
-                                }
-                                {this.state.showWaste && (
+                                } */}
+                                {/* {this.state.showWaste && (
                                     <div className="victory-chart">
                                     <svg viewBox="0 0 400 400" width="100%" height="100%">
                                             <VictoryPie
@@ -863,8 +862,8 @@ class Dashboard extends React.Component {
                                             </VictoryAnimation>
                                         </svg> 
                                     </div>
-                                )}
-                                {this.state.showConfiguration && (
+                                )} */}
+                                {/* {this.state.showConfiguration && (
                                     <div className="victory-chart">
                                     <svg viewBox="0 0 400 400" width="100%" height="100%">
                                             <VictoryPie
@@ -897,12 +896,12 @@ class Dashboard extends React.Component {
                                             </VictoryAnimation>
                                         </svg> 
                                     </div>
-                                )}
+                                )} */}
                                 {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "60%" }} />}
-                                {this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceAll} columns={columns} />}
-                                {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceSecurity} columns={columns} />}
-                                {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 3 }} style={{ margin: "auto", minWidth: "60%"  }} dataSource={dataSourceWaste} columns={columns} />}
+                                {this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
+                                {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
+                                {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
                                 </div>
                                 {
                                     this.props.accounts.length === 0 && this.state.scanComplete && (
@@ -1010,7 +1009,7 @@ class Dashboard extends React.Component {
                                                     {this.props.metrics.Waste && Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
                                                 </div>
                                             )}
-                                            {this.state.showConfiguration && this.state.scanComplete && (
+                                            {this.state.showConfiguration && this.state.scanComplete && this.props.metrics.Configuration.Evaluations !== 0 && (
                                                 <div>
                                                     {this.props.metrics.Configuration && this.props.metrics.Configuration.Violations === 0 ? '' : Math.round((this.props.metrics.Configuration.Violations / this.props.metrics.Configuration.Evaluations) * 100)}
                                                 </div>
