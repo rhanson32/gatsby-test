@@ -47,7 +47,7 @@ class History extends React.Component {
         const dataSource = this.props.history.map((item, index) => {
             return {
                 key: index.toString(),
-                actionDate: moment(item.ActionDate).format('MM/DD/YYYY hh:mm'),
+                eventTime: moment(item.EventTime).format('MM/DD/YYYY hh:mm a'),
                 event: item.Event,
                 eventData: JSON.stringify(item.EventData)
             }    
@@ -55,10 +55,10 @@ class History extends React.Component {
           
         const columns = [
             {
-              title: 'Action Date',
-              dataIndex: 'actionDate',
-              key: 'actionDate',
-                sorter: (a, b) => moment(a.actionDate) - moment(b.actionDate),
+              title: 'Event Time',
+              dataIndex: 'eventTime',
+              key: 'eventTime',
+                sorter: (a, b) => moment(a.eventTime) - moment(b.eventTime),
                 sortDirections: ['descend', 'ascend']
             },
             {

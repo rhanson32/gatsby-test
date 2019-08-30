@@ -54,7 +54,8 @@ class Dashboard extends React.Component {
             last7days: false,
             lastMonth: false,
             chartData: {
-             }
+             },
+             selectedChart: 'last3days'
           };
     }
     
@@ -298,73 +299,11 @@ class Dashboard extends React.Component {
     }
 
     last3Days = () => {
-        const foundData = [
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
-        ];
-
-        const fixedData = [
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
-        ];
-
-        this.setState({
-            chartData: {
-                'x': [
-                    moment().subtract(3, 'days').date(),
-                    moment().subtract(2, 'days').date(),
-                    moment().subtract(1, 'days').date()
-                ],
-                'Found Violations': foundData,
-                'Fixed Violations': fixedData
-            }
-        });
+        this.setState({ selectedChart: 'last3days' });
     }
 
     last7Days = () => {
-        const foundData = [
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(7, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(6, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(5, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(4, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
-        ];
-
-        const fixedData = [
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(7, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(6, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(5, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(4, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(3, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(2, 'days'), 'day')).length,
-            this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length
-        ];
-
-        this.setState({
-            chartData: {
-                'x': [
-                    moment().subtract(7, 'days').date(),
-                    moment().subtract(6, 'days').date(),
-                    moment().subtract(5, 'days').date(),
-                    moment().subtract(4, 'days').date(),
-                    moment().subtract(3, 'days').date(),
-                    moment().subtract(2, 'days').date(),
-                    moment().subtract(1, 'days').date()
-                ],
-                'Found Violations': foundData,
-                'Fixed Violations': fixedData
-            },
-            chartAxis: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%Y-%m-%d'
-                    }
-                }
-        });
+        this.setState({ selectedChart: 'last7days' });
     }
 
     lastMonth = () => {
@@ -1079,7 +1018,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div style={{ backgroundColor: "white" }}>
                                             {/* <BarChart data={this.state.chartData} axis={this.state.chartAxis} /> */}
-                                            <Line />
+                                            {this.props.metrics && this.props.metrics['last3days'] && <Line selected={this.state.selectedChart} />}
                                         </div>
                                     </Card.Body>
                                 </Card>

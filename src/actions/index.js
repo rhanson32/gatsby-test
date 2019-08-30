@@ -610,7 +610,7 @@ export const getHistory = (user) => async dispatch => {
     const Items = historyResponse ? historyResponse.data.map(item => {
         return {
             CustomerId: item.CustomerId.S,
-            ActionDate: item.ActionDate.S,
+            EventTime: parseInt(item.EventTime.N) * 1000,
             Event: item.Event.S,
             EventData: item.EventData ? item.EventData.M : "None"
         }
