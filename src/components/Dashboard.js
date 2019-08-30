@@ -50,12 +50,9 @@ class Dashboard extends React.Component {
             wasteEvaluations: 0,
             showDetail: false,
             detailId: ``,
-            last3days: true,
-            last7days: false,
-            lastMonth: false,
             chartData: {
              },
-             selectedChart: 'last3days'
+             selectedChart: 'last12hours'
           };
     }
     
@@ -110,7 +107,6 @@ class Dashboard extends React.Component {
                 this.props.getHistory(this.props.user);
                 this.setState({ loadingProgress: 75 });
                 
-                this.last3Days();
                 this.setState({ loadingProgress: 100 });
             }
             catch(err)
@@ -167,7 +163,6 @@ class Dashboard extends React.Component {
                 this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
                 await this.props.getHistory(this.props.user);
-                this.last3Days();
             }
             catch(err)
             {
@@ -298,6 +293,10 @@ class Dashboard extends React.Component {
         });
     }
 
+    last12Hours = () => {
+        this.setState({ selectedChart: 'last12hours' });
+    }
+
     last3Days = () => {
         this.setState({ selectedChart: 'last3days' });
     }
@@ -307,30 +306,7 @@ class Dashboard extends React.Component {
     }
 
     lastMonth = () => {
-        const currentMonth = moment().month();
-        let numDays = moment().subtract(1, 'months').daysInMonth();
-
-        let startDate = moment().set({'year': currentMonth === 0 ? moment().year() - 1 : moment().year(), 'month': currentMonth - 1, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
-
-        let foundData = []; 
-        let fixedData = [];
-        let labels = [];
-
-        for(let i = 0; i < numDays; i++)
-        {
-            startDate.add(1, 'days');
-            labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-        }
-
-        this.setState({
-            chartData: {
-                'x': labels,
-                'Found Violations': foundData,
-                'Fixed Violations': fixedData
-            }
-        });
+        this.setState({ selectedChart: 'lastMonth' });
     }
 
     monthToDate = () => {
@@ -431,7 +407,7 @@ class Dashboard extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
-                status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
+                status:  rule.Violations.filter(violation => violation.Status === 'Active').length === 0 ? "Compliant": "Non-Compliant",
                 violations: rule.Violations,
                 description: rule.Description
             }    
@@ -443,7 +419,7 @@ class Dashboard extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
-                status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
+                status:  rule.Violations.filter(violation => violation.Status === 'Active').length === 0 ? "Compliant": "Non-Compliant",
                 violations: rule.Violations,
                 description: rule.Description
             }    
@@ -455,7 +431,7 @@ class Dashboard extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
-                status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
+                status:  rule.Violations.filter(violation => violation.Status === 'Active').length === 0 ? "Compliant": "Non-Compliant",
                 violations: rule.Violations,
                 description: rule.Description
             }    
@@ -467,7 +443,7 @@ class Dashboard extends React.Component {
                 name: rule.Name,
                 category: rule.Category,
                 id: rule.RuleId,
-                status:  rule.Violations.length === 0 ? "Compliant": "Non-Compliant",
+                status:  rule.Violations.filter(violation => violation.Status === 'Active').length === 0 ? "Compliant": "Non-Compliant",
                 violations: rule.Violations,
                 description: rule.Description
             }    
@@ -966,13 +942,13 @@ class Dashboard extends React.Component {
                                     <div className="dashboard-trends-header">
                                         <div className="dashboard-trends-title">Trends</div>
                                         <div className="history-chart-header-filters">
+                                            <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button>
                                             <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
                                             <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
                                             <Button onClick={this.monthToDate} type="link">MTD</Button>
                                             <Button onClick={this.lastMonth}  type="link">Last Month</Button>
                                             <Button type="link">Last 3 Months</Button>
                                             <Button onClick={this.yearToDate} type="link">YTD</Button>
-                                            <Button type="link">Last Year</Button>
                                         </div>
                                     </div>
                                 
