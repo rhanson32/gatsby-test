@@ -43,7 +43,7 @@ import {
       };
   
       return (
-        <Form layout="inline" onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Item label="Email">
             {getFieldDecorator('email', {
               rules: [

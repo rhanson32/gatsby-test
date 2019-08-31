@@ -11,7 +11,6 @@ import TopMenu from './TopMenu';
 import Header from './Header';
 import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
-import { VictoryPie, VictoryLabel, VictoryAnimation } from 'victory';
 import Line from './Line';
 import moment from 'moment';
 
@@ -674,144 +673,6 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                     <div className="progress-items">
                                     {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
-                                    {/* {this.state.showAll && this.state.scanComplete && (
-                                    <div className="victory-chart">
-                                        <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.allData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                    }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.percent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg>    
-                                    </div>
-                                    )
-                                } */}
-                                {/* {this.state.showSecurity && (
-                                    <div className="victory-chart">
-                                        <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.data}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.securityPercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg>
-                                    </div>
-                                    )
-                                } */}
-                                {/* {this.state.showWaste && (
-                                    <div className="victory-chart">
-                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.wasteData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.wastePercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg> 
-                                    </div>
-                                )} */}
-                                {/* {this.state.showConfiguration && (
-                                    <div className="victory-chart">
-                                    <svg viewBox="0 0 400 400" width="100%" height="100%">
-                                            <VictoryPie
-                                                standalone={false}
-                                                animate={{ duration: 1000 }}
-                                                width={400} height={400}
-                                                data={this.state.configurationData}
-                                                innerRadius={120}
-                                                cornerRadius={25}
-                                                labels={() => null}
-                                                style={{
-                                                data: { fill: (d) => {
-                                                    const color = d.y > 80 ? "green" : "red";
-                                                    return d.x === 1 ? color : "transparent";
-                                                }
-                                                }
-                                                }}
-                                            />
-                                            <VictoryAnimation duration={1000} data={this.state}>
-                                                {(newProps) => {
-                                                return (
-                                                    <VictoryLabel
-                                                    textAnchor="middle" verticalAnchor="middle"
-                                                    x={200} y={200}
-                                                    text={`${Math.round(newProps.configurationPercent)}%`}
-                                                    style={{ fontSize: 45 }}
-                                                    />
-                                                );
-                                                }}
-                                            </VictoryAnimation>
-                                        </svg> 
-                                    </div>
-                                )} */}
                                 {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "60%" }} />}
                                 {this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
                                 {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
@@ -911,7 +772,7 @@ class Dashboard extends React.Component {
                                         <div className="card-metric-wrapper">
                                             {this.state.showAll && (
                                                 <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations === 0 || this.props.metrics.Configuration.Evaluations === 0 || this.props.metrics.Waste.Evaluations === 0 ? ' ' : Math.round((this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations) / (this.state.securityEvaluations + this.state.configurationEvaluations + this.state.wasteEvaluations)* 100) : <Spin style={{ fontSize: "48px" }} />}
+                                                    {(this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration) ? this.props.metrics.Security.Evaluations === 0 || this.props.metrics.Configuration.Evaluations === 0 || this.props.metrics.Waste.Evaluations === 0 ? ' ' : Math.round((this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations) / (this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations) * 100) : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                             {this.state.showSecurity && this.state.scanComplete && (
@@ -975,7 +836,7 @@ class Dashboard extends React.Component {
                                             {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Fixed Violations
+                                            Fixed Violations
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -993,8 +854,11 @@ class Dashboard extends React.Component {
                                     </Card.Header>
                                     <Card.Body>
                                         <div style={{ backgroundColor: "white" }}>
-                                            {/* <BarChart data={this.state.chartData} axis={this.state.chartAxis} /> */}
                                             {this.props.metrics && this.props.metrics['last3days'] && <Line selected={this.state.selectedChart} />}
+                                            <div className="legend">
+                                                <div className="legend-one"></div><div>Violations Discovered</div>
+                                                <div className="legend-two"></div><div>Violations Resolved</div>
+                                            </div>
                                         </div>
                                     </Card.Body>
                                 </Card>

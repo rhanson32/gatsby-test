@@ -92,7 +92,7 @@ class SupportPage extends React.Component {
                         <div className="support-screen">
                             <div className="support-screen-max">
                             {
-                                this.state.scanComplete && (
+                                (this.props.tickets.length > 0 || this.state.scanComplete) && (
                                     <div className="support-screen-header">
                                         <h1>Support Center</h1>
                                         <Button onClick={this.showForm} type="primary">Create Case</Button>  

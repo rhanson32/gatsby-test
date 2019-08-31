@@ -1,18 +1,18 @@
-import React from "react"
-import { Router } from "@reach/router"
-import { Provider } from 'react-redux'
+import React from "react";
+import { Router } from "@reach/router";
+import { Provider } from 'react-redux';
 
-import Login from "../components/Login"
-import SignUp from "../components/SignUp"
-import PrivateRoute from "../components/PrivateRoute"
+import Login from "../components/Login";
+import SignUp from "../components/SignUp";
+import PrivateRoute from "../components/PrivateRoute";
 import Dashboard from '../components/Dashboard';
 import RulesPage from '../components/RulesPage';
-import AccountsPage from '../components/AccountsPage'
+import AccountsPage from '../components/AccountsPage';
 import Features from '../components/Features'
-import Home from '../components/Home'
-import Pricing from '../components/Pricing'
-import SupportPage from '../components/SupportPage'
-import Settings from '../components/Settings'
+import Home from '../components/Home';
+import Pricing from '../components/Pricing';
+import SupportPage from '../components/SupportPage';
+import Settings from '../components/Settings';
 import Docs from '../components/Docs';
 import History from '../components/History';
 import SAML from '../components/SAML';

@@ -15,7 +15,7 @@ class Line extends React.Component {
         showArea: true,
         showLine: true,
         showPoint: true,
-      fullWidth: true
+        fullWidth: true
     };
  
     var type = 'Line'

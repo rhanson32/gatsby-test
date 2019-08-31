@@ -7,7 +7,7 @@ import SwitchWrap from './SwitchWrap';
 import { getExpiration } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer } from 'antd';
 import Header from './Header';
-import { getRules, getCurrentUser, enableRule, disableRule, modifyRules } from '../actions';
+import { getRules, getCurrentUser, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, enableRule, disableRule, modifyRules } from '../actions';
 import RuleItem from './RuleItem';
 import TopMenu from './TopMenu';
 
@@ -52,6 +52,16 @@ class RulesPage extends React.Component {
         else {
             this.props.getRules(this.props.User);
         }
+        if(!this.props.metrics || this.props.metrics.PurifyScore)
+        {
+            this.props.getMetrics(this.props.User.CustomerId);
+        }
+        if(this.props.accounts.length === 0)
+        {
+            this.props.getAccounts(this.props.User.CustomerId);
+        }
+        this.props.fetchUsers(this.props.User.CustomerId);
+        this.props.fetchTickets();
     }
 
     disableAll = () => {
@@ -249,8 +259,11 @@ class RulesPage extends React.Component {
 const mapStateToProps = state => {
     return {
         Rules: state.rules,
-        User: state.user
+        User: state.user,
+        metrics: state.metrics,
+        history: state.history,
+        accounts: state.accounts
     }
 }
 
-export default connect(mapStateToProps, { getRules, getCurrentUser, enableRule, disableRule, modifyRules })(RulesPage);
+export default connect(mapStateToProps, { getRules, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, getCurrentUser, enableRule, disableRule, modifyRules })(RulesPage);

@@ -35,7 +35,7 @@ class SupportTabs extends React.Component {
     return (
       <div className="support-container">
         {
-          this.props.scanComplete && (
+          (this.props.tickets.length > 0 || this.props.scanComplete) && (
             <div>
             <div className="web-rules">
               <Card

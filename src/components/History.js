@@ -49,7 +49,7 @@ class History extends React.Component {
                 key: index.toString(),
                 eventTime: moment(item.EventTime).format('MM/DD/YYYY hh:mm a'),
                 event: item.Event,
-                eventData: JSON.stringify(item.EventData)
+                eventData: <pre>{JSON.stringify(item.EventData, null, 2)}</pre>
             }    
         });
           

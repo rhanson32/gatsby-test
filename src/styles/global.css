@@ -775,6 +775,27 @@ input  {
     transition: height 5s;
 }
 
+.legend {
+    display: flex;
+    align-items: center;
+}
+
+.legend-one {
+    background-color: #d70206;
+    height: 1rem;
+    width: 2rem;
+    opacity: 0.5;
+    margin: 0 1rem;
+}
+
+.legend-two {
+    background-color: #f05b4f;
+    height: 1rem;
+    width: 2rem;
+    opacity: 0.5;
+    margin: 0 1rem;
+}
+
 .chartist-test {
     width: 100%;
     max-width: 1000px;
