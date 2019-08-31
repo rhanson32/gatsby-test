@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import { Form } from 'tabler-react';
-import { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
+import { testSaml, updateCustomerStatus, downgradeSubscription, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -17,6 +17,7 @@ class TabsCard extends React.Component {
     oldPassword: ``,
     newPassword: ``,
     showMFASetup: false,
+    confirm: false,
     recipient: ``,
     files: [],
     fileUpload: false,
@@ -84,15 +85,16 @@ class TabsCard extends React.Component {
   }
 
   showConfirm = () => {
-    const { confirm } = Modal;
-    console.log(this);
-    confirm({
-        title: 'Are you sure you want to cancel your account?',
-        onOk() {
-          console.log(this);
-        },
-        onCancel() {}
-      });
+    this.setState({ confirm: true });
+  }
+
+  downgradeAccount = () => {
+      this.props.downgradeSubscription();
+      this.setState({ confirm: false });
+  }
+
+  cancelDowngrade = () => {
+    this.setState({ confirm: false });
   }
 
   showPlans = () => {
@@ -555,6 +557,22 @@ class TabsCard extends React.Component {
                     </Button>
                 </div>
             </Drawer>
+            <Modal
+               visible={this.state.confirm}
+               closable={false}
+               footer={[
+                   <div>
+                <Button onClick={this.cancelDowngrade}>
+                    Cancel
+                </Button>
+                <Button type="danger" onClick={this.downgradeAccount}>
+                    Confirm
+                </Button>
+                </div>
+               ]}
+            >
+              Are you sure you want to downgrade to the Free plan?
+            </Modal>
         </div>
     );
   }
@@ -568,4 +586,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata })(TabsCard);
+export default connect(mapStateToProps, { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, downgradeSubscription, enableSaml, disableSaml, uploadMetadata })(TabsCard);

@@ -35,18 +35,9 @@ class Dashboard extends React.Component {
                 title: ``,
                 message: ``
             },
-            securityPercent: 0, 
             percent: 0,
-            data: this.getData(0),
-            allData: this.getData(0),
             interval: 0,
             loadingProgress: 0,
-            securityViolations: 0,
-            configurationViolations: 0,
-            wasteViolations: 0,
-            securityEvaluations: 0,
-            configurationEvaluations: 0,
-            wasteEvaluations: 0,
             showDetail: false,
             detailId: ``,
             chartData: {
@@ -81,9 +72,7 @@ class Dashboard extends React.Component {
 
         if(this.props.rules.length > 0)
         {
-            this.setState({ 
-                scanComplete: true
-            });
+            this.setState({ scanComplete: true });
         }
         if(!this.props.user.email)
         {
@@ -105,7 +94,6 @@ class Dashboard extends React.Component {
                 this.setState({ loadingProgress: 50 });
                 this.props.getHistory(this.props.user);
                 this.setState({ loadingProgress: 75 });
-                
                 this.setState({ loadingProgress: 100 });
             }
             catch(err)
@@ -120,31 +108,7 @@ class Dashboard extends React.Component {
                 }
             }
             
-
             this.setState({
-                securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                wasteViolations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            });
-            this.setState({
-                securityPercent: Math.round(((this.state.securityEvaluations - this.state.securityViolations) / this.state.securityEvaluations) * 100),
-                wastePercent: Math.round(((this.state.wasteEvaluations - this.state.wasteViolations) / this.state.wasteEvaluations) * 100),
-                configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
 
@@ -161,37 +125,15 @@ class Dashboard extends React.Component {
                 this.props.getMetrics(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 25 });
                 await this.props.getRules(this.props.user);
+                this.setState({ loadingProgress: 75 });
                 await this.props.getHistory(this.props.user);
             }
             catch(err)
             {
                 console.log(err);
             }
-            this.setState({
-                securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                wasteViolations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                     return accumulator + currentValue;
-                 }, 0),
-                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            });
             
             this.setState({
-                securityPercent: Math.round(((this.state.securityEvaluations - this.state.securityViolations) / this.state.securityEvaluations) * 100),
-                wastePercent: Math.round(((this.state.wasteEvaluations - this.state.wasteViolations) / this.state.wasteEvaluations) * 100),
-                configurationPercent: Math.round(((this.state.configurationEvaluations - this.state.configurationViolations) / this.state.configurationEvaluations) * 100),
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
             this.setState({ scanComplete: true });
@@ -207,43 +149,11 @@ class Dashboard extends React.Component {
         }
         this.setState({ interval: setInterval( async () => {
             await this.props.getRules(this.props.user);
-            this.setState({
-                securityViolations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                wasteViolations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationViolations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Violations.length).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                securityEvaluations: this.props.rules.filter(rule => rule.Category === 'Security').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                     return accumulator + currentValue;
-                 }, 0),
-                wasteEvaluations: this.props.rules.filter(rule => rule.Category === 'Waste').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0),
-                configurationEvaluations: this.props.rules.filter(rule => rule.Category === 'Configuration').map(rule => rule.Scanned).reduce((accumulator, currentValue, currentIndex, array) => {
-                    return accumulator + currentValue;
-                }, 0)
-            });
         }, 30000)});
-
-        this.setState({
-            data: this.getData(this.state.securityPercent),
-            allData: this.getData(this.state.percent),
-            wasteData: this.getData(this.state.wastePercent),
-            configurationData: this.getData(this.state.configurationPercent)
-          }); 
-
     }
 
     componentWillUnmount = () => {
         clearInterval(this.state.interval);
-    }
-
-    getData = (percent) => {
-        return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }];
     }
 
     handleChange = (event) => {
@@ -308,53 +218,8 @@ class Dashboard extends React.Component {
         this.setState({ selectedChart: 'lastMonth' });
     }
 
-    monthToDate = () => {
-        let foundData = []; 
-        let fixedData = [];
-        let labels = [];
-
-        const currentDayOfMonth = moment().date();
-        let startDate = moment().set({'year': moment().year(), 'month': moment().month(), 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
-
-        for(let i = 0; i < currentDayOfMonth; i++)
-        {
-            startDate.add(1, 'days');
-            labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-        }
-
-        this.setState({
-            chartData: {
-                'x': labels,
-                'Found Violations': foundData,
-                'Fixed Violations': fixedData
-            }
-        });
-    }
-
-    yearToDate = () => {
-        let foundData = []; 
-        let fixedData = [];
-        let labels = [];
-        const currentDayOfYear = moment().dayOfYear();
-        let startDate = moment().set({'year': moment().year(), 'month': 0, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 });
-
-        for(let i = 0; i < currentDayOfYear; i++)
-        {
-            startDate.add(1, 'days');
-            labels.push(i + 1);
-            foundData.push(this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-            fixedData.push(this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(startDate, 'day')).length);
-        }
-
-        this.setState({
-            chartData: {
-                'x': labels,
-                'Found Violations': foundData,
-                'Fixed Violations': fixedData
-            }
-        });
+    last3Months = () => {
+        this.setState({ selectedChart: 'last3Months' });
     }
 
     showDetail = (e) => {
@@ -806,10 +671,8 @@ class Dashboard extends React.Component {
                                             <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button>
                                             <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
                                             <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
-                                            <Button onClick={this.monthToDate} type="link">MTD</Button>
                                             <Button onClick={this.lastMonth}  type="link">Last Month</Button>
-                                            <Button type="link">Last 3 Months</Button>
-                                            <Button onClick={this.yearToDate} type="link">YTD</Button>
+                                            <Button onClick={this.last3Months} type="link">Last 3 Months</Button>
                                         </div>
                                     </div>
                                 

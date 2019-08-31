@@ -257,6 +257,31 @@ export const modifyRules = (action, id, email) => async (dispatch, getState) => 
     await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
 
+export const downgradeSubscription = () => async (dispatch, getState) => {
+
+    const id = getState().user.CustomerId;
+
+    console.log(id);
+
+    let myRequest = {
+        body: {
+            id,
+            plan: 'Free'
+        },
+        headers: {
+            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
+        }
+    }
+
+    await purify.patch('/stripe', myRequest).then(data => {
+        console.log('Success');
+        dispatch({ type: 'UPDATE_PLAN', payload: 'Free' });
+    }).catch(err => {
+        console.log(err);
+        return false;
+    });
+}
+
 export const submitSubscription = (id, user, discount) => async dispatch => {
 
     const { email, CustomerId } = user;
@@ -522,6 +547,8 @@ export const disableSaml = () => async (dispatch, getState) => {
 
 export const getRules = (user) => async dispatch => {
 
+    let Items;
+
     let myRequest = {
         body: {},
         headers: {
@@ -533,29 +560,33 @@ export const getRules = (user) => async dispatch => {
 
     const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest).catch(err => console.log(err));
 
-    const Items = rulesResponse.data.map(item => {
-        return {
-            CustomerId: item.CustomerId.S,
-            RuleId: item.RuleId.S,
-            Name: item.Name.S,
-            Category: item.Category.S,
-            Description: item.Description.S,
-            Enabled: item.Enabled.BOOL,
-            Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
-            Notifications: item.Notifications && item.Notifications.L.map(violation => violation.S),
-            Violations: item.Violations.L.map(violation => {
-                return {
-                    ViolationDate: violation.M.ViolationDate.S,
-                    ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None",
-                    AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown",
-                    Status: (violation.M.Status && violation.M.Status.S) || 'Active',
-                    ResourceType: (violation.M.ResourceType && violation.M.ResourceType.S) || 'Unknown'
-                }
-            }),
-            Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
-        }
-    });
-    dispatch({ type: 'FETCH_RULES', payload: Items });
+    if(rulesResponse)
+    {
+        Items = rulesResponse.data.map(item => {
+            return {
+                CustomerId: item.CustomerId.S,
+                RuleId: item.RuleId.S,
+                Name: item.Name.S,
+                Category: item.Category.S,
+                Description: item.Description.S,
+                Enabled: item.Enabled.BOOL,
+                Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
+                Notifications: item.Notifications && item.Notifications.L.map(violation => violation.S),
+                Violations: item.Violations.L.map(violation => {
+                    return {
+                        ViolationDate: violation.M.ViolationDate.S,
+                        ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None",
+                        AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown",
+                        Status: (violation.M.Status && violation.M.Status.S) || 'Active',
+                        ResourceType: (violation.M.ResourceType && violation.M.ResourceType.S) || 'Unknown'
+                    }
+                }),
+                Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
+            }
+        });
+
+        dispatch({ type: 'FETCH_RULES', payload: Items });
+    }
 }
 
 export const testSaml = (formData) => async dispatch => {
