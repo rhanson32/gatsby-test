@@ -32,7 +32,6 @@ class ViolationTable extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Table striped>
                 <Table.Header>
@@ -60,7 +59,7 @@ class ViolationTable extends React.Component {
                                         {violation.ResourceId}
                                     </Table.Col>
                                     <Table.Col>
-                                        {moment(violation.ViolationDate).format("MMMM Do YYYY, h:mm:ss a")}
+                                        {moment(parseInt(violation.ViolationDate) * 1000).format("MMM Do YYYY, h:mm:ss a")}
                                     </Table.Col>
                                     <Table.Col>
                                         {violation.AccountId}
