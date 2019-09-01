@@ -18,6 +18,8 @@ export const postTicket = (values) => async (dispatch, getState) => {
         }
     };
 
+    console.log(myRequest);
+
     const ticketResponse = await purify.post('/tickets', myRequest).catch(err => console.log(err));
 
     dispatch({ type: 'POST_TICKET', payload: ticketResponse.data });
@@ -635,8 +637,6 @@ export const getHistory = (user) => async dispatch => {
     const { CustomerId } = user;
 
     const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
-
-    console.log(historyResponse);
 
     const Items = historyResponse ? historyResponse.data.map(item => {
         return {

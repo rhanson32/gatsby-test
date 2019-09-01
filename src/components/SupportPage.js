@@ -6,7 +6,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getExpiration } from '../utils/auth';
 import moment from 'moment';
-import { message, Drawer, Button, Spin } from 'antd';
+import { message, Drawer, Button, Spin, Modal } from 'antd';
 import SupportForm from './SupportForm';
 import TopMenu from './TopMenu';
 import Header from './Header';
@@ -110,16 +110,17 @@ class SupportPage extends React.Component {
                         </div> 
                     )
                 }  
-                <Drawer
+                <Modal
                     className="support-drawer"
                     title="Create Support Case"
                     placement="right"
                     closable={false}
                     onClose={this.onClose}
                     visible={this.state.visible}
-                    >
+                    footer={null}
+                >
                     <SupportForm />
-                </Drawer>
+                </Modal>
             </div>
         )
     }  

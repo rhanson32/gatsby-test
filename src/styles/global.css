@@ -457,17 +457,18 @@ input  {
     align-items: center;
     background-color: white;
     border: 1px solid #CCC;
-    width: 90%;
+    width: 50%;
 }
 
 .account-details {
-    font-size: 40px;
+    font-size: 30px;
+    width: 45%;
 }
 
 .payments {
-    width: 40%;
+    width: 80%;
     background-color: white;
-    padding: 0 2rem 2rem 2rem;
+    padding: 2rem 2rem 2rem 2rem;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -477,8 +478,14 @@ input  {
 }
 
 .payments h1 {
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 0;
     width: 100%;
+}
+
+.payment-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .payments-main {
@@ -523,6 +530,10 @@ input  {
   
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+}
+
+.thank-you-message {
+    font-size: 20px;
 }
 
 /**************************** Settings Page *****************************/
@@ -3091,6 +3102,10 @@ th, td {
 
     .feature-focus-image {
         height: 20rem;
+    }
+
+    .account-details {
+        font-size: 20px;
     }
 
     .splash-text {

@@ -26,7 +26,8 @@ const createOptions = () => {
 class CheckoutForm extends Component {
   state = {
     discount: '',
-    stage: 0
+    stage: 0,
+    buttonText: 'Submit Payment'
   }
 
   handleChange = ({error}) => {
@@ -45,8 +46,7 @@ class CheckoutForm extends Component {
     // User clicked submit
     ev.preventDefault();
     const { discount } = this.state;
-    console.log(this.props);
-    console.log("Submitting!");
+    this.setState({ buttonText: 'Submitting...' });
     const { token } = await this.props.stripe.createToken().catch(err => {
       console.log(err);
       notification.error({
@@ -72,6 +72,7 @@ class CheckoutForm extends Component {
           this.setState({
             stage: 1
           });
+          
         }
         
       }
@@ -104,13 +105,15 @@ class CheckoutForm extends Component {
             </label> 
             <Input name="discount" value={this.state.discount} onChange={this.handleUpdate} />
           </div>
-          <Button style={{ margin: "2rem 0" }} type="primary" onClick={this.handleSubmit}>Submit Payment</Button>
+          <div className="payment-button">
+              <Button style={{ margin: "2rem 0" }} type="primary" onClick={this.handleSubmit}>{this.state.buttonText}</Button>
+          </div>
           <p>Your card will be billed monthly until your Purify plan is cancelled. Cancel anytime.</p>
           </div>
         )}
         {
           this.state.stage === 1 && (
-            <div>
+            <div className="thank-you-message">
               Thank you for your purchase. Your plan has now been upgraded to Standard.
             </div>
           )

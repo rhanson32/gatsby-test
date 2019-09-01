@@ -45,20 +45,20 @@ class Payment extends Component {
             <TopMenu />
             <div className="payments-main">
               <div className="payments-display">
-                <div className="account-details">
+                {/* <div className="account-details">
                   {
                     this.props.user && (
                       <div>
-                         Current subscription: <p>{this.props.user.Plan}</p>
+                         Current subscription: {this.props.user.Plan}
                       </div>
                     )
                   }   
-                </div>
+                </div> */}
                 
               
                 <StripeProvider apiKey="pk_test_Kqcfc50dM018fN5E1HgPe7Ob002W4ops7h">
                   <div className="payments">
-                    {this.props.user && this.props.user.Plan === 'Free' && <h1>Upgrade to Standard</h1>}
+                    {this.props.user && this.props.user.Plan === 'Free' && <h1>Standard License</h1>}
                     <Elements>
                       <CheckoutForm />
                     </Elements>

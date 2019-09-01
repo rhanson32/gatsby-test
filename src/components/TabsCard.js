@@ -23,7 +23,8 @@ class TabsCard extends React.Component {
     fileUpload: false,
     metadataFile: ``,
     file: null,
-    uploadFile: false
+    uploadFile: false,
+    buttonText: 'Downgrade Subscription'
   };
 
   componentDidMount = async () => {
@@ -88,8 +89,16 @@ class TabsCard extends React.Component {
     this.setState({ confirm: true });
   }
 
-  downgradeAccount = () => {
-      this.props.downgradeSubscription();
+  downgradeAccount = async () => {
+      this.setState({ buttonText: 'Working...', confirm: false });
+      const response = await this.props.downgradeSubscription();
+      if(response)
+      {
+          notification.success({
+              message: 'Operation succeeded.',
+              description: 'Account downgraded to Free license.'
+          });
+      }
       this.setState({ confirm: false });
   }
 
@@ -369,7 +378,7 @@ class TabsCard extends React.Component {
                     {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans} block>Upgrade Subscription</Button>}
                     {this.props.user.Plan !== "Free" && (
                         <Button type="danger" size="large" onClick={this.showConfirm} block>
-                            Downgrade Subscription
+                            {this.state.buttonText}
                         </Button>
                     )}   
                     <Button type="danger" size="large" onClick={this.showConfirm} block>
