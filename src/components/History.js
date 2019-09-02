@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import Header from './Header';
+import Footer from './Footer';
 import TopMenu from './TopMenu';
 import moment from 'moment';
 import { Auth } from 'aws-amplify';
@@ -97,7 +98,8 @@ class History extends React.Component {
                         </div>
                         <Table pagination={{ position: "bottom", pageSize: 8 }} dataSource={dataSource} columns={columns} />
                     </div>
-                </div>    
+                </div> 
+                <Footer />   
             </div>
         )
     }

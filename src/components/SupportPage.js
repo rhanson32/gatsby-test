@@ -10,6 +10,7 @@ import { message, Drawer, Button, Spin, Modal } from 'antd';
 import SupportForm from './SupportForm';
 import TopMenu from './TopMenu';
 import Header from './Header';
+import Footer from './Footer';
 
 class SupportPage extends React.Component {
     state = {
@@ -111,6 +112,7 @@ class SupportPage extends React.Component {
                         </div> 
                     )
                 }  
+                <Footer />
             </div>
         )
     }  

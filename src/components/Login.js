@@ -304,7 +304,7 @@ class Login extends React.Component {
           !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && !this.state.inputMFA && (
             <div className="login-form">
               <div className="login-area">
-              <div className="login-header">Login to your Purify account</div>
+              <div className="login-header">Log in to your Purify account</div>
               {this.state.error.code !== 'NetworkError' && this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
                 <label>Email</label>

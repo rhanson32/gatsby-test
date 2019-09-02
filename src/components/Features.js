@@ -23,14 +23,13 @@ class Features extends React.Component {
             <div className="features-page">
                 <ExternalHeader />
                 <div className="features-header">
+                    <a name="Top"></a>
                     <img src={cleanup} alt="Clean up your cloud, and keep it clean. With Purify." />
                 </div>
-                
                 <div className="feature-header-description">
                     Features
                 </div>
                 <div className="feature-cards">
-                    
                     <div className="feature-card-new">
                         <div className="feature-card-new-image">
                             <img src={list} alt="Pre-defined rules mean you can get started immediately with minimal effort." />

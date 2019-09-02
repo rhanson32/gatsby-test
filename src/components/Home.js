@@ -23,7 +23,7 @@ class Home extends React.Component {
                 <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based (CIS) rule sets to quickly align yourself with proven best practices." image={list} reverse={true} />
                 <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices." image={agreement} />
                 <div className="feature-teaser">
-                    <Link to="/app/features">See the rest of our features <Icon name="arrow-right" /></Link>
+                    <Link to="/app/features#Top">See the rest of our features <Icon name="arrow-right" /></Link>
                 </div>
                 <SiteMap />
             </div>

@@ -7,6 +7,7 @@ import TabsCard from './TabsCard';
 import { getSettings, toggleAWS, getAccounts, getCurrentUser } from '../actions';
 import TopMenu from './TopMenu';
 import Header from './Header';
+import Footer from './Footer';
 import moment from 'moment';
 import { message } from 'antd';
 
@@ -86,7 +87,7 @@ class Settings extends React.Component {
                 <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
             </div>
         </div>
-        
+        <Footer />
     </div>
     )
     }

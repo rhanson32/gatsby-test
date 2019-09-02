@@ -9,6 +9,7 @@ import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import Header from './Header';
+import Footer from './Footer';
 import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import Line from './Line';
@@ -727,11 +728,11 @@ class Dashboard extends React.Component {
                                     </Card.Body>
                                 </Card>
                             </div>
-                            
-                            </div>
-                            </div>
-                                </div>
                         </div>
+                    </div>
+                </div>
+                </div>
+                <Footer />
             </div>
         )
     } 

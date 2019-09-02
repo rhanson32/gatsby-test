@@ -7,6 +7,7 @@ import { Link } from 'gatsby';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
 import { Spin, Button, Table, Alert, message, Drawer, Input } from 'antd';
 import Header from './Header';
+import Footer from './Footer';
 import { getExpiration } from '../utils/auth';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import TopMenu from './TopMenu';
@@ -224,6 +225,7 @@ class Accounts extends React.Component {
                    }
                    </div>
                 </div> 
+                <Footer />
             </div>
         )
     }

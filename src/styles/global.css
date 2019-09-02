@@ -204,7 +204,6 @@ input  {
 
 .dashboard-page {
     margin: 0;
-    padding-bottom: 2rem;
     background-color: #F5F7FB;
     display: flex;
     flex-wrap: wrap;
@@ -663,7 +662,6 @@ input  {
     flex-wrap: wrap;
     width: 100%;
     background-color: #F5F7FB;
-    padding-bottom: 4rem;
 }
 
 .settings-header {
@@ -1460,6 +1458,16 @@ input  {
     color: white;
 }
 
+.internal-footer {
+    width: 100%;
+    background-color: #2d3436;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
 /**************** Login Page *************************/
 
 .login-screen, .signup-screen {
@@ -1495,9 +1503,16 @@ input  {
     height: 4rem;
     width: 80%;
     color: #0984e3;
-    font-size: 2.3rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.login-header {
+    font-size: 1.8rem;
+}
+
+.signup-header {
+    font-size: 2.3rem;
 }
 
 .login-container, .signup-container {
@@ -2519,8 +2534,12 @@ th, td {
         margin-left: 1rem;
     }
 
-    .login-header, .signup-header, .login-form label, .signup-form label {
-        font-size: 1.5rem;
+    .login-header, .login-form label {
+        font-size: 1.2rem;
+    }
+
+    .signup-header, .signup-form label {
+        font-size: 1.6rem;
     }
 
     .history-chart-header-title {
@@ -2821,8 +2840,8 @@ th, td {
     }
 
     .login-form {
-        width: 90%;
-        height: 50%;
+        width: 100%;
+        font-size: 1rem;
     }
 
     .pricing-card {

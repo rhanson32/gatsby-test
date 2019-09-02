@@ -7,6 +7,7 @@ import SwitchWrap from './SwitchWrap';
 import { getExpiration } from '../utils/auth';
 import { Button, Table, Spin, message, Drawer } from 'antd';
 import Header from './Header';
+import Footer from './Footer';
 import { getRules, getCurrentUser, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, enableRule, disableRule, modifyRules } from '../actions';
 import RuleItem from './RuleItem';
 import TopMenu from './TopMenu';
@@ -251,6 +252,7 @@ class RulesPage extends React.Component {
                             {this.state.ruleId !== null && <RuleItem rule={this.state.rule} />}
                         </Drawer>
                     </div> 
+                  <Footer />  
             </div>
         )
     }

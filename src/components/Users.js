@@ -7,6 +7,7 @@ import { getExpiration } from '../utils/auth';
 import { Table, Spin, Button, message, Modal } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
+import Footer from './Footer';
 import AddUserForm from './AddUserForm';
 import moment from 'moment';
 
@@ -164,6 +165,7 @@ class Users extends React.Component {
                         <AddUserForm />
                     </Modal>
                 </div>   
+                <Footer />
             </div>
         )
     }
