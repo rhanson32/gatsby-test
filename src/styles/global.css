@@ -1465,21 +1465,37 @@ input  {
 .login-screen, .signup-screen {
     background-color: #F5F7FB;  /* fallback for old browsers */ 
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
+}
+.login-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-color: #F5F7FB;
+}
+
+.login-image img {
+    width: 50%;
+    max-width: 400px;
+    max-height: 600px;
+
 }
 
 .login-header, .signup-header {
     background-color: white;
-    padding: 1rem;
+    display: flex;
+    justify-content: center;
     line-height: 4rem;
     height: 4rem;
     width: 80%;
-    color: #333;
-    font-size: 1.3rem;
+    color: #0984e3;
+    font-size: 2.3rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -1495,27 +1511,32 @@ input  {
     margin: 1rem 0;
 }
 
+.login-area {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .login-form, .signup-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    border: 1px solid #CCC;
     background-color: white;
-    border-radius: 5px;
-    height: auto;
-    max-width: 500px;
+    height: 100%;
+    max-width: 700px;
 }
 
 .forgot-password-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     background-color: white;
-    border: 1px solid #CCC;
-    border-radius: 4px;
-    width: 40%;
+    width: 50%;
+    height: 100%;
 }
 
 .forgot-password {
@@ -2499,7 +2520,7 @@ th, td {
     }
 
     .login-header, .signup-header, .login-form label, .signup-form label {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
 
     .history-chart-header-title {
@@ -2969,7 +2990,11 @@ th, td {
     }
 
     .signup-form {
-        width: 90%;
+        width: 100%;
+    }
+
+    .login-image {
+        display: none;
     }
 
     .right-menu {

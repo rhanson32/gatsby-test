@@ -9,6 +9,7 @@ import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
 import { Icon } from 'tabler-react';
 import moment from 'moment';
+import login from '../../static/undraw_Login.svg';
 
 Amplify.configure({
   Auth: {
@@ -302,7 +303,8 @@ class Login extends React.Component {
         {
           !this.state.forgotPassword && !this.state.acceptCode && !this.state.confirmUser && !this.state.inputMFA && (
             <div className="login-form">
-              <div className="login-header">Login to your PurifyCloud account</div>
+              <div className="login-area">
+              <div className="login-header">Login to your Purify account</div>
               {this.state.error.code !== 'NetworkError' && this.state.error && <Error errorMessage={this.state.error}/>}
               <div className="login-container">
                 <label>Email</label>
@@ -316,6 +318,7 @@ class Login extends React.Component {
                 </div>
       
                 <Button type="primary" loading={this.state.loading} onClick={this.login}>{this.state.buttonText}</Button>   
+              </div>
               </div>
             </div>
           )
@@ -343,6 +346,7 @@ class Login extends React.Component {
         {
           this.state.forgotPassword && (
             <div className="forgot-password-form">
+              <div className="login-area">
               <div className="login-header">Forgotten Password Form</div>
               <div className="login-container">
                 <p>Enter your email below to set a new password.</p>
@@ -359,6 +363,7 @@ class Login extends React.Component {
                 <div>&nbsp;</div>
                 <Button onClick={this.requestPassword} type="primary">Submit</Button>
                 <Button onClick={this.returnToLogin} type="link">Back to Login ></Button>
+              </div>
               </div>
             </div>
           )
@@ -417,6 +422,9 @@ class Login extends React.Component {
             </div>
           )
         }
+        <div className="login-image">
+          <img src={login} /> 
+        </div>
       </div>
     )
   }

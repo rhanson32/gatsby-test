@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
+import welcome from '../../static/undraw_welcome.svg';
 
 const initialState = {
   username: ``,
@@ -95,7 +96,7 @@ class SignUp extends React.Component {
             {
               this.state.stage === 0 && (
                 <div className="signup-form">
-                  <div className="signup-header">Welcome to PurifyCloud</div>
+                  <div className="signup-header">Welcome to Purify</div>
                     {this.state.error && <Error errorMessage={this.state.error}/>}
                   <div className="signup-container">
                     <label>Email</label>
@@ -156,6 +157,9 @@ class SignUp extends React.Component {
             </div>
           )
         }
+        <div className="login-image">
+          <img src={welcome} />
+        </div>
       </div>
     )
   }
