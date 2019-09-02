@@ -21,10 +21,10 @@ class SupportForm extends React.Component  {
     handleSubmit = () => {
         console.log("Submitted!")
         this.props.postTicket(this.state);
+        this.props.updateParent();
     }
 
     render() {
-      console.log(this.state);
         return (
             <div>
               <div className="form-field">
@@ -35,6 +35,7 @@ class SupportForm extends React.Component  {
                 <TextArea name="description" value={this.state.description} rows={4} onChange={this.handleUpdate} />
               </div>
               <div className="form-submit">
+                <Button type="link">Cancel</Button>
                 <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
               </div>
             </div>

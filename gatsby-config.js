@@ -1,6 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Clean up your cloud',
+    description: 'Purify. Cleaner of clouds',
+    siteUrl: "https://purify.cloud",
+    author: 'Reed Hanson'
   },
   plugins: [
     {
@@ -13,8 +16,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: 'Purify',
+        short_name: 'purify',
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',

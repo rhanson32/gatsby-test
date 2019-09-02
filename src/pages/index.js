@@ -2,6 +2,7 @@ import React from "react";
 
 import App from '../components/App';
 import { Helmet } from 'react-helmet';
+import SEO from '../components/SEO';
 import Amplify from 'aws-amplify';
 const AWS = require('aws-sdk');
 
@@ -29,9 +30,7 @@ Amplify.configure({
 
 const IndexPage = () => (
     <App>
-        <Helmet>
-            <title>Clean up your cloud</title>
-        </Helmet>
+        <SEO title="Purify - Clean up your cloud." />
     </App>
 )
 

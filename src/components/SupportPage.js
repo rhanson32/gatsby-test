@@ -95,32 +95,22 @@ class SupportPage extends React.Component {
                                 (this.props.tickets.length > 0 || this.state.scanComplete) && (
                                     <div className="support-screen-header">
                                         <h1>Support Center</h1>
-                                        <Button onClick={this.showForm} type="primary">Create Case</Button>  
+                                    {!this.state.visible && <Button onClick={this.showForm} type="primary">Create Case</Button>}  
                                     </div>
                                 )
                             }
-                            {this.props.tickets.length === 0 && !this.state.scanComplete && (
+                            {this.props.tickets.length === 0 && !this.state.scanComplete && !this.state.showForm && (
                                 <div style={{ display: "flex", height: "100vh", width: "100vw", justifyContent: "center", alignItems: "center" }}>
                                     <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />
                                 </div>
                                 )
                             }
-                            {(this.props.tickets.length > 0 || this.state.scanComplete) && <SupportTabs scanComplete={this.state.scanComplete} />}
+                            {(this.props.tickets.length > 0 || this.state.scanComplete) && !this.state.visible && <SupportTabs scanComplete={this.state.scanComplete} />}
+                            {this.state.visible && <SupportForm updateParent={this.onClose} />}
                             </div>
                         </div> 
                     )
                 }  
-                <Modal
-                    className="support-drawer"
-                    title="Create Support Case"
-                    placement="right"
-                    closable={false}
-                    onClose={this.onClose}
-                    visible={this.state.visible}
-                    footer={null}
-                >
-                    <SupportForm />
-                </Modal>
             </div>
         )
     }  

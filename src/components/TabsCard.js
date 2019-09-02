@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification, message } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -303,7 +303,7 @@ class TabsCard extends React.Component {
     }
 
   render() {
-
+    console.log(this.props);
     const tabListNoTitle = [
         {
           key: 'General',
@@ -444,14 +444,16 @@ class TabsCard extends React.Component {
             </div>
         </div>,
         AWS: <div>
+            {!this.props.scanComplete && 'Loading account data...'}
         {
-            this.props.accounts.length === 0 && (
+            this.props.scanComplete && this.props.accounts.length === 0 && this.props.accountsError === '' && (
                 <div className="settings-card-title">
                     Enter the details of your AWS Master account, and we will automatically discover the rest of your AWS accounts.
                 </div>
             )
         }
-        {this.props.accounts.length === 0 && <AWSAccount />} 
+        {this.props.scanComplete && this.props.accountsError !== '' && this.props.accountsError}
+        {this.props.scanComplete && this.props.accounts.length === 0 && this.props.accountsError === '' && <AWSAccount />} 
         {
             this.props.accounts.find(account => account.Type === 'Master') && (
                 <div className="settings-row">

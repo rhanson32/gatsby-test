@@ -18,16 +18,18 @@ import Users from '../components/Users';
 import History from '../components/History';
 import Payment from '../components/Payment';
 import SAML from '../components/SAML';
+import SEO from '../components/SEO';
 
 import store from '../store'
 
 const App = () => (
     <Provider store={store}>
-        <Helmet>
+        <SEO title="Purify - Clean up your cloud." />
+        {/* <Helmet>
             <title>Clean up your cloud</title>
             <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
             <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-        </Helmet>
+        </Helmet> */}
         <Router>
             <Home path="/" />
             <PrivateRoute path="/app/dashboard" component={Dashboard} />

@@ -21,6 +21,7 @@ export const postTicket = (values) => async (dispatch, getState) => {
     console.log(myRequest);
 
     const ticketResponse = await purify.post('/tickets', myRequest).catch(err => console.log(err));
+    console.log(ticketResponse);
 
     dispatch({ type: 'POST_TICKET', payload: ticketResponse.data });
 }
@@ -167,7 +168,11 @@ export const getAccounts = (id) => async (dispatch, getState) => {
             }
         });
         dispatch({ type: 'FETCH_ACCOUNTS', payload: Items });
-        return accountResponse.ScannedCount;
+        return { statusCode: 200 };
+    }
+    else
+    {
+        return { statusCode: 400, error: 'Unable to retrieve account data. '}
     }
     
 }
@@ -320,18 +325,26 @@ export const getSettings = (customerId) => async dispatch => {
 
     const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
 
-    const settings =  {
-        Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
-            return {
-                Name: provider.M.Name.S,
-                Enabled: provider.M.Enabled.BOOL
-            }
-        }),
-        Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
-        saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false
+    if(response)
+    {
+        const settings =  {
+            Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
+                return {
+                    Name: provider.M.Name.S,
+                    Enabled: provider.M.Enabled.BOOL
+                }
+            }),
+            Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
+            saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false
+        }
+    
+        dispatch({ type: 'FETCH_SETTINGS', payload: settings });
+        return { statusCode: 200 }
     }
-
-    dispatch({ type: 'FETCH_SETTINGS', payload: settings })
+    else
+    {
+        return { statusCode: 400, error: 'Unable to load settings data.' }
+    }
 }
 
 export const manageViolations = (event) => async dispatch => {
@@ -449,21 +462,24 @@ export const getCurrentUser = () => async dispatch => {
         const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest).catch(err => {
             console.log(err);
         });
-
-        const userInfo = {
-            ...user.attributes,
-            IdToken: user.signInUserSession.idToken.jwtToken,
-            CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
-            Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
-            Plan: customerResponse.data[0].Plan.S,
-            SignedUrl: customerResponse.data[0].SignedUrl.S,
-            Status: customerResponse.data[0].Status.S,
-            Type: 'Native',
-            Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
-            MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
+        if(customerResponse && user)
+        {
+            const userInfo = {
+                ...user.attributes,
+                IdToken: user.signInUserSession.idToken.jwtToken,
+                CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
+                Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
+                Plan: customerResponse.data[0].Plan.S,
+                SignedUrl: customerResponse.data[0].SignedUrl.S,
+                Status: customerResponse.data[0].Status.S,
+                Type: 'Native',
+                Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
+                MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
+            }
+    
+            dispatch({ type: 'STORE_USER', payload: userInfo });
         }
-
-        dispatch({ type: 'STORE_USER', payload: userInfo });
+        
     } 
 }
 

@@ -22,7 +22,8 @@ class Settings extends React.Component {
         AddAccount: false,
         Menu: 'General',
         showKey: false,
-        scanComplete: false
+        scanComplete: false,
+        accountsError: ``
     };
 
     componentDidMount = async () => {
@@ -49,8 +50,14 @@ class Settings extends React.Component {
         {
             await this.props.getCurrentUser()
         }
-        this.props.getAccounts(this.props.user.CustomerId);
-        await this.props.getSettings(this.props.user.CustomerId);
+        let accountsResponse = await this.props.getAccounts(this.props.user.CustomerId);
+        let settingsResponse = await this.props.getSettings(this.props.user.CustomerId);
+        console.log("Settings Response:", settingsResponse);
+        if(accountsResponse.statusCode !== 200)
+        {
+            this.setState({ accountsError: accountsResponse.error });
+            message.error(accountsResponse.error);
+        }
         this.setState({
             scanComplete: true
         })
@@ -76,7 +83,7 @@ class Settings extends React.Component {
                     <h1>Settings</h1>
                 </div>
             <div className="settings-main">
-                <TabsCard scanComplete={this.state.scanComplete} />
+                <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
             </div>
         </div>
         

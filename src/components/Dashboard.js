@@ -15,6 +15,7 @@ import Line from './Line';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
+import 'chartist/dist/chartist.min.css';
 
 class Dashboard extends React.Component {
     
@@ -683,7 +684,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                             New Violations
@@ -696,7 +697,7 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
                                             {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.ActionDate).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
                                             Fixed Violations
