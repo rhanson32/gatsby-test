@@ -430,7 +430,7 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
-
+    console.log(process.env);
     let myRequest = {
         body: {},
         headers: { 

@@ -407,8 +407,9 @@ input  {
 .dashboard-sidebar {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     height: 100%;
+    width: 28%;
 }
 
 .dashboard-sidebar-2 {
@@ -440,6 +441,14 @@ input  {
     padding: 0.5rem 0;
 }
 
+.card-metric-wrapper-alt {
+    font-weight: bold; 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-end;
+    padding: 0.5rem 0;
+}
+
 /********************** Payment Screen *****************************/
 
 .payments-screen {
@@ -455,8 +464,8 @@ input  {
     justify-content: space-around;
     align-items: center;
     background-color: white;
-    border: 1px solid #CCC;
     width: 50%;
+    height: 100%;
 }
 
 .account-details {
@@ -489,11 +498,33 @@ input  {
 
 .payments-main {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    width: 95%;
+    width: 100%;
     min-height: 85vh;
+}
+
+.payment-image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-image p {
+    margin: 2rem 0;
+    font-size: 1.2rem;
+}
+
+.payment-image ul {
+    padding-left: 4rem;
+}
+
+.payment-image img {
+    width: 50%;
 }
 
 .checkout {
@@ -2675,7 +2706,7 @@ th, td {
     }
 
     .payments-main {
-        width: 90%;
+        width: 100%;
     }
 
     .progress-items {
@@ -3221,7 +3252,7 @@ th, td {
     }
 
     .dashboard-sidebar {
-        width: 100%;
+        display: none;
     }
 
     .dashboard-sidebar-2 {
@@ -3242,7 +3273,7 @@ th, td {
     }
 
     .payments-main {
-        width: 90%;
+        width: 100%;
     }
 
     .mobile-rules, .mobile-accounts {

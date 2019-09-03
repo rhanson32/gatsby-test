@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import { getExpiration } from '../utils/auth';
 import CheckoutForm from './CheckoutForm';
+import credit from '../../static/undraw_Credit_card.svg';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import { message } from 'antd';
@@ -64,6 +65,20 @@ class Payment extends Component {
                     </Elements>
                   </div>
                 </StripeProvider>
+              </div>
+              <div className="payment-image">
+                <img src={credit} />
+                <div>
+                  <p>Enjoy all of the benefits of the Standard license, including:</p>
+                  <ul>
+                    <li>Unlimited rules</li>
+                    <li>Multiple cloud providers</li>
+                    <li>Unlimited cloud accounts</li>
+                    <li>SAML-based SSO (Active Directory supported)</li>
+                    <li>Audit Trail</li>
+                    <li>Automated remediation (where supported)</li>
+                  </ul>
+                </div>
               </div>
             </div>    
       </div>

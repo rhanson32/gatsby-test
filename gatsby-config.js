@@ -1,9 +1,14 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Clean up your cloud',
     description: 'Purify. Cleaner of clouds',
     siteUrl: "https://purify.cloud",
-    author: 'Reed Hanson'
+    author: 'Reed Hanson',
+    appName: 'Purify'
   },
   plugins: [
     {

@@ -4,7 +4,7 @@ import 'c3/c3.css';
 import { navigate, Link } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Table, Modal, Button, message, notification } from 'antd';
+import { Spin, Table, Modal, Button, message, notification, Tooltip } from 'antd';
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
@@ -13,6 +13,7 @@ import Footer from './Footer';
 import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import Line from './Line';
+import Pie from './Pie';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
@@ -114,10 +115,11 @@ class Dashboard extends React.Component {
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
 
-            this.props.getAccounts(this.props.user.CustomerId);
-            this.setState({ scanComplete: true });
+            await this.props.getAccounts(this.props.user.CustomerId);
+            
             this.props.fetchUsers(this.props.user.CustomerId); 
             this.props.getSettings(this.props.user.CustomerId); 
+            this.setState({ scanComplete: true });
             this.props.fetchTickets();  
         }
         else
@@ -138,10 +140,12 @@ class Dashboard extends React.Component {
             this.setState({
                 percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
             });
-            this.setState({ scanComplete: true });
             await this.props.getAccounts(this.props.user.CustomerId);
+            
+            
             this.props.fetchUsers(this.props.user.CustomerId);
             this.props.getSettings(this.props.user.CustomerId);
+            this.setState({ scanComplete: true });
             this.props.fetchTickets();
 
             if(this.props.user.Status === "Cancelled")
@@ -461,7 +465,71 @@ class Dashboard extends React.Component {
                                     </Card.Body>
                                 </Card>
                                 </div>
-                                
+                                <div className="card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.state.showAll && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showSecurity && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showWaste && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showConfiguration && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            Violations
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
+                                <div className="card-wrapper">
+                                <Card>
+                                    <Card.Body>
+                                        <div className="card-metric-wrapper">
+                                            {this.state.showAll && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showSecurity && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showWaste && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                            {this.state.showConfiguration && (
+                                                <div>
+                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <Tooltip placement="bottom" title="Resources scanned per rule multiplied by number of active rules">
+                                                <span>Evaluations</span>
+                                            </Tooltip>
+                                            
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                </div>
                                 <div className="card-wrapper">
                                 <Card>
                                 <Card.Body>
@@ -471,56 +539,34 @@ class Dashboard extends React.Component {
                                         {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
                                         {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
                                         {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
-                                    </div>
-                                    <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Active Rules
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                            </div> 
-                                         
-                            <div className="card-wrapper">
-                            <Card>
-                                <Card.Body>
-                                    <div className="card-metric-wrapper">
-                                        {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                        {this.state.scanComplete && " / "}
                                         {this.state.showAll && this.state.scanComplete && this.props.rules.length}
                                         {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
                                         {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
                                         {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Available Rules
+                                        Rules Enabled
                                     </div>
                                 </Card.Body>
                             </Card>
-                            </div>
+                            </div> 
+                                         
                             <div className="card-wrapper">
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
                                                 {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
                                                 {this.state.scanComplete && this.props.accounts.filter(account => account.Enabled).length}
+                                                {this.state.scanComplete && " / "}
+                                                {this.state.scanComplete && this.props.accounts.length}
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                                Enabled Accounts
+                                                Accounts Enabled
                                             </div>
                                         </Card.Body>
                                     </Card>
                                 </div>
-                            <div className="card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.accounts.length}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Total Accounts
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </div>
                             </div>
                             <div className="dashboard-metrics">
                             <div className="dashboard-title">Category Metrics</div>
@@ -571,7 +617,11 @@ class Dashboard extends React.Component {
                                 }
                                 </div>
                                 <div className="dashboard-sidebar">
-                                <div className="metric-card-wrapper">
+                                    <div>
+                                        Violations By Account
+                                    </div>
+                                    {this.state.scanComplete && <Pie />}
+                                {/* <div className="metric-card-wrapper">
                                 <Card>
                                     <Card.Body>
                                         <div className="card-metric-wrapper">
@@ -663,7 +713,7 @@ class Dashboard extends React.Component {
                                         </div>
                                     </Card.Body>
                                 </Card>
-                                </div>
+                                </div> */}
                                 </div>
                                 </div>
                                 <div className="dashboard-trends">

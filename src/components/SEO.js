@@ -12,6 +12,7 @@ function SEO({ title }) {
               author
               description
               siteUrl
+              appName
             }
           }
         }
@@ -27,6 +28,10 @@ function SEO({ title }) {
               {
                 name: "description",
                 content: data.site.siteMetadata.description
+              },
+              {
+                name: "application-name",
+                content: data.site.siteMetadata.appName
               }
             ]
           }
