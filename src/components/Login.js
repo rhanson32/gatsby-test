@@ -177,6 +177,7 @@ class Login extends React.Component {
   }
 
   confirmMFA = async () => {
+    this.setState({ loading: false, buttonText: 'Confirming code...' })
     const response = await Auth.confirmSignIn(this.state.user, this.state.mfaCode, "SOFTWARE_TOKEN_MFA").catch(err => {
       console.log(err);
       if(err.code === 'NetworkError')
@@ -224,6 +225,8 @@ class Login extends React.Component {
             message: 'Access Error',
             description: err.message + ' Please check your login details and try again.'
           });
+
+          this.setState({ loading: false, buttonText: 'Sign In' });
         }
         else
         {
@@ -231,6 +234,8 @@ class Login extends React.Component {
             message: 'Unknown Error',
             description: 'Please try to log on again.'
           });
+
+          this.setState({ loading: false, buttonText: 'Sign In' });
         }
 
         this.setState({
@@ -263,7 +268,8 @@ class Login extends React.Component {
         if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
         {
           this.setState({
-            inputMFA: true
+            inputMFA: true,
+            buttonText: 'Submit'
           });
         }
         else
@@ -337,7 +343,7 @@ class Login extends React.Component {
                   onKeyPress={this.handlePress} 
                   autoFocus
                 />
-                <Button type="primary" onClick={this.confirmMFA}>Submit</Button>
+                <Button type="primary" onClick={this.confirmMFA}>{this.state.buttonText}</Button>
                 <Button onClick={this.returnToLogin} type="link">Back to Login <Icon name="arrow-right" /></Button>
               </div>
             </div>

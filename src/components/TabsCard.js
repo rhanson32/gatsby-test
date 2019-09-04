@@ -369,20 +369,21 @@ class TabsCard extends React.Component {
       const contentListNoTitle = {
         General: <div>
             <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     Subscription  
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-buttons">
-                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans} block>Upgrade Subscription</Button>}
-                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans} block>Upgrade Subscription</Button>}
+                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
+                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans}><Icon type="arrow-up" /> Upgrade</Button>}
                     {this.props.user.Plan !== "Free" && (
-                        <Button type="danger" size="large" onClick={this.showConfirm} block>
+                        <Button type="danger" size="large" onClick={this.showConfirm}>
                             {this.state.buttonText}
                         </Button>
                     )}   
-                    <Button type="danger" size="large" onClick={this.showConfirm} block>
-                        Cancel Subscription
+                    <Button type="danger" size="large" onClick={this.showConfirm}>
+                        <Icon type="x-square" />
+                        Cancel
                     </Button>      
                     </div>
                 </div>
@@ -391,14 +392,14 @@ class TabsCard extends React.Component {
             {
                 this.props.user.Type === 'Native' && (
                     <div className="settings-row">
-                        <div className="settings-left-side"> 
+                        <div className="settings-header"> 
                             Credentials
                         </div>
                         <div className="settings-subscription">
                             <div className="settings-buttons">
-                            <Button type="primary" size="large" onClick={this.showPassword}>Change Password</Button>
+                            <Button type="primary" size="large" onClick={this.showPassword}><Icon type="key" />Change Password</Button>
                             {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
-                            {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}>Disable MFA</Button>}
+                            {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
                             </div>
                             <Modal
                                 visible={this.state.showMFASetup}
@@ -416,7 +417,7 @@ class TabsCard extends React.Component {
             
             {this.props.user.Type === 'Native' && <hr style={{ width: "80%", margin: "2rem auto" }} />}
             <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
                         Global Notification Emails
                     </Tooltip> 
@@ -479,7 +480,7 @@ class TabsCard extends React.Component {
       {
           this.props.scanComplete && !this.props.settings.saml && (
               <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     SSO Status
                 </div>
                 <div className="settings-subscription">
@@ -494,7 +495,7 @@ class TabsCard extends React.Component {
       {
           this.props.scanComplete && this.props.settings.saml && (
               <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     SSO Status
                 </div>
                 <div className="settings-subscription">
@@ -511,7 +512,7 @@ class TabsCard extends React.Component {
       {
           this.props.scanComplete && this.props.settings.saml && this.state.uploadFile && (
               <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     Upload Metadata File
                 </div>
                 <div className="settings-subscription">
@@ -525,13 +526,25 @@ class TabsCard extends React.Component {
       {
           this.props.scanComplete && this.props.settings.saml && !this.state.uploadFile && (
               <div className="settings-row">
-                <div className="settings-left-side">
+                <div className="settings-header">
                     Metadata File Status
                 </div>
                 <div className="settings-subscription">
                     <div className="metadata-upload">
                         <Icon type="check" style={{ color: "green", fontSize: "30px" }} /> Metadata.xml <Button type="link" onClick={this.showFileBrowser}>Upload new file</Button>
                     </div>
+                </div>
+              </div>
+          )
+      }
+      {
+          this.props.scanComplete && this.props.settings.saml && !this.state.uploadFile && (
+              <div className="settings-row">
+                <div className="settings-header">
+                    SSO Link
+                </div>
+                <div className="settings-subscription">
+                    {this.props.user && this.props.user.CustomerId && <a href={`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`} target="_blank">{`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`}</a>}
                 </div>
               </div>
           )

@@ -720,11 +720,11 @@ class Dashboard extends React.Component {
                                     <div className="dashboard-trends-header">
                                         <div className="dashboard-trends-title">Trends</div>
                                         <div className="history-chart-header-filters">
-                                            <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button>
-                                            <Button onClick={this.last3Days} type="link">Last 3 Days</Button>
-                                            <Button onClick={this.last7Days} type="link">Last 7 Days</Button>
-                                            <Button onClick={this.lastMonth}  type="link">Last Month</Button>
-                                            <Button onClick={this.last3Months} type="link">Last 3 Months</Button>
+                                           <div className={this.state.selectedChart === 'last12hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
+                                           <div className={this.state.selectedChart === 'last3days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
+                                           <div className={this.state.selectedChart === 'last7days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
+                                           <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>
+                                           <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>
                                         </div>
                                     </div>
                                 
