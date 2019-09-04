@@ -158,7 +158,7 @@ class SignUp extends React.Component {
           )
         }
         <div className="login-image">
-          <img src={welcome} />
+          <img src={welcome} alt="Person entering through a door" />
         </div>
       </div>
     )

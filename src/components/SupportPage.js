@@ -6,7 +6,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getExpiration } from '../utils/auth';
 import moment from 'moment';
-import { message, Drawer, Button, Spin, Modal } from 'antd';
+import { message, Button, Spin } from 'antd';
 import SupportForm from './SupportForm';
 import TopMenu from './TopMenu';
 import Header from './Header';

@@ -67,7 +67,7 @@ class Payment extends Component {
                 </StripeProvider>
               </div>
               <div className="payment-image">
-                <img src={credit} />
+                <img src={credit} alt="Credit cards" />
                 <div>
                   <p>Enjoy all of the benefits of the Standard license, including:</p>
                   <ul>

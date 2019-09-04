@@ -429,7 +429,7 @@ class Login extends React.Component {
           )
         }
         <div className="login-image">
-          <img src={login} /> 
+          <img src={login} alt="Person entering through door with lock" /> 
         </div>
       </div>
     )

@@ -39,7 +39,7 @@ class SupportTabs extends React.Component {
             <div>
             <div className="web-rules">
               <Card
-                style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
+                style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
                 tabList={tabListNoTitle}
                 activeTabKey={this.state.noTitleKey}
                 onTabChange={key => {

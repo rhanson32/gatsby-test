@@ -146,7 +146,11 @@ class Users extends React.Component {
                         this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
                     }
                     {
-                        this.props.users.length !== 0 && <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0", border: "1px solid #CCC", borderRadius: "3px" }} dataSource={dataSource} columns={columns} />
+                        this.props.users.length !== 0 && (
+                            <div className="web-users">
+                                <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0" }} dataSource={dataSource} columns={columns} />
+                            </div>
+                        )
                     }
                     </div>
                     <Modal

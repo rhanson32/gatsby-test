@@ -2,9 +2,11 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
-    baseURL: 'https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test',
+    baseURL: 'https://api.purify.cloud/test',
     timeout: 8000
 });
+
+// https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test
 
 export const postTicket = (values) => async (dispatch, getState) => {
 
@@ -54,13 +56,11 @@ export const updateUser = (user) => async dispatch => {
         body: {
             ...user
         },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     dispatch({ type: 'UPDATE_USER', payload: myRequest.body });
-    const response = await purify.patch('/users', myRequest).catch(err => console.log(err));
+    await purify.patch('/users', myRequest).catch(err => console.log(err));
 }
 
 export const updateAccount = (account, role) => async (dispatch, getState) => {
@@ -73,13 +73,11 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
             RoleName: role,
             Role: RoleArn
         },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
-    const response = await purify.put('/accounts', myRequest).catch(err => console.log(err));
+    await purify.put('/accounts', myRequest).catch(err => console.log(err));
 }
 
 export const addGlobalNotification = (recipient) => async (dispatch, getState) => {
@@ -95,7 +93,7 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
     Notifications.push(recipient);
 
     dispatch({ type: 'ADD_NOTIFICATION', payload: Notifications });
-    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const removeGlobalNotification = (recipient) => async (dispatch, getState) => {
@@ -185,14 +183,11 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
             CustomerId: user.CustomerId,
             status: status
         },
-        headers: {
-            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     dispatch({ type: 'UPDATE_STATUS', payload: status });
-
-    const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
+    await purify.post('/customers', myRequest).catch(err => console.log(err));
 }
 
 export const modifyRules = (action, id, email) => async (dispatch, getState) => {
@@ -350,14 +345,11 @@ export const getSettings = (customerId) => async dispatch => {
 export const manageViolations = (event) => async dispatch => {
     let myRequest = {
         body: event,
-        headers: {
-            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
     dispatch({ type: 'MANAGE_VIOLATION', payload: event });
-
-    const response = await purify.patch('/rules', myRequest).catch(err => console.log(err));
+    await purify.patch('/rules', myRequest).catch(err => console.log(err));
 }
 
 export const uploadMetadata = (file) => async (dispatch, getState) => {
@@ -366,20 +358,16 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
             metadatafile: file,
             CustomerId: getState().user.CustomerId
         },
-        headers: {
-            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    const response = await purify.post('/saml', myRequest).catch(err => console.log(err));
+    await purify.post('/saml', myRequest).catch(err => console.log(err));
 }
 
 export const getFeatures = () => async dispatch => {
     let myRequest = {
         body: {},
-        headers: {
-            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
     const featureResponse = await purify.get('/features', myRequest).catch(err => console.log(err));
 
@@ -498,14 +486,12 @@ export const validateCompany = async (user) => {
         headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    let postResponse;
-
     let queryString = '?company=' + user.company;
     const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
 
     if(customerResponse.data.length === 0)
     {
-        postResponse = await purify.put('/customers', myRequest).catch(err => console.log(err));
+        await purify.put('/customers', myRequest).catch(err => console.log(err));
 
         return true;
     }
@@ -550,7 +536,7 @@ export const enableSaml = () => async (dispatch, getState) => {
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const disableSaml = () => async (dispatch, getState) => {
@@ -564,7 +550,7 @@ export const disableSaml = () => async (dispatch, getState) => {
         headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
-    const response = await purify.patch('/settings', myRequest).catch(err => console.log(err));
+    await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const getRules = (user) => async dispatch => {
@@ -630,9 +616,7 @@ export const addRuleNotification = (rule, email) => async dispatch => {
             email,
             ruleId: rule.RuleId
         },
-        headers: {
-            'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
 
     const newRule = {
@@ -641,8 +625,7 @@ export const addRuleNotification = (rule, email) => async dispatch => {
     };
 
     dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: newRule });
-
-    const response = await purify.post('/rules', myRequest).catch(err => console.log(err));
+    await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
 
 export const getHistory = (user) => async dispatch => {
@@ -663,7 +646,7 @@ export const getHistory = (user) => async dispatch => {
             CustomerId: item.CustomerId.S,
             EventTime: parseInt(item.EventTime.N) * 1000,
             Event: item.Event.S,
-            EventData: item.EventData ? item.EventData.M : "None"
+            EventData: item.EventData ? Object.assign(...Object.entries(item.EventData.M).map(([k, v]) => ({[k]: v.S }))) : "None"
         }
     }) : [];
     dispatch({ type: 'FETCH_HISTORY', payload: Items });
@@ -794,12 +777,10 @@ export const toggleAWS = () => async (dispatch, getState) => {
             Setting: "Providers",
             NewValue: newValue
         },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     }
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
-    const settingsUpdateResponse = await purify.put('/settings', myRequest).catch(err => console.log(err));
+    await purify.put('/settings', myRequest).catch(err => console.log(err));
 }
 
 export const toggleAddAccount = () => async (dispatch, getState) => {
@@ -856,8 +837,7 @@ export const addUser = (user) => async (dispatch, getState) => {
     }
 
     dispatch({ type: 'ADD_USER', payload: user });
-
-    const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
+    await purify.post('/users', myRequest).catch(err => console.log(err));  
 }
 
 export const confirmUser = (username) => async dispatch => {

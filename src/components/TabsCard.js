@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification, message } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -544,7 +544,7 @@ class TabsCard extends React.Component {
                     SSO Link
                 </div>
                 <div className="settings-subscription">
-                    {this.props.user && this.props.user.CustomerId && <a href={`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`} target="_blank">{`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`}</a>}
+                    {this.props.user && this.props.user.CustomerId && <a href={`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`} target="_blank" rel="noopener noreferrer">{`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`}</a>}
                 </div>
               </div>
           )
@@ -555,7 +555,7 @@ class TabsCard extends React.Component {
     return (
         <div className="settings-div">
             <Card
-            style={{ width: '100%', minHeight: "60vh", border: "1px solid #CCC", borderRadius: "3px" }}
+            style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
             tabList={tabListNoTitle}
             activeTabKey={this.state.noTitleKey}
             onTabChange={key => {

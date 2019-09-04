@@ -1,7 +1,5 @@
 import React from "react";
-
 import App from '../components/App';
-import { Helmet } from 'react-helmet';
 import SEO from '../components/SEO';
 import Amplify from 'aws-amplify';
 const AWS = require('aws-sdk');

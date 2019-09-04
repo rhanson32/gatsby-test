@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ChartistGraph from 'react-chartist';
-
-const _ = require('lodash');
  
 class Pie extends React.Component {
     state = { data: {
