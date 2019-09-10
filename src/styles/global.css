@@ -385,6 +385,37 @@ input  {
     margin: 0.5rem 0;
 }
 
+.new-account-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 400px;
+}
+
+.new-account-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.new-account-modal-main {
+    display: flex;
+    justify-content: space-around;
+}
+
+.new-account-modal-main-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-account-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
 .progress-header {
     width: 100%;
     display: flex;

@@ -9,6 +9,7 @@ import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import template from '../../static/PurifyControllerTemplate.png';
+import deploy from '../../static/DeployPurifyTemplate.png';
 import Header from './Header';
 import Footer from './Footer';
 import ViolationTable from './ViolationTable';
@@ -46,7 +47,8 @@ class Dashboard extends React.Component {
             detailId: ``,
             chartData: {
              },
-             selectedChart: 'last12hours'
+             selectedChart: 'last12hours',
+             previewScreen: 'download'
           };
     }
     
@@ -254,14 +256,26 @@ class Dashboard extends React.Component {
     }
 
     handleSubmit = () => {
-        const item = {
-            id: this.state.accountId,
-            provider: 'AWS'
-        };
-        this.props.postAccount(item, this.props.user.CustomerId);
-        this.setState({
-            welcomeScreen: false
-        });
+
+        if(this.state.previewScreen === 'download')
+        {
+            this.setState({
+                previewScreen: 'deploy'
+            });
+        }
+        else if(this.state.previewScreen === 'deploy')
+        {
+            this.setState({
+                previewScreen: 'enter'
+            });
+        }
+        else if(this.state.previewScreen === 'enter')
+        {
+            this.setState({
+                welcomeScreen: false,
+                previewScreen: 'download'
+            });
+        }
     }
 
     render() {
@@ -372,24 +386,78 @@ class Dashboard extends React.Component {
                     onCancel={this.handleDismiss}
                     cancelText="Dismiss"
                     width="80%"
+                    footer={null}
                 >
                     <div className="new-account-modal">
-                        <div>
-                            <h2>
-                                Download the CloudFormation template 
-                            </h2>
-                            <p>
-                                Download the <a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> CloudFormation template.
-                            </p>
-                            <img width="250" src={template} alt="CloudFormation Template screenshot" />
-                            <ol>
-                                <li>Deploy the template from Step 1 in your AWS master account.</li>
-                                <li>Visit the AWS tab of the <Link to="/app/settings">Settings</Link> page.</li>
-                                <li>Enable AWS.</li>
-                                <li>Enter your AWS master account ID.</li>
-                                <li>We take care of the rest!</li>
-                            </ol>
-                        </div>
+                        {
+                            this.state.previewScreen === 'download' && (
+                                <div className="new-account-modal-content">
+                                    <div className="new-account-modal-header">
+                                        <h2>
+                                            Download the CloudFormation template 
+                                        </h2>
+                                    </div>
+                                    <div className="new-account-modal-main">
+                                        <div className="new-account-modal-main-text">
+                                            Download the &nbsp;<a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> &nbsp; CloudFormation template.
+                                        </div>
+                                        <div>
+                                            <img width="350" src={template} alt="CloudFormation Template screenshot" />
+                                        </div>
+                                    </div>
+                                    <div className="new-account-modal-footer">
+                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
+                                        <Button type="primary" onClick={this.handleSubmit}>Next</Button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        {
+                            this.state.previewScreen === 'deploy' && (
+                                <div className="new-account-modal-content">
+                                    <div className="new-account-modal-header">
+                                        <h2>
+                                            Deploy the CloudFormation template 
+                                        </h2>
+                                    </div>
+                                    <div className="new-account-modal-main">
+                                        <div className="new-account-modal-main-text">
+                                            Deploy the template in your AWS Master account.
+                                        </div>
+                                        <div>
+                                            <img width="350" src={deploy} alt="CloudFormation console" />
+                                        </div>
+                                    </div>
+                                    <div className="new-account-modal-footer">
+                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
+                                        <Button type="primary" onClick={this.handleSubmit}>Next</Button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        {
+                            this.state.previewScreen === 'enter' && (
+                                <div className="new-account-modal-content">
+                                    <div className="new-account-modal-header">
+                                        <h2>
+                                            Enter your AWS Master Account Id
+                                        </h2>
+                                    </div>
+                                    <div className="new-account-modal-main">
+                                        <div className="new-account-modal-main-text">
+                                            Enter your AWS Master Account Id
+                                        </div>
+                                        <div>
+                                            <img width="350" src={deploy} alt="CloudFormation console" />
+                                        </div>
+                                    </div>
+                                    <div className="new-account-modal-footer">
+                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
+                                        <Button type="primary" onClick={this.handleSubmit}>Finish</Button>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </Modal>
                 
