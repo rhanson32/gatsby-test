@@ -2209,7 +2209,16 @@ th, td {
     border: 1px solid #F3F3F3;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    height: 100%;
+}
+
+.confirm-header {
+    margin: 1rem 0;
+}
+
+.confirm-form label {
+    font-size: 1.2rem;
 }
 
 .confirm-form input {
@@ -3374,8 +3383,8 @@ th, td {
 @media screen and (min-width: 1200px) {
 
     .confirm-form {
-        max-width: 300px;
-        width: 30%;
+        max-width: 500px;
+        width: 50%;
     }
 
     .new-account-modal {

@@ -88,14 +88,21 @@ class Login extends React.Component {
     const response = await Auth.resendSignUp(username).catch(err => {
       console.log(err);
       if(err.code === 'NetworkError')
-        {
-          notification.error({
-            message: 'Network Error',
-            description: 'Unable to send authentication code due to network error. Please check your network connection and try again.'
-          });
+      {
+        notification.error({
+          message: 'Network Error',
+          description: 'Unable to send authentication code due to network error. Please check your network connection and try again.'
+        });
 
-          this.setState({ loading: false, buttonText: 'Sign In' })
-        }
+        this.setState({ loading: false, buttonText: 'Sign In' })
+      }
+      else if(err.code === 'LimitExceededException')
+      {
+        notification.error({
+          message: 'Attempt Limit Exceeded',
+          description: err.message
+        });
+      }
     });
     console.log(response);
   }
@@ -124,6 +131,8 @@ class Login extends React.Component {
 
   confirmUser = async () => {
     const { username, code, password } = this.state;
+    console.log(username);
+    console.log(code);
     const response = await Auth.confirmSignUp(username, code).catch(err => {
       console.log(err);
       if(err.code === 'NetworkError')
@@ -214,6 +223,13 @@ class Login extends React.Component {
         {
           Auth.resendSignUp(this.state.username).catch(err => {
             console.log(err);
+            if(err.code === 'LimitExceededException')
+            {
+              notification.error({
+                message: 'Attempt Limit Exceeded',
+                description: err.message
+              });
+            }
           });
           this.setState({
             confirmUser: true

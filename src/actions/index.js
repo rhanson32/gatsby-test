@@ -6,7 +6,7 @@ const purify = axios.create({
     timeout: 8000
 });
 
-// https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test
+// https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test  
 
 export const postTicket = (values) => async (dispatch, getState) => {
 
@@ -486,18 +486,37 @@ export const validateCompany = async (user) => {
         headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
     };
 
+    let myGetRequest = {
+        body: {},
+        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    }
+
     let queryString = '?company=' + user.company;
-    const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
+    const customerResponse = await purify.get('/customers' + queryString, myGetRequest).catch(err => console.log(err));
+
+    console.log(customerResponse);
 
     if(customerResponse.data.length === 0)
     {
-        await purify.put('/customers', myRequest).catch(err => console.log(err));
-
-        return true;
+        let createResponse = await purify.put('/customers', myRequest).catch(err => console.log(err));
+        if(createResponse)
+        {
+            return {
+                statusCode: 200
+            }
+        }
+        
+        return {
+            statusCode: 400,
+            error: 'Unable to create new account. Please contact support@purify.cloud.'
+        }
     }
     else
     {
-        return false;
+        return {
+            statusCode: 400,
+            error: 'Company record already exists.'
+        }
     }
 };
 

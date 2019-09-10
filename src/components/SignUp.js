@@ -33,7 +33,7 @@ class SignUp extends React.Component {
     signUp = async() => {
       this.setState({ loading: true, buttonText: 'Creating Account...' });
       const { password, email, company } = this.state;
-      let valid;
+      let response;
       let signUpResponse
       try {
         this.setState({ error: null });
@@ -42,7 +42,7 @@ class SignUp extends React.Component {
           if(err.code === 'UsernameExistsException')
           {
             this.setState({
-              error: 'Username already exists. Please login with username and password or use another email address.'
+              error: { message: 'Username already exists. Please use a unique email to sign up.' }
             });
           }
           else
@@ -51,15 +51,15 @@ class SignUp extends React.Component {
               error: 'An error occurred. Please try again.'
             });
           }
-          this.setState({ loading: false });
+          this.setState({ loading: false, buttonText: 'Sign Up' });
         });
 
         if(signUpResponse)
         {
-            valid = await validateCompany(this.state).catch(err => console.log(err));
-            if(!valid)
+            response = await validateCompany(this.state).catch(err => console.log(err));
+            if(response && response.statusCode !== 200)
             {
-              this.setState({ error: { message: 'Company name already exists. Please ask your administrator for access.' } })
+              this.setState({ error: { message: response.error }, loading: false, buttonText: 'Sign Up' })
             }
             else
             {
@@ -138,7 +138,7 @@ class SignUp extends React.Component {
           this.state.stage === 1 && (
             <div className="confirm-form">
               {this.state.error && <Error errorMessage={this.state.error}/>}
-              <div>
+              <div className="confirm-header">
                 Please enter the authorization code you received by email to validate your email address.
               </div>
               <label>Authorization Code</label>
