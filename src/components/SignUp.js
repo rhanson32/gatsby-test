@@ -79,11 +79,52 @@ class SignUp extends React.Component {
     }
 
     confirmSignUp = async() => {
-        const { email, authCode } = this.state;
+        const { email, authCode, username, password } = this.state;
         try {
           await Auth.confirmSignUp(email, authCode).catch(err => console.log(err));
-          alert('Successfully signed up! Click OK to go to the login screen.');
-          navigate("/app/login");
+          notification.success({
+            message: 'Email confirmed',
+            description: 'Please wait while we redirect you into the Purify console.'
+          });
+          const user = await Auth.signIn(username, password).catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+              notification.error({
+                message: 'Network Error',
+                description: 'Unable to authenticate user due to network error. Please check your network connection and try again.'
+              });
+    
+              this.setState({ loading: false, buttonText: 'Sign In' });
+            }
+            else
+            {
+              notification.error({
+                message: 'Unknown Error',
+                description: 'Please try to log on again.'
+              });
+    
+              this.setState({ loading: false, buttonText: 'Sign In' });
+            }
+    
+            this.setState({
+              loading: false,
+              buttonText: 'Sign In'
+            });
+          });
+
+          if(user)
+          {
+              setTimeout(async () => {
+                navigate('/app/dashboard');
+            }, 2000); 
+          }
+          else
+          {
+              setTimeout(async () => {
+                navigate('/app/login');
+            }, 2000); 
+          }
         } catch (err) {
           this.setState({ error: err });
         }

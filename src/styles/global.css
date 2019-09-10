@@ -670,6 +670,16 @@ input  {
     align-items: flex-start;
 }
 
+.aws-settings-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    margin-top: 2rem;
+    align-items: flex-start;
+}
+
 .settings-menu-item {
     line-height: 2rem;
     font-size: 1.5rem;
@@ -1915,6 +1925,8 @@ input  {
 .account-list {
     margin: 1rem auto;
     max-width: 800px;
+    display: flex;
+    justify-content: center;
 }
 
 .rule-list {
@@ -1951,14 +1963,17 @@ input  {
 }
 
 .account-item, .rule-item, .dashboard-category-item, .users-item, .add-user-item {
-    border-bottom: 1px solid #CCC;
-    border-left: 1px solid #CCC;
-    border-right: 1px solid #CCC;
     padding: 1rem;
     display: flex;
     background-color: #FFF;
     line-height: 2rem;
     font-size: 1.2rem;
+}
+
+.rule-item, .dashboard-category-item, .users-item, .add-user-item {
+    border-bottom: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
 }
 
 .users-list {
@@ -1970,16 +1985,16 @@ input  {
     justify-content: flex-start;
 }
 
+.account-item {
+    width: 60%;
+}
+
 .users-item {
     justify-content: space-around;
 }
 
 .dashboard-category-item {
     justify-content: space-between;
-}
-
-.account-item:first-child {
-    border-top: 1px solid #CCC;
 }
 
 .account-item-field {
@@ -1999,19 +2014,25 @@ input  {
 }
 
 .account-item-field input {
-    width: 90%;
+    width: 95%;
     padding-left: 0.4rem;
     height: 2rem;
 }
 
 .account-item-field-large {
-    width: 40%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 80%;
+}
+
+.account-item-field-large label {
+    font-size: 0.9rem;
+    height: 1.3rem;
 }
 
 .account-item-field-large input {
-    width: 70%;
+    width: 90%;
     padding: 0.4rem 0 0.4rem 1rem;
     border-radius: 5px;
 }
@@ -2034,9 +2055,24 @@ input  {
 }
 
 .account-item-buttons {
-    width: 25%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.metrics-graph-missing {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.metrics-graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loading-spinner {
@@ -2385,6 +2421,29 @@ th, td {
 .history-chart-header-title {
     width: 30%;
     display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.mfa-setup {
+    display: flex;
+    flex-direction: column;
+}
+
+.mfa-setup-title {
+    font-size: 1.3rem;
+    height: 3rem;
+}
+
+.mfa-setup label {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.mfa-qr {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -3720,7 +3779,7 @@ th, td {
         width: 100%;
         height: 48%;
         display: flex;
-        align-items: space-between;
+        align-items: stretch;
     }
 
     .dashboard-sidebar-2 {

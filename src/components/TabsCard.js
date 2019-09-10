@@ -405,10 +405,21 @@ class TabsCard extends React.Component {
                                 visible={this.state.showMFASetup}
                                 onOk={this.submitMFA}
                                 onCancel={this.cancelMFA}
+                                closable={false}
                             >
-                                <QRCode value={this.state.qrCode} />
-                                <label>Authenticator Code</label>
-                                <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
+                                <div className="mfa-setup">
+                                    <div className="mfa-setup-title">
+                                        MFA Setup
+                                    </div>
+                                    <div className="mfa-setup-description">
+                                        Use the QR Code below to set up MFA in your favorite authenticator app.
+                                    </div>
+                                    <div className="mfa-qr">
+                                        <QRCode value={this.state.qrCode} />
+                                    </div>
+                                    <label>Authenticator Code</label>
+                                    <Input name="challengeAnswer" value={this.state.challengeAnswer} onChange={this.handleUpdate} />
+                                </div>
                             </Modal>
                         </div>
                     </div>
@@ -448,7 +459,7 @@ class TabsCard extends React.Component {
             {!this.props.scanComplete && 'Loading account data...'}
         {
             this.props.scanComplete && this.props.accounts.length === 0 && this.props.accountsError === '' && (
-                <div className="settings-card-title">
+                <div className="aws-settings-title">
                     Enter the details of your AWS Master account, and we will automatically discover the rest of your AWS accounts.
                 </div>
             )
@@ -484,8 +495,9 @@ class TabsCard extends React.Component {
                     SSO Status
                 </div>
                 <div className="settings-subscription">
-                    <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
+                    
                     <Button type="link" onClick={this.enableSaml}>
+                        <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
                         Enable SSO
                     </Button>
                 </div>

@@ -187,7 +187,8 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
     };
 
     dispatch({ type: 'UPDATE_STATUS', payload: status });
-    await purify.post('/customers', myRequest).catch(err => console.log(err));
+    const response = await purify.post('/customers', myRequest).catch(err => console.log(err));
+    console.log(response);
 }
 
 export const modifyRules = (action, id, email) => async (dispatch, getState) => {

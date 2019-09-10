@@ -8,6 +8,7 @@ import { Spin, Table, Modal, Button, message, notification, Tooltip } from 'antd
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
+import template from '../../static/PurifyControllerTemplate.png';
 import Header from './Header';
 import Footer from './Footer';
 import ViolationTable from './ViolationTable';
@@ -69,8 +70,7 @@ class Dashboard extends React.Component {
                 setTimeout(async () => {
                     navigate('/app/login');
                 }, 2000); 
-            }
-            
+            }  
         }
 
         if(this.props.rules.length > 0)
@@ -364,29 +364,37 @@ class Dashboard extends React.Component {
                     <Header />
                     <TopMenu />
                 <Modal
-                    title="Welcome to Purify!"
+                    title="Getting Started with Purify on AWS"
                     visible={welcomeScreen}
                     onOk={this.handleSubmit}
+                    closable={false}
                     confirmLoading={confirmLoading}
                     onCancel={this.handleDismiss}
                     cancelText="Dismiss"
                     width="80%"
                 >
                     <div className="new-account-modal">
-                        <h1>Getting Started with Purify on AWS</h1>
-                        <ol>
-                            <li>Download the <a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> CloudFormation template.</li>
-                            <li>Deploy the template from Step 1 in your AWS master account.</li>
-                            <li>Visit the AWS tab of the <Link to="/app/settings">Settings</Link> page.</li>
-                            <li>Enable AWS.</li>
-                            <li>Enter your AWS master account ID.</li>
-                            <li>We take care of the rest!</li>
-                        </ol>
+                        <div>
+                            <h2>
+                                Download the CloudFormation template 
+                            </h2>
+                            <p>
+                                Download the <a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> CloudFormation template.
+                            </p>
+                            <img width="250" src={template} alt="CloudFormation Template screenshot" />
+                            <ol>
+                                <li>Deploy the template from Step 1 in your AWS master account.</li>
+                                <li>Visit the AWS tab of the <Link to="/app/settings">Settings</Link> page.</li>
+                                <li>Enable AWS.</li>
+                                <li>Enter your AWS master account ID.</li>
+                                <li>We take care of the rest!</li>
+                            </ol>
+                        </div>
                     </div>
                 </Modal>
                 
                 <Modal
-                    visible={this.props.rules.length === 0 || this.props.accounts.length === 0}
+                    visible={!this.state.scanComplete && this.props.user.Status && this.props.user.Status !== 'New'}
                     width="80%"
                     centered={true}
                     okButtonProps={{ disabled: true }}
@@ -448,7 +456,7 @@ class Dashboard extends React.Component {
                                             {this.state.scanComplete && this.state.showWaste && "Waste Score"}
                                             {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
                                         </div>
-                                        <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0" }}>
+                                        <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "100px" }}>
                                             {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
                                             {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
                                             {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
@@ -515,9 +523,9 @@ class Dashboard extends React.Component {
                                                     {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
-                                            {this.state.showConfiguration && (
+                                            {this.props.user.Status && this.props.user.Status !== 'New' && this.state.showConfiguration && (
                                                 <div>
-                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.props.user.Status && this.props.user.Status !== 'New' && this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
                                                 </div>
                                             )}
                                         </div>
@@ -584,21 +592,20 @@ class Dashboard extends React.Component {
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
-                                    <div className="progress-items">
-                                    {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
-                                {!this.state.scanComplete && <Spin tip="Loading..." style={{ width: "60%" }} />}
-                                {this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
-                                {this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
-                                {this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                {this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
-                                </div>
-                                {
-                                    this.props.accounts.length === 0 && this.state.scanComplete && (
-                                        <div className="data-missing-dashboard">
-                                            No data available. Please enable some accounts to see data in your dashboard.
+                                        <div className="progress-items">
+                                            {this.props.user.Status !== 'New' && !this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
+                                            {this.props.user.Status !== 'New' && this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
                                         </div>
-                                    )
-                                }
+                                        {
+                                            this.props.accounts.length === 0 && this.state.scanComplete && (
+                                                <div className="data-missing-dashboard">
+                                                    No data available. Please enable some accounts to see data in your dashboard.
+                                                </div>
+                                            )
+                                        }
                                     </Card.Body>
                                 </Card>)
                                 }
@@ -621,99 +628,6 @@ class Dashboard extends React.Component {
                                         Violations By Account
                                     </div>
                                     {this.state.scanComplete && <Pie />}
-                                {/* <div className="metric-card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.state.showAll && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showSecurity && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showWaste && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showConfiguration && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Violations
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                                <div className="metric-card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.state.showAll && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showSecurity && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showWaste && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showConfiguration && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Evaluations
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                                <div className="metric-card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.state.showAll && (
-                                                <div>
-                                                    {(this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration) ? this.props.metrics.Security.Evaluations === 0 || this.props.metrics.Configuration.Evaluations === 0 || this.props.metrics.Waste.Evaluations === 0 ? ' ' : Math.round((this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations) / (this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations) * 100) : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.state.showSecurity && this.state.scanComplete && (
-                                                <div>
-                                                    {this.props.metrics.Security && Math.round((this.props.metrics.Security.Violations / this.props.metrics.Security.Evaluations) * 100)}
-                                                </div>
-                                            )}
-                                            {this.state.showWaste && this.state.scanComplete && (
-                                                <div>
-                                                    {this.props.metrics.Waste && Math.round((this.props.metrics.Waste.Violations / this.props.metrics.Waste.Evaluations) * 100)}
-                                                </div>
-                                            )}
-                                            {this.state.showConfiguration && this.state.scanComplete && this.props.metrics.Configuration.Evaluations !== 0 && (
-                                                <div>
-                                                    {this.props.metrics.Configuration && this.props.metrics.Configuration.Violations === 0 ? '' : Math.round((this.props.metrics.Configuration.Violations / this.props.metrics.Configuration.Evaluations) * 100)}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Violation %
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div> */}
                                 </div>
                                 </div>
                                 <div className="dashboard-trends">
@@ -768,12 +682,17 @@ class Dashboard extends React.Component {
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
-                                        <div style={{ backgroundColor: "white" }}>
+                                        <div className="metrics-graph" style={{ backgroundColor: "white", minHeight: "300px" }}>
                                             {this.props.metrics && this.props.metrics['last3days'] && <Line selected={this.state.selectedChart} />}
-                                            <div className="legend">
-                                                <div className="legend-one"></div><div>Violations Discovered</div>
-                                                <div className="legend-two"></div><div>Violations Resolved</div>
-                                            </div>
+                                            {
+                                                this.props.metrics && this.props.metrics['last3days'] && (
+                                                    <div className="legend">
+                                                        <div className="legend-one"></div><div>Violations Discovered</div>
+                                                        <div className="legend-two"></div><div>Violations Resolved</div>
+                                                    </div>
+                                                )
+                                            }
+                                            {this.props.metrics && !this.props.metrics['last3days'] && <div className="metrics-graph-missing">No data available.</div>}
                                         </div>
                                     </Card.Body>
                                 </Card>
