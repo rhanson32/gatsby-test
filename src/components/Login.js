@@ -146,10 +146,7 @@ class Login extends React.Component {
 
     if(response)
     {
-      await Auth.signIn(username, password).then(data => {
-        navigate('/app/dashboard');
-      })
-      .catch(err => {
+      let user = await Auth.signIn(username, password).catch(err => {
         console.log(err);
         if(err.code === 'NetworkError')
         {
@@ -170,6 +167,29 @@ class Login extends React.Component {
           this.setState({ loading: false, buttonText: 'Sign In' });
         }
       });
+
+      if(user !== undefined)
+      {
+        this.setState({
+          user
+        });
+
+        console.log(user);
+
+        const userInfo = {
+          ...user.attributes,
+          username: user.username,
+          expiration: moment().add(12, 'hours').toISOString()
+        }
+
+        console.log(userInfo);
+
+        setUser(userInfo);
+        setExpiration(moment().add(12, 'hours').toISOString());
+        await this.props.saveUser(userInfo);
+        console.log("Navigating to new page...");
+        navigate("/app/dashboard");
+      }
       
     }
   }
