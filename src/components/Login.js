@@ -4,7 +4,7 @@ import { setUser, setExpiration } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
-import { saveUser, confirmUser } from '../actions'
+import { saveUser } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
 import { Icon } from 'tabler-react';
@@ -225,7 +225,8 @@ class Login extends React.Component {
   }
 
   login = async () => {
-    const { username, password } = this.state
+    const { username, password } = this.state;
+    console.log(this.state);
     try {
       this.setState({ loading: true, buttonText: 'Signing In...' });
       const user = await Auth.signIn(username, password).catch(err => {
@@ -286,16 +287,12 @@ class Login extends React.Component {
           user
         });
 
-        console.log(user);
-
         const userInfo = {
           ...user.attributes,
           username: user.username,
           expiration: moment().add(12, 'hours').toISOString()
           // group: user.signInUserSession.idToken.payload['cognito:groups'][0]
         }
-
-        console.log(userInfo);
 
         setUser(userInfo);
         setExpiration(moment().add(12, 'hours').toISOString());
@@ -331,8 +328,8 @@ class Login extends React.Component {
       }
       else if(err === 'not authenticated')
       {
-        this.setState({acceptCode: true });
-        this.props.confirmUser(username);
+        this.setState({ acceptCode: true });
+        // this.props.confirmUser(username);
       }
     }
   }
@@ -478,5 +475,5 @@ const mapStateToProps = state => {
   }
 }
   
-export default connect(mapStateToProps, { saveUser, confirmUser })(Login)
+export default connect(mapStateToProps, { saveUser })(Login)
   

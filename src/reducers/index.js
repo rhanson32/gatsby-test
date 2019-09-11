@@ -143,6 +143,10 @@ const userReducer = (state = {}, action) => {
             return { ...state, Plan: action.payload }
         case 'UPDATE_USER':
             return { ...state, Group: action.payload.group }
+        case 'ENABLE_MFA':
+            return { ...state, MFA: action.payload }
+        case 'DISABLE_MFA':
+            return { ...state, MFA: action.payload }
         default:
             return state;
     }

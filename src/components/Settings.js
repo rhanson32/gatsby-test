@@ -49,7 +49,7 @@ class Settings extends React.Component {
 
         if(!this.props.user.email)
         {
-            await this.props.getCurrentUser()
+            await this.props.getCurrentUser();
         }
         let accountsResponse = await this.props.getAccounts(this.props.user.CustomerId);
         let settingsResponse = await this.props.getSettings(this.props.user.CustomerId);
@@ -75,21 +75,21 @@ class Settings extends React.Component {
     }
 
     render() {
-    return (
-    <div className="settings-page">
-        <Header />
-        <TopMenu />
-        <div className="support-right-side">
-            <div className="support-screen-header">
-                    <h1>Settings</h1>
+        return (
+            <div className="settings-page">
+                <Header />
+                <TopMenu />
+                <div className="support-right-side">
+                    <div className="support-screen-header">
+                            <h1>Settings</h1>
+                        </div>
+                    <div className="settings-main">
+                        <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
+                    </div>
                 </div>
-            <div className="settings-main">
-                <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
+                <Footer />
             </div>
-        </div>
-        <Footer />
-    </div>
-    )
+        )
     }
 }
 

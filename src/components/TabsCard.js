@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
 import { Form } from 'tabler-react';
-import { testSaml, updateCustomerStatus, downgradeSubscription, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata } from '../actions';
+import { testSaml, updateCustomerStatus, downgradeSubscription, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata, enableMFA, disableMFA } from '../actions';
 import { navigate } from '@reach/router';
 const QRCode = require('qrcode.react');
 
@@ -210,13 +210,49 @@ class TabsCard extends React.Component {
   }
 
   cancelMFA = () => {
+    this.props.disableMFA();
       this.setState({
           showMFASetup: false
-      })
+      });
   }
 
   disableMFA = async () => {
-      console.log('Test');
+        const user = await Auth.currentAuthenticatedUser().catch(err => {
+            console.log(err);
+            if(err.code === 'NetworkError')
+            {
+                notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to disable MFA due to network error. Please check your network connection and try again.'
+                });
+            }
+        });
+
+        if(user)
+        {
+            const response = await Auth.setPreferredMFA(user, "NOMFA").catch(err => {
+                console.log(err);
+                if(err.code === 'NetworkError')
+                {
+                    notification.error({
+                        message: 'Network Error',
+                        description: 'Unable to disable MFA due to network error. Please check your network connection and try again.'
+                    });
+                }
+                else
+                {
+                    notification.error({
+                        message: 'Unknown Error',
+                        description: 'Unable to disable MFA from your account at this time. Please try again later.'
+                    });
+                }
+            });
+            if(response)
+            {
+                console.log("Disabled MFA");
+                this.props.disableMFA();
+            }
+        }
   }
 
   enableSaml = async () => {
@@ -239,6 +275,7 @@ class TabsCard extends React.Component {
                 });
             }
       });
+      
       if(user)
       {
             const response = await Auth.setupTOTP(user).catch(err => {
@@ -269,6 +306,7 @@ class TabsCard extends React.Component {
                     qrCode: str,
                     showMFASetup: true
                 });
+                this.props.enableMFA();
             }
       }
   }
@@ -303,7 +341,6 @@ class TabsCard extends React.Component {
     }
 
   render() {
-    console.log(this.props);
     const tabListNoTitle = [
         {
           key: 'General',
@@ -397,9 +434,9 @@ class TabsCard extends React.Component {
                         </div>
                         <div className="settings-subscription">
                             <div className="settings-buttons">
-                            <Button type="primary" size="large" onClick={this.showPassword}><Icon type="key" />Change Password</Button>
-                            {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
-                            {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
+                                <Button type="primary" size="large" onClick={this.showPassword}><Icon type="key" />Change Password</Button>
+                                {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
+                                {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
                             </div>
                             <Modal
                                 visible={this.state.showMFASetup}
@@ -622,4 +659,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, downgradeSubscription, enableSaml, disableSaml, uploadMetadata })(TabsCard);
+export default connect(mapStateToProps, { testSaml, updateCustomerStatus, addGlobalNotification, removeGlobalNotification, downgradeSubscription, enableSaml, disableSaml, uploadMetadata, enableMFA, disableMFA })(TabsCard);

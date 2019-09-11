@@ -30,11 +30,11 @@ class SignUp extends React.Component {
       })
     }
   
-    signUp = async() => {
+    signUp = async () => {
       this.setState({ loading: true, buttonText: 'Creating Account...' });
       const { password, email, company } = this.state;
       let response;
-      let signUpResponse
+      let signUpResponse;
       try {
         this.setState({ error: null });
         signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.replace(/ /g, '-') }}).catch(err => {
@@ -63,9 +63,10 @@ class SignUp extends React.Component {
             }
             else
             {
-              this.setState({ stage: 1 });
+              console.log("Too close for missiles. I'm switching to guns.");
+              this.setState({ stage: 1, buttonText: 'Confirm Sign Up' });
               notification.success({
-                message: 'Sign Up Complete',
+                message: 'Account Created',
                 description: 'Account created successfully.'
               });
             }
@@ -79,14 +80,18 @@ class SignUp extends React.Component {
     }
 
     confirmSignUp = async() => {
-        const { email, authCode, username, password } = this.state;
+      console.log("Confirming sign up!");
+        const { email, authCode, password } = this.state;
+        this.setState({ buttonText: 'Confirming code...' });
         try {
           await Auth.confirmSignUp(email, authCode).catch(err => console.log(err));
           notification.success({
-            message: 'Email confirmed',
-            description: 'Please wait while we redirect you into the Purify console.'
+            message: 'Account confirmed',
+            description: 'Account has been confirmed. Now attempting to log in.'
           });
-          const user = await Auth.signIn(username, password).catch(err => {
+          console.log(this.state);
+          console.log("Attempting sign in!");
+          const user = await Auth.signIn(email, password).catch(err => {
             console.log(err);
             if(err.code === 'NetworkError')
             {
@@ -117,13 +122,13 @@ class SignUp extends React.Component {
           {
               setTimeout(async () => {
                 navigate('/app/dashboard');
-            }, 2000); 
+            }, 1000); 
           }
           else
           {
               setTimeout(async () => {
                 navigate('/app/login');
-            }, 2000); 
+            }, 1000); 
           }
         } catch (err) {
           this.setState({ error: err });
@@ -178,7 +183,7 @@ class SignUp extends React.Component {
         {
           this.state.stage === 1 && (
             <div className="confirm-form">
-              {this.state.error && <Error errorMessage={this.state.error}/>}
+              {this.state.error && <Error errorMessage={this.state.error} />}
               <div className="confirm-header">
                 Please enter the authorization code you received by email to validate your email address.
               </div>
@@ -190,7 +195,7 @@ class SignUp extends React.Component {
                 value={this.state.authCode}
               />
               <Button type="primary" onClick={this.confirmSignUp}>
-                Confirm Sign Up
+                {this.state.buttonText}
               </Button>
               <Button type="link">
                 Send me another code

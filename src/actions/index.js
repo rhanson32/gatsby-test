@@ -2,8 +2,9 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
-    baseURL: 'https://api.purify.cloud/test',
-    timeout: 8000
+    baseURL: 'https://api.purify.cloud/test/',
+    timeout: 8000,
+    headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
 });
 
 // https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test  
@@ -129,12 +130,7 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
 
 export const getMetrics = (id) => async (dispatch, getState) => {
 
-    let myRequest = {
-        body: {},
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
-
-    const metricResponse = await purify.get('/metrics?id=' + id, myRequest).catch(err => console.log(err));
+    const metricResponse = await purify.get('/metrics?id=' + id).catch(err => console.log(err));
 
     if(metricResponse)
     {
@@ -144,12 +140,7 @@ export const getMetrics = (id) => async (dispatch, getState) => {
 
 export const getAccounts = (id) => async (dispatch, getState) => {
 
-    let myRequest = {
-        body: {},
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
-
-    const accountResponse = await purify.get('/accounts?id=' + id, myRequest).catch(err => console.log(err));
+    const accountResponse = await purify.get('/accounts?id=' + id).catch(err => console.log(err));
 
     if(accountResponse)
     {
@@ -365,25 +356,6 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
     await purify.post('/saml', myRequest).catch(err => console.log(err));
 }
 
-export const getFeatures = () => async dispatch => {
-    let myRequest = {
-        body: {},
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    };
-    const featureResponse = await purify.get('/features', myRequest).catch(err => console.log(err));
-
-    const Items = featureResponse.data.Items.map(item => {
-        return {
-            FeatureId: item.FeatureId.S,
-            Title: item.Title.S,
-            Description: item.Description.S,
-            Image: item.Image.S || "None",
-            Color: item.FeatureBackground.S
-        }
-    });
-    dispatch({ type: 'FETCH_FEATURES', payload: Items });
-}
-
 export const saveUser = (user) => async (dispatch, getState) => {
 
     let myRequest = {
@@ -419,7 +391,6 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
-    console.log(process.env);
     let myRequest = {
         body: {},
         headers: { 
@@ -451,6 +422,8 @@ export const getCurrentUser = () => async dispatch => {
             console.log(err);
         });
 
+        console.log(user);
+
         const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest).catch(err => {
             console.log(err);
         });
@@ -476,6 +449,14 @@ export const getCurrentUser = () => async dispatch => {
     } 
 }
 
+export const enableMFA = () => async dispatch => {
+        dispatch({ type: 'ENABLE_MFA', payload: true });
+}
+
+export const disableMFA = () => async dispatch => {
+    dispatch({ type: 'ENABLE_MFA', payload: false });
+}
+
 export const validateCompany = async (user) => {
 
     let myRequest = {
@@ -483,17 +464,11 @@ export const validateCompany = async (user) => {
                 email: user.email, 
                 company: user.company.trim().replace(/ /g, "-"),
                 userName: user.username
-            },
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+            }
     };
 
-    let myGetRequest = {
-        body: {},
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
-
     let queryString = '?company=' + user.company;
-    const customerResponse = await purify.get('/customers' + queryString, myGetRequest).catch(err => console.log(err));
+    const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
 
     console.log(customerResponse);
 
@@ -815,27 +790,23 @@ export const toggleSettingsMenu = (menu) => async dispatch => {
 
 export const fetchTickets = () => async (dispatch, getState) => {
 
-    let myRequest = {
-        body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+    const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId).catch(err => console.log(err));
+
+    if(ticketResponse)
+    {
+        const items = ticketResponse.data.map(item => {
+            return { 
+                CustomerId: item.CustomerId.S,
+                TicketId: item.TicketId.S,
+                Headline: (item.Headline && item.Headline.S) || "None",
+                Description: (item.Description && item.Description.S) || "None",
+                CreateDate: (item.CreateDate && item.CreateDate.S) || "Unknown",
+                Status: (item.Status && item.Status.S) || "Unassigned"
+            }
+        });
+    
+        dispatch({ type: 'FETCH_TICKETS', payload: items });
     }
-
-    const ticketResponse = await purify.get('/tickets?id=' + getState().user.CustomerId, myRequest).catch(err => console.log(err));
-
-    const items = ticketResponse.data.map(item => {
-        return { 
-            CustomerId: item.CustomerId.S,
-            TicketId: item.TicketId.S,
-            Headline: (item.Headline && item.Headline.S) || "None",
-            Description: (item.Description && item.Description.S) || "None",
-            CreateDate: (item.CreateDate && item.CreateDate.S) || "Unknown",
-            Status: (item.Status && item.Status.S) || "Unassigned"
-        }
-    });
-
-    dispatch({ type: 'FETCH_TICKETS', payload: items })
 }
 
 export const showMobile = () => async (dispatch, getState) => {
@@ -860,6 +831,6 @@ export const addUser = (user) => async (dispatch, getState) => {
     await purify.post('/users', myRequest).catch(err => console.log(err));  
 }
 
-export const confirmUser = (username) => async dispatch => {
-    await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
-}
+// export const confirmUser = (username) => async dispatch => {
+//     await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
+// }

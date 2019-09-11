@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import 'c3/c3.css';
-import { navigate, Link } from '@reach/router';
+import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
 import { Spin, Table, Modal, Button, message, notification, Tooltip } from 'antd';
