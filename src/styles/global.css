@@ -406,8 +406,10 @@ input  {
 
 .new-account-modal-main-text {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 0 1rem;
 }
 
 .new-account-modal-footer {

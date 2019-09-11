@@ -9,19 +9,15 @@ class Pie extends React.Component {
         }
     componentDidMount() {
         let series = [];
-        console.log(this.props);
         this.setState({
             data: { labels: this.props.accounts.map(account => account.AccountId) }
         });
 
-        console.log(this.state);
         for(let i = 0; i < this.state.data.labels.length; i++)
         {
             series.push(this.props.rules.map(rule => {
                 return rule.Violations.map(violation => violation.AccountId === this.state.data.labels[i]).reduce((a, b) => a + b, 0)
             }).reduce((a, b) => a + b));
-
-            console.log(series);
         }
     }
 

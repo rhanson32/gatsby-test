@@ -6,8 +6,8 @@ import { toggleAddAccount, postAccount, getCurrentUser } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
-        id: ``,
-        provider: 'AWS'
+        AccountId: ``,
+        Provider: 'AWS'
     };
 
     componentDidMount() {
@@ -26,7 +26,7 @@ class AddAccount extends React.Component {
       }
 
     submitAccount = () => {
-        if(this.state.id)
+        if(this.state.AccountId)
         {
             this.props.postAccount(this.state, this.props.user.CustomerId);
             this.props.toggleAddAccount();
@@ -52,7 +52,7 @@ class AddAccount extends React.Component {
                     <div className="account-item">
                         <div className="account-item-field-large">
                             <label>AWS Account ID</label>
-                            <Input name="id" value={this.state.id} onChange={this.handleUpdate} placeholder="e.g. 25237483438" />
+                            <Input name="AccountId" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="e.g. 25237483438" />
                         </div>
                         <div className="account-item-buttons">
                             <Button onClick={this.submitAccount} type="primary">Submit</Button>

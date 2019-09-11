@@ -43,7 +43,14 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
         }
     };
 
-    dispatch({ type: 'ADD_ACCOUNT', payload: item });
+    let fullItem = {
+        ...item,
+        Type: 'Master',
+        Status: 'New',
+        RoleName: 'arn:aws:iam::' + item.AccountId + ':role/PurifyManager' 
+    };
+
+    dispatch({ type: 'ADD_ACCOUNT', payload: fullItem });
 
     purify.post('/accounts', myRequest).then(
         response => {

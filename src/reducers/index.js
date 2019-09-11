@@ -17,7 +17,9 @@ const accountReducer = (state = [], action) => {
                     {
                         return action.payload
                     }
-            })
+            });
+        case 'ADD_ACCOUNT': 
+            return [ ...state, action.payload ]
         default:
             return state;
     }

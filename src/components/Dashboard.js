@@ -20,6 +20,7 @@ import moment from 'moment';
 
 import 'antd/dist/antd.css';
 import 'chartist/dist/chartist.min.css';
+import AWSAccount from './AWSAccount';
 
 class Dashboard extends React.Component {
     
@@ -394,12 +395,14 @@ class Dashboard extends React.Component {
                                 <div className="new-account-modal-content">
                                     <div className="new-account-modal-header">
                                         <h2>
-                                            Download the CloudFormation template 
+                                            Download the CloudFormation templates
                                         </h2>
                                     </div>
                                     <div className="new-account-modal-main">
                                         <div className="new-account-modal-main-text">
-                                            Download the &nbsp;<a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> &nbsp; CloudFormation template.
+                                            <div>Download the &nbsp;<a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> &nbsp; CloudFormation template.</div>
+                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetAdministrationRole.yml">AWSCloudFormationStackSetAdministrationRole</a> &nbsp; CloudFormation template.</div>
+                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetExecutionRole.yml">AWSCloudFormationStackSetExecutionRole</a> &nbsp; CloudFormation template.</div>
                                         </div>
                                         <div>
                                             <img width="350" src={template} alt="CloudFormation Template screenshot" />
@@ -417,12 +420,14 @@ class Dashboard extends React.Component {
                                 <div className="new-account-modal-content">
                                     <div className="new-account-modal-header">
                                         <h2>
-                                            Deploy the CloudFormation template 
+                                            Deploy the CloudFormation templates 
                                         </h2>
                                     </div>
                                     <div className="new-account-modal-main">
                                         <div className="new-account-modal-main-text">
-                                            Deploy the template in your AWS Master account.
+                                            <div>Deploy the PurifyController template in your AWS Master account.</div>
+                                            <div>Deploy the AWSCloudFormationStackSetAdministrationRole template in your AWS Master account.</div>
+                                            <div>Deploy the AWSCloudFormationStackSetExecutionRole template in all of your AWS accounts.</div>
                                         </div>
                                         <div>
                                             <img width="350" src={deploy} alt="CloudFormation console" />
@@ -444,12 +449,10 @@ class Dashboard extends React.Component {
                                         </h2>
                                     </div>
                                     <div className="new-account-modal-main">
-                                        <div className="new-account-modal-main-text">
+                                        {/* <div className="new-account-modal-main-text">
                                             Enter your AWS Master Account Id
-                                        </div>
-                                        <div>
-                                            <img width="350" src={deploy} alt="CloudFormation console" />
-                                        </div>
+                                        </div> */}
+                                        <AWSAccount />
                                     </div>
                                     <div className="new-account-modal-footer">
                                         <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
