@@ -63,7 +63,6 @@ class SignUp extends React.Component {
             }
             else
             {
-              console.log("Too close for missiles. I'm switching to guns.");
               this.setState({ stage: 1, buttonText: 'Confirm Sign Up' });
               notification.success({
                 message: 'Account Created',
@@ -80,7 +79,6 @@ class SignUp extends React.Component {
     }
 
     confirmSignUp = async() => {
-      console.log("Confirming sign up!");
         const { email, authCode, password } = this.state;
         this.setState({ buttonText: 'Confirming code...' });
         try {
@@ -89,8 +87,6 @@ class SignUp extends React.Component {
             message: 'Account confirmed',
             description: 'Account has been confirmed. Now attempting to log in.'
           });
-          console.log(this.state);
-          console.log("Attempting sign in!");
           const user = await Auth.signIn(email, password).catch(err => {
             console.log(err);
             if(err.code === 'NetworkError')

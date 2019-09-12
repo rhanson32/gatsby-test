@@ -156,8 +156,7 @@ class Users extends React.Component {
                     <Modal
                         title="Add User"
                         visible={this.state.visible}
-                        onOk={this.onClose}
-                        onCancel={this.onClose}
+                        closable={false}
                         width="80%"
                         okText="Done"
                         footer={[

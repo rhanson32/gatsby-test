@@ -402,6 +402,7 @@ input  {
 .new-account-modal-main {
     display: flex;
     justify-content: space-around;
+    padding-bottom: 1rem;
 }
 
 .new-account-modal-main-text {
@@ -416,6 +417,10 @@ input  {
     display: flex;
     justify-content: flex-end;
     margin: 1rem 0;
+}
+
+.new-account-modal-footer button {
+    margin: 0 0.5rem;
 }
 
 .progress-header {

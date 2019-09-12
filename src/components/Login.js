@@ -225,8 +225,9 @@ class Login extends React.Component {
   }
 
   login = async () => {
+    
     const { username, password } = this.state;
-    console.log(this.state);
+
     try {
       this.setState({ loading: true, buttonText: 'Signing In...' });
       const user = await Auth.signIn(username, password).catch(err => {

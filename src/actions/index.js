@@ -365,18 +365,13 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
 
 export const saveUser = (user) => async (dispatch, getState) => {
 
-    let myRequest = {
-        body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    }
-
     dispatch({ type: 'STORE_USER', payload: user });
+
+    console.log("User:", user);
 
     if(user && user["custom:company"])
     {
-        const customerResponse = await purify.get('/customers?company=' + user["custom:company"], myRequest);
+        const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
         user.customerId = customerResponse.data[0].CustomerId.S
     }
 }
@@ -428,8 +423,6 @@ export const getCurrentUser = () => async dispatch => {
         const user = await Auth.currentAuthenticatedUser().catch(err => {
             console.log(err);
         });
-
-        console.log(user);
 
         const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest).catch(err => {
             console.log(err);
