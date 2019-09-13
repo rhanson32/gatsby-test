@@ -6,7 +6,8 @@ import React from 'react';
 class SupportTabs extends React.Component {
   state = {
     noTitleKey: 'Cases',
-    showKey: false
+    showKey: false,
+    showDetail: false
   };
 
   showKey = () => {

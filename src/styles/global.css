@@ -2107,10 +2107,34 @@ input  {
     font-size: 1.5rem;
 }
 
+.ticket-detail-pane {
+    min-height: 200px;
+}
+
+.ticket-detail-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+.ticket-detail-pane-header {
+    line-height: 140%;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 1rem;
+}
+
+.ticket-detail-header {
+    line-height: 140%;
+    font-weight: 700;
+    font-size: 20px;
+}
+
 .metrics-graph {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .loading-spinner {
