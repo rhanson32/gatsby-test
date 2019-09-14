@@ -15,9 +15,6 @@ export const postTicket = (values) => async (dispatch, getState) => {
         body: {
             ...values,
             CustomerId: getState().user.CustomerId
-        },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -37,9 +34,6 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
             CustomerId: customerId,
             Type: 'Master',
             Status: 'New'
-        },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     };
 
@@ -63,8 +57,7 @@ export const updateUser = (user) => async dispatch => {
     let myRequest = {
         body: {
             ...user
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     dispatch({ type: 'UPDATE_USER', payload: myRequest.body });
@@ -80,8 +73,7 @@ export const updateAccount = (account, role) => async (dispatch, getState) => {
             ...account,
             RoleName: role,
             Role: RoleArn
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     dispatch({ type: 'UPDATE_ACCOUNT', payload: myRequest.body });
@@ -94,8 +86,7 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
             event: 'ADD_GLOBAL_NOTIFICATION',
             recipient,
             CustomerId: getState().user.CustomerId
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
     let Notifications = getState().settings.Notifications;
     Notifications.push(recipient);
@@ -110,8 +101,7 @@ export const removeGlobalNotification = (recipient) => async (dispatch, getState
             event: 'REMOVE_GLOBAL_NOTIFICATION',
             CustomerId: getState().user.CustomerId,
             recipient
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     let Notifications = getState().settings.Notifications;
@@ -122,12 +112,8 @@ export const removeGlobalNotification = (recipient) => async (dispatch, getState
 }
 
 export const fetchUsers = (id) => async (dispatch, getState) => {
-    let myRequest = {
-        body: {},
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
 
-    const usersResponse = await purify.get('/users?id=' + id, myRequest).catch(err => console.log(err));
+    const usersResponse = await purify.get('/users?id=' + id).catch(err => console.log(err));
 
     if(usersResponse)
     {
@@ -138,6 +124,8 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
 export const getMetrics = (id) => async (dispatch, getState) => {
 
     const metricResponse = await purify.get('/metrics?id=' + id).catch(err => console.log(err));
+
+    console.log(metricResponse);
 
     if(metricResponse)
     {
@@ -310,14 +298,8 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
 }
 
 export const getSettings = (customerId) => async dispatch => {
-    let myRequest = {
-        body: { },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    }
 
-    const response = await purify.get('/settings?id=' + customerId, myRequest).catch(err => console.log(err));
+    const response = await purify.get('/settings?id=' + customerId).catch(err => console.log(err));
 
     if(response)
     {
@@ -393,16 +375,10 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
-    let myRequest = {
-        body: {},
-        headers: { 
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' 
-        }
-    }
 
     if(purifyUser.type === 'federated')
     {
-        const customerResponse = await purify.get('/customers?client=' + purifyUser.client, myRequest).catch(err => console.log(err));
+        const customerResponse = await purify.get('/customers?client=' + purifyUser.client).catch(err => console.log(err));
 
         const userInfo = {
             CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
@@ -424,7 +400,7 @@ export const getCurrentUser = () => async dispatch => {
             console.log(err);
         });
 
-        const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"], myRequest).catch(err => {
+        const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"]).catch(err => {
             console.log(err);
         });
         if(customerResponse && user)
@@ -498,14 +474,7 @@ export const validateCompany = async (user) => {
 
 export const getToken = (inputs) => async dispatch => {
 
-    let myRequest = {
-        body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    };
-
-    const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id, myRequest)
+    const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id)
     .catch(err => {
         console.log(err);
     });
@@ -552,16 +521,9 @@ export const getRules = (user) => async dispatch => {
 
     let Items;
 
-    let myRequest = {
-        body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    }
-
     const { CustomerId } = user;
 
-    const rulesResponse = await purify.get('/rules?id=' + CustomerId, myRequest).catch(err => console.log(err));
+    const rulesResponse = await purify.get('/rules?id=' + CustomerId).catch(err => console.log(err));
 
     if(rulesResponse)
     {
@@ -610,8 +572,7 @@ export const addRuleNotification = (rule, email) => async dispatch => {
             action: 'addNotification',
             email,
             ruleId: rule.RuleId
-        },
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     }
 
     const newRule = {
@@ -619,22 +580,36 @@ export const addRuleNotification = (rule, email) => async dispatch => {
         Notifications: [ ...rule.Notifications ]
     };
 
+    console.log("Updated rule:", newRule);
+
     dispatch({ type: 'ADD_RULE_NOTIFICATION', payload: newRule });
+    await purify.post('/rules', myRequest).catch(err => console.log(err));
+}
+
+export const removeRuleNotification = (id, email) => async (dispatch, getState) => {
+
+    let rule = getState().rules.find(rule => rule.RuleId === id);
+
+    let myRequest = {
+        body: {
+            action: 'removeNotification',
+            email,
+            ruleId: id,
+            id: rule.CustomerId
+        }
+    };
+
+    rule.Notifications = rule.Notifications.filter(notification => notification !== email);
+
+    dispatch({ type: 'REMOVE_RULE_NOTIFICATION', payload: rule });
     await purify.post('/rules', myRequest).catch(err => console.log(err));
 }
 
 export const getHistory = (user) => async dispatch => {
 
-    let myRequest = {
-        body: {},
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    }
-
     const { CustomerId } = user;
 
-    const historyResponse = await purify.get('/history?id=' + CustomerId, myRequest).catch(err => console.log(err));
+    const historyResponse = await purify.get('/history?id=' + CustomerId).catch(err => console.log(err));
 
     const Items = historyResponse ? historyResponse.data.map(item => {
         return {
@@ -830,7 +805,3 @@ export const addUser = (user) => async (dispatch, getState) => {
     dispatch({ type: 'ADD_USER', payload: user });
     await purify.post('/users', myRequest).catch(err => console.log(err));  
 }
-
-// export const confirmUser = (username) => async dispatch => {
-//     await Auth.completeNewPassword('reedhansontest1@gmail.com', "NewPass12!").catch(err => console.log(err));
-// }

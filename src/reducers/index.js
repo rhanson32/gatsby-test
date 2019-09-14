@@ -49,7 +49,16 @@ const ruleReducer = (state = [], action) => {
         case 'UPDATE_RULES':
             return [ ...action.payload ]
         case 'ADD_RULE_NOTIFICATION':
-            return [ ...state, action.payload ]
+            return state.map(rule => {
+                if(rule.RuleId === action.payload.RuleId)
+                {
+                    return action.payload
+                }
+                else
+                {
+                    return rule
+                }
+            });
         case 'MANAGE_VIOLATION':
             return state.map(rule => {
                 if(rule.RuleId === action.payload.id)

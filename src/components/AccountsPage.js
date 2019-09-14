@@ -89,12 +89,8 @@ class Accounts extends React.Component {
                 accountId: account.AccountId,
                 provider: account.Provider === 'AWS' ? <FaAws size="2em" /> : <FaMicrosoft />,
                 role: account.RoleName,
-                status:  account.Status === "Valid" ?
-                <Button type="link" name="off" id={account.AccountId} size="large">
-                    Valid
-                </Button> :
-                <Button name="monitor" id={account.AccountId} style={{ backgroundColor: account.Enabled ? "#27ae60" : "white", color: account.Enabled ? "white" : "black" }} size="large">
-                    Invalid
+                status:  <Button type="link" id={account.AccountId} size="large" style={{ color: account.Status === 'Validated' ? "#27ae60" : "red" }}>
+                  {account.Status}
                 </Button>,
                 state: <SwitchWrapAccount checked={account.Enabled} account={account} />
             }    
@@ -186,7 +182,7 @@ class Accounts extends React.Component {
                   {
                     this.state.scanComplete && this.props.accounts.length === 0 && (
                       <Alert
-                      style={{ width: "80%", margin: "0 auto" }}
+                      style={{ width: "80%", margin: "1rem auto" }}
                       message="AWS Master Account Missing"
                       description={<MissingMaster />}
                       type="warning"

@@ -21,7 +21,7 @@ class RulesPage extends React.Component {
         visible: false,
         description: ``,
         title: ``,
-        rule: null
+        ruleId: null
     }
 
     componentDidMount = async () => {
@@ -42,8 +42,7 @@ class RulesPage extends React.Component {
                 setTimeout(async () => {
                     navigate('/app/login');
                 }, 2000); 
-            }
-            
+            }   
         }
         if(!this.props.User.email)
         {
@@ -92,10 +91,10 @@ class RulesPage extends React.Component {
     showDetail = (e) => {
  
         this.setState({
-            description: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Description,
+            description: this.props.Rules.find(rule => rule.Name === e.target.name).Description,
             visible: true,
-            title: this.props.Rules.filter(rule => rule.Name === e.target.name)[0].Name,
-            rule: this.props.Rules.filter(rule => rule.Name === e.target.name)[0]
+            title: this.props.Rules.find(rule => rule.Name === e.target.name).Name,
+            ruleId: this.props.Rules.find(rule => rule.Name === e.target.name).RuleId
         });
     }
 
@@ -249,7 +248,7 @@ class RulesPage extends React.Component {
                             onClose={this.onClose}
                             visible={this.state.visible}
                             >
-                            {this.state.ruleId !== null && <RuleItem rule={this.state.rule} />}
+                            {this.state.ruleId !== null && <RuleItem ruleId={this.state.ruleId} />}
                         </Drawer>
                     </div> 
                   <Footer />  
