@@ -311,7 +311,8 @@ export const getSettings = (customerId) => async dispatch => {
                 }
             }),
             Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
-            saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false
+            saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
+            Metadata: response.data[0].Metadata.S || null
         }
     
         dispatch({ type: 'FETCH_SETTINGS', payload: settings });
@@ -325,8 +326,7 @@ export const getSettings = (customerId) => async dispatch => {
 
 export const manageViolations = (event) => async dispatch => {
     let myRequest = {
-        body: event,
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        body: event
     };
 
     dispatch({ type: 'MANAGE_VIOLATION', payload: event });
@@ -336,11 +336,12 @@ export const manageViolations = (event) => async dispatch => {
 export const uploadMetadata = (file) => async (dispatch, getState) => {
     let myRequest = {
         body: {
-            metadatafile: file,
+            metadataFile: file,
             CustomerId: getState().user.CustomerId
-        },
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
+
+    console.log(myRequest);
 
     await purify.post('/saml', myRequest).catch(err => console.log(err));
 }
@@ -556,10 +557,7 @@ export const getRules = (user) => async dispatch => {
 
 export const testSaml = (formData) => async dispatch => {
     let myRequest = {
-        body: { data: formData },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        body: { data: formData }
     };
 
     await purify.post('/saml', myRequest).catch(err => console.log(err));

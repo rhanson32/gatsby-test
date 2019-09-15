@@ -133,6 +133,10 @@ class TabsCard extends React.Component {
   onChange = (e) => {
     const file = e.target.files[0];
     console.log(e);
+    if(!this.props.settings.Metadata)
+    {
+        this.props.uploadMetadata(this.props.user.CustomerId + '-metadata.xml');
+    }
     Storage.put(this.props.user.CustomerId + '-metadata.xml', file, {
         contentType: 'text/xml'
     })
@@ -140,7 +144,7 @@ class TabsCard extends React.Component {
         console.log(result);
         this.setState({
             uploadFile: false
-        })
+        });
     })
     .catch(err => {
         console.log(err);
@@ -573,7 +577,7 @@ class TabsCard extends React.Component {
           )
       }
       {
-          this.props.scanComplete && this.props.settings.saml && !this.state.uploadFile && (
+          this.props.scanComplete && this.props.settings.saml && this.props.settings.Metadata && !this.state.uploadFile && (
               <div className="settings-row">
                 <div className="settings-header">
                     Metadata File Status
@@ -587,7 +591,21 @@ class TabsCard extends React.Component {
           )
       }
       {
-          this.props.scanComplete && this.props.settings.saml && !this.state.uploadFile && (
+          this.props.scanComplete && this.props.settings.saml && !this.props.settings.Metadata && !this.state.uploadFile && (
+              <div className="settings-row">
+                <div className="settings-header">
+                    Metadata File Status
+                </div>
+                <div className="settings-subscription">
+                    <div className="metadata-upload">
+                        <Button type="link" onClick={this.showFileBrowser}>Upload new file</Button>
+                    </div>
+                </div>
+              </div>
+          )
+      }
+      {
+          this.props.scanComplete && this.props.settings.saml && this.props.settings.Metadata && !this.state.uploadFile && (
               <div className="settings-row">
                 <div className="settings-header">
                     SSO Link
