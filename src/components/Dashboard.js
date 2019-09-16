@@ -56,6 +56,8 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
         const user = await getCurrentUser();
+
+        console.log(user);
     
         if(moment(getExpiration()) < moment())
         {

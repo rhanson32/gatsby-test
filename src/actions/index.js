@@ -7,6 +7,8 @@ const purify = axios.create({
     headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
 });
 
+console.log(process.env);
+
 // https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test  
 
 export const postTicket = (values) => async (dispatch, getState) => {
@@ -300,7 +302,7 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
 export const getSettings = (customerId) => async dispatch => {
 
     const response = await purify.get('/settings?id=' + customerId).catch(err => console.log(err));
-
+    console.log(response);
     if(response)
     {
         const settings =  {
@@ -312,7 +314,7 @@ export const getSettings = (customerId) => async dispatch => {
             }),
             Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
             saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
-            Metadata: response.data[0].Metadata.S || null
+            Metadata: response.data[0].Metadata ? response.data[0].Metadata.S : null
         }
     
         dispatch({ type: 'FETCH_SETTINGS', payload: settings });
@@ -355,7 +357,8 @@ export const saveUser = (user) => async (dispatch, getState) => {
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
-        user.customerId = customerResponse.data[0].CustomerId.S
+        console.log(customerResponse);
+        user.customerId = customerResponse.data[0].CustomerId.S;
     }
 }
 
@@ -795,11 +798,11 @@ export const addUser = (user) => async (dispatch, getState) => {
     let myRequest = {
         body: {
             ...user,
-            company: getState().user['custom:company'],
-            password: 'Test1234!'
+            company: getState().user['custom:company']
         }
     }
 
     dispatch({ type: 'ADD_USER', payload: user });
-    await purify.post('/users', myRequest).catch(err => console.log(err));  
+    const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
+    return response;
 }

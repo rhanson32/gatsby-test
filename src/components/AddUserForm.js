@@ -13,14 +13,23 @@ import {
       confirmDirty: false
     };
   
-    handleSubmit = e => {
+    handleSubmit = async e => {
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
           if(values.email !== '' && values['group'] !== '')
           {
-              this.props.addUser(values);
+             this.props.addUser(values).then(response => {
+                if(response.statusCode && response.statusCode !== 200)
+                {
+                  this.setState({
+                    error: response.message
+                  })
+                }
+                console.log(response);
+             });
+              
           }
         }
       });
@@ -44,6 +53,7 @@ import {
   
       return (
         <Form onSubmit={this.handleSubmit}>
+          <div>{this.state.error}</div>
           <Form.Item label="Email">
             {getFieldDecorator('email', {
               rules: [

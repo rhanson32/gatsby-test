@@ -26,7 +26,7 @@ class Pie extends React.Component {
       let series = labels.map(id => {
           return this.props.rules.map(rule => {
             return rule.Violations.map(violation => violation.AccountId === id).reduce((a, b) => a + b, 0)
-        }).reduce((a, b) => a + b) });
+        }).reduce((a, b) => a + b, 0) });
     let data = {
         labels,
         series
