@@ -52,36 +52,42 @@ import {
       };
   
       return (
+        <div className="add-user-form">
         <Form onSubmit={this.handleSubmit}>
-          <div>{this.state.error}</div>
-          <Form.Item label="Email">
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email',
-                  message: 'Email format is not valid',
-                },
-                {
-                  required: true,
-                  message: 'Please input your Email!',
-                },
-              ],
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Role">
-            {getFieldDecorator('group')(
-                <Radio.Group>
-                    <Radio value="Administrator">Administrator</Radio>
-                    <Radio value="Auditor">Auditor</Radio>
-                </Radio.Group>,
-            )}
+          <div className="add-user-form-internal">
+            <div>{this.state.error}</div>
+            <Form.Item label="Email">
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    type: 'email',
+                    message: 'Email format is not valid',
+                  },
+                  {
+                    required: true,
+                    message: 'Please input your Email!',
+                  },
+                ],
+              })(<Input />)}
             </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
+            <div className="add-user-form-second-row">
+              <Form.Item>
+                {getFieldDecorator('group')(
+                    <Radio.Group>
+                        <Radio value="Administrator">Administrator</Radio>
+                        <Radio value="Auditor">Auditor</Radio>
+                    </Radio.Group>,
+                )}
+                </Form.Item>
+              <Form.Item {...tailFormItemLayout}>
+                <Button type="primary" htmlType="submit">
+                  Add
+                </Button>
+              </Form.Item>
+            </div>
+          </div>
         </Form>
+        </div>
       );
     }
   }

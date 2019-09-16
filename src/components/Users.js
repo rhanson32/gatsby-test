@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { getCurrentUser, fetchUsers, updateUser } from '../actions';
 import { getExpiration } from '../utils/auth';
-import { Table, Spin, Button, message, Modal } from 'antd';
+import { Table, Spin, Button, message } from 'antd';
 import TopMenu from './TopMenu';
 import Header from './Header';
 import Footer from './Footer';
@@ -134,39 +134,27 @@ class Users extends React.Component {
                 <TopMenu />
                 <div className="users-main">
                     <div className="users-max">
-                    <div className="users-header">
-                        <div className="rules-header">
-                            <h1>User List</h1>
-                        </div>
-                        <div className="rules-options">
-                            <Button type="primary" onClick={this.showDrawer}>Add User</Button>
-                        </div>
-                    </div>
-                    {
-                        this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
-                    }
-                    {
-                        this.props.users.length !== 0 && (
-                            <div className="web-users">
-                                <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0" }} dataSource={dataSource} columns={columns} />
+                        <div className="users-header">
+                            <div className="rules-header">
+                                <h1>User List</h1>
                             </div>
-                        )
-                    }
+                            <div className="rules-options">
+                                {!this.state.visible && <Button type="primary" onClick={this.showDrawer}>Add User</Button>}
+                                {this.state.visible && <Button type="primary" onClick={this.onClose}>Close User Form</Button>}
+                            </div>
+                        </div>
+                        {this.state.visible && <AddUserForm />}
+                        {
+                            this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
+                        }
+                        {
+                            this.props.users.length !== 0 && (
+                                <div className="web-users">
+                                    <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0" }} dataSource={dataSource} columns={columns} />
+                                </div>
+                            )
+                        }
                     </div>
-                    <Modal
-                        title="Add User"
-                        visible={this.state.visible}
-                        closable={false}
-                        width="80%"
-                        okText="Done"
-                        footer={[
-                            <Button type="primary" onClick={this.onClose}>
-                                Done
-                            </Button>
-                        ]}
-                    >
-                        <AddUserForm />
-                    </Modal>
                 </div>   
                 <Footer />
             </div>

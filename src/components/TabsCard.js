@@ -79,10 +79,17 @@ class TabsCard extends React.Component {
         console.log(response);
         this.setState({ 
             oldPassword: ``,
-            newPassword: ``
+            newPassword: ``,
+            visible: false
         });
       }
         
+  }
+
+  cancelPasswordChange = () => {
+      this.setState({
+          visible: false
+      })
   }
 
   showConfirm = () => {
@@ -415,14 +422,14 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-buttons">
-                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" size="large" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
-                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled size="large" onClick={this.showPlans}><Icon type="arrow-up" /> Upgrade</Button>}
+                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
+                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled onClick={this.showPlans}><Icon type="arrow-up" /> Upgrade</Button>}
                     {this.props.user.Plan !== "Free" && (
-                        <Button type="danger" size="large" onClick={this.showConfirm}>
+                        <Button type="danger" onClick={this.showConfirm}>
                             {this.state.buttonText}
                         </Button>
                     )}   
-                    <Button type="danger" size="large" onClick={this.showConfirm}>
+                    <Button type="danger" onClick={this.showConfirm}>
                         <Icon type="x-square" />
                         Cancel
                     </Button>      
@@ -438,10 +445,11 @@ class TabsCard extends React.Component {
                         </div>
                         <div className="settings-subscription">
                             <div className="settings-buttons">
-                                <Button type="primary" size="large" onClick={this.showPassword}><Icon type="key" />Change Password</Button>
-                                {!this.props.user.MFA && <Button type="primary" size="large" onClick={this.setupMFA}>Set up MFA</Button>}
-                                {this.props.user.MFA && <Button type="primary" size="large" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
+                                {!this.state.visible && <Button type="primary" onClick={this.showPassword}><Icon type="key" />Change Password</Button>}
+                                {!this.props.user.MFA && !this.state.visible && <Button type="primary" onClick={this.setupMFA}>Set up MFA</Button>}
+                                {this.props.user.MFA && <Button type="primary" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
                             </div>
+                            
                             <Modal
                                 visible={this.state.showMFASetup}
                                 onOk={this.submitMFA}
@@ -463,35 +471,63 @@ class TabsCard extends React.Component {
                                 </div>
                             </Modal>
                         </div>
+                        {
+                            this.state.visible && (
+                                <div className="change-password-form">
+                                    <div className="change-password-form-item">
+                                        <label>Old Password</label>
+                                        <Input name="oldPassword" value={this.state.oldPassword} onChange={this.handleUpdate} />
+                                    </div>
+                                    <div className="change-password-form-item">
+                                        <label>New Password</label>
+                                        <Input name="newPassword" value={this.state.newPassword} onChange={this.handleUpdate} />
+                                    </div>
+                                    <div className="change-password-form-buttons">
+                                    <Button type="primary" onClick={this.changePassword}>
+                                        Submit
+                                    </Button>
+                                    <Button type="danger" onClick={this.cancelPasswordChange}>
+                                        Cancel
+                                    </Button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        
                     </div>
                 )
             }
             
             {this.props.user.Type === 'Native' && <hr style={{ width: "80%", margin: "2rem auto" }} />}
             <div className="settings-row">
-                <div className="settings-header">
-                    <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
-                        Global Notification Emails
-                    </Tooltip> 
-                </div>
-                <div className="settings-subscription">
-                    <div className="notification-group">
-                    {this.props.settings.Notifications.length === 0 && this.props.scanComplete && 'None' }
-                    {
-                        this.props.settings.Notifications.map((notification, index) => {
-                            return (
-                                <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
-                                    {notification}
-                                </Tag>
-                            )
-                        })
-                    }
+                <div className="settings-header">Global Notifications</div>
+                <div className="notifications-list">
+                    <div className="notifications-header">
+                         Currently configured Recipients
                     </div>
+                    <div className="notification-group">
+                        {this.props.settings.Notifications.length === 0 && this.props.scanComplete && 'None' }
+                        {
+                            this.props.settings.Notifications.map((notification, index) => {
+                                return (
+                                    <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
+                                        {notification}
+                                    </Tag>
+                                )
+                            })
+                        }
+                    </div>
+                    
+                </div>
+                <div className="notifications-modify">
+                    <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
+                        Email Address
+                    </Tooltip> 
                     <div className="add-notifications">
-                    <Input name="recipient" value={this.state.recipient} onChange={this.handleUpdate} /> 
-                    <Button type="primary" onClick={this.submitNotification}>
-                        <Icon style={{ fontWeight: "700" }} type="plus" /> Add
-                    </Button>  
+                        <Input name="recipient" value={this.state.recipient} onChange={this.handleUpdate} /> 
+                        <Button type="primary" onClick={this.submitNotification}>
+                            <Icon style={{ fontWeight: "700" }} type="plus" /> Add
+                        </Button>  
                     </div> 
                 </div>
             </div>
@@ -631,23 +667,6 @@ class TabsCard extends React.Component {
             >
                 {contentListNoTitle[this.state.noTitleKey]}
             </Card>
-            <Drawer
-                title={this.state.title}
-                placement="right"
-                closable={false}
-                onClose={this.onClose}
-                visible={this.state.visible}
-                >
-                <div>
-                    <label>Old Password</label>
-                    <Input name="oldPassword" value={this.state.oldPassword} onChange={this.handleUpdate} />
-                    <label>New Password</label>
-                    <Input name="newPassword" value={this.state.newPassword} onChange={this.handleUpdate} />
-                    <Button type="primary" onClick={this.changePassword}>
-                        Submit
-                    </Button>
-                </div>
-            </Drawer>
             <Modal
                visible={this.state.confirm}
                closable={false}

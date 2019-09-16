@@ -17,6 +17,13 @@ class SupportList extends React.Component {
     });
   }
 
+  hideDetail = () => {
+    this.setState({
+      showDetail: false,
+      detail: null
+    })
+  }
+
     render() {
 
         return (
@@ -61,13 +68,19 @@ class SupportList extends React.Component {
               })}
             </Table.Body>
           </Table>
-          <hr />
           {
             this.state.showDetail && (
               <div className="ticket-detail-pane">
                 <div className="ticket-detail-pane-header">
+                  <div>
                   Ticket Detail
+                  </div>
+                  <div>
+                    <Button onClick={this.hideDetail} type="link">Close</Button>
+                  </div>
                 </div>
+                <div className="ticket-detail-pane-main"> 
+                  <div className="ticket-detail-pane-left">
                 <div className="ticket-detail-item">
                   <div className="ticket-detail-header">
                     Ticket ID
@@ -92,6 +105,8 @@ class SupportList extends React.Component {
                     {this.state.detail.Headline}
                   </div>
                 </div>
+                </div>
+                <div className="ticket-detail-pane-right">
                 <div className="ticket-detail-item">
                   <div className="ticket-detail-header">
                     Description
@@ -99,6 +114,8 @@ class SupportList extends React.Component {
                   <div className="ticket-detail-content">
                     {this.state.detail.Description}
                   </div>
+                </div>
+                </div>
                 </div>
                 {this.state.detail.Notes && (
                   <div>

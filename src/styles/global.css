@@ -666,7 +666,25 @@ input  {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 100px;
+}
+
+.change-password-form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+}
+
+.change-password-form-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 1rem;
+}
+
+.change-password-form-buttons button {
+    margin: 0 0.5rem;
 }
 
 .settings-menu {
@@ -750,12 +768,24 @@ input  {
 
 .settings-header {
     width: 100%;
-    height: 2.5rem;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin: 0.5rem 0;
+}
+
+.notifications-list, .notifications-modify {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    justify-content: space-around;
+}
+
+.notifications-modify {
+    justify-content: space-around;
 }
 
 .settings-provider {
@@ -952,7 +982,6 @@ input  {
 
 .add-notifications {
     display: flex;
-    width: 60%;
     justify-content: flex-start;
 }
 
@@ -973,10 +1002,23 @@ input  {
 /********************** User Page *************************/
 
 .add-user-form {
-    border: 1px solid #AAA;
+    border: 1px solid #F0F0F0;
     padding: 1rem 2rem;
     border-radius: 5px;
-    background-color: #F7F7F7;
+    background-color: #FFF;
+    margin-top: 1rem;
+    max-width: 1000px;
+}
+
+.add-user-form-internal {
+    width: 60%;
+    margin: auto;
+}
+
+.add-user-form-second-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .users-max {
@@ -1045,6 +1087,13 @@ input  {
     background-color: #FFF;
     border-radius: 5px;
     border: 1px solid #DDD;
+}
+
+.support-ticket-form {
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #F0F0F0;
+    border-radius: 3px;
 }
 
 .form-field {
@@ -2109,6 +2158,21 @@ input  {
 
 .ticket-detail-pane {
     min-height: 200px;
+    padding: 1rem 2rem;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+}
+
+.ticket-detail-pane-main {
+    display: flex;
+}
+
+.ticket-detail-pane-left {
+    width: 25%;
+}
+
+.ticket-detail-pane-right {
+    width: 70%;
 }
 
 .ticket-detail-item {
@@ -2122,6 +2186,8 @@ input  {
     font-weight: 700;
     font-size: 30px;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .ticket-detail-header {

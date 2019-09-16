@@ -26,9 +26,10 @@ class SupportForm extends React.Component  {
 
     render() {
         return (
-            <div>
+            <div className="support-ticket-form">
+              <h2>Create Support Case</h2>
               <div className="form-field">
-              <label>Headline</label> <Input name="headline" value={this.state.headline} onChange={this.handleUpdate} />
+                <label>Headline</label> <Input name="headline" value={this.state.headline} onChange={this.handleUpdate} />
               </div>
               <div className="form-field">
               <label>Description</label>
