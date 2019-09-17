@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Drawer, Tag, Tooltip, notification } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Tag, Tooltip, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -500,7 +500,6 @@ class TabsCard extends React.Component {
             
             {this.props.user.Type === 'Native' && <hr style={{ width: "80%", margin: "2rem auto" }} />}
             <div className="settings-row">
-                <div className="settings-header">Global Notifications</div>
                 <div className="notifications-list">
                     <div className="notifications-header">
                          Currently configured Recipients
@@ -520,6 +519,7 @@ class TabsCard extends React.Component {
                     
                 </div>
                 <div className="notifications-modify">
+                    <div>Global Notifications</div>
                     <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
                         Email Address
                     </Tooltip> 

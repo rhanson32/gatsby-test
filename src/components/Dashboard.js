@@ -530,7 +530,7 @@ class Dashboard extends React.Component {
                                             {this.state.scanComplete && this.state.showWaste && "Waste Score"}
                                             {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
                                         </div>
-                                        <div style={{ fontSize: "32px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "100px" }}>
+                                        <div style={{ fontSize: "24px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "60px" }}>
                                             {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
                                             {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
                                             {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}

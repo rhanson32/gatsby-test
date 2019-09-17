@@ -440,6 +440,7 @@ input  {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items: stretch;
 }
 
 .dashboard-sidebar {
@@ -476,7 +477,7 @@ input  {
 }
 
 .card-metric-wrapper {
-    font-size: 40px; 
+    font-size: 32px; 
     font-weight: bold; 
     display: flex; 
     justify-content: center; 
@@ -786,6 +787,7 @@ input  {
 
 .notifications-modify {
     justify-content: space-around;
+    align-items: flex-start;
 }
 
 .settings-provider {
@@ -991,12 +993,16 @@ input  {
 }
 
 .notification-group {
-    width: 40%;
+    width: 80%;
     padding: 1rem 2rem;
     min-height: 3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border: 1px dotted #ccc;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    opacity: 0.8;
 }
 
 /********************** User Page *************************/
@@ -1094,6 +1100,9 @@ input  {
     background-color: white;
     border: 1px solid #F0F0F0;
     border-radius: 3px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 0px 14px 2px #dadada;
 }
 
 .form-field {
@@ -1198,10 +1207,6 @@ input  {
     min-height: 80vh;
 }
 
-.rules-drawer-top {
-    padding-bottom: 5rem;
-}
-
 .rules-drawer-bottom {
     display: flex;
     justify-content: flex-end;
@@ -1265,10 +1270,10 @@ input  {
 .support-screen-header {
     width: 100%;
     padding: 1rem 0;
-    margin-top: 1rem;
-    max-height: 5rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .add-ticket {
@@ -3443,15 +3448,11 @@ th, td {
     }
 
     .dashboard-score {
-        width: 65%;
-    }
-
-    .card-wrapper {
         width: 30%;
     }
 
-    .dashboard-headlines {
-        flex-wrap: wrap;
+    .card-wrapper {
+        width: 16%;
     }
 
     .dashboard-sidebar {

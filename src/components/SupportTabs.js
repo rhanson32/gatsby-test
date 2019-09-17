@@ -25,12 +25,17 @@ class SupportTabs extends React.Component {
     const tabListNoTitle = [
         {
           key: 'Cases',
-          tab: 'My Cases',
+          tab: 'Open Cases',
+        },
+        {
+          key: 'All',
+          tab: 'All Cases',
         }
       ];
       
       const contentListNoTitle = {
-        Cases: <SupportList count={this.props.tickets.length} items={this.props.tickets} /> 
+        Cases: <SupportList count={this.props.tickets.length} items={this.props.tickets} />,
+        All: <SupportList count={this.props.tickets.length} items={this.props.tickets} /> 
       };
 
     return (
@@ -40,7 +45,7 @@ class SupportTabs extends React.Component {
             <div>
             <div className="web-rules">
               <Card
-                style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
+                style={{ width: '100%', minHeight: "50vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
                 tabList={tabListNoTitle}
                 activeTabKey={this.state.noTitleKey}
                 onTabChange={key => {
