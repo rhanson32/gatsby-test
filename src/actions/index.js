@@ -170,8 +170,7 @@ export const updateCustomerStatus = (status) => async (dispatch, getState) => {
         body: {
             CustomerId: user.CustomerId,
             status: status
-        },
-        headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     dispatch({ type: 'UPDATE_STATUS', payload: status });
@@ -258,9 +257,6 @@ export const downgradeSubscription = () => async (dispatch, getState) => {
         body: {
             id,
             plan: 'Free'
-        },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
         }
     }
 
@@ -283,8 +279,7 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
             email,
             CustomerId,
             discount
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     console.log(id);
@@ -305,20 +300,28 @@ export const getSettings = (customerId) => async dispatch => {
     console.log(response);
     if(response)
     {
-        const settings =  {
-            Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
-                return {
-                    Name: provider.M.Name.S,
-                    Enabled: provider.M.Enabled.BOOL
-                }
-            }),
-            Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
-            saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
-            Metadata: response.data[0].Metadata ? response.data[0].Metadata.S : null
+        try
+        {
+            const settings =  {
+                Providers: response.data.length === 0 ? [] : response.data[0].Providers.L.map(provider => {
+                    return {
+                        Name: provider.M.Name.S,
+                        Enabled: provider.M.Enabled.BOOL
+                    }
+                }),
+                Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
+                saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
+                Metadata: response.data[0].Metadata ? response.data[0].Metadata.S : null
+            }
+        
+            dispatch({ type: 'FETCH_SETTINGS', payload: settings });
+            return { statusCode: 200 }
         }
-    
-        dispatch({ type: 'FETCH_SETTINGS', payload: settings });
-        return { statusCode: 200 }
+        catch(err)
+        {
+            console.log(err);
+            return { statusCode: 400, error: 'Unable to load settings data.' }
+        }
     }
     else
     {
@@ -370,9 +373,8 @@ export const addDefaultGroup = (token) => async dispatch => {
         body: {
             name: groupName,
             user: token["cognito:username"]
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
+        }
+    };
 
     await purify.post('/groups', myRequest).catch(err => console.log(err));
 }
@@ -500,8 +502,7 @@ export const enableSaml = () => async (dispatch, getState) => {
         body: {
             event: 'ENABLE_SAML',
             CustomerId: getState().user.CustomerId
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     await purify.patch('/settings', myRequest).catch(err => console.log(err));
@@ -514,8 +515,7 @@ export const disableSaml = () => async (dispatch, getState) => {
         body: {
             event: 'DISABLE_SAML',
             CustomerId: getState().user.CustomerId
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+        }
     };
 
     await purify.patch('/settings', myRequest).catch(err => console.log(err));
@@ -627,11 +627,8 @@ export const disableRule = (id, user) => async (dispatch, getState) => {
 
     const prevState = getState();
     let myRequest = {
-        body: { },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
-    }
+        body: { }
+    };
 
     let newRules = prevState.rules.map(rule => {
 
@@ -661,10 +658,7 @@ export const enableRule = (id, user) => async (dispatch, getState) => {
 
     const prevState = getState();
     let myRequest = {
-        body: { },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        body: { }
     }
 
     let newRules = prevState.rules.map(rule => {
@@ -695,10 +689,7 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
 
     const prevState = getState();
     let myRequest = {
-        body: { },
-        headers: {
-            "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih'
-        }
+        body: { }
     }
 
     let newRules = prevState.rules.map(rule => {
@@ -747,9 +738,9 @@ export const toggleAWS = () => async (dispatch, getState) => {
             customerId,
             Setting: "Providers",
             NewValue: newValue
-        },
-        headers: { "X-Api-Key": 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
-    }
+        }
+    };
+
     dispatch({ type: 'TOGGLE_AWS', payload: newValue });
     await purify.put('/settings', myRequest).catch(err => console.log(err));
 }
