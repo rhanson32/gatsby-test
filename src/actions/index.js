@@ -127,8 +127,6 @@ export const getMetrics = (id) => async (dispatch, getState) => {
 
     const metricResponse = await purify.get('/metrics?id=' + id).catch(err => console.log(err));
 
-    console.log(metricResponse);
-
     if(metricResponse)
     {
         dispatch({ type: 'FETCH_METRICS', payload: metricResponse.data });
@@ -297,7 +295,7 @@ export const submitSubscription = (id, user, discount) => async dispatch => {
 export const getSettings = (customerId) => async dispatch => {
 
     const response = await purify.get('/settings?id=' + customerId).catch(err => console.log(err));
-    console.log(response);
+
     if(response)
     {
         try

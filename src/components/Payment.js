@@ -46,7 +46,7 @@ class Payment extends Component {
             <TopMenu />
             <div className="payments-main">
               <div className="payments-display">
-                <StripeProvider apiKey="pk_test_Kqcfc50dM018fN5E1HgPe7Ob002W4ops7h">
+                <StripeProvider apiKey={process.env.GATSBY_STRIPE_KEY}>
                   <div className="payments">
                     {this.props.user && this.props.user.Plan === 'Free' && <h1>Standard License</h1>}
                     <Elements>

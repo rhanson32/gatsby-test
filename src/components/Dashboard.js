@@ -80,7 +80,7 @@ class Dashboard extends React.Component {
         {
             this.setState({ scanComplete: true });
         }
-        console.log(this.props.user);
+
         if(!this.props.user.email)
         {
             try
