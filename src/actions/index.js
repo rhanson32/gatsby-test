@@ -147,7 +147,7 @@ export const getAccounts = (id) => async (dispatch, getState) => {
                 Type: item.Type.S || 'Secondary',
                 RoleName: (item.RoleName && item.RoleName.S) || 'None',
                 CustomerId: item.CustomerId.S,
-                Status: item.Status.S || 'Not Validated',
+                Status: item.Status ? item.Status.S : 'Not Validated',
                 Enabled: (item.Enabled && item.Enabled.BOOL) || false
             }
         });
