@@ -2,9 +2,9 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
-    baseURL: 'https://api.purify.cloud/test/',
+    baseURL: process.env.GATSBY_API_URL,
     timeout: 8000,
-    headers: { 'X-Api-Key': 'Bb6HQOL9MVV213PjU8Pj68xBJAvvBMx6GJlq83Ih' }
+    headers: { 'X-Api-Key': process.env.GATSBY_API_KEY }
 });
 
 console.log(process.env);
