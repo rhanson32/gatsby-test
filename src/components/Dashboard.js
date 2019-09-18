@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
             detailId: ``,
             chartData: {
              },
-             selectedChart: 'last12hours',
+             selectedChart: 'last12Hours',
              previewScreen: 'download'
           };
     }
@@ -213,15 +213,15 @@ class Dashboard extends React.Component {
     }
 
     last12Hours = () => {
-        this.setState({ selectedChart: 'last12hours' });
+        this.setState({ selectedChart: 'last12Hours' });
     }
 
     last3Days = () => {
-        this.setState({ selectedChart: 'last3days' });
+        this.setState({ selectedChart: 'last3Days' });
     }
 
     last7Days = () => {
-        this.setState({ selectedChart: 'last7days' });
+        this.setState({ selectedChart: 'last7Days' });
     }
 
     lastMonth = () => {
@@ -706,9 +706,9 @@ class Dashboard extends React.Component {
                                     <div className="dashboard-trends-header">
                                         <div className="dashboard-trends-title">Trends</div>
                                         <div className="history-chart-header-filters">
-                                           <div className={this.state.selectedChart === 'last12hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
-                                           <div className={this.state.selectedChart === 'last3days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
-                                           <div className={this.state.selectedChart === 'last7days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
+                                           <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
+                                           <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
+                                           <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
                                            <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>
                                            <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>
                                         </div>
@@ -755,16 +755,16 @@ class Dashboard extends React.Component {
                                     </Card.Header>
                                     <Card.Body>
                                         <div className="metrics-graph" style={{ backgroundColor: "white", minHeight: "300px" }}>
-                                            {this.props.metrics && this.props.metrics['last3days'] && <Line selected={this.state.selectedChart} />}
+                                            {this.props.metrics && this.props.metrics['last3Days'] && <Line selected={this.state.selectedChart} />}
                                             {
-                                                this.props.metrics && this.props.metrics['last3days'] && (
+                                                this.props.metrics && this.props.metrics['last3Days'] && (
                                                     <div className="legend">
                                                         <div className="legend-one"></div><div>Violations Discovered</div>
                                                         <div className="legend-two"></div><div>Violations Resolved</div>
                                                     </div>
                                                 )
                                             }
-                                            {this.props.metrics && !this.props.metrics['last3days'] && <div className="metrics-graph-missing">No data available.</div>}
+                                            {this.props.metrics && !this.props.metrics['last3Days'] && <div className="metrics-graph-missing">No data available.</div>}
                                         </div>
                                     </Card.Body>
                                 </Card>

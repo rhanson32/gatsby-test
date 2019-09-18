@@ -130,6 +130,8 @@ export const getMetrics = (id) => async (dispatch, getState) => {
     if(metricResponse)
     {
         dispatch({ type: 'FETCH_METRICS', payload: metricResponse.data });
+
+        console.log(metricResponse.data);
     }
 }
 
@@ -158,7 +160,6 @@ export const getAccounts = (id) => async (dispatch, getState) => {
     {
         return { statusCode: 400, error: 'Unable to retrieve account data. '}
     }
-    
 }
 
 export const updateCustomerStatus = (status) => async (dispatch, getState) => {
