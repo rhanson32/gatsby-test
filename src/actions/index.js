@@ -310,7 +310,7 @@ export const getSettings = (customerId) => async dispatch => {
                 }),
                 Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
                 saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
-                Metadata: response.data[0].Metadata ? response.data[0].Metadata.S : null
+                Metadata: response.data.length === 0 ? null : response.data[0].Metadata && response.data[0].Metadata.S
             }
         
             dispatch({ type: 'FETCH_SETTINGS', payload: settings });
