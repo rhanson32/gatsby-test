@@ -114,6 +114,8 @@ class SignUp extends React.Component {
             });
           });
 
+          console.log(user);
+
           if(user)
           {
               setTimeout(async () => {
