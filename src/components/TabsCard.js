@@ -418,25 +418,21 @@ class TabsCard extends React.Component {
         General: <div>
             <div className="settings-row">
                 <div className="settings-header">
-                    Subscription  
+                    Subscription Status 
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-buttons">
-                    {this.props.user.Plan === "Free" && this.props.user.Group.includes('Administrators') && <Button type="primary" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
-                    {this.props.user.Plan === "Free" && !this.props.user.Group.includes('Administrators') && <Button type="primary" disabled onClick={this.showPlans}><Icon type="arrow-up" /> Upgrade</Button>}
-                    {this.props.user.Plan !== "Free" && (
-                        <Button type="danger" onClick={this.showConfirm}>
-                            {this.state.buttonText}
-                        </Button>
-                    )}   
-                    <Button type="danger" onClick={this.showConfirm}>
-                        <Icon type="x-square" />
-                        Cancel
-                    </Button>      
+                        Subscription Plan: {this.props.user.Plan}
+                        {this.props.user.Plan === "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && <Button type="link" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
+                        {this.props.user.Plan !== "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && (
+                            <Button type="link" onClick={this.showConfirm}>
+                                {this.state.buttonText}
+                            </Button>
+                        )} 
+                        <Button type="link" onClick={this.cancelAccount}>Cancel Account</Button>     
                     </div>
                 </div>
             </div>
-            <hr style={{ width: "80%", margin: "2rem auto" }} />
             {
                 this.props.user.Type === 'Native' && (
                     <div className="settings-row">
@@ -445,11 +441,14 @@ class TabsCard extends React.Component {
                         </div>
                         <div className="settings-subscription">
                             <div className="settings-buttons">
-                                {!this.state.visible && <Button type="primary" onClick={this.showPassword}><Icon type="key" />Change Password</Button>}
-                                {!this.props.user.MFA && !this.state.visible && <Button type="primary" onClick={this.setupMFA}>Set up MFA</Button>}
-                                {this.props.user.MFA && <Button type="primary" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
+                                Password: 
+                                {!this.state.visible && <Button type="link" onClick={this.showPassword}><Icon type="key" />Change Password</Button>}
                             </div>
-                            
+                            <div className="settings-buttons">
+                                MFA Status: {this.props.user.MFA ? 'Enabled' : 'Disabled'}
+                                {!this.props.user.MFA && !this.state.visible && <Button type="link" onClick={this.setupMFA}>Set up MFA</Button>}
+                                {this.props.user.MFA && <Button type="link" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
+                            </div>
                             <Modal
                                 visible={this.state.showMFASetup}
                                 onOk={this.submitMFA}
@@ -497,38 +496,37 @@ class TabsCard extends React.Component {
                     </div>
                 )
             }
-            
-            {this.props.user.Type === 'Native' && <hr style={{ width: "80%", margin: "2rem auto" }} />}
             <div className="settings-row">
-                <div className="notifications-list">
-                    <div className="notifications-header">
-                         Currently configured Recipients
-                    </div>
-                    <div className="notification-group">
-                        {this.props.settings.Notifications.length === 0 && this.props.scanComplete && 'None' }
-                        {
-                            this.props.settings.Notifications.map((notification, index) => {
-                                return (
-                                    <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
-                                        {notification}
-                                    </Tag>
-                                )
-                            })
-                        }
-                    </div>
-                    
+                <div className="settings-header">
+                    Global Alert Notifications
                 </div>
-                <div className="notifications-modify">
-                    <div>Global Notifications</div>
-                    <Tooltip title="Add email addresses to receive notifications for all new violations of all enabled rules.">
-                        Email Address
-                    </Tooltip> 
-                    <div className="add-notifications">
-                        <Input name="recipient" value={this.state.recipient} onChange={this.handleUpdate} /> 
-                        <Button type="primary" onClick={this.submitNotification}>
-                            <Icon style={{ fontWeight: "700" }} type="plus" /> Add
-                        </Button>  
-                    </div> 
+                <div className="settings-subscription">
+                    <div className="settings-notifications">
+                        <div className="notifications-header">
+                            Recipients:
+                        </div>
+                        <div className="notification-group">
+                            {this.props.settings.Notifications && this.props.settings.Notifications.length === 0 && 'None' }
+                            {
+                                this.props.settings.Notifications.map((notification, index) => {
+                                    return (
+                                        <Tag color="blue" key={index} closable onClose={() => this.deleteNotification(notification)}>
+                                            {notification}
+                                        </Tag>
+                                    )
+                                })
+                            }
+                            <div className="notifications-modify">
+                                <div className="add-notifications">
+                                    <Input placeholder="email@company.com" name="recipient" value={this.state.recipient} onChange={this.handleUpdate} /> 
+                                    <Button type="primary" onClick={this.submitNotification}>
+                                        <Icon style={{ fontWeight: "700" }} type="plus" /> Add
+                                    </Button>  
+                                </div> 
+                            </div>
+                        </div> 
+                        
+                    </div>                  
                 </div>
             </div>
         </div>,
@@ -569,14 +567,16 @@ class TabsCard extends React.Component {
           this.props.scanComplete && !this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-header">
-                    SSO Status
+                    Single Sign-On
                 </div>
                 <div className="settings-subscription">
-                    
-                    <Button type="link" onClick={this.enableSaml}>
-                        <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
-                        Enable SSO
-                    </Button>
+                    <div className="settings-buttons">
+                        SSO Status: Disabled
+                        <Button type="link" onClick={this.enableSaml}>
+                            <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
+                            Enable SSO
+                        </Button>
+                    </div>
                 </div>
               </div>
           )
@@ -585,14 +585,21 @@ class TabsCard extends React.Component {
           this.props.scanComplete && this.props.settings.saml && (
               <div className="settings-row">
                 <div className="settings-header">
-                    SSO Status
+                    Single Sign-On
                 </div>
                 <div className="settings-subscription">
-                    <div className="settings-sso-status">
-                    <Icon type="check" style={{ color: "green", fontSize: "30px" }} />
-                    <Button type="link" onClick={this.disableSaml}>
-                        Disable SSO
-                    </Button>
+                    <div className="settings-buttons">
+                        SSO Status: Enabled
+                        <div className="settings-sso-status">
+                            <Button type="link" onClick={this.disableSaml}>
+                                Disable SSO
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="settings-buttons">
+                        Metadata File: None <div className="metadata-upload">
+                            <Form.FileInput onChange={(e) => this.onChange(e)} />
+                        </div>
                     </div>
                 </div>
               </div>
@@ -627,20 +634,6 @@ class TabsCard extends React.Component {
           )
       }
       {
-          this.props.scanComplete && this.props.settings.saml && !this.props.settings.Metadata && !this.state.uploadFile && (
-              <div className="settings-row">
-                <div className="settings-header">
-                    Metadata File Status
-                </div>
-                <div className="settings-subscription">
-                    <div className="metadata-upload">
-                        <Button type="link" onClick={this.showFileBrowser}>Upload new file</Button>
-                    </div>
-                </div>
-              </div>
-          )
-      }
-      {
           this.props.scanComplete && this.props.settings.saml && this.props.settings.Metadata && !this.state.uploadFile && (
               <div className="settings-row">
                 <div className="settings-header">
@@ -657,16 +650,17 @@ class TabsCard extends React.Component {
 
     return (
         <div className="settings-div">
-            <Card
-            style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
-            tabList={tabListNoTitle}
-            activeTabKey={this.state.noTitleKey}
-            onTabChange={key => {
-                this.onTabChange(key, 'noTitleKey');
-            }}
-            >
-                {contentListNoTitle[this.state.noTitleKey]}
-            </Card>
+            {this.props.user && this.props.user.Type && (<Card
+                style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
+                tabList={tabListNoTitle}
+                activeTabKey={this.state.noTitleKey}
+                onTabChange={key => {
+                    this.onTabChange(key, 'noTitleKey');
+                }}
+                >
+                    {contentListNoTitle[this.state.noTitleKey]}
+                </Card>
+            )}
             <Modal
                visible={this.state.confirm}
                closable={false}

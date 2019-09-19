@@ -97,7 +97,7 @@ class Accounts extends React.Component {
         });
 
         const MissingMaster = () => (
-          <p style={{ margin: "2rem auto", width: "80%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tag within  <Link to="/app/settings">Settings</Link>.</p>
+          <p style={{ margin: "0.7rem auto", width: "100%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tab within  <Link to="/app/settings">Settings</Link>.</p>
         );
           
           const columns = [
@@ -175,23 +175,25 @@ class Accounts extends React.Component {
                 <TopMenu />
 
                 <div className="accounts">
-                  <div className="accounts-max">
-                  <div className="support-screen-header">
-                      <h1>Accounts</h1>
-                  </div>
-                  {
+                {
                     this.state.scanComplete && this.props.accounts.length === 0 && (
                       <Alert
-                      style={{ width: "80%", margin: "1rem auto" }}
+                      style={{ width: "100%" }}
                       message="AWS Master Account Missing"
                       description={<MissingMaster />}
                       type="warning"
                       showIcon
                       closable
+                      banner
                       closeText="Close"
                     />
                     )
                   }
+                  <div className="accounts-max">
+                  <div className="support-screen-header">
+                      <h1>Accounts</h1>
+                  </div>
+                  
                     {this.props.accounts.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
                     <div className="web-accounts">
                       {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} dataSource={dataSource} columns={columns} />}

@@ -792,6 +792,7 @@ export const addUser = (user) => async (dispatch, getState) => {
         }
     }
 
+    console.log(user);
     dispatch({ type: 'ADD_USER', payload: user });
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
     return response;

@@ -110,7 +110,7 @@ const usersReducer = (state = [], action) => {
         case 'FETCH_USERS':
             return [ ...action.payload ]
         case 'ADD_USER': 
-            return [ ...state, { Username: action.payload.email, Group: action.payload.group, Type: 'Purify' }]
+            return [ ...state, { Username: action.payload.email, Group: action.payload.group === 'Administrator' ? 'Administrators' : 'Auditors', Type: 'Purify' }]
         case 'UPDATE_USER':
             return state.map(user => {
                 if(user.Sub === action.payload.sub)

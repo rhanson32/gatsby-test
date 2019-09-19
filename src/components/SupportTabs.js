@@ -34,7 +34,7 @@ class SupportTabs extends React.Component {
       ];
       
       const contentListNoTitle = {
-        Cases: <SupportList count={this.props.tickets.length} items={this.props.tickets} />,
+        Cases: <SupportList count={this.props.tickets.filter(ticket => ticket.Status !== 'Closed').length} items={this.props.tickets.filter(ticket => ticket.Status !== 'Closed')} />,
         All: <SupportList count={this.props.tickets.length} items={this.props.tickets} /> 
       };
 

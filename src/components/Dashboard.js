@@ -4,7 +4,7 @@ import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Table, Modal, Button, message, notification, Tooltip } from 'antd';
+import { Spin, Table, Modal, Button, message, notification, Tooltip, Alert } from 'antd';
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
@@ -464,25 +464,6 @@ class Dashboard extends React.Component {
                         }
                     </div>
                 </Modal>
-                
-                <Modal
-                    visible={!this.state.scanComplete && this.props.user.Status && this.props.user.Status !== 'New'}
-                    width="80%"
-                    centered={true}
-                    okButtonProps={{ disabled: true }}
-                    cancelButtonProps={{ disabled: true }}
-                    footer={null}
-                    closable={false}
-                >
-                    <div className="loading-modal">
-                        <div>Retrieving latest data...</div>
-                        <div className="dashboard-loading-progress">
-                            <Progress>
-                                <Progress.Bar color="green" width={this.state.loadingProgress} />
-                            </Progress>
-                        </div>
-                    </div>
-                </Modal>
 
                 {this.props.user.Status === "Cancelled" && (
                     <Modal
@@ -497,6 +478,13 @@ class Dashboard extends React.Component {
                   </Modal>
                 )}
                         <div className="dashboard">
+                            {!this.state.scanComplete && (
+                            <div className="alert-banner">
+                                <Alert type="info" description={<Progress>
+                                    <Progress.Bar color="green" width={this.state.loadingProgress} />
+                                </Progress>} message="Retrieving Latest Data" banner />
+                            </div>
+                            )}
                             <div className="dashboard-max">
                                 <div className="dashboard-top">
                                 <div className="dashboard-title-short">Headline</div>
@@ -518,98 +506,104 @@ class Dashboard extends React.Component {
                                     </Button.Group>
                                 </div>
                                 </div>
+                                {this.props.accounts.length === 0 && (
+                                    <div className="headlines-empty">
+                                        No accounts currently enabled. Please enable accounts to see statistics about your accounts.
+                                    </div>
+                                )}
+                                {this.props.accounts.length !== 0 && (
                                 <div className="dashboard-headlines">
-                                <div className="dashboard-score">
-                                <Card>
-                                    <Card.Body>
-                                        <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
-                                            {this.state.scanComplete && this.state.showAll && "Purify (Overall) Score"}
-                                            {this.state.scanComplete && this.state.showSecurity && "Security Score"}
-                                            {this.state.scanComplete && this.state.showWaste && "Waste Score"}
-                                            {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
-                                        </div>
-                                        <div style={{ fontSize: "24px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "60px" }}>
-                                            {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
-                                            {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
-                                            {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
-                                            {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.ConfigurationScore}
-                                            {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
-                                            {!this.state.scanComplete && ' '}
-                                        </div>
-                                        <Progress>
-                                            {this.state.scanComplete && this.state.showAll && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />}
-                                            {this.state.scanComplete && this.state.showSecurity && <Progress.Bar color="green" width={this.props.metrics.SecurityScore} />}
-                                            {this.state.scanComplete && this.state.showWaste && <Progress.Bar color="green" width={this.props.metrics.WasteScore} />}
-                                            {this.state.scanComplete && this.state.showConfiguration && <Progress.Bar color="green" width={this.props.metrics.ConfigurationScore} />}
-                                        </Progress>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                                <div className="card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.state.showAll && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                    <div className="dashboard-score">
+                                        <Card>
+                                            <Card.Body>
+                                                <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
+                                                    {this.state.scanComplete && this.state.showAll && "Purify (Overall) Score"}
+                                                    {this.state.scanComplete && this.state.showSecurity && "Security Score"}
+                                                    {this.state.scanComplete && this.state.showWaste && "Waste Score"}
+                                                    {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
                                                 </div>
-                                            )}
-                                            {this.state.showSecurity && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                <div style={{ fontSize: "24px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "60px" }}>
+                                                    {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
+                                                    {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
+                                                    {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
+                                                    {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.ConfigurationScore}
+                                                    {!this.state.scanComplete && <Spin style={{ fontSize: "32px" }} />}
+                                                    {!this.state.scanComplete && ' '}
                                                 </div>
-                                            )}
-                                            {this.state.showWaste && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                <Progress>
+                                                    {this.state.scanComplete && this.state.showAll && <Progress.Bar color="green" width={this.props.metrics.PurifyScore} />}
+                                                    {this.state.scanComplete && this.state.showSecurity && <Progress.Bar color="green" width={this.props.metrics.SecurityScore} />}
+                                                    {this.state.scanComplete && this.state.showWaste && <Progress.Bar color="green" width={this.props.metrics.WasteScore} />}
+                                                    {this.state.scanComplete && this.state.showConfiguration && <Progress.Bar color="green" width={this.props.metrics.ConfigurationScore} />}
+                                                </Progress>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                    <div className="card-wrapper">
+                                        <Card>
+                                            <Card.Body>
+                                                <div className="card-metric-wrapper">
+                                                    {this.state.showAll && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.state.showSecurity && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.state.showWaste && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.state.showConfiguration && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                            {this.state.showConfiguration && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                                    Violations
                                                 </div>
-                                            )}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Violations
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                                <div className="card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {this.state.showAll && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                    <div className="card-wrapper">
+                                        <Card>
+                                            <Card.Body>
+                                                <div className="card-metric-wrapper">
+                                                    {this.state.showAll && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.state.showSecurity && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.state.showWaste && (
+                                                        <div>
+                                                            {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
+                                                    {this.props.user.Status && this.props.user.Status !== 'New' && this.state.showConfiguration && (
+                                                        <div>
+                                                            {this.props.user.Status && this.props.user.Status !== 'New' && this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                            {this.state.showSecurity && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
+                                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                                    <Tooltip placement="bottom" title="Resources scanned per rule multiplied by number of active rules">
+                                                        <span>Evaluations</span>
+                                                    </Tooltip>
+                                                    
                                                 </div>
-                                            )}
-                                            {this.state.showWaste && (
-                                                <div>
-                                                    {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                            {this.props.user.Status && this.props.user.Status !== 'New' && this.state.showConfiguration && (
-                                                <div>
-                                                    {this.props.user.Status && this.props.user.Status !== 'New' && this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            <Tooltip placement="bottom" title="Resources scanned per rule multiplied by number of active rules">
-                                                <span>Evaluations</span>
-                                            </Tooltip>
-                                            
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
                                 <div className="card-wrapper">
                                 <Card>
                                 <Card.Body>
@@ -648,6 +642,7 @@ class Dashboard extends React.Component {
                                     </Card>
                                 </div>
                             </div>
+                            )}
                             <div className="dashboard-metrics">
                             <div className="dashboard-title">Category Metrics</div>
                                 <div className="web-metrics">
@@ -666,10 +661,10 @@ class Dashboard extends React.Component {
                                     <Card.Body>
                                         <div className="progress-items">
                                             {this.props.user.Status !== 'New' && !this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
-                                            {this.props.user.Status !== 'New' && this.state.showAll && this.state.scanComplete && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showSecurity && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showConfiguration && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showWaste && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showAll && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showSecurity && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showConfiguration && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                            {this.props.user.Status !== 'New' && this.state.showWaste && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
                                         </div>
                                         {
                                             this.props.accounts.length === 0 && this.state.scanComplete && (

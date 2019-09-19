@@ -124,6 +124,8 @@ input  {
 
 .metadata-upload {
     max-width: 300px;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
 }
 
 .external-header {
@@ -443,6 +445,23 @@ input  {
     align-items: stretch;
 }
 
+.alert-banner {
+    width: 100%;
+}
+
+.headlines-empty {
+    line-height: 150%;
+    padding: 1rem;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 6rem;
+}
+
 .dashboard-sidebar {
     display: flex;
     justify-content: space-between;
@@ -621,7 +640,7 @@ input  {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin: 1rem 0 1rem 1rem;
+    border-bottom: 1px solid #EEE;
 }
 
 .settings-switch {
@@ -650,11 +669,17 @@ input  {
 .settings-buttons {
     display: flex;
     justify-content: center;
-    width: 50%;
+    padding-left: 1rem;
+    align-items: center;
 }
 
 .settings-buttons button {
     margin: 0.5rem;
+}
+
+.settings-notifications {
+    display: flex;
+    width: 100%;
 }
 
 .settings-sso-status {
@@ -664,9 +689,11 @@ input  {
 
 .settings-subscription {
     width: 100%;
+    padding-left: 4rem;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .change-password-form {
@@ -770,10 +797,11 @@ input  {
 .settings-header {
     width: 100%;
     height: 2rem;
+    padding-left: 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     margin: 0.5rem 0;
 }
 
@@ -781,13 +809,21 @@ input  {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
     justify-content: space-around;
+}
+
+.notifications-list {
+    width: 40%;
+}
+
+.notifications-header {
+    padding-right: 2rem;
 }
 
 .notifications-modify {
     justify-content: space-around;
     align-items: flex-start;
+    margin-top: 1rem;
 }
 
 .settings-provider {
@@ -985,6 +1021,7 @@ input  {
 .add-notifications {
     display: flex;
     justify-content: flex-start;
+    width: 100%;
 }
 
 .add-notifications input {
@@ -994,13 +1031,13 @@ input  {
 
 .notification-group {
     width: 80%;
-    padding: 1rem 2rem;
+    padding: 0 2rem 1rem 2rem;
+    margin-bottom: 1rem;
     min-height: 3rem;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    border: 1px dotted #ccc;
-    background-color: #f0f0f0;
     border-radius: 4px;
     opacity: 0.8;
 }
@@ -2004,7 +2041,7 @@ input  {
 
 
 .data-missing-dashboard {
-    min-height: 300px;
+    min-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3472,7 +3509,7 @@ th, td {
     }
 
     .web-rules, .web-accounts {
-        max-width: 1000px;
+        max-width: 1100px;
     }
 
     .payments-main {
