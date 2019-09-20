@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Tag, notification } from 'antd';
+import { Card, Button, Modal, Input, Icon, Tag, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
@@ -366,53 +366,6 @@ class TabsCard extends React.Component {
             tab: 'SSO'
         }
       ];
-
-      const dataSource = this.props.accounts.map((account, index) => {
-        return {
-            key: (index + 1).toString(),
-            accountId: account.AccountId,
-            provider: account.Provider,
-            roleName: account.RoleName,
-            status: account.Status,
-            type: account.Type
-        }
-    });
-      
-      const columns = [
-          {
-              title: 'Master Account Id',
-              dataIndex: 'accountId',
-              key: 'accountId'
-          },
-          {
-              title: 'Provider',
-              dataIndex: 'provider',
-              key: 'provider'
-          },
-          {
-              title: 'Status',
-              dataIndex: 'status',
-              key: 'status'
-          },
-          {
-              title: 'Role',
-              dataIndex: 'roleName',
-              key: 'roleName'
-          }
-      ];
-
-      const webColumns = [
-        {
-            title: 'Master Account Id',
-            dataIndex: 'accountId',
-            key: 'accountId'
-        },
-        {
-            title: 'Role',
-            dataIndex: 'roleName',
-            key: 'roleName'
-        }
-    ];
       
       const contentListNoTitle = {
         General: <div>
@@ -421,8 +374,8 @@ class TabsCard extends React.Component {
                     Subscription Status 
                 </div>
                 <div className="settings-subscription">
-                    <div className="settings-buttons">
-                        Subscription Plan: {this.props.user.Plan}
+                    <div className="settings-lines">
+                    <div className="settings-left-header">Subscription Plan:</div> {this.props.user.Plan}
                         {this.props.user.Plan === "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && <Button type="link" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
                         {this.props.user.Plan !== "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && (
                             <Button type="link" onClick={this.showConfirm}>
@@ -440,12 +393,12 @@ class TabsCard extends React.Component {
                             Credentials
                         </div>
                         <div className="settings-subscription">
-                            <div className="settings-buttons">
-                                Password: 
+                            <div className="settings-lines">
+                            <div className="settings-left-header">Password:</div> 
                                 {!this.state.visible && <Button type="link" onClick={this.showPassword}><Icon type="key" />Change Password</Button>}
                             </div>
-                            <div className="settings-buttons">
-                                MFA Status: {this.props.user.MFA ? 'Enabled' : 'Disabled'}
+                            <div className="settings-lines">
+                            <div className="settings-left-header">MFA Status:</div> {this.props.user.MFA ? 'Enabled' : 'Disabled'}
                                 {!this.props.user.MFA && !this.state.visible && <Button type="link" onClick={this.setupMFA}>Set up MFA</Button>}
                                 {this.props.user.MFA && <Button type="link" onClick={this.disableMFA}> <Icon type="x" /> Disable MFA</Button>}
                             </div>
@@ -502,7 +455,7 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-notifications">
-                        <div className="notifications-header">
+                        <div className="settings-left-header">
                             Recipients:
                         </div>
                         <div className="notification-group">
@@ -544,13 +497,11 @@ class TabsCard extends React.Component {
         {
             this.props.accounts.find(account => account.Type === 'Master') && (
                 <div className="settings-row">
-                    <div className="account-list">
-                        <div className="web-accounts">
-                            <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={columns} />
-                        </div>
-                        <div className="mobile-accounts">
-                            <Table style={{ border: "1px solid #CCC", borderRadius: "3px" }} pagination={false} dataSource={dataSource.filter(source => source.type === 'Master')} columns={webColumns} />
-                        </div>
+                    <div className="settings-header">AWS Master Account</div>
+                    <div className="settings-subscription">
+                        <div className="settings-lines"><div className="settings-left-header">Master Account ID: </div><div>{this.props.accounts.find(account => account.Type === 'Master').AccountId || "Not Found"}</div></div>
+                        <div className="settings-lines"><div className="settings-left-header">Account Status: </div><div>{this.props.accounts.find(account => account.Type === 'Master').Status || "Not Found"}</div></div>
+                        <div className="settings-lines"><div className="settings-left-header">Role Name: </div><div>{this.props.accounts.find(account => account.Type === 'Master').RoleName || "Not Found"}</div></div>
                     </div>
                 </div>
             )
@@ -570,8 +521,8 @@ class TabsCard extends React.Component {
                     Single Sign-On
                 </div>
                 <div className="settings-subscription">
-                    <div className="settings-buttons">
-                        SSO Status: Disabled
+                    <div className="settings-lines">
+                        <div className="settings-left-header">SSO Status: </div>Disabled
                         <Button type="link" onClick={this.enableSaml}>
                             <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
                             Enable SSO
@@ -588,16 +539,17 @@ class TabsCard extends React.Component {
                     Single Sign-On
                 </div>
                 <div className="settings-subscription">
-                    <div className="settings-buttons">
-                        SSO Status: Enabled
+                    <div className="settings-lines">
+                        <div className="settings-left-header">SSO Status: </div> Enabled
                         <div className="settings-sso-status">
                             <Button type="link" onClick={this.disableSaml}>
                                 Disable SSO
                             </Button>
                         </div>
                     </div>
-                    <div className="settings-buttons">
-                        Metadata File: None <div className="metadata-upload">
+                    <div className="settings-lines">
+                        <div className="settings-left-header">Metadata File:</div> None 
+                        <div className="metadata-upload">
                             <Form.FileInput onChange={(e) => this.onChange(e)} />
                         </div>
                     </div>

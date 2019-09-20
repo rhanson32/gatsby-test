@@ -675,6 +675,20 @@ input  {
     align-items: center;
 }
 
+.settings-left-header {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+}
+
+.settings-lines {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.2rem;
+}
+
 .settings-buttons {
     display: flex;
     justify-content: center;
@@ -827,6 +841,7 @@ input  {
 
 .notifications-header {
     padding-right: 2rem;
+    width: 25%;
 }
 
 .notifications-modify {
@@ -2599,7 +2614,7 @@ th, td {
 }
 
 .history-chart-header-title {
-    width: 30%;
+    width: 60%;
     display: flex;
     align-items: center;
     font-size: 1.4rem;

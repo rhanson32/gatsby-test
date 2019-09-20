@@ -52,7 +52,7 @@ class Settings extends React.Component {
             await this.props.getCurrentUser();
         }
         let accountsResponse = await this.props.getAccounts(this.props.user.CustomerId);
-        let settingsResponse = await this.props.getSettings(this.props.user.CustomerId);
+        await this.props.getSettings(this.props.user.CustomerId);
 
         if(accountsResponse.statusCode !== 200)
         {

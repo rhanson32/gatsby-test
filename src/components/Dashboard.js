@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
         this.setState({ 
             gettingStarted: moment(this.props.user.CreateDate).isAfter(moment().subtract(7, 'days')) ? true : false
         });
-    
+
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
                 }
                     
                 this.setState({ loadingProgress: 25 });
-                const metrics = new Promise((resolve, reject) => this.props.getMetrics(this.props.user.CustomerId));
+                const metrics = new Promise((resolve, reject) => this.props.getMetrics(this.props.user.CustomerId) ? resolve : reject);
                 const history = this.props.getHistory(this.props.user);
                 Promise.all([metrics]).then((values) => {
                     console.log(values);
@@ -680,7 +680,7 @@ class Dashboard extends React.Component {
                                     <Card.Header>
                                         <div className="history-chart-header">
                                             <div className="history-chart-header-title">
-                                                Violations Over Time
+                                                Violations Over Time (All times UTC)
                                             </div>
                                         </div>
                                     </Card.Header>
@@ -706,7 +706,7 @@ class Dashboard extends React.Component {
                 </div>
                 </div>
                 )}
-                <Footer />
+                {this.state.scanComplete && <Footer />}
             </div>
         )
     } 

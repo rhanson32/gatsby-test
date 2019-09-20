@@ -23,7 +23,7 @@ class Features extends React.Component {
             <div className="features-page">
                 <ExternalHeader />
                 <div className="features-header">
-                    <a name="Top"></a>
+                    <a name="Top">&nbsp;</a>
                     <img src={cleanup} alt="Clean up your cloud, and keep it clean. With Purify." />
                 </div>
                 <div className="feature-header-description">
