@@ -391,6 +391,7 @@ export const getCurrentUser = () => async dispatch => {
             Plan: customerResponse.data[0].Plan.S,
             Status: customerResponse.data[0].Status.S,
             Client: customerResponse.data[0].ClientId.S,
+            CreateDate: (customerResponse.data[0].CreateDate && customerResponse.data[0].CreateDate.N) || "None",
             Group: 'None',
             MFA: false,
             Type: 'Federated',
@@ -419,6 +420,7 @@ export const getCurrentUser = () => async dispatch => {
                 SignedUrl: customerResponse.data[0].SignedUrl.S,
                 Client: customerResponse.data[0].ClientId.S,
                 Status: customerResponse.data[0].Status.S,
+                CreateDate: customerResponse.data[0].CreateDate.N,
                 Type: 'Native',
                 Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
                 MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false

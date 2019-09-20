@@ -13,6 +13,7 @@ const TopMenu = () => (
             <Nav.Item icon="help-circle" onClick={() => navigate('/app/support')}>Support</Nav.Item>
             <Nav.Item icon="activity" onClick={() => navigate('/app/history')}>Audit Trail</Nav.Item>
         </Nav>
+        
     </div>
 )
 

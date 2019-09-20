@@ -28,7 +28,9 @@ class Dashboard extends React.Component {
             ModalText: 'This account has been cancelled. Visit the Settings page to re-enable this account.',
             visible: false,
             confirmLoading: false,
+            gettingStarted: false,
             account: ``,
+            showWelcomeScreen: false,
             showAll: true,
             showSecurity: false,
             showWaste: false,
@@ -53,6 +55,10 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
         const user = await getCurrentUser();
+
+        this.setState({ 
+            gettingStarted: moment(this.props.user.CreateDate).isAfter(moment().subtract(30, 'days')) ? true : false
+        });
     
         if(moment(getExpiration()) < moment())
         {
@@ -236,6 +242,12 @@ class Dashboard extends React.Component {
         })
     }
 
+    showWelcomeScreen = () => {
+        this.setState({
+            showWelcomeScreen: true
+        })
+    }
+
     handleCancel = () => {
         Auth.signOut();
     }
@@ -245,6 +257,9 @@ class Dashboard extends React.Component {
 
     handleDismiss = () => {
         this.props.updateCustomerStatus("Active");
+        this.setState({
+            showWelcomeScreen: false
+        })
     }
 
     handleSubmit = () => {
@@ -368,6 +383,10 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
+                    {this.props.user.Status !== 'New' && this.state.gettingStarted && (
+                        <Alert type="info" banner closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button> guide</div>} message="Need help getting started?" banner />
+                    )}
+                    {this.state.showWelcomeScreen && <WelcomeScreen />}
                     {this.props.user.Status === 'New' && <WelcomeScreen />}
 
                 {this.props.user.Status === "Cancelled" && (
