@@ -7,10 +7,6 @@ const purify = axios.create({
     headers: { 'X-Api-Key': process.env.GATSBY_API_KEY }
 });
 
-console.log(process.env);
-
-// https://d4tr8itraa.execute-api.us-east-1.amazonaws.com/test  
-
 export const postTicket = (values) => async (dispatch, getState) => {
 
     let myRequest = {
@@ -130,9 +126,9 @@ export const getMetrics = (id) => async (dispatch, getState) => {
     if(metricResponse)
     {
         dispatch({ type: 'FETCH_METRICS', payload: metricResponse.data });
-
-        console.log(metricResponse.data);
     }
+
+    return true;
 }
 
 export const getAccounts = (id) => async (dispatch, getState) => {

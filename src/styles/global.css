@@ -309,7 +309,6 @@ input  {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 95%;
-    min-height: 90vh;
 }
 
 .dashboard-card {
@@ -375,7 +374,7 @@ input  {
 
 .new-account-modal {
     width: 100%;
-    min-height: 78vh;
+    min-height: 68vh;
     height: 100%;
     display: flex;
     align-items: center;
@@ -1048,6 +1047,7 @@ input  {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
     border-radius: 4px;
     opacity: 0.8;
 }
@@ -2625,6 +2625,10 @@ th, td {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.alert-wrapper {
+    width: 100%;
 }
 
 .feature-card-new {

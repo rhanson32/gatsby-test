@@ -57,7 +57,7 @@ class Dashboard extends React.Component {
         const user = await getCurrentUser();
 
         this.setState({ 
-            gettingStarted: moment(this.props.user.CreateDate).isAfter(moment().subtract(30, 'days')) ? true : false
+            gettingStarted: moment(this.props.user.CreateDate).isAfter(moment().subtract(7, 'days')) ? true : false
         });
     
         if(moment(getExpiration()) < moment())
@@ -95,10 +95,15 @@ class Dashboard extends React.Component {
                 }
                     
                 this.setState({ loadingProgress: 25 });
-                this.props.getMetrics(this.props.user.CustomerId);
+                const metrics = new Promise((resolve, reject) => this.props.getMetrics(this.props.user.CustomerId));
+                const history = this.props.getHistory(this.props.user);
+                Promise.all([metrics]).then((values) => {
+                    console.log(values);
+                })
                 await this.props.getRules(this.props.user);
+                console.log(metrics);
                 this.setState({ loadingProgress: 50 });
-                this.props.getHistory(this.props.user);
+               
                 this.setState({ loadingProgress: 75 });
                 this.setState({ loadingProgress: 100 });
             }
@@ -384,7 +389,9 @@ class Dashboard extends React.Component {
                     <Header />
                     <TopMenu />
                     {this.props.user.Status !== 'New' && this.state.gettingStarted && (
-                        <Alert type="info" banner closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button> guide</div>} message="Need help getting started?" banner />
+                        <div className="alert-wrapper">
+                            <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
+                        </div>
                     )}
                     {this.state.showWelcomeScreen && <WelcomeScreen />}
                     {this.props.user.Status === 'New' && <WelcomeScreen />}
@@ -411,32 +418,34 @@ class Dashboard extends React.Component {
                             </div>
                             )}
                             <div className="dashboard-max">
-                                <div className="dashboard-top">
-                                <div className="dashboard-title-short">Headline</div>
-                                <div className="dashboard-filters">
-                                    <div style={{ paddingRight: "1rem" }}>Filters: </div>
-                                    <Button.Group>
-                                        <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
-                                            All
-                                        </Button>
-                                        <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
-                                            Security
-                                        </Button>
-                                        <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
-                                            Waste
-                                        </Button>
-                                        <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
-                                            Configuration
-                                        </Button>
-                                    </Button.Group>
-                                </div>
-                                </div>
-                                {this.props.accounts.length === 0 && (
+                                {!this.state.showWelcomeScreen && (
+                                    <div className="dashboard-top">
+                                        <div className="dashboard-title-short">Headline</div>
+                                        <div className="dashboard-filters">
+                                            <div style={{ paddingRight: "1rem" }}>Filters: </div>
+                                            <Button.Group>
+                                                <Button type={this.state.showAll ? "primary" : "default"} onClick={this.showAll}>
+                                                    All
+                                                </Button>
+                                                <Button type={this.state.showSecurity ? "primary" : "default"} onClick={this.showSecurity}>
+                                                    Security
+                                                </Button>
+                                                <Button type={this.state.showWaste ? "primary" : "default"} onClick={this.showWaste}>
+                                                    Waste
+                                                </Button>
+                                                <Button type={this.state.showConfiguration ? "primary" : "default"} onClick={this.showConfiguration}>
+                                                    Configuration
+                                                </Button>
+                                            </Button.Group>
+                                        </div>
+                                    </div>
+                                )}
+                                {this.props.accounts.length === 0 && !this.state.showWelcomeScreen && (
                                     <div className="headlines-empty">
                                         No accounts currently enabled. Please enable accounts to see statistics about your accounts.
                                     </div>
                                 )}
-                                {this.props.accounts.length !== 0 && (
+                                {this.props.accounts.length !== 0 && !this.state.showWelcomeScreen && (
                                 <div className="dashboard-headlines">
                                     <div className="dashboard-score">
                                         <Card>
@@ -530,26 +539,26 @@ class Dashboard extends React.Component {
                                         </Card>
                                     </div>
                                 <div className="card-wrapper">
-                                <Card>
-                                <Card.Body>
-                                    <div className="card-metric-wrapper">
-                                        {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
-                                        {this.state.showAll && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled).length}
-                                        {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
-                                        {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
-                                        {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
-                                        {this.state.scanComplete && " / "}
-                                        {this.state.showAll && this.state.scanComplete && this.props.rules.length}
-                                        {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
-                                        {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
-                                        {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
-                                    </div>
-                                    <div style={{ display: "flex", justifyContent: "center" }}>
-                                        Rules Enabled
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                            </div> 
+                                    <Card>
+                                        <Card.Body>
+                                            <div className="card-metric-wrapper">
+                                                {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                                {this.state.showAll && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled).length}
+                                                {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
+                                                {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
+                                                {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
+                                                {this.state.scanComplete && " / "}
+                                                {this.state.showAll && this.state.scanComplete && this.props.rules.length}
+                                                {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
+                                                {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
+                                                {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
+                                            </div>
+                                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                                Rules Enabled
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </div> 
                                          
                             <div className="card-wrapper">
                                     <Card>
@@ -568,61 +577,64 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                             )}
+                            {!this.state.showWelcomeScreen && (
                             <div className="dashboard-metrics">
-                            <div className="dashboard-title">Category Metrics</div>
-                                <div className="web-metrics">
-                                {!this.state.showDetail && (
-                                <Card>
-                                    <Card.Header>
-                                        <div className="dashboard-card-header">
-                                            <div>
-                                                {this.state.showAll && "All Categories"}
-                                                {this.state.showSecurity && "Security"}
-                                                {this.state.showWaste && "Waste"}
-                                                {this.state.showConfiguration && "Configuration"}
-                                            </div> 
-                                        </div>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <div className="progress-items">
-                                            {this.props.user.Status !== 'New' && !this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
-                                            {this.props.user.Status !== 'New' && this.state.showAll && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showSecurity && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showConfiguration && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
-                                            {this.props.user.Status !== 'New' && this.state.showWaste && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
-                                        </div>
-                                        {
-                                            this.props.accounts.length === 0 && this.state.scanComplete && (
-                                                <div className="data-missing-dashboard">
-                                                    No data available. Please enable some accounts to see data in your dashboard.
-                                                </div>
-                                            )
-                                        }
-                                    </Card.Body>
-                                </Card>)
-                                }
-                                {
-                                    this.state.showDetail && (
-                                        <Card>
-                                            <Card.Header>
-                                                <div>Violation Detail</div>
-                                                <div><Button onClick={this.hideDetail} type="link">Close</Button></div>
-                                            </Card.Header>
-                                            <Card.Body>
-                                                <ViolationTable id={this.state.detailId} rule={this.props.rules.find(rule => rule.RuleId === this.state.detailId)} />
-                                            </Card.Body>
-                                        </Card>
-                                    )
-                                }
-                                </div>
-                                <div className="dashboard-sidebar">
-                                    <div>
-                                        Violations By Account
+                                <div className="dashboard-title">Category Metrics</div>
+                                    <div className="web-metrics">
+                                    {!this.state.showDetail && (
+                                    <Card>
+                                        <Card.Header>
+                                            <div className="dashboard-card-header">
+                                                <div>
+                                                    {this.state.showAll && "All Categories"}
+                                                    {this.state.showSecurity && "Security"}
+                                                    {this.state.showWaste && "Waste"}
+                                                    {this.state.showConfiguration && "Configuration"}
+                                                </div> 
+                                            </div>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <div className="progress-items">
+                                                {this.props.user.Status !== 'New' && !this.state.scanComplete && <Spin tip="Loading..." style={{ width: "250px", fontSize: "15px" }} />}
+                                                {this.props.user.Status !== 'New' && this.state.showAll && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceAll} columns={columns} />}
+                                                {this.props.user.Status !== 'New' && this.state.showSecurity && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceSecurity} columns={columns} />}
+                                                {this.props.user.Status !== 'New' && this.state.showConfiguration && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%" }} dataSource={dataSourceConfiguration} columns={columns} />}
+                                                {this.props.user.Status !== 'New' && this.state.showWaste && this.state.scanComplete && this.props.accounts.length !== 0 && <Table bordered pagination={{ position: "bottom", pageSize: 4 }} style={{ margin: "auto", width: "90%"  }} dataSource={dataSourceWaste} columns={columns} />}
+                                            </div>
+                                            {
+                                                this.props.accounts.length === 0 && this.state.scanComplete && (
+                                                    <div className="data-missing-dashboard">
+                                                        No data available. Please enable some accounts to see data in your dashboard.
+                                                    </div>
+                                                )
+                                            }
+                                        </Card.Body>
+                                    </Card>)
+                                    }
+                                    {
+                                        this.state.showDetail && (
+                                            <Card>
+                                                <Card.Header>
+                                                    <div>Violation Detail</div>
+                                                    <div><Button onClick={this.hideDetail} type="link">Close</Button></div>
+                                                </Card.Header>
+                                                <Card.Body>
+                                                    <ViolationTable id={this.state.detailId} rule={this.props.rules.find(rule => rule.RuleId === this.state.detailId)} />
+                                                </Card.Body>
+                                            </Card>
+                                        )
+                                    }
                                     </div>
-                                    {this.state.scanComplete && <Pie />}
+                                    <div className="dashboard-sidebar">
+                                        <div>
+                                            Violations By Account
+                                        </div>
+                                        {this.state.scanComplete && <Pie />}
+                                    </div>
                                 </div>
-                                </div>
-                                <div className="dashboard-trends">
+                            )}
+                             {!this.state.showWelcomeScreen && (   
+                             <div className="dashboard-trends">
                                     <div className="dashboard-trends-header">
                                         <div className="dashboard-trends-title">Trends</div>
                                         <div className="history-chart-header-filters">
@@ -635,35 +647,34 @@ class Dashboard extends React.Component {
                                     </div>
                                 
                                 <div className="dashboard-trends-container">
-                            <div className="dashboard-sidebar-2">
-                                <div className="trend-card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                    <div className="dashboard-sidebar-2">
+                                        <div className="trend-card-wrapper">
+                                        <Card>
+                                            <Card.Body>
+                                                <div className="card-metric-wrapper">
+                                                    {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                                </div>
+                                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                                    New Violations
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
                                         </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            New Violations
+                                        <div className="trend-card-wrapper">
+                                        <Card>
+                                            <Card.Body>
+                                                <div className="card-metric-wrapper">
+                                                    {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                                </div>
+                                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                                    Fixed Violations
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
                                         </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                                <div className="trend-card-wrapper">
-                                <Card>
-                                    <Card.Body>
-                                        <div className="card-metric-wrapper">
-                                            {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                            {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
-                                        </div>
-                                        <div style={{ display: "flex", justifyContent: "center" }}>
-                                            Fixed Violations
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                                </div>
-                            </div>
-
+                                    </div>
                             <div className="dashboard-trends-graph">
                                 <Card>
                                     <Card.Header>
@@ -691,6 +702,7 @@ class Dashboard extends React.Component {
                             </div>
                         </div>
                     </div>
+                             )}
                 </div>
                 </div>
                 )}

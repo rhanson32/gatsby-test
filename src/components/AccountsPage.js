@@ -89,7 +89,7 @@ class Accounts extends React.Component {
                 accountId: account.AccountId,
                 provider: account.Provider === 'AWS' ? <FaAws size="2em" /> : <FaMicrosoft />,
                 role: account.RoleName,
-                status:  <Button type="link" id={account.AccountId} size="large" style={{ color: account.Status === 'Validated' ? "#27ae60" : "red" }}>
+                status:  <Button type="link" id={account.AccountId} size="large" style={{ color: account.Status === 'Valid' ? "#27ae60" : "red" }}>
                   {account.Status}
                 </Button>,
                 state: <SwitchWrapAccount checked={account.Enabled} account={account} />
