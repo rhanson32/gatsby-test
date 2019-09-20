@@ -8,10 +8,9 @@ import { Spin, Table, Modal, Button, message, notification, Tooltip, Alert } fro
 import { Card, Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
-import template from '../../static/PurifyControllerTemplate.png';
-import deploy from '../../static/DeployPurifyTemplate.png';
 import Header from './Header';
 import Footer from './Footer';
+import WelcomeScreen from './WelcomeScreen';
 import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
 import Line from './Line';
@@ -20,7 +19,6 @@ import moment from 'moment';
 
 import 'antd/dist/antd.css';
 import 'chartist/dist/chartist.min.css';
-import AWSAccount from './AWSAccount';
 
 class Dashboard extends React.Component {
     
@@ -30,7 +28,6 @@ class Dashboard extends React.Component {
             ModalText: 'This account has been cancelled. Visit the Settings page to re-enable this account.',
             visible: false,
             confirmLoading: false,
-            welcomeScreen: false,
             account: ``,
             showAll: true,
             showSecurity: false,
@@ -91,10 +88,6 @@ class Dashboard extends React.Component {
                     this.setState({ visible: true });
                 }
                     
-                if(this.props.user.Status === "New")
-                {
-                    this.setState({ welcomeScreen: true });
-                }
                 this.setState({ loadingProgress: 25 });
                 this.props.getMetrics(this.props.user.CustomerId);
                 await this.props.getRules(this.props.user);
@@ -154,8 +147,6 @@ class Dashboard extends React.Component {
 
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
-            if(this.props.user.Status === "New")
-                this.setState({ welcomeScreen: true })
         }
         this.setState({ interval: setInterval( async () => {
             await this.props.getRules(this.props.user);
@@ -254,7 +245,6 @@ class Dashboard extends React.Component {
 
     handleDismiss = () => {
         this.props.updateCustomerStatus("Active");
-        this.setState({ welcomeScreen: false });
     }
 
     handleSubmit = () => {
@@ -274,7 +264,6 @@ class Dashboard extends React.Component {
         else if(this.state.previewScreen === 'enter')
         {
             this.setState({
-                welcomeScreen: false,
                 previewScreen: 'download'
             });
         }
@@ -285,7 +274,7 @@ class Dashboard extends React.Component {
         {
             navigate('/app/login');
         }
-        const { visible, confirmLoading, ModalText, welcomeScreen } = this.state;
+        const { visible, confirmLoading, ModalText } = this.state;
 
         const dataSourceAll = this.props.rules.map((rule, index) => {
             return {
@@ -379,91 +368,7 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
-                <Modal
-                    title="Getting Started with Purify on AWS"
-                    visible={welcomeScreen}
-                    onOk={this.handleSubmit}
-                    closable={false}
-                    confirmLoading={confirmLoading}
-                    onCancel={this.handleDismiss}
-                    cancelText="Dismiss"
-                    width="80%"
-                    footer={null}
-                >
-                    <div className="new-account-modal">
-                        {
-                            this.state.previewScreen === 'download' && (
-                                <div className="new-account-modal-content">
-                                    <div className="new-account-modal-header">
-                                        <h2>
-                                            Download the CloudFormation templates
-                                        </h2>
-                                    </div>
-                                    <div className="new-account-modal-main">
-                                        <div className="new-account-modal-main-text">
-                                            <div>Download the &nbsp;<a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> &nbsp; CloudFormation template.</div>
-                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetAdministrationRole.yml">AWSCloudFormationStackSetAdministrationRole</a> &nbsp; CloudFormation template.</div>
-                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetExecutionRole.yml">AWSCloudFormationStackSetExecutionRole</a> &nbsp; CloudFormation template.</div>
-                                        </div>
-                                        <div>
-                                            <img width="350" src={template} alt="CloudFormation Template screenshot" />
-                                        </div>
-                                    </div>
-                                    <div className="new-account-modal-footer">
-                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
-                                        <Button type="primary" onClick={this.handleSubmit}>Next</Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        {
-                            this.state.previewScreen === 'deploy' && (
-                                <div className="new-account-modal-content">
-                                    <div className="new-account-modal-header">
-                                        <h2>
-                                            Deploy the CloudFormation templates 
-                                        </h2>
-                                    </div>
-                                    <div className="new-account-modal-main">
-                                        <div className="new-account-modal-main-text">
-                                            <div>Deploy the PurifyController template in your AWS Master account.</div>
-                                            <div>Deploy the AWSCloudFormationStackSetAdministrationRole template in your AWS Master account.</div>
-                                            <div>Deploy the AWSCloudFormationStackSetExecutionRole template in all of your AWS accounts.</div>
-                                        </div>
-                                        <div>
-                                            <img width="350" src={deploy} alt="CloudFormation console" />
-                                        </div>
-                                    </div>
-                                    <div className="new-account-modal-footer">
-                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
-                                        <Button type="primary" onClick={this.handleSubmit}>Next</Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        {
-                            this.state.previewScreen === 'enter' && (
-                                <div className="new-account-modal-content">
-                                    <div className="new-account-modal-header">
-                                        <h2>
-                                            Enter your AWS Master Account Id
-                                        </h2>
-                                    </div>
-                                    <div className="new-account-modal-main">
-                                        {/* <div className="new-account-modal-main-text">
-                                            Enter your AWS Master Account Id
-                                        </div> */}
-                                        <AWSAccount />
-                                    </div>
-                                    <div className="new-account-modal-footer">
-                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
-                                        <Button type="primary" onClick={this.handleSubmit}>Finish</Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    </div>
-                </Modal>
+                    {this.props.user.Status === 'New' && <WelcomeScreen />}
 
                 {this.props.user.Status === "Cancelled" && (
                     <Modal
@@ -477,7 +382,8 @@ class Dashboard extends React.Component {
                         <p>{ModalText}</p>
                   </Modal>
                 )}
-                        <div className="dashboard">
+                {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
+                    <div className="dashboard">
                             {!this.state.scanComplete && (
                             <div className="alert-banner">
                                 <Alert type="info" description={<Progress>
@@ -768,6 +674,7 @@ class Dashboard extends React.Component {
                     </div>
                 </div>
                 </div>
+                )}
                 <Footer />
             </div>
         )

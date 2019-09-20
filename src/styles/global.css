@@ -373,6 +373,14 @@ input  {
     width: 50%;
 }
 
+.new-account-modal {
+    width: 100%;
+    min-height: 78vh;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .new-account-modal p {
     margin: 1rem 0;
 }
@@ -392,6 +400,8 @@ input  {
     flex-direction: column;
     justify-content: space-around;
     min-height: 400px;
+    width: 100%;
+    padding: 1rem;
 }
 
 .new-account-modal-header {

@@ -451,8 +451,6 @@ export const validateCompany = async (user) => {
     let queryString = '?company=' + user.company;
     const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
 
-    console.log(customerResponse);
-
     if(customerResponse.data.length === 0)
     {
         let createResponse = await purify.put('/customers', myRequest).catch(err => console.log(err));

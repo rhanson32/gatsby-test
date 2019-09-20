@@ -80,40 +80,53 @@ class SignUp extends React.Component {
 
     confirmSignUp = async() => {
         const { email, authCode, password } = this.state;
+        let user;
         this.setState({ buttonText: 'Confirming code...' });
         try {
-          await Auth.confirmSignUp(email, authCode).catch(err => console.log(err));
-          notification.success({
-            message: 'Account confirmed',
-            description: 'Account has been confirmed. Now attempting to log in.'
-          });
-          const user = await Auth.signIn(email, password).catch(err => {
+          const confirmResponse = await Auth.confirmSignUp(email, authCode).catch(err => {
             console.log(err);
-            if(err.code === 'NetworkError')
-            {
               notification.error({
-                message: 'Network Error',
-                description: 'Unable to authenticate user due to network error. Please check your network connection and try again.'
+                message: err.name,
+                description: err.message
               });
-    
-              this.setState({ loading: false, buttonText: 'Sign In' });
-            }
-            else
-            {
-              notification.error({
-                message: 'Unknown Error',
-                description: 'Please try to log on again.'
-              });
-    
-              this.setState({ loading: false, buttonText: 'Sign In' });
-            }
-    
-            this.setState({
-              loading: false,
-              buttonText: 'Sign In'
-            });
           });
 
+          if(confirmResponse)
+          {
+              notification.success({
+                message: 'Account confirmed',
+                description: 'Account has been confirmed. Now attempting to log in.'
+              });
+
+              user = await Auth.signIn(email, password).catch(err => {
+                console.log(err);
+                if(err.code === 'NetworkError')
+                {
+                  notification.error({
+                    message: 'Network Error',
+                    description: 'Unable to authenticate user due to network error. Please check your network connection and try again.'
+                  });
+        
+                  this.setState({ loading: false, buttonText: 'Sign In' });
+                }
+                else
+                {
+                  notification.error({
+                    message: 'Unknown Error',
+                    description: 'Please try to log on again.'
+                  });
+        
+                  this.setState({ loading: false, buttonText: 'Sign In' });
+                }
+              });
+    
+              this.setState({
+                loading: false,
+                buttonText: 'Sign In'
+              });
+          }
+          
+          
           console.log(user);
 
           if(user)

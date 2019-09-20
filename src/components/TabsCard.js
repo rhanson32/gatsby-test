@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, Modal, Input, Icon, Tag, Tooltip, notification } from 'antd';
+import { Card, Table, Button, Modal, Input, Icon, Tag, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
