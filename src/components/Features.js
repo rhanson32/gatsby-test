@@ -115,7 +115,7 @@ class Features extends React.Component {
                             AD Integration
                         </div>
                         <div className="feature-card-new-description">
-                            Integrated with Active Directory, so you can log in to Purify with your existing users without having to manage another username and password.
+                            Integrated with Active Directory, so you can leverage your existing corporate credentials to log in to Purify.
                         </div>
                     </div>
                 </div>

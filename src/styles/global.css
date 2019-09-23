@@ -1423,6 +1423,8 @@ input  {
     display: flex;
     flex-direction: row;
     width: 100%;
+    align-items: stretch;
+    background-color: #2d3436;
 }
 
 .docs-menu-header {
@@ -2546,6 +2548,21 @@ th, td {
     align-items: center;
 }
 
+.header-user {
+    display: "flex";
+    flex-direction: "column";
+    justify-content: "flex-start";
+    align-items: "flex-start";
+    padding: "0 0.5rem 1rem 0.5rem"
+}
+
+.header-user-name {
+    font-size: "20px";
+    max-height: "24px";
+    display: "flex";
+    align-items: "flex-start";
+}
+
 .left-menu {
     width: 5%;
     background-color: white;
@@ -2703,6 +2720,10 @@ th, td {
     height: 50vh;
 }
 
+.footer-button-main {
+    margin-top: 1rem;
+}
+
 /* ------------------------ Media Queries ------------------------------- */
 
 @media screen and (max-width: 600px) {
@@ -2721,6 +2742,38 @@ th, td {
 
     .feature-card-new {
         margin: 1.5rem;
+    }
+
+    .settings-subscription {
+        padding-left: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .settings-left-header {
+        width: 70%;
+        justify-content: center;
+        padding: 0.5rem 0;
+        font-size: 24px;
+    }
+
+    .settings-notifications {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .add-notifications {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .settings-lines {
+        flex-direction: column;
+    }
+
+    .settings-header {
+        justify-content: center;
+        padding: 0;
     }
 
     .footer-button button {
@@ -2742,7 +2795,7 @@ th, td {
         padding-top: 2rem;
         border-bottom-right-radius: 70% 8%;
         border-bottom-left-radius: 30% 2%;
-        height: 80vh;
+        height: 75vh;
     }
 
     .feature-card-new-description {
@@ -2764,7 +2817,7 @@ th, td {
     }
 
     .splash-subtitle-new {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .feature-card-new-title {
@@ -2831,12 +2884,8 @@ th, td {
         width: 100%;
     }
 
-    .add-notifications {
-        width: 80%;
-    }
-
     .add-notifications button {
-        margin-left: 1rem;
+        margin-top: 1rem;
     }
 
     .login-header, .login-form label {
@@ -2849,6 +2898,18 @@ th, td {
 
     .history-chart-header-title {
         width: 100%;
+    }
+
+    .support-screen-header {
+        justify-content: center;
+    }
+
+    .users-header {
+        justify-content: space-around;
+    }
+
+    .rules-options {
+        justify-content: center;
     }
 
     .history-chart-header-filters {
@@ -3067,6 +3128,7 @@ th, td {
         justify-content: center;
         line-height: 5rem;
         font-size: 3.2rem;
+        padding-top: 0.4rem;
     }
 
     .header-menu {
@@ -3339,7 +3401,7 @@ th, td {
 
     .site-map-logo, .site-map-item {
         font-size: 0.8rem;
-        font-size: 700;
+        font-weight: 700;
         display: flex;
         justify-content: center;
     }
@@ -4014,7 +4076,7 @@ th, td {
     }
 
     .mobile-menu-button {
-        width: 50%;
+        width: 40%;
     }
 
     .external-title {
@@ -4052,6 +4114,31 @@ th, td {
         width: 20%;
     }
 
+    .feature-focus-header {
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .feature-focus-description {
+        font-size: 1.2rem;
+    }
+    .docs-menu-item {
+        font-size: 1rem;
+    }
+
+    .feature-focus {
+        width: 90%;
+        margin: 1.5rem 0;
+    }
+
+    .feature-teaser {
+        padding: 2rem 0;
+    }
+
+    .site-map {
+        padding: 3rem 0;
+    }
+
     .splash-overlay {
         height: 70vh;
     }
@@ -4081,6 +4168,20 @@ th, td {
         font-size: 1.4rem;
         font-weight: 700;
         padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .login-header, .signup-header {
+        height: 2rem;
+    }
+
+    .signup-header {
+        font-size: 1.2rem;
+    }
+
+    .docs-menu {
+        width: 25%;
     }
 
     .splash-subtitle-new {

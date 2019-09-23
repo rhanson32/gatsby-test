@@ -4,7 +4,7 @@ import { navigate } from '@reach/router'
 import { Button } from 'antd';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify';
-import { Avatar, Icon } from 'tabler-react';
+import { Avatar } from 'tabler-react';
 import logo from '../../static/PurifyWhiteLogo_2.png';
 
 
@@ -24,8 +24,8 @@ class Header extends React.Component {
                             </div>
                         )}
                         
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", padding: "0 0.5rem 1rem 0.5rem" }}>
-                            <div style={{ fontSize: "20px", maxHeight: "24px", display: "flex", alignItems: "flex-start" }}>
+                        <div className="header-user">
+                            <div className="header-user-name">
                                 {this.props.user && this.props.user.email ? ' ' + this.props.user.email : ' '}
                             </div>
                             {this.props.user.email && (
@@ -41,7 +41,7 @@ class Header extends React.Component {
                                 type="default"
                                 onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
                             >
-                                Sign Out &nbsp; <Icon name="log-out" />
+                                Sign Out
                             </Button>
                         )
                     }

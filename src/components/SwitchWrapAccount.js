@@ -9,12 +9,22 @@ class SwitchWrapAccount extends React.Component {
  
         if(this.props.user.Group.includes('Administrators'))
         {
-            const newAccount = {
-                ...this.props.account,
-                Enabled: newState
-            };
-            console.log(newAccount);
-            this.props.updateAccount(newAccount, this.props.account.RoleName);
+            if(this.props.accounts.filter(account => account.Enabled).length < 3 || this.props.user.Plan === 'Standard')
+            {
+                const newAccount = {
+                    ...this.props.account,
+                    Enabled: newState
+                };
+                console.log(newAccount);
+                this.props.updateAccount(newAccount, this.props.account.RoleName);
+            }
+            else
+            {
+                notification.error({
+                    message: 'Maximum Accounts Enabled',
+                    description: 'Please upgrade to the Standard plan in order to enable more accounts.'
+                });
+            }
         } 
         else
         {

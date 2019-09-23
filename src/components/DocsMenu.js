@@ -55,15 +55,14 @@ class DocsMenu extends React.Component {
                     One-Time Setup
                 </div>
                 <div className="docs-menu-item">
-                    <button className="docs-menu-link" onClick={this.showAddingUsers}>
-                        Adding Users
-                    </button>
-                </div>
-                <div className="docs-menu-item">
                     <button className="docs-menu-link" onClick={this.showGettingStarted}>
                         Getting Started
                     </button>
-                    
+                </div>
+                <div className="docs-menu-item">
+                    <button className="docs-menu-link" onClick={this.showAddingUsers}>
+                        Adding Users
+                    </button>
                 </div>
             </div>
         )

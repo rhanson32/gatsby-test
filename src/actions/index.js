@@ -350,8 +350,6 @@ export const saveUser = (user) => async (dispatch, getState) => {
 
     dispatch({ type: 'STORE_USER', payload: user });
 
-    console.log("User:", user);
-
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);

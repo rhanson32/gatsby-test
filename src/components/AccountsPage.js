@@ -65,7 +65,7 @@ class Accounts extends React.Component {
     }
 
     submitAccount = () => {
-        this.setState({ AddAccount: false});
+        this.setState({ AddAccount: false });
         postAccount();
     }
 

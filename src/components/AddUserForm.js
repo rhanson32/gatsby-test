@@ -10,7 +10,7 @@ import {
   
   class RegistrationForm extends React.Component {
     state = {
-      confirmDirty: false
+      error: ``
     };
   
     handleSubmit = async e => {
@@ -20,15 +20,18 @@ import {
           console.log('Received values of form: ', values);
           if(values.email !== '' && values['group'] !== '')
           {
-             this.props.addUser(values).then(response => {
-                if(response.statusCode && response.statusCode !== 200)
-                {
-                  this.setState({
-                    error: response.message
-                  })
-                }
-                console.log(response);
-             });
+            if(this.props.users.length < 5 || this.props.user.Plan === 'Standard')
+            {
+                this.props.addUser(values).then(response => {
+                  if(response.statusCode && response.statusCode !== 200)
+                  {
+                    this.setState({
+                      error: response.message
+                    })
+                  }
+                  console.log(response);
+              });
+            }
               
           }
         }
@@ -36,6 +39,7 @@ import {
     };
   
     render() {
+
       const { getFieldDecorator } = this.props.form;
   
       const tailFormItemLayout = {
@@ -91,7 +95,14 @@ import {
       );
     }
   }
-  
-export default Form.create({ name: 'register' })(connect(null, { addUser })(RegistrationForm));
+
+  const mapStateToProps = state => {
+    return {
+      user: state.user,
+      users: state.users
+    }
+  }
+
+export default Form.create({ name: 'register' })(connect(mapStateToProps, { addUser })(RegistrationForm));
 
   
