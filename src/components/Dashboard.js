@@ -450,13 +450,13 @@ class Dashboard extends React.Component {
                                     <div className="dashboard-score">
                                         <Card>
                                             <Card.Body>
-                                                <div style={{ fontSize: "20px", fontWeight: "bold", display: "flex", justifyContent: "center" }}>
+                                                <div className="headline-score-header">
                                                     {this.state.scanComplete && this.state.showAll && "Purify (Overall) Score"}
                                                     {this.state.scanComplete && this.state.showSecurity && "Security Score"}
                                                     {this.state.scanComplete && this.state.showWaste && "Waste Score"}
                                                     {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
                                                 </div>
-                                                <div style={{ fontSize: "24px", fontWeight: "bold", display: "flex", justifyContent: "center", padding: "0.5rem 0", minHeight: "60px" }}>
+                                                <div className="headline-score-data">
                                                     {this.state.scanComplete && this.state.showAll && this.props.metrics.PurifyScore}
                                                     {this.state.scanComplete && this.state.showSecurity && this.props.metrics.SecurityScore}
                                                     {this.state.scanComplete && this.state.showWaste && this.props.metrics.WasteScore}
@@ -477,26 +477,13 @@ class Dashboard extends React.Component {
                                         <Card>
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
-                                                    {this.state.showAll && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.state.showSecurity && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.state.showWaste && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.state.showConfiguration && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Violations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
+
+                                                    <div className="headline-score-data">
+                                                        {this.state.scanComplete && this.state.showAll && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        {this.state.scanComplete && this.state.showSecurity && this.props.metrics.Security && this.props.metrics.Security.Violations}
+                                                        {this.state.scanComplete && this.state.showWaste && this.props.metrics.Waste && this.props.metrics.Waste.Violations}
+                                                        {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.Configuration && this.props.metrics.Configuration.Violations}
+                                                    </div>     
                                                 </div>
                                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                                     Violations
@@ -508,26 +495,12 @@ class Dashboard extends React.Component {
                                         <Card>
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
-                                                    {this.state.showAll && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.state.showSecurity && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Security ? this.props.metrics.Security.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.state.showWaste && (
-                                                        <div>
-                                                            {this.state.scanComplete && this.props.metrics.Waste ? this.props.metrics.Waste.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
-                                                    {this.props.user.Status && this.props.user.Status !== 'New' && this.state.showConfiguration && (
-                                                        <div>
-                                                            {this.props.user.Status && this.props.user.Status !== 'New' && this.state.scanComplete && this.props.metrics.Configuration ? this.props.metrics.Configuration.Evaluations : <Spin style={{ fontSize: "48px" }} />}
-                                                        </div>
-                                                    )}
+                                                    <div className="headline-score-data">
+                                                        {this.state.scanComplete && this.state.showAll && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration && (this.props.metrics.Security.Evaluations + this.props.metrics.Configuration.Evaluations + this.props.metrics.Waste.Evaluations)}
+                                                        {this.state.scanComplete && this.state.showSecurity && this.props.metrics.Security && this.props.metrics.Security.Evaluations}
+                                                        {this.state.scanComplete && this.state.showWaste && this.props.metrics.Waste && this.props.metrics.Waste.Evaluations}
+                                                        {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.Configuration && this.props.metrics.Configuration.Evaluations}
+                                                    </div>
                                                 </div>
                                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                                     <Tooltip placement="bottom" title="Resources scanned per rule multiplied by number of active rules">
@@ -542,16 +515,18 @@ class Dashboard extends React.Component {
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
-                                                {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
-                                                {this.state.showAll && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled).length}
-                                                {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
-                                                {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
-                                                {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
-                                                {this.state.scanComplete && " / "}
-                                                {this.state.showAll && this.state.scanComplete && this.props.rules.length}
-                                                {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
-                                                {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
-                                                {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
+                                                <div className="headline-score-data">
+                                                    {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                                    {this.state.showAll && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled).length}
+                                                    {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length}
+                                                    {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length}
+                                                    {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length}
+                                                    {this.state.scanComplete && " / "}
+                                                    {this.state.showAll && this.state.scanComplete && this.props.rules.length}
+                                                    {this.state.showSecurity && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Security').length}
+                                                    {this.state.showWaste && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Waste').length}
+                                                    {this.state.showConfiguration && this.state.scanComplete && this.props.rules.filter(rule => rule.Category === 'Configuration').length}
+                                                </div>
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
                                                 Rules Enabled

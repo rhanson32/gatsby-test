@@ -177,6 +177,13 @@ input  {
     width: 100%;
 }
 
+.headline-score-header {
+    font-size: 20px; 
+    font-weight: 700;
+    display: flex;
+    justify-content: center; 
+}
+
 .dashboard-trends-title {
     width: 30%;
     font-size: 40px;
@@ -211,6 +218,15 @@ input  {
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
+}
+
+.headline-score-data {
+    font-size: 24px; 
+    font-weight: bold; 
+    display: flex;
+    justify-content: center; 
+    padding: 0.5rem 0; 
+    min-height: 60px;
 }
 
 .dashboard-max {
@@ -4190,6 +4206,30 @@ th, td {
 
     .splash-text {
         padding-bottom: 2rem;
+    }
+
+    .login-image img {
+        width: 30%;
+    }
+
+    .card-metric-wrapper {
+        font-size: 22px;
+    }
+
+    .headline-score-header {
+        font-size: 16px; 
+        font-weight: 400;
+        display: flex;
+        justify-content: center; 
+    }
+
+    .headline-score-data {
+        font-size: 20px; 
+        font-weight: bold; 
+        display: flex;
+        justify-content: center; 
+        padding: 0.5rem 0; 
+        min-height: 60px;
     }
 
 }

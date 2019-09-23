@@ -24,7 +24,7 @@ class Splash extends React.Component {
                         <div className="splash-signup">
                             <Button.List>
                                 <Button size="lg" onClick={this.learnMore} color="white">Learn More</Button>
-                                <Button size="lg" onClick={this.signUp} color="green">Create Account</Button>
+                                <Button size="lg" onClick={this.signUp} color="green">Create Free Account</Button>
                             </Button.List>
                         </div>
                     </div>
