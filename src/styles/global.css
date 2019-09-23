@@ -4230,6 +4230,44 @@ th, td {
         justify-content: center; 
         padding: 0.5rem 0; 
         min-height: 60px;
+        width: 100%;
+    }
+
+    .dashboard-score {
+        width: 26%;
+    }
+
+    .card-wrapper {
+        width: 17%;
+    }
+
+    .settings-subscription {
+        padding-left: 2rem;
+    }
+
+    .notification-group {
+        width: 75%;
+    }
+
+    .settings-left-header {
+        width: 25%;
+        padding-right: 1.5rem;
+    }
+
+    .history-max {
+        width: 95%;
+    }
+
+    .payment-image p {
+        padding: 0 1rem;
+        font-size: 1rem;
+    }
+
+    .thank-you-message {
+        min-height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 }

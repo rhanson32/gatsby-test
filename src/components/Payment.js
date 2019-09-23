@@ -9,6 +9,7 @@ import CheckoutForm from './CheckoutForm';
 import credit from '../../static/undraw_Credit_card.svg';
 import TopMenu from './TopMenu';
 import Header from './Header';
+import Footer from './Footer';
 import { message } from 'antd';
 import { getCurrentUser } from '../actions';
 
@@ -69,8 +70,9 @@ class Payment extends Component {
                   </ul>
                 </div>
               </div>
-            </div>    
-      </div>
+            </div> 
+            <Footer />   
+        </div>
     );
   }
 }

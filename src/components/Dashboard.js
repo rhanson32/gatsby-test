@@ -40,7 +40,6 @@ class Dashboard extends React.Component {
                 title: ``,
                 message: ``
             },
-            percent: 0,
             interval: 0,
             loadingProgress: 0,
             showDetail: false,
@@ -118,13 +117,8 @@ class Dashboard extends React.Component {
                     });
                 }
             }
-            
-            this.setState({
-                percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
-            });
 
             await this.props.getAccounts(this.props.user.CustomerId);
-            
             this.props.fetchUsers(this.props.user.CustomerId); 
             this.props.getSettings(this.props.user.CustomerId); 
             this.setState({ scanComplete: true });
@@ -145,12 +139,7 @@ class Dashboard extends React.Component {
                 console.log(err);
             }
             
-            this.setState({
-                percent: Math.round(((this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations - this.state.securityViolations - this.state.wasteViolations - this.state.configurationViolations) / (this.state.securityEvaluations + this.state.wasteEvaluations + this.state.configurationEvaluations)) * 100)
-            });
             await this.props.getAccounts(this.props.user.CustomerId);
-            
-            
             this.props.fetchUsers(this.props.user.CustomerId);
             this.props.getSettings(this.props.user.CustomerId);
             this.setState({ scanComplete: true });
@@ -440,7 +429,7 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 )}
-                                {this.props.accounts.length === 0 && !this.state.showWelcomeScreen && (
+                                {this.props.accounts.length === 0 && !this.state.showWelcomeScreen && this.state.scanComplete && (
                                     <div className="headlines-empty">
                                         No accounts currently enabled. Please enable accounts to see statistics about your accounts.
                                     </div>
@@ -451,7 +440,7 @@ class Dashboard extends React.Component {
                                         <Card>
                                             <Card.Body>
                                                 <div className="headline-score-header">
-                                                    {this.state.scanComplete && this.state.showAll && "Purify (Overall) Score"}
+                                                    {this.state.scanComplete && this.state.showAll && "Purify Score"}
                                                     {this.state.scanComplete && this.state.showSecurity && "Security Score"}
                                                     {this.state.scanComplete && this.state.showWaste && "Waste Score"}
                                                     {this.state.scanComplete && this.state.showConfiguration && "Configuration Score"}
@@ -539,10 +528,12 @@ class Dashboard extends React.Component {
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
-                                                {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
-                                                {this.state.scanComplete && this.props.accounts.filter(account => account.Enabled).length}
-                                                {this.state.scanComplete && " / "}
-                                                {this.state.scanComplete && this.props.accounts.length}
+                                                <div className="headline-score-data">
+                                                    {!this.state.scanComplete && <Spin style={{fontSize: "48px" }} />}
+                                                    {this.state.scanComplete && this.props.accounts.filter(account => account.Enabled).length}
+                                                    {this.state.scanComplete && " / "}
+                                                    {this.state.scanComplete && this.props.accounts.length}
+                                                </div>
                                             </div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
                                                 Accounts Enabled
@@ -560,12 +551,10 @@ class Dashboard extends React.Component {
                                     <Card>
                                         <Card.Header>
                                             <div className="dashboard-card-header">
-                                                <div>
-                                                    {this.state.showAll && "All Categories"}
-                                                    {this.state.showSecurity && "Security"}
-                                                    {this.state.showWaste && "Waste"}
-                                                    {this.state.showConfiguration && "Configuration"}
-                                                </div> 
+                                                {this.state.showAll && "All Categories"}
+                                                {this.state.showSecurity && "Security"}
+                                                {this.state.showWaste && "Waste"}
+                                                {this.state.showConfiguration && "Configuration"}
                                             </div>
                                         </Card.Header>
                                         <Card.Body>

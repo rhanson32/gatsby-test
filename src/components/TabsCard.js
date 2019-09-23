@@ -375,7 +375,7 @@ class TabsCard extends React.Component {
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-lines">
-                    <div className="settings-left-header">Subscription Plan:</div> {this.props.user.Plan}
+                    <div className="settings-left-header">Current Plan:</div> {this.props.user.Plan}
                         {this.props.user.Plan === "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && <Button type="link" onClick={this.showPlans}> <Icon type="arrow-up" /> Upgrade </Button>}
                         {this.props.user.Plan !== "Free" && this.props.user.Group && this.props.user.Group.includes('Administrators') && (
                             <Button type="link" onClick={this.showConfirm}>
@@ -499,7 +499,7 @@ class TabsCard extends React.Component {
                 <div className="settings-row">
                     <div className="settings-header">AWS Master Account</div>
                     <div className="settings-subscription">
-                        <div className="settings-lines"><div className="settings-left-header">Master Account ID: </div><div>{this.props.accounts.find(account => account.Type === 'Master').AccountId || "Not Found"}</div></div>
+                        <div className="settings-lines"><div className="settings-left-header">Master Account: </div><div>{this.props.accounts.find(account => account.Type === 'Master').AccountId || "Not Found"}</div></div>
                         <div className="settings-lines"><div className="settings-left-header">Account Status: </div><div>{this.props.accounts.find(account => account.Type === 'Master').Status || "Not Found"}</div></div>
                         <div className="settings-lines"><div className="settings-left-header">Role Name: </div><div>{this.props.accounts.find(account => account.Type === 'Master').RoleName || "Not Found"}</div></div>
                     </div>
