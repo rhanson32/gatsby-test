@@ -580,10 +580,12 @@ class Dashboard extends React.Component {
                                     }
                                     </div>
                                     <div className="dashboard-sidebar">
-                                        <div>
-                                            Violations By Account
+                                        <div className="dashboard-pie-chart-card">
+                                            <div className="dashboard-pie-chart-header">
+                                                Violations By Account
+                                            </div>
+                                            {this.state.scanComplete && <Pie />}
                                         </div>
-                                        {this.state.scanComplete && <Pie />}
                                     </div>
                                 </div>
                             )}

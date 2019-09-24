@@ -58,8 +58,8 @@ class Pie extends React.Component {
     var type = 'Pie'
  
     return (
-      <div className="chartist-test">
-        {this.props.rules.length === 0 ? '' : <ChartistGraph className={'ct-pie'} data={data} options={options} responsiveOptions={responsiveOptions} type={type} style={{ opacity: "0.5", minHeight: "350px" }} />}
+      <div className="chartist-pie">
+        {this.props.rules.length === 0 ? '' : <ChartistGraph className={'ct-pie'} data={data} options={options} responsiveOptions={responsiveOptions} type={type} style={{ minHeight: "350px" }} />}
       </div>
     )
   }

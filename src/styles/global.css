@@ -285,6 +285,7 @@ input  {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 .dashboard-trends {
@@ -997,7 +998,20 @@ input  {
     margin: 0 1rem;
 }
 
+.ct-label {
+    color: red;
+}
+
 .chartist-test {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+}
+
+.chartist-pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 1000px;
     min-height: 400px;
@@ -1735,11 +1749,34 @@ input  {
     font-size: 2.3rem;
 }
 
+.dashboard-pie-chart-card {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 2;
+    border: 1px solid #DDD;
+    min-height: 482px;
+}
+
+.dashboard-pie-chart-header {
+    line-height: 160%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3.5rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
 .login-container, .signup-container {
     display: flex;
     flex-direction: column;
     width: 80%;
     padding: 1rem;
+    max-width: 400px;
 }
 
 .login-container button, .login-container a, .signup-container button, .signup-container a {

@@ -26,7 +26,7 @@ class SiteMap extends React.Component {
             <div className="footer-button-main">
             <Button.List>
                 <Button block color="green" onClick={this.signUp}>
-                    Create Account
+                    Create Free Account
                 </Button>
             </Button.List>
             </div>
