@@ -93,6 +93,65 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
     await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
+export const fetchDashboardData = (id) => async dispatch => {
+
+    axios.all([purify.get('/rules?id=' + id), purify.get('/metrics?id=' + id), purify.get('/accounts?id=' + id)])
+        .then(axios.spread((rules, metrics, accounts) => {
+
+            if(rules)
+            {
+                let Items = rules.data.map(item => {
+                    return {
+                        CustomerId: item.CustomerId.S,
+                        RuleId: item.RuleId.S,
+                        Name: item.Name.S,
+                        Category: item.Category.S,
+                        Description: item.Description.S,
+                        Enabled: item.Enabled.BOOL,
+                        Configurable: item.Configurable && item.Configurable.BOOL ? item.Configurable.BOOL : false,
+                        Notifications: item.Notifications && item.Notifications.L.map(violation => violation.S),
+                        Violations: item.Violations.L.map(violation => {
+                            return {
+                                ViolationDate: violation.M.ViolationDate.S,
+                                ResourceId: (violation.M.ResourceId && violation.M.ResourceId.S) || "None",
+                                AccountId: (violation.M.AccountId && violation.M.AccountId.S) || "Unknown",
+                                Status: (violation.M.Status && violation.M.Status.S) || 'Active',
+                                ResourceType: (violation.M.ResourceType && violation.M.ResourceType.S) || 'Unknown'
+                            }
+                        }),
+                        Scanned: item.ScannedCount ? parseInt(item.ScannedCount.N) : 0
+                    }
+                });
+
+                dispatch({ type: 'FETCH_RULES', payload: Items });
+            }
+
+            if(metrics)
+            {
+                dispatch({ type: 'FETCH_METRICS', payload: metrics.data });
+            }
+
+            if(accounts)
+            {
+                const accountItems = accounts.data.Items.map(item => {
+                    return {
+                        AccountId: item.AccountId.S,
+                        Provider: item.Provider.S,
+                        Role: (item.Role && item.Role.S) || 'None',
+                        Type: item.Type.S || 'Secondary',
+                        RoleName: (item.RoleName && item.RoleName.S) || 'None',
+                        CustomerId: item.CustomerId.S,
+                        Status: item.Status ? item.Status.S : 'Not Validated',
+                        Enabled: (item.Enabled && item.Enabled.BOOL) || false
+                    }
+                });
+
+                dispatch({ type: 'FETCH_ACCOUNTS', payload: accountItems });
+            }
+
+        }));
+}
+
 export const removeGlobalNotification = (recipient) => async (dispatch, getState) => {
     let myRequest = {
         body: {
@@ -119,7 +178,7 @@ export const fetchUsers = (id) => async (dispatch, getState) => {
     }
 }
 
-export const getMetrics = (id) => async (dispatch, getState) => {
+export const getMetrics = (id) => async dispatch => {
 
     const metricResponse = await purify.get('/metrics?id=' + id).catch(err => console.log(err));
 
@@ -131,7 +190,7 @@ export const getMetrics = (id) => async (dispatch, getState) => {
     return true;
 }
 
-export const getAccounts = (id) => async (dispatch, getState) => {
+export const getAccounts = (id) => async dispatch => {
 
     const accountResponse = await purify.get('/accounts?id=' + id).catch(err => console.log(err));
 

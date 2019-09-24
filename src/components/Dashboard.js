@@ -12,7 +12,7 @@ import Header from './Header';
 import Footer from './Footer';
 import WelcomeScreen from './WelcomeScreen';
 import ViolationTable from './ViolationTable';
-import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchTickets, getSettings, getHistory, updateCustomerStatus, postAccount } from '../actions';
+import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount } from '../actions';
 import Line from './Line';
 import Pie from './Pie';
 import moment from 'moment';
@@ -94,15 +94,8 @@ class Dashboard extends React.Component {
                 }
                     
                 this.setState({ loadingProgress: 25 });
-                const metrics = new Promise((resolve, reject) => this.props.getMetrics(this.props.user.CustomerId) ? resolve : reject);
-                const history = this.props.getHistory(this.props.user);
-                Promise.all([metrics]).then((values) => {
-                    console.log(values);
-                })
-                await this.props.getRules(this.props.user);
-                console.log(metrics);
+                this.props.fetchDashboardData(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 50 });
-               
                 this.setState({ loadingProgress: 75 });
                 this.setState({ loadingProgress: 100 });
             }
@@ -118,7 +111,6 @@ class Dashboard extends React.Component {
                 }
             }
 
-            await this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId); 
             this.props.getSettings(this.props.user.CustomerId); 
             this.setState({ scanComplete: true });
@@ -128,18 +120,15 @@ class Dashboard extends React.Component {
         {
             try
             {
-                this.props.getMetrics(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 25 });
-                await this.props.getRules(this.props.user);
+                this.props.fetchDashboardData(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 75 });
-                await this.props.getHistory(this.props.user);
             }
             catch(err)
             {
                 console.log(err);
             }
             
-            await this.props.getAccounts(this.props.user.CustomerId);
             this.props.fetchUsers(this.props.user.CustomerId);
             this.props.getSettings(this.props.user.CustomerId);
             this.setState({ scanComplete: true });
@@ -149,7 +138,7 @@ class Dashboard extends React.Component {
                 this.setState({ visible: true })
         }
         this.setState({ interval: setInterval( async () => {
-            await this.props.getRules(this.props.user);
+            this.props.fetchDashboardData(this.props.user.CustomerId)
         }, 30000)});
     }
 
@@ -283,6 +272,7 @@ class Dashboard extends React.Component {
         {
             navigate('/app/login');
         }
+
         const { visible, confirmLoading, ModalText } = this.state;
 
         const dataSourceAll = this.props.rules.map((rule, index) => {
@@ -617,7 +607,7 @@ class Dashboard extends React.Component {
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
                                                     {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                                    {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FoundViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                                    {this.props.metrics[this.state.selectedChart] && this.props.metrics[this.state.selectedChart].series[0].reduce((a, b) => parseInt(a) + parseInt(b), 0)}
                                                 </div>
                                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                                     New Violations
@@ -630,7 +620,7 @@ class Dashboard extends React.Component {
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
                                                     {!this.state.scanComplete && <Spin style={{ fontSize: "48px" }} />}
-                                                    {this.state.scanComplete && this.props.history.filter(item => item.Event === 'FixedViolation' && moment(item.EventTime).isSame(moment().subtract(1, 'days'), 'day')).length}
+                                                    {this.props.metrics[this.state.selectedChart] && this.props.metrics[this.state.selectedChart].series[1].reduce((a, b) => parseInt(a) + parseInt(b), 0)}
                                                 </div>
                                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                                     Fixed Violations
@@ -686,4 +676,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, getHistory, fetchUsers, fetchTickets, getSettings, updateCustomerStatus, postAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount })(Dashboard);

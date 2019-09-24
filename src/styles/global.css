@@ -4270,4 +4270,8 @@ th, td {
         align-items: center;
     }
 
+    .dashboard-sidebar-2 {
+        margin-top: 1rem;
+    }
+
 }
