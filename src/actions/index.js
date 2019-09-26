@@ -93,7 +93,11 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
     await purify.patch('/settings', myRequest).catch(err => console.log(err));
 }
 
-export const fetchDashboardData = (id) => async dispatch => {
+export const fetchDashboardData = (id) => async (dispatch, getState) => {
+
+    const settings = purify.get('/settings?id=' + id);
+    const users = purify.get('/users?id=' + id);
+    const tickets = purify.get('/tickets?id=' + getState().user.CustomerId);
 
     axios.all([purify.get('/rules?id=' + id), purify.get('/metrics?id=' + id), purify.get('/accounts?id=' + id)])
         .then(axios.spread((rules, metrics, accounts) => {
@@ -149,6 +153,57 @@ export const fetchDashboardData = (id) => async dispatch => {
                 dispatch({ type: 'FETCH_ACCOUNTS', payload: accountItems });
             }
 
+        }));
+
+    axios.all([settings, users, tickets])
+        .then(axios.spread((settingsResponse, usersResponse, ticketsResponse) => {
+
+            if(usersResponse)
+            {
+                dispatch({ type: 'FETCH_USERS', payload: usersResponse.data });
+            }
+
+            if(settingsResponse)
+            {
+                try
+                {
+                    const settings =  {
+                        Providers: settingsResponse.data.length === 0 ? [] : settingsResponse.data[0].Providers.L.map(provider => {
+                            return {
+                                Name: provider.M.Name.S,
+                                Enabled: provider.M.Enabled.BOOL
+                            }
+                        }),
+                        Notifications: settingsResponse.data.length === 0 ? [] : settingsResponse.data[0].Notifications.L.map(notification => notification.S),
+                        saml: settingsResponse.data.length === 0 ? false : (settingsResponse.data[0].SAML && settingsResponse.data[0].SAML.BOOL) || false,
+                        Metadata: settingsResponse.data.length === 0 ? null : settingsResponse.data[0].Metadata && settingsResponse.data[0].Metadata.S
+                    }
+                
+                    dispatch({ type: 'FETCH_SETTINGS', payload: settings });
+                    return { statusCode: 200 }
+                }
+                catch(err)
+                {
+                    console.log(err);
+                    return { statusCode: 400, error: 'Unable to load settings data.' }
+                }
+            }
+
+            if(ticketsResponse)
+            {
+                const items = ticketsResponse.data.map(item => {
+                    return { 
+                        CustomerId: item.CustomerId.S,
+                        TicketId: item.TicketId.S,
+                        Headline: (item.Headline && item.Headline.S) || "None",
+                        Description: (item.Description && item.Description.S) || "None",
+                        CreateDate: (item.CreateDate && item.CreateDate.S) || "Unknown",
+                        Status: (item.Status && item.Status.S) || "Unassigned"
+                    }
+                });
+            
+                dispatch({ type: 'FETCH_TICKETS', payload: items });
+            }
         }));
 }
 

@@ -110,11 +110,8 @@ class Dashboard extends React.Component {
                     });
                 }
             }
-
-            this.props.fetchUsers(this.props.user.CustomerId); 
-            this.props.getSettings(this.props.user.CustomerId); 
-            this.setState({ scanComplete: true });
-            this.props.fetchTickets();  
+ 
+            this.setState({ scanComplete: true }); 
         }
         else
         {
@@ -129,10 +126,7 @@ class Dashboard extends React.Component {
                 console.log(err);
             }
             
-            this.props.fetchUsers(this.props.user.CustomerId);
-            this.props.getSettings(this.props.user.CustomerId);
             this.setState({ scanComplete: true });
-            this.props.fetchTickets();
 
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
