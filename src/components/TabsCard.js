@@ -188,7 +188,6 @@ class TabsCard extends React.Component {
         if(response)
         {
             Auth.setPreferredMFA(user, 'TOTP').then(data => {
-                console.log(data);
                 this.setState({
                     showMFASetup: false
                 });
@@ -206,7 +205,7 @@ class TabsCard extends React.Component {
                     });
                 }
             });
-            Auth.currentAuthenticatedUser().then(data => console.log(data)).catch(err => {
+            Auth.currentAuthenticatedUser().catch(err => {
                 console.log(err);
                 if(err.code === 'NetworkError')
                 {
@@ -275,7 +274,7 @@ class TabsCard extends React.Component {
   }
 
   setupMFA = async () => {
-      console.log("Clicked!");
+
       const user = await Auth.currentAuthenticatedUser().catch(err => {
             console.log(err);
             if(err.code === 'NetworkError')

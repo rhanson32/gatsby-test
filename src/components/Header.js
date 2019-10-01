@@ -19,7 +19,7 @@ class Header extends React.Component {
                 <div className="header-menu">
                     <div className="user-name">
                         {this.props.user.email && (
-                            <div style={{ paddingTop: "0.3rem" }}>
+                            <div className="purify-avatar" style={{ paddingTop: "0.3rem" }}>
                                 <Avatar color="cyan" size="lg" icon="user" />
                             </div>
                         )}

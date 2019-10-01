@@ -361,12 +361,7 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
-                    {this.props.user.Status !== 'New' && this.state.gettingStarted && (
-                        <div className="alert-wrapper">
-                            <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
-                        </div>
-                    )}
-                    {this.state.showWelcomeScreen && <WelcomeScreen />}
+                    
                     {this.props.user.Status === 'New' && <WelcomeScreen />}
 
                 {this.props.user.Status === "Cancelled" && (
@@ -383,6 +378,12 @@ class Dashboard extends React.Component {
                 )}
                 {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
                     <div className="dashboard">
+                            {this.props.user.Status !== 'New' && this.state.gettingStarted && !this.state.showWelcomeScreen && (
+                                <div className="alert-wrapper">
+                                    <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
+                                </div>
+                            )}
+                            {this.state.showWelcomeScreen && <WelcomeScreen />}
                             {!this.state.scanComplete && (
                             <div className="alert-banner">
                                 <Alert type="info" description={<Progress>
@@ -450,9 +451,8 @@ class Dashboard extends React.Component {
                                         <Card>
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
-
                                                     <div className="headline-score-data">
-                                                        {this.state.scanComplete && this.state.showAll && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration ? this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations : <Spin style={{ fontSize: "48px" }} />}
+                                                        {this.state.scanComplete && this.state.showAll && this.props.metrics.Security && this.props.metrics.Waste && this.props.metrics.Configuration && (this.props.metrics.Security.Violations + this.props.metrics.Configuration.Violations + this.props.metrics.Waste.Violations)}
                                                         {this.state.scanComplete && this.state.showSecurity && this.props.metrics.Security && this.props.metrics.Security.Violations}
                                                         {this.state.scanComplete && this.state.showWaste && this.props.metrics.Waste && this.props.metrics.Waste.Violations}
                                                         {this.state.scanComplete && this.state.showConfiguration && this.props.metrics.Configuration && this.props.metrics.Configuration.Violations}
