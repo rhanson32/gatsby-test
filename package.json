@@ -28,7 +28,6 @@
     "gatsby": "^2.4.3",
     "gatsby-plugin-favicon": "^3.1.6",
 <<<<<<< HEAD
-<<<<<<< HEAD
     "gatsby-plugin-manifest": "^2.2.20",
     "gatsby-plugin-offline": "^2.2.10",
     "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
@@ -37,17 +36,12 @@
     "generate-password": "^1.4.2",
     "graphql": "^14.1.1",
 =======
-=======
->>>>>>> parent of bb73768... updated all npm packages
     "gatsby-plugin-manifest": "^2.1.1",
     "gatsby-plugin-offline": "^2.1.0",
     "gatsby-plugin-prefetch-google-fonts": "^1.4.2",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-stripe": "^1.2.1",
     "generate-password": "^1.4.1",
-<<<<<<< HEAD
->>>>>>> parent of bb73768... updated all npm packages
-=======
 >>>>>>> parent of bb73768... updated all npm packages
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
