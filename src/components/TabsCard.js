@@ -505,6 +505,16 @@ class TabsCard extends React.Component {
                 </div>
             )
         } 
+        {
+            this.props.accounts.find(account => account.Type === 'Master') && (
+                <div className="settings-row">
+                    <div className="settings-header">AWS External Id</div>
+                    <div className="settings-subscription">
+                        <div className="settings-lines"><div className="settings-left-header">External ID: </div><div>{this.props.settings.ExternalId || "Not Found"}</div></div>
+                    </div>
+                </div>
+            )
+        } 
         {/* <div className="settings-row">
             <RegionsForm />
         </div>  

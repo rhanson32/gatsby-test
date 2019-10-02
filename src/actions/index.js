@@ -420,7 +420,8 @@ export const getSettings = (customerId) => async dispatch => {
                 }),
                 Notifications: response.data.length === 0 ? [] : response.data[0].Notifications.L.map(notification => notification.S),
                 saml: response.data.length === 0 ? false : (response.data[0].SAML && response.data[0].SAML.BOOL) || false,
-                Metadata: response.data.length === 0 ? null : response.data[0].Metadata && response.data[0].Metadata.S
+                Metadata: response.data.length === 0 ? null : response.data[0].Metadata && response.data[0].Metadata.S,
+                ExternalId: response.data.length === 0 ? null : response.data[0].ExternalId && response.data[0].ExternalId.S
             }
         
             dispatch({ type: 'FETCH_SETTINGS', payload: settings });
@@ -462,14 +463,17 @@ export const uploadMetadata = (file) => async (dispatch, getState) => {
 
 export const saveUser = (user) => async (dispatch, getState) => {
 
-    dispatch({ type: 'STORE_USER', payload: user });
-
     if(user && user["custom:company"])
     {
         const customerResponse = await purify.get('/customers?company=' + user["custom:company"]);
         console.log(customerResponse);
         user.customerId = customerResponse.data[0].CustomerId.S;
+        user.Status = customerResponse.data[0].Status.S;
+        user.Plan = customerResponse.data[0].Plan.S;
+        user.CreateDate = customerResponse.data[0].CreateDate.N;
     }
+
+    dispatch({ type: 'STORE_USER', payload: user });
 }
 
 export const addDefaultGroup = (token) => async dispatch => {

@@ -1304,7 +1304,7 @@ input  {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    min-height: 80vh;
+    padding: 0 1rem;
 }
 
 .rules-drawer-bottom {
@@ -2471,7 +2471,6 @@ th, td {
 .progress-items {
     display: flex;
     width: 100%;
-    height: 100%;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
@@ -2601,6 +2600,24 @@ th, td {
     height: 2rem;
 }
 
+.notification-add-input-vertical {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.rule-detail-line {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.rule-detail-line-header {
+    font-weight: 700;
+    font-size: 20px;
+    width: 40%;
+}
+
 .spin-container {
     width: 90vw;
     height: 80vh;
@@ -2636,6 +2653,13 @@ th, td {
     justify-content: flex-start;
     align-items: center;
     z-index: 2;
+}
+
+.notification-add-input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-top: 1px solid #CCC;
 }
 
 .card-test {

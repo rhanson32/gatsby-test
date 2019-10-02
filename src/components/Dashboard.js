@@ -28,7 +28,6 @@ class Dashboard extends React.Component {
             ModalText: 'This account has been cancelled. Visit the Settings page to re-enable this account.',
             visible: false,
             confirmLoading: false,
-            gettingStarted: false,
             account: ``,
             showWelcomeScreen: false,
             showAll: true,
@@ -54,10 +53,6 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
         const user = await getCurrentUser();
-
-        this.setState({ 
-            gettingStarted: moment(this.props.user.CreateDate).isAfter(moment().subtract(7, 'days')) ? true : false
-        });
 
         if(moment(getExpiration()) < moment())
         {
@@ -131,8 +126,9 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
         }
+
         this.setState({ interval: setInterval( async () => {
-            this.props.fetchDashboardData(this.props.user.CustomerId)
+            this.props.fetchDashboardData(this.props.user.CustomerId);
         }, 30000)});
     }
 
@@ -378,7 +374,7 @@ class Dashboard extends React.Component {
                 )}
                 {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
                     <div className="dashboard">
-                            {this.props.user.Status !== 'New' && this.state.gettingStarted && !this.state.showWelcomeScreen && (
+                            {moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days')) && !this.state.showWelcomeScreen && (
                                 <div className="alert-wrapper">
                                     <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
                                 </div>
@@ -591,8 +587,8 @@ class Dashboard extends React.Component {
                                            <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
                                            <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
                                            <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
-                                           <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>
-                                           <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>
+                                           {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(14, 'days')) && <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>}
+                                           {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(2, 'months')) && <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>}
                                         </div>
                                     </div>
                                 

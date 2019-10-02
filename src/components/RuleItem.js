@@ -5,7 +5,8 @@ import { toggleRule, addRuleNotification, removeRuleNotification } from '../acti
 
 class RuleItem extends React.Component {
     state = {
-        showDescription: false
+        showDescription: false,
+        email: ``
     }
 
     handleUpdate = (event) => {
@@ -57,11 +58,18 @@ class RuleItem extends React.Component {
     }
 
     addNotification = () => {
-        console.log('adding user to notifications');
-        console.log(this.state.email);
+
         if(this.props.rules.find(rule => rule.RuleId === this.props.ruleId).Notifications.find(notification => notification === this.state.email))
         {
             message.error('User is already added to this rule');
+        }
+        else if(this.state.email === '')
+        {
+            message.error('Invalid entry. Please try again.');
+        }
+        else if(!this.state.email.includes('@') || !this.state.email.includes('.'))
+        {
+            message.error('Invalid email format. Please check your entry and try again.');
         }
         else
         {
@@ -86,15 +94,22 @@ class RuleItem extends React.Component {
         return (
             <div className="rules-drawer">
                 <div className="rules-drawer-top">
-                <h3>Category</h3>
-                <p>{rule.Category}</p>
-                <h3>Mode</h3>
-                <p>Monitor</p>
-                <h3>Description</h3>
+                <h3>{rule.Name}</h3>
                 <p> {rule.Description}</p>
-                <h3>Exceptions</h3>
-                <p>None</p>
-                <h3>Notifications</h3>
+                <div className="rule-detail-line">
+                <div className="rule-detail-line-header">Category</div>
+                <div>{rule.Category}</div>
+                </div>
+                <div className="rule-detail-line">
+                <div className="rule-detail-line-header">Mode</div>
+                <div>Monitor</div>
+                </div>
+                <div className="rule-detail-line">
+                <div className="rule-detail-line-header">Exceptions</div>
+                <div>None</div>
+                </div>
+                <div className="rule-detail-line">
+                <div className="rule-detail-line-header">Notifications</div>
                 {
                     rule.Notifications && rule.Notifications.map((notification, index) => {
                         return (
@@ -106,12 +121,18 @@ class RuleItem extends React.Component {
                         )
                     })
                 }  
-                {!rule.Notifications && <p>None</p>}
+                {(!rule.Notifications || rule.Notifications.length === 0) && <div>None</div>}
+                </div>
                 {rule.Configurable && (
                     <div className="rules-drawer-configuration">
-                        <label style={{ width: "100%" }}>Email Address</label>
+                        
+                        <div className="notification-add-input">
+                        <div className="notification-add-input-vertical">
+                        <label style={{ width: "100%" }}>Add Notification Email</label>
                         <Input name="email" placeholder="email address" value={this.state.email} onChange={this.handleUpdate} />
-                        <Button type="primary" onClick={this.addNotification}>Submit</Button>
+                        </div>
+                        <Button type="primary" onClick={this.addNotification}>Add</Button>
+                        </div>
                     </div>
                 )} 
                 </div>

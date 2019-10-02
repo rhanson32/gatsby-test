@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
 import { getExpiration } from '../utils/auth';
-import { Button, Table, Spin, message, Drawer } from 'antd';
+import { Button, Table, Spin, message, Drawer, Modal } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
 import { getRules, getCurrentUser, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, enableRule, disableRule, modifyRules } from '../actions';
@@ -241,7 +241,7 @@ class RulesPage extends React.Component {
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 
                         </div>
                         </div>
-                        <Drawer
+                        {/* <Drawer
                             title={this.state.title}
                             placement="right"
                             closable={false}
@@ -249,7 +249,15 @@ class RulesPage extends React.Component {
                             visible={this.state.visible}
                             >
                             {this.state.ruleId !== null && <RuleItem ruleId={this.state.ruleId} />}
-                        </Drawer>
+                        </Drawer> */}
+                        <Modal
+                            visible={this.state.visible && this.state.ruleId !== null}
+                            footer={null}
+                            onOk={this.onClose}
+                            onCancel={this.onClose}
+                        >
+                            {this.state.ruleId !== null && <RuleItem ruleId={this.state.ruleId} />}
+                        </Modal>
                     </div> 
                   <Footer />  
             </div>

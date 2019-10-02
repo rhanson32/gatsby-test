@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import { setUser, setExpiration } from '../utils/auth'
+import { setUser, setExpiration, isLoggedIn } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
@@ -299,6 +299,8 @@ class Login extends React.Component {
         setExpiration(moment().add(12, 'hours').toISOString());
         await this.props.saveUser(userInfo);
 
+        console.log(userInfo);
+
         if(this.state.user.challengeName === "SOFTWARE_TOKEN_MFA")
         {
           this.setState({
@@ -336,7 +338,7 @@ class Login extends React.Component {
   }
 
   render() {
-    // if(isLoggedIn()) navigate('/app/dashboard');
+    if(isLoggedIn()) navigate('/app/dashboard');
     return (
       <div className="login-screen">
         <ExternalHeader />
