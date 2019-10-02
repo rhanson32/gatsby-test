@@ -909,3 +909,15 @@ export const addUser = (user) => async (dispatch, getState) => {
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
     return response;
 }
+
+export const deleteUser = (user) => async dispatch => {
+    let myRequest = {
+        body: {
+            user
+        }
+    };
+
+    const response = await process.delete('/users', myRequest).catch(err => console.log(err));
+
+    console.log(response);
+}

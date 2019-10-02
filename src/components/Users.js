@@ -72,7 +72,8 @@ class Users extends React.Component {
                     name: user.Username,
                     role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
                     type: user.Type,
-                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button name={user.Sub} onClick={this.makeAdministrator} type="link">Make Administrator</Button>
+                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button name={user.Sub} onClick={this.makeAdministrator} type="link">Make Administrator</Button>,
+                    action2: <Button name={user.Sub} onClick={this.deleteUser} type="link">Delete</Button>
                 } 
             }
             else
@@ -125,6 +126,11 @@ class Users extends React.Component {
                 title: '',
                 dataIndex: 'action',
                 key: 'action'
+            },
+            {
+                title: '',
+                dataIndex: 'action2',
+                key: 'action2'
             }
           ];
         
