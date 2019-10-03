@@ -15,6 +15,7 @@ import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount } from '../actions';
 import Line from './Line';
 import Pie from './Pie';
+import RuleListItem from './RuleListItem';
 import moment from 'moment';
 import DashboardModule from './DashboardModule';
 
@@ -524,7 +525,7 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                             )}
-                            {!this.state.showWelcomeScreen && (
+                            {/* {!this.state.showWelcomeScreen && (
                             <div className="dashboard-metrics">
                                 <div className="dashboard-title">Category Metrics</div>
                                     <div className="web-metrics">
@@ -579,7 +580,7 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                            )} */}
                              {!this.state.showWelcomeScreen && (   
                              <div className="dashboard-trends">
                                     {/* <div className="dashboard-trends-header">
@@ -622,47 +623,66 @@ class Dashboard extends React.Component {
                                         </Card>
                                         </div>
                                     </div> */}
-                            {/* <div className="dashboard-trends-graph">
-                                <Card>
-                                    <Card.Header>
-                                        <div className="history-chart-header">
-                                            <div className="history-chart-header-title">
-                                                Violations Over Time (All times UTC)
-                                            </div>
-                                        </div>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <div className="metrics-graph" style={{ backgroundColor: "white", minHeight: "300px" }}>
-                                            {this.props.metrics && this.props.metrics['last3Days'] && <Line selected={this.state.selectedChart} />}
-                                            {
-                                                this.props.metrics && this.props.metrics['last3Days'] && (
-                                                    <div className="legend">
-                                                        <div className="legend-one"></div><div>Violations Discovered</div>
-                                                        <div className="legend-two"></div><div>Violations Resolved</div>
+                                    {/* <div className="dashboard-trends-graph">
+                                        <Card>
+                                            <Card.Header>
+                                                <div className="history-chart-header">
+                                                    <div className="history-chart-header-title">
+                                                        Violations Over Time (All times UTC)
                                                     </div>
-                                                )
-                                            }
-                                            {this.props.metrics && !this.props.metrics['last3Days'] && <div className="metrics-graph-missing">No data available.</div>}
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </div> */}
-                            
-                        </div>
-                        <div className="dashboard-trends-header">
-                            <div className="dashboard-trends-title">Dashboard</div>
-                            <div className="history-chart-header-filters">
-                                <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
-                                <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
-                                <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
-                                {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(14, 'days')) && <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>}
-                                {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(2, 'months')) && <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>}
+                                                </div>
+                                            </Card.Header>
+                                            <Card.Body>
+                                                <div className="metrics-graph" style={{ backgroundColor: "white", minHeight: "300px" }}>
+                                                    {this.props.metrics && this.props.metrics['last3Days'] && <Line selected={this.state.selectedChart} />}
+                                                    {
+                                                        this.props.metrics && this.props.metrics['last3Days'] && (
+                                                            <div className="legend">
+                                                                <div className="legend-one"></div><div>Violations Discovered</div>
+                                                                <div className="legend-two"></div><div>Violations Resolved</div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    {this.props.metrics && !this.props.metrics['last3Days'] && <div className="metrics-graph-missing">No data available.</div>}
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </div> */}
+                                    
+                                </div>
+                                <div className="dashboard-trends-header">
+                                    <div className="dashboard-trends-title">Dashboard</div>
+                                    <div className="history-chart-header-filters">
+                                        <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
+                                        <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
+                                        <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
+                                        {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(14, 'days')) && <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>}
+                                        {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(2, 'months')) && <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>}
+                                    </div>
+                                </div>
+                                <DashboardModule selected={this.state.selectedChart} />
                             </div>
-                        </div>
-                        <DashboardModule selected={this.state.selectedChart} />
+                                )}
+                                <div className="dashboard-trends-title">Rule Detail</div>
+                                <div className="rule-list-header">
+                                    <div className="rule-list-header-container">
+                                        Rule Name
+                                    </div>
+                                    <div className="rule-list-header-container">
+                                        Rule Status
+                                    </div>
+                                    <div className="rule-list-header-container">
+                                        Violation Count
+                                    </div>
+                                    <div className="rule-list-header-container">
+                                        Actions
+                                    </div>
+                                </div>
+                            {this.state.showAll && this.props.rules.map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                            {this.state.showSecurity && this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                            {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                            {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
                     </div>
-                             )}
-                </div>
                 </div>
                 )}
                 {this.state.scanComplete && <Footer />}

@@ -8,7 +8,6 @@ class DashboardModule extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="dashboard-module">
                 <div className="dashboard-module-header">
@@ -18,19 +17,19 @@ class DashboardModule extends React.Component {
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Violations</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.PurifyScore}</div>
+                        <div className="dashboard-module-item-body">{this.props.metrics.Security ? this.props.metrics.Security.Violations + this.props.metrics.Waste.Violations + this.props.metrics.Configuration.Violations : ''}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Evaluations</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.PurifyScore}</div>
+                        <div className="dashboard-module-item-body">{this.props.metrics.Security ? this.props.metrics.Security.Evaluations + this.props.metrics.Waste.Evaluations + this.props.metrics.Configuration.Evaluations : ''}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Active Rules</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.PurifyScore}</div>
+                        <div className="dashboard-module-item-body">{this.props.rules && this.props.rules.length > 0 ? this.props.rules.filter(rule => rule.Enabled).length : ''}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Active Accounts</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.PurifyScore}</div>
+                        <div className="dashboard-module-item-body">{this.props.accounts && this.props.accounts.length > 0 ? this.props.accounts.filter(account => account.Enabled).length : ''}</div>
                     </div>
                 </div>
                 <div className="dashboard-module-body">
@@ -57,7 +56,9 @@ class DashboardModule extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        metrics: state.metrics
+        metrics: state.metrics,
+        rules: state.rules,
+        accounts: state.accounts
     }
 }
 

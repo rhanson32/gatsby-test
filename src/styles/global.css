@@ -593,6 +593,41 @@ input  {
     padding: 1rem 0;
 }
 
+.rule-list-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    border-left: 1px solid #CCC;
+    border-bottom: 1px solid #F0F0F0;
+    border-right: 1px solid #CCC;
+}
+
+.rule-list-item:hover {
+    background-color: #DDD;
+}
+
+.even-item {
+    background-color: #F0F0F0;
+}
+
+.rule-list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #0984e3;
+    color: white;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.rule-list-item-container {
+    line-height: 150%;
+    padding: 1rem 0;
+}
+
 .dashboard-module-item {
     width: 22%;
     padding: 0.3rem 0;
