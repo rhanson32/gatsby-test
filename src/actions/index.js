@@ -95,6 +95,7 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
 
 export const fetchDashboardData = (id) => async (dispatch, getState) => {
 
+    console.log(id);
     const settings = purify.get('/settings?id=' + id);
     const users = purify.get('/users?id=' + id);
     const tickets = purify.get('/tickets?id=' + getState().user.CustomerId);

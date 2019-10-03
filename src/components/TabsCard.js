@@ -606,6 +606,44 @@ class TabsCard extends React.Component {
               </div>
           )
       }
+       {
+          this.props.scanComplete && this.props.settings.saml && (
+              <div className="settings-row">
+                <div className="settings-header">
+                    Single Sign-On Configuration Instructions
+                </div>
+                <div className="settings-subscription">
+                    <div className="settings-lines">
+                        <div className="settings-left-header">&nbsp;</div>
+                        <div className="settings-sso-status">
+                            <ol>
+                                <li>Create an Enterprise Application in Azure AD.</li>
+                                <li>Configure following values in Single Sign-On:
+                                    <ul>
+                                        <li>Entity ID: urn:amazon:cognito:sp:us-east-1_wMiZuxWyI</li>
+                                        <li>Reply URL: https://auth.purify.cloud/saml2/idpresponse</li>
+                                        <li>Sign On URL: {`https://auth.purify.cloud/login?response_type=code&client_id=${this.props.user.Client}&redirect_uri=https://purify.cloud/app/saml?client_id=${this.props.user.Client}`}</li>
+                                        <li>Relay State: https://purify.cloud/app/saml</li>
+                                    </ul>
+                                </li>
+                                <li>Make sure you have a claim with Name of http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress that is a unique identifier in your organization. Email address works well for this value (e.g. user.mail in Azure AD)</li>
+                                <li>Download the federation metadata.</li>
+                                <li>Upload the metadata in this menu (see file uploader above).</li>
+                                <li>Test out your SSO configuration using the SSO link provided above.</li>
+                                <li>If you have issues, contact support@purify.cloud for additional support.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div className="settings-lines">
+                        <div className="settings-left-header">&nbsp;</div> 
+                        <div className="metadata-upload">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+              </div>
+          )
+      }
     </div>
       };
 

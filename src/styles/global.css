@@ -327,6 +327,7 @@ input  {
     flex-wrap: wrap;
     width: 95%;
     min-height: 90vh;
+    padding-bottom: 1rem;
 }
 
 .dashboard-card {
@@ -565,6 +566,64 @@ input  {
     width: 50%;
     height: 100%;
 }
+
+.dashboard-module {
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 16px;
+    box-shadow: 0 0 5px 2px #F0F0F0;
+}
+
+.dashboard-sidebar-header {
+    color: gray;
+    font-size: 20px;
+}
+
+.dashboard-sidebar-body {
+    color: #000;
+    font-size: 40px;
+    font-weight:700;
+}
+
+.dashboard-module-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #DADADA;
+    padding: 1rem 0;
+}
+
+.dashboard-module-item {
+    width: 22%;
+    padding: 0.3rem 0;
+}
+
+.dashboard-module-item-header {
+    font-size: 16px;
+    font-weight: 400;
+    color: gray;
+}
+
+.dashboard-module-item-body {
+    font-weight: 800;
+    font-size: 24px;
+    color: #000;
+}
+
+.dashboard-module-body {
+    padding: 1rem 5%;
+    display: flex;
+}
+
+.dashboard-module-body-sidebar {
+    width: 25%;
+    
+}
+
+.dashboard-module-body-graph {
+    width: 75%;
+}
+
 
 .account-details {
     font-size: 30px;
@@ -988,6 +1047,7 @@ input  {
 .legend {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .legend-one {
