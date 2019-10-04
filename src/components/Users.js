@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
-import { getCurrentUser, fetchUsers, updateUser } from '../actions';
+import { getCurrentUser, fetchUsers, updateUser, deleteUser } from '../actions';
 import { getExpiration } from '../utils/auth';
 import { Table, Spin, Button, message } from 'antd';
 import TopMenu from './TopMenu';
@@ -51,6 +51,11 @@ class Users extends React.Component {
         this.props.updateUser({ sub: e.target.name, group: 'Administrators', company: this.props.user["custom:company"] ? this.props.user["custom:company"] : null });
     }
 
+    removeUser = (e) => {
+        console.log(e.target.name);
+        this.props.deleteUser({ sub: e.target.name, company: this.props.user["custom:company"] ? this.props.user["custom:company"] : null });
+    }
+
     showDrawer = () => {
         this.setState({
           visible: true,
@@ -72,7 +77,8 @@ class Users extends React.Component {
                     name: user.Username,
                     role: user.Group === 'Administrators' ? 'Administrator': 'Auditor',
                     type: user.Type,
-                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button name={user.Sub} onClick={this.makeAdministrator} type="link">Make Administrator</Button>
+                    action: user.Group === 'Administrators' ? <Button name={user.Sub} onClick={this.makeAuditor} type="link">Make Auditor</Button> : <Button name={user.Sub} onClick={this.makeAdministrator} type="link">Make Administrator</Button>,
+                    action2: user.Type === 'Purify' ? <Button name={user.Sub} onClick={this.removeUser} type="link">Remove</Button> : ''
                 } 
             }
             else
@@ -125,6 +131,11 @@ class Users extends React.Component {
                 title: '',
                 dataIndex: 'action',
                 key: 'action'
+            },
+            {
+                title: '',
+                dataIndex: 'action2',
+                key: 'action2'
             }
           ];
         
@@ -169,4 +180,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, fetchUsers, updateUser })(Users);
+export default connect(mapStateToProps, { getCurrentUser, fetchUsers, updateUser, deleteUser })(Users);

@@ -18,6 +18,7 @@ import Pie from './Pie';
 import RuleListItem from './RuleListItem';
 import moment from 'moment';
 import DashboardModule from './DashboardModule';
+import DashboardOverlay from './DashboardOverlay';
 
 import 'antd/dist/antd.css';
 import 'chartist/dist/chartist.min.css';
@@ -271,7 +272,7 @@ class Dashboard extends React.Component {
             <div className="dashboard-page">
                     <Header />
                     <TopMenu />
-                    
+                    {!this.state.scanComplete && <DashboardOverlay />}
                     {this.props.user.Status === 'New' && <WelcomeScreen />}
 
                 {this.props.user.Status === "Cancelled" && (
@@ -286,8 +287,10 @@ class Dashboard extends React.Component {
                         <p>{ModalText}</p>
                   </Modal>
                 )}
-                {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
+                
                     <div className="dashboard">
+                    {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
+                        <div>
                             {moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days')) && !this.state.showWelcomeScreen && (
                                 <div className="alert-wrapper">
                                     <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
@@ -355,8 +358,10 @@ class Dashboard extends React.Component {
                             {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
                             {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
                     </div>
+                    </div>
+                    )}
                 </div>
-                )}
+                
                 {this.state.scanComplete && <Footer />}
             </div>
         )

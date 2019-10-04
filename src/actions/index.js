@@ -910,3 +910,18 @@ export const addUser = (user) => async (dispatch, getState) => {
     const response = await purify.post('/users', myRequest).catch(err => console.log(err));  
     return response;
 }
+
+export const deleteUser = (user) => async (dispatch, getState) => {
+    let myRequest = {
+        body: {
+            ...user,
+            company: getState().user['custom:company']
+        }
+    };
+
+    console.log(user);
+    console.log(myRequest);
+    dispatch({ type: 'DELETE_USER', payload: user });
+    const response = await purify.delete('/users?id=' + user.sub, myRequest).catch(err => console.log(err));  
+    return response;
+}

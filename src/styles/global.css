@@ -312,6 +312,18 @@ input  {
     width: 100%;
 }
 
+.dashboard-overlay {
+    opacity: 0.4;
+    background-color: black;
+    color: white;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .dashboard-progress-item {
     display: flex;
     flex-direction: column;
@@ -2710,7 +2722,7 @@ th, td {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     background-color: rgba(9, 132, 227, 0.1);
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -2764,6 +2776,7 @@ th, td {
 .rule-detail-item {
     display: flex;
     justify-content: space-around;
+    padding: 0.2rem 0;
 }
 
 .rule-detail-line {
