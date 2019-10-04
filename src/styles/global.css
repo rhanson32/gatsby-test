@@ -595,6 +595,15 @@ input  {
     padding: 1rem 0;
 }
 
+.rule-container {
+    width: 100%;
+}
+
+.rule-container button {
+    width: 100%;
+    border: none;
+}
+
 .rule-list-item {
     width: 100%;
     display: flex;
@@ -626,14 +635,19 @@ input  {
 
 .rule-list-item-container {
     line-height: 150%;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     width: 20%;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .rule-list-item-container-wide {
     line-height: 150%;
     padding: 1rem 2rem;
     width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .rule-list-header-container {
@@ -2694,7 +2708,25 @@ th, td {
 
 .rule-detail {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    padding: 1rem 0;
+    background-color: rgba(9, 132, 227, 0.1);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+
 }
 
 .site-map-item a:hover {
@@ -2727,6 +2759,11 @@ th, td {
     display: flex;
     flex-direction: column;
     width: 80%;
+}
+
+.rule-detail-item {
+    display: flex;
+    justify-content: space-around;
 }
 
 .rule-detail-line {
@@ -2951,6 +2988,10 @@ th, td {
 
     .feature-card-new-image img {
         max-width: 325px;
+    }
+
+    .dashboard-module-item {
+        font-size: 10px;
     }
 
     .feature-card-new {
