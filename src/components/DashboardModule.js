@@ -1,10 +1,37 @@
 import React from 'react';
 import Line from './Line';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { Button } from 'antd';
 
 class DashboardModule extends React.Component {
+
+    state = {
+        selectedChart: 'last12Hours'
+    }
+
     componentDidMount() {
 
+    }
+
+    last12Hours = () => {
+        this.setState({ selectedChart: 'last12Hours' });
+    }
+
+    last3Days = () => {
+        this.setState({ selectedChart: 'last3Days' });
+    }
+
+    last7Days = () => {
+        this.setState({ selectedChart: 'last7Days' });
+    }
+
+    lastMonth = () => {
+        this.setState({ selectedChart: 'lastMonth' });
+    }
+
+    last3Months = () => {
+        this.setState({ selectedChart: 'last3Months' });
     }
 
     render() {
@@ -42,11 +69,19 @@ class DashboardModule extends React.Component {
                         </div>
                     </div>
                     <div className="dashboard-module-body-graph">
+                        <div className="history-chart-header-filters">
+                            <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
+                            <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
+                            <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
+                            {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(14, 'days')) && <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>}
+                            {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(2, 'months')) && <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>}
+                        </div>
+                        
+                        {this.props.metrics && this.props.metrics['last3Days'] && <Line selected={this.state.selectedChart} />}
                         <div className="legend">
                             <div className="legend-one"></div><div>Violations Discovered</div>
                             <div className="legend-two"></div><div>Violations Resolved</div>
                         </div>
-                        {this.props.metrics && this.props.metrics['last3Days'] && <Line selected={this.props.selected} />}
                    </div>
                 </div>
             </div>
@@ -58,7 +93,8 @@ const mapStateToProps = state => {
     return {
         metrics: state.metrics,
         rules: state.rules,
-        accounts: state.accounts
+        accounts: state.accounts,
+        user: state.user
     }
 }
 

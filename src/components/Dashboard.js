@@ -392,7 +392,7 @@ class Dashboard extends React.Component {
                             <div className="dashboard-max">
                                 {!this.state.showWelcomeScreen && (
                                     <div className="dashboard-top">
-                                        <div className="dashboard-title-short">Headline</div>
+                                        <div className="dashboard-title-short">Dashboard</div>
                                         <div className="dashboard-filters">
                                             <div style={{ paddingRight: "1rem" }}>Filters: </div>
                                             <Button.Group>
@@ -419,7 +419,7 @@ class Dashboard extends React.Component {
                                 )}
                                 {this.props.accounts.length !== 0 && !this.state.showWelcomeScreen && (
                                 <div className="dashboard-headlines">
-                                    <div className="dashboard-score">
+                                    {/* <div className="dashboard-score">
                                         <Card>
                                             <Card.Body>
                                                 <div className="headline-score-header">
@@ -444,8 +444,8 @@ class Dashboard extends React.Component {
                                                 </Progress>
                                             </Card.Body>
                                         </Card>
-                                    </div>
-                                    <div className="card-wrapper">
+                                    </div> */}
+                                    {/* <div className="card-wrapper">
                                         <Card>
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
@@ -461,8 +461,8 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </Card.Body>
                                         </Card>
-                                    </div>
-                                    <div className="card-wrapper">
+                                    </div> */}
+                                    {/* <div className="card-wrapper">
                                         <Card>
                                             <Card.Body>
                                                 <div className="card-metric-wrapper">
@@ -481,8 +481,8 @@ class Dashboard extends React.Component {
                                                 </div>
                                             </Card.Body>
                                         </Card>
-                                    </div>
-                                <div className="card-wrapper">
+                                    </div> */}
+                                {/* <div className="card-wrapper">
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
@@ -504,9 +504,9 @@ class Dashboard extends React.Component {
                                             </div>
                                         </Card.Body>
                                     </Card>
-                                </div> 
+                                </div>  */}
                                          
-                            <div className="card-wrapper">
+                                {/* <div className="card-wrapper">
                                     <Card>
                                         <Card.Body>
                                             <div className="card-metric-wrapper">
@@ -522,7 +522,7 @@ class Dashboard extends React.Component {
                                             </div>
                                         </Card.Body>
                                     </Card>
-                                </div>
+                                </div> */}
                             </div>
                             )}
                             {/* {!this.state.showWelcomeScreen && (
@@ -651,21 +651,21 @@ class Dashboard extends React.Component {
                                     
                                 </div>
                                 <div className="dashboard-trends-header">
-                                    <div className="dashboard-trends-title">Dashboard</div>
+                                    {/* <div className="dashboard-trends-title">Dashboard</div>
                                     <div className="history-chart-header-filters">
                                         <div className={this.state.selectedChart === 'last12Hours' ? 'selectedLink' : null}> <Button onClick={this.last12Hours} type="link">Last 12 Hours</Button></div>
                                         <div className={this.state.selectedChart === 'last3Days' ? 'selectedLink' : null}> <Button onClick={this.last3Days} type="link">Last 3 Days</Button></div>
                                         <div className={this.state.selectedChart === 'last7Days' ? 'selectedLink' : null}>  <Button onClick={this.last7Days} type="link">Last 7 Days</Button></div>
                                         {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(14, 'days')) && <div className={this.state.selectedChart === 'lastMonth' ? 'selectedLink' : null}>  <Button onClick={this.lastMonth}  type="link">Last Month</Button></div>}
                                         {moment(parseInt(this.props.user.CreateDate)*1000).isBefore(moment().subtract(2, 'months')) && <div className={this.state.selectedChart === 'last3Months' ? 'selectedLink' : null}>  <Button onClick={this.last3Months} type="link">Last 3 Months</Button></div>}
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <DashboardModule selected={this.state.selectedChart} />
                             </div>
                                 )}
                                 <div className="dashboard-trends-title">Rule Detail</div>
                                 <div className="rule-list-header">
-                                    <div className="rule-list-header-container">
+                                    <div className="rule-list-header-container-wide">
                                         Rule Name
                                     </div>
                                     <div className="rule-list-header-container">

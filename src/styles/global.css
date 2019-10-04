@@ -189,6 +189,7 @@ input  {
     font-size: 40px;
     font-weight: 400;
     line-height: 160%;
+    margin: 1rem 0;
 }
 
 .dashboard-title-short {
@@ -199,6 +200,7 @@ input  {
     justify-content: flex-start;
     align-items: flex-end;
     line-height: 140%;
+    padding-bottom: 0.5rem;
 }
 
 .dashboard-filters {
@@ -598,9 +600,9 @@ input  {
     display: flex;
     justify-content: space-around;
     background-color: white;
-    border-left: 1px solid #CCC;
-    border-bottom: 1px solid #F0F0F0;
-    border-right: 1px solid #CCC;
+    border-left: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
 }
 
 .rule-list-item:hover {
@@ -617,7 +619,6 @@ input  {
     justify-content: space-around;
     background-color: #0984e3;
     color: white;
-    margin-top: 1rem;
     padding: 1rem 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -625,7 +626,34 @@ input  {
 
 .rule-list-item-container {
     line-height: 150%;
-    padding: 1rem 0;
+    padding: 1rem;
+    width: 20%;
+}
+
+.rule-list-item-container-wide {
+    line-height: 150%;
+    padding: 1rem 2rem;
+    width: 40%;
+}
+
+.rule-list-header-container {
+    line-height: 150%;
+    padding: 0 0.5rem;
+    width: 20%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.rule-list-header-container-wide {
+    line-height: 150%;
+    padding: 0 2rem;
+    width: 40%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .dashboard-module-item {
@@ -2880,9 +2908,10 @@ th, td {
 
 .history-chart-header-filters {
     display: flex;
-    justify-content: flex-end;
-    width: 70%;
+    justify-content: center;
+    width: 100%;
     align-items: center;
+    padding: 0 0 0.5rem 0;
 }
 
 .red-icon {

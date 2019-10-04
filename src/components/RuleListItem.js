@@ -4,8 +4,8 @@ class RuleListItem extends React.Component {
 
     render() {
         return(
-            <div className={this.props.index % 2 === 0 ? "rule-list-item even-item" : "rule-list-item"}>
-                <div className="rule-list-item-container">
+            <div className="rule-list-item">
+                <div className="rule-list-item-container-wide">
                     {this.props.rule.Name}
                 </div>
                 <div className="rule-list-item-container">
