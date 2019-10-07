@@ -15,7 +15,7 @@ class RuleListItem extends React.Component {
 
     render() {
         return(
-            <div className="rule-container">
+            <div index={this.props.index} className="rule-container">
                 <button onClick={this.toggleShow}>
                     <div className="rule-list-item">
                         <div className="rule-list-item-container-wide">
@@ -50,9 +50,9 @@ class RuleListItem extends React.Component {
                                 Violation Date
                             </div>
                         </div>
-                        {this.props.rule.Violations.filter(violation => violation.Status === 'Active').length > 0 && this.props.rule.Violations.filter(violation => violation.Status === 'Active').map(violation => {
+                        {this.props.rule.Violations.filter(violation => violation.Status === 'Active').length > 0 && this.props.rule.Violations.filter(violation => violation.Status === 'Active').map((violation, index) => {
                             return (
-                                <div className="rule-detail-item">
+                                <div key={index} className="rule-detail-item">
                                     <div>
                                         {violation.ResourceId}
                                     </div>

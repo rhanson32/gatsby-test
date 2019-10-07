@@ -922,6 +922,6 @@ export const deleteUser = (user) => async (dispatch, getState) => {
     console.log(user);
     console.log(myRequest);
     dispatch({ type: 'DELETE_USER', payload: user });
-    const response = await purify.delete('/users?id=' + user.sub, myRequest).catch(err => console.log(err));  
+    const response = await purify.delete('/users?id=' + user.sub + '&company=' + getState().user['custom:company'], myRequest).catch(err => console.log(err));  
     return response;
 }
