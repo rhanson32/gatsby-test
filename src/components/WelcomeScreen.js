@@ -12,7 +12,7 @@ class WelcomeScreen extends React.Component {
     }
 
     handleDismiss = () => {
-        this.props.updateCustomerStatus("Active");
+        // this.props.updateCustomerStatus("Active");
         this.setState({ welcomeScreen: false });
     }
 

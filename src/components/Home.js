@@ -24,6 +24,7 @@ class Home extends React.Component {
                 <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices." image={agreement} />
                 <div className="feature-teaser">
                     <Link to="/app/features#Top">See the rest of our features <Icon name="arrow-right" /></Link>
+                    <div className="feature-questions">Questions? Email us at info@purify.cloud.</div>
                 </div>
                 <SiteMap />
             </div>

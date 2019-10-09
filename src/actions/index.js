@@ -44,11 +44,19 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
 
     dispatch({ type: 'ADD_ACCOUNT', payload: fullItem });
 
-    purify.post('/accounts', myRequest).then(
-        response => {
-            console.log(response);
-    }).catch(err => console.log(err));
-    
+    try{
+        await purify.post('/accounts', myRequest).then(
+            response => {
+                console.log(response);
+        });
+
+        return {statusCode: 200 };
+    }
+    catch(err)
+    {
+        console.log(err);
+        return { statusCode: 400 }
+    }
 }
 
 export const updateUser = (user) => async dispatch => {

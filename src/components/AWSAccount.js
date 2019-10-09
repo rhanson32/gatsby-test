@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, notification } from 'antd';
 
-import { toggleAddAccount, postAccount, getCurrentUser } from '../actions';
+import { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
@@ -25,11 +25,18 @@ class AddAccount extends React.Component {
         })
       }
 
-    submitAccount = () => {
+    submitAccount = async () => {
         if(this.state.AccountId)
         {
-            this.props.postAccount(this.state, this.props.user.CustomerId);
+            let response = await this.props.postAccount(this.state, this.props.user.CustomerId);
             this.props.toggleAddAccount();
+
+            console.log(response);
+
+            if(response.statusCode === 200)
+            {
+                this.props.updateCustomerStatus('Active');
+            }
         }
         else
         {
@@ -70,4 +77,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { toggleAddAccount, postAccount, getCurrentUser })(AddAccount);
+export default connect(mapStateToProps, { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus })(AddAccount);

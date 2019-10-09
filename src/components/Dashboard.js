@@ -4,17 +4,15 @@ import 'c3/c3.css';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import { isLoggedIn, getExpiration } from '../utils/auth';
-import { Spin, Table, Modal, Button, message, notification, Tooltip, Alert } from 'antd';
-import { Card, Progress } from "tabler-react";
+import { Modal, Button, message, notification, Alert } from 'antd';
+import { Progress } from "tabler-react";
 import "tabler-react/dist/Tabler.css";  
 import TopMenu from './TopMenu';
 import Header from './Header';
+import { Link } from '@reach/router';
 import Footer from './Footer';
 import WelcomeScreen from './WelcomeScreen';
-import ViolationTable from './ViolationTable';
 import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount } from '../actions';
-import Line from './Line';
-import Pie from './Pie';
 import RuleListItem from './RuleListItem';
 import moment from 'moment';
 import DashboardModule from './DashboardModule';
@@ -56,7 +54,6 @@ class Dashboard extends React.Component {
 
     componentDidMount = async () => {
         const user = await getCurrentUser();
-        console.log("User:", user);
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -129,6 +126,8 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
         }
+
+        console.log("Account age (Days):", moment().diff(moment(parseInt(this.props.user.CreateDate)*1000), 'days'));
 
         this.setState({ interval: setInterval( async () => {
             this.props.fetchDashboardData(this.props.user.CustomerId);
@@ -273,7 +272,6 @@ class Dashboard extends React.Component {
                     <Header />
                     <TopMenu />
                     {!this.state.scanComplete && <DashboardOverlay />}
-                    {this.props.user.Status === 'New' && <WelcomeScreen />}
 
                 {this.props.user.Status === "Cancelled" && (
                     <Modal
@@ -289,9 +287,9 @@ class Dashboard extends React.Component {
                 )}
                 
                     <div className="dashboard">
-                    {this.props.user && this.props.user.Status && this.props.user.Status !== 'New' && ( 
-                        <div>
-                            {moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days')) && !this.state.showWelcomeScreen && (
+                    {this.props.user && ( 
+                        <div className="dashboard-addition">
+                            {(this.props.user.Status === 'New' || moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days'))) && !this.state.showWelcomeScreen && (
                                 <div className="alert-wrapper">
                                     <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
                                 </div>
@@ -305,9 +303,9 @@ class Dashboard extends React.Component {
                             </div>
                             )}
                             <div className="dashboard-max">
-                                {!this.state.showWelcomeScreen && (
-                                    <div className="dashboard-top">
-                                        <div className="dashboard-title-short">Dashboard</div>
+                                <div className="dashboard-top">
+                                    {this.props.metrics && this.props.metrics['last3Days'] && <div className="dashboard-title-short">Dashboard</div>}
+                                    {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (
                                         <div className="dashboard-filters">
                                             <div style={{ paddingRight: "1rem" }}>Filters: </div>
                                             <Button.Group>
@@ -325,38 +323,45 @@ class Dashboard extends React.Component {
                                                 </Button>
                                             </Button.Group>
                                         </div>
-                                    </div>
-                                )}
-                                {this.props.accounts.length === 0 && !this.state.showWelcomeScreen && this.state.scanComplete && (
+                                    )}
+                                </div>
+                                
+                                {this.props.user.Status === 'New' && !this.state.showWelcomeScreen && (
                                     <div className="headlines-empty">
-                                        No accounts currently enabled. Please enable accounts to see statistics about your accounts.
+                                        AWS Master account has not been configured. Please &nbsp;<Link to="/app/accounts">add your organization's master account</Link>&nbsp; to continue.
                                     </div>
                                 )}
                             
-                             {!this.state.showWelcomeScreen && (   
+                             {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (   
                                 <div className="dashboard-trends">
                                     <DashboardModule selected={this.state.selectedChart} />
                                 </div>
                             )}
-                                <div className="dashboard-trends-title">Rule Detail</div>
-                                <div className="rule-list-header">
-                                    <div className="rule-list-header-container-wide">
-                                        Rule Name
+                            {   this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (
+                                    <div className="dashboard-rule-detail-section">
+                                        <div className="dashboard-trends-title">Rule Detail</div>
+                                        <div className="rule-list-header">
+                                            <div className="rule-list-header-container-wide">
+                                                Rule Name
+                                            </div>
+                                            <div className="rule-list-header-container">
+                                                Rule Status
+                                            </div>
+                                            <div className="rule-list-header-container">
+                                                Violation Count
+                                            </div>
+                                            <div className="rule-list-header-container">
+                                                Compliance Status
+                                            </div>
+                                        </div>
+                                        {this.state.showAll && this.props.rules.map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                                        {this.state.showSecurity && this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                                        {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                                        {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
                                     </div>
-                                    <div className="rule-list-header-container">
-                                        Rule Status
-                                    </div>
-                                    <div className="rule-list-header-container">
-                                        Violation Count
-                                    </div>
-                                    <div className="rule-list-header-container">
-                                        Compliance Status
-                                    </div>
-                                </div>
-                            {this.state.showAll && this.props.rules.map((rule, index) => <RuleListItem rule={rule} index={index} />)}
-                            {this.state.showSecurity && this.props.rules.filter(rule => rule.Category === 'Security').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
-                            {this.state.showWaste && this.props.rules.filter(rule => rule.Category === 'Waste').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
-                            {this.state.showConfiguration && this.props.rules.filter(rule => rule.Category === 'Configuration').map((rule, index) => <RuleListItem rule={rule} index={index} />)}
+                                )
+                            }
+                            
                     </div>
                     </div>
                     )}

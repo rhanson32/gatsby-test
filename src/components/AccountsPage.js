@@ -12,13 +12,12 @@ import { getExpiration } from '../utils/auth';
 import { postAccount, getAccounts, toggleAddAccount, getCurrentUser } from '../actions';
 import TopMenu from './TopMenu';
 import SwitchWrapAccount from './SwitchWrapAccount';
+import AWSAccount from './AWSAccount';
 
 class Accounts extends React.Component {
 
   state = {
-    scanComplete: false,
-    showDrawer: false,
-    accountId: ``
+    scanComplete: false
   }
 
     componentDidMount = async () => {
@@ -69,19 +68,6 @@ class Accounts extends React.Component {
         postAccount();
     }
 
-    onClose = () => {
-      this.setState({
-        showDrawer: false
-      })
-    }
-
-    showDrawer = (event) => {
-      this.setState({
-        accountId: event.target.id,
-        showDrawer: true
-      });
-    }
-
     render() {
         const dataSource = this.props.accounts && this.props.accounts.map((account, index) => {
             return {
@@ -97,7 +83,10 @@ class Accounts extends React.Component {
         });
 
         const MissingMaster = () => (
-          <p style={{ margin: "0.7rem auto", width: "100%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tab within  <Link to="/app/settings">Settings</Link>.</p>
+          <div>
+            <p style={{ margin: "0.7rem auto", width: "100%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tab within  <Link to="/app/settings">Settings</Link>.</p>
+            <AWSAccount />
+          </div>
         );
           
           const columns = [
@@ -176,7 +165,7 @@ class Accounts extends React.Component {
 
                 <div className="accounts">
                 {
-                    this.state.scanComplete && this.props.accounts.length === 0 && (
+                    this.state.scanComplete && this.props.user.Status === 'New' && (
                       <Alert
                       style={{ width: "100%" }}
                       message="AWS Master Account Missing"
@@ -190,38 +179,23 @@ class Accounts extends React.Component {
                     )
                   }
                   <div className="accounts-max">
-                  <div className="support-screen-header">
-                      <h1>Accounts</h1>
-                  </div>
-                  
-                    {this.props.accounts.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
-                    <div className="web-accounts">
-                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} dataSource={dataSource} columns={columns} />}
-                    </div>
-                    <div className="mobile-accounts">
-                      {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}
-                    </div>
-                   {
-                     this.state.showDrawer && (
-                       <Drawer
-                        title="Edit Account"
-                        placement="right"
-                        closable={false}
-                        onClose={this.onClose}
-                        visible={this.state.showDrawer}
-                       >
-                         <label>IAM Role Name</label>
-                         <Input
-                          style={{ margin: "1rem 0" }}
-                          placeholder="Purify"
-                          />
-                          <div className="drawer-submit">
-                            <Button type="primary">Update</Button>
+                    {this.props.user.Status === 'Active' && (
+                        <div>
+                          <div className="support-screen-header">
+                              <h1>Accounts</h1>
                           </div>
-                       </Drawer>
-                     )
-                   }
-                   </div>
+                        
+                          {this.props.accounts.length === 0 && !this.state.scanComplete && <Spin tip="Loading..." style={{ margin: "auto", fontSize: "2rem" }} size="large" />}
+                          <div className="web-accounts">
+                            {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} dataSource={dataSource} columns={columns} />}
+                          </div>
+                          <div className="mobile-accounts">
+                            {(this.state.scanComplete || this.props.accounts.length > 0) && <Table pagination={{ position: "top", hideOnSinglePage: true }} style={{ maxWidth: "900px", margin: "2rem auto" }} dataSource={dataSource} columns={mobileColumns} />}
+                          </div>
+                        </div>
+                    )}
+                    
+                  </div>
                 </div> 
                 <Footer />
             </div>
