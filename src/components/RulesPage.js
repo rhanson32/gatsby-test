@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import moment from 'moment';
 import SwitchWrap from './SwitchWrap';
 import { getExpiration } from '../utils/auth';
-import { Button, Table, Spin, message, Drawer, Modal } from 'antd';
+import { Button, Table, Spin, message, Modal } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
 import { getRules, getCurrentUser, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, enableRule, disableRule, modifyRules } from '../actions';
@@ -240,6 +240,9 @@ class RulesPage extends React.Component {
                         <div className="mobile-rules">
                             {this.props.Rules.length !== 0 && <Table pagination={{ position: "bottom", pageSize: 8 }} bordered style={{ width: "90%", margin: "auto" }} dataSource={dataSource} columns={mobileColumns} />} 
                         </div>
+                        </div>
+                        <div className="rules-page-message">
+                            *** Note: Purify rules today will monitor your cloud environment and alert you about violations, but they will not automatically remediate violations. Future releases in the next few months will add automated remediation for no additional charge.
                         </div>
                         <Modal
                             visible={this.state.visible && this.state.ruleId !== null}

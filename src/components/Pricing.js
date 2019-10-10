@@ -17,6 +17,7 @@ class Pricing extends React.Component {
                 <ExternalHeader />
                 
                 <div className="pricing-main">
+                <div className="pricing-header">
                 <div className="pricing-header-new">
                     Pricing
                 </div>
@@ -24,7 +25,8 @@ class Pricing extends React.Component {
                     All prices shown are monthly subscription prices.
                 </div>
                 <div className="pricing-note">
-                    Note: Our product is currently in beta. For a limited time, use the code 'PURIFYFREE' at checkout to upgrade to the Standard plan for free for 3 months.
+                    All Standard subscriptions come with an automatic 30 day free trial.
+                </div>
                 </div>
                 <div className="pricing-cards">
                 

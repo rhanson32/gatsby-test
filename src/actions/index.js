@@ -64,14 +64,12 @@ export const postHistory = (event) => async (dispatch, getState) => {
     let myRequest = {
         body: {
             ...event,
-            CustomerId: getState().user.CustomerId
+            CustomerId: getState().user.CustomerId,
+            EventData: {
+                User: { S: getState().user.email }
+            }     
         }
     };
-
-    console.log(event);
-
-    console.log(getState().user.CustomerId);
-
 
     dispatch({ type: 'POST_EVENT', payload: event });
 

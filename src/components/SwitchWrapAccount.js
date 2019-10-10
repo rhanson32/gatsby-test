@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, notification } from 'antd';
 import { connect } from 'react-redux';
-import { updateAccount } from '../actions';
+import { updateAccount, postHistory } from '../actions';
 
 class SwitchWrapAccount extends React.Component {
 
@@ -15,8 +15,9 @@ class SwitchWrapAccount extends React.Component {
                     ...this.props.account,
                     Enabled: newState
                 };
-                console.log(newAccount);
+
                 this.props.updateAccount(newAccount, this.props.account.RoleName);
+                this.props.postHistory({ Event: newAccount.Enabled ? 'EnableAccount' : 'DisableAccount' })
             }
             else
             {
@@ -49,4 +50,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { updateAccount })(SwitchWrapAccount);
+export default connect(mapStateToProps, { updateAccount, postHistory })(SwitchWrapAccount);

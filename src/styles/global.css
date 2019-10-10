@@ -636,7 +636,7 @@ input  {
 }
 
 .rule-list-item:hover {
-    background-color: #DDD;
+    background-color: #EEE;
 }
 
 .even-item {
@@ -1756,33 +1756,55 @@ input  {
 }
 
 .pricing-main {
-    width: 70%;
-    margin: auto;
-    max-width: 1200px;
+    width: 100%;
+    background-color: #dfe6e9;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pricing-header {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    background-color: white;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-radius: 5px;
 }
 
 .pricing-header-new {
-    padding: 2rem 0;
+    padding:  0 0 1rem 0;
     font-size: 40px;
     font-weight: 700;
+    width: 80%;
 }
 
 .pricing-description {
     font-size: 24px;
+    width: 80%;
 }
 
 .pricing-note {
     margin-top: 1rem;
     font-size: 16px;
+    width: 80%;
+}
+
+.pricing-card-new:hover {
+    width: 50%;
 }
 
 .pricing-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: stretch;
-    margin: 4rem 0;
+    margin: 2rem 0;
     width: 100%;
+    max-width: 1000px;
+    background-color: #dfe6e9;
 }
 
 .feature-teaser {
@@ -1808,7 +1830,7 @@ input  {
 }
 
 .pricing-card-new {
-    max-width: 300px;
+    max-width: 400px;
     display: flex;
     align-items: stretch;
     width: 45%;
@@ -2387,7 +2409,11 @@ input  {
 }
 
 .account-item {
-    width: 60%;
+    width: 100%;
+    border: 1px solid #CCC;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .users-item {
@@ -2424,7 +2450,7 @@ input  {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 80%;
+    width: 100%;
 }
 
 .account-item-field-large label {
@@ -2449,6 +2475,15 @@ input  {
     padding: 0 1rem;
 }
 
+.account-missing-list {
+    margin-top: 2rem;
+}
+
+.account-item-header {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
 .rule-arrow-dark {
     color: #555;
     border: none;
@@ -2459,6 +2494,23 @@ input  {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
+}
+
+.rules-page-message {
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    color: #0984e3;
+}
+
+.account-item-buttons input {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.account-item-buttons button {
+    margin: 1rem 0;
 }
 
 .metrics-graph-missing {
@@ -2757,12 +2809,15 @@ th, td {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    background-color: rgba(9, 132, 227, 0.1);
+    padding: 1rem 1.5rem;
+    background-color: rgba(99, 110, 114, 0.5);
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    color: white;
 }
 
 .show {

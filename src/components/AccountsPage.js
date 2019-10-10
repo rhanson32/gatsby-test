@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 import { Auth } from 'aws-amplify';
 import moment from 'moment';
-import { Link } from 'gatsby';
 import { FaAws, FaMicrosoft } from 'react-icons/fa';
-import { Spin, Button, Table, Alert, message, Drawer, Input } from 'antd';
+import { Spin, Button, Table, message } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
 import { getExpiration } from '../utils/auth';
@@ -81,13 +80,6 @@ class Accounts extends React.Component {
                 state: <SwitchWrapAccount checked={account.Enabled} account={account} />
             }    
         });
-
-        const MissingMaster = () => (
-          <div>
-            <p style={{ margin: "0.7rem auto", width: "100%" }}>Purify scans for AWS accounts using the AWS Master account. Please enter your master account details on the AWS tab within  <Link to="/app/settings">Settings</Link>.</p>
-            <AWSAccount />
-          </div>
-        );
           
           const columns = [
             {
@@ -164,20 +156,6 @@ class Accounts extends React.Component {
                 <TopMenu />
 
                 <div className="accounts">
-                {
-                    this.state.scanComplete && this.props.user.Status === 'New' && (
-                      <Alert
-                      style={{ width: "100%" }}
-                      message="AWS Master Account Missing"
-                      description={<MissingMaster />}
-                      type="warning"
-                      showIcon
-                      closable
-                      banner
-                      closeText="Close"
-                    />
-                    )
-                  }
                   <div className="accounts-max">
                     {this.props.user.Status === 'Active' && (
                         <div>
@@ -194,7 +172,7 @@ class Accounts extends React.Component {
                           </div>
                         </div>
                     )}
-                    
+                    {this.props.user.Status === 'New' && <AWSAccount />}
                   </div>
                 </div> 
                 <Footer />

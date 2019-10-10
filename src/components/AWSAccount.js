@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, notification } from 'antd';
 
-import { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus } from '../actions';
+import { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus, postHistory } from '../actions';
 
 class AddAccount extends React.Component {
     state = {
@@ -36,6 +36,7 @@ class AddAccount extends React.Component {
             if(response.statusCode === 200)
             {
                 this.props.updateCustomerStatus('Active');
+                this.props.postHistory({ Event: 'AddMasterAccount' })
             }
         }
         else
@@ -54,19 +55,25 @@ class AddAccount extends React.Component {
 
     render() {
         return (
-            <div className="settings-card-title">
-                <div className="account-list">
+                <div className="account-missing-list">
                     <div className="account-item">
+                        <div className="account-item-header">
+                            Your account currently has no AWS Master account defined. Please enter your AWS master account ID in order to scan your AWS estate.
+                        </div>
                         <div className="account-item-field-large">
-                            <label>AWS Account ID</label>
-                            <Input name="AccountId" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="e.g. 25237483438" />
+                            <div>
+                                <label>AWS Account ID</label>
+                            </div>
+                            <div className="account-item-buttons">
+                                
+                                <Input name="AccountId" value={this.state.AccountId} onChange={this.handleUpdate} placeholder="e.g. 25237483438" />
+                                <Button onClick={this.submitAccount} type="primary">Submit</Button>
+                            </div>
                         </div>
-                        <div className="account-item-buttons">
-                            <Button onClick={this.submitAccount} type="primary">Submit</Button>
-                        </div>
+                        
                     </div>
                 </div>
-            </div>
+
         )
     }
 }
@@ -77,4 +84,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus })(AddAccount);
+export default connect(mapStateToProps, { toggleAddAccount, postAccount, getCurrentUser, updateCustomerStatus, postHistory })(AddAccount);

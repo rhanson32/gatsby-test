@@ -36,20 +36,23 @@ class RuleListItem extends React.Component {
                 </button>
                 {this.state.showDetail && (
                     <div className={this.state.showDetail ? "rule-detail show" : "rule-detail hide"}>
-                        <div className="rule-detail-item">
-                            <div>
-                                Resource Id
+                        {this.props.rule.Violations.filter(violation => violation.Status === 'Active').length > 0 && (
+                            <div className="rule-detail-item">
+                                <div>
+                                    Resource Id
+                                </div>
+                                <div>
+                                    Account Id
+                                </div>
+                                <div>
+                                    Resource Type
+                                </div>
+                                <div>
+                                    Violation Date
+                                </div>
                             </div>
-                            <div>
-                                Account Id
-                            </div>
-                            <div>
-                                Resource Type
-                            </div>
-                            <div>
-                                Violation Date
-                            </div>
-                        </div>
+                        )}
+                        
                         {this.props.rule.Violations.filter(violation => violation.Status === 'Active').length > 0 && this.props.rule.Violations.filter(violation => violation.Status === 'Active').map((violation, index) => {
                             return (
                                 <div key={index} className="rule-detail-item">
