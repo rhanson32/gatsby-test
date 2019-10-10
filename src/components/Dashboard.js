@@ -334,7 +334,7 @@ class Dashboard extends React.Component {
                             
                              {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (   
                                 <div className="dashboard-trends">
-                                    <DashboardModule selected={this.state.selectedChart} />
+                                    <DashboardModule filter={this.state.showAll ? 'all' : this.state.showSecurity ? 'security' : this.state.showWaste ? 'waste' : 'configuration'} selected={this.state.selectedChart} />
                                 </div>
                             )}
                             {   this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (

@@ -59,6 +59,37 @@ export const postAccount = (item, customerId) => async (dispatch, getState) => {
     }
 }
 
+export const postHistory = (event) => async (dispatch, getState) => {
+
+    let myRequest = {
+        body: {
+            ...event,
+            CustomerId: getState().user.CustomerId
+        }
+    };
+
+    console.log(event);
+
+    console.log(getState().user.CustomerId);
+
+
+    dispatch({ type: 'POST_EVENT', payload: event });
+
+    try{
+        await purify.post('/history', myRequest).then(
+            response => {
+                console.log(response);
+        });
+
+        return { statusCode: 200 };
+    }
+    catch(err)
+    {
+        console.log(err);
+        return { statusCode: 400 }
+    }
+}
+
 export const updateUser = (user) => async dispatch => {
     let myRequest = {
         body: {
@@ -103,7 +134,6 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
 
 export const fetchDashboardData = (id) => async (dispatch, getState) => {
 
-    console.log(id);
     const settings = purify.get('/settings?id=' + id);
     const users = purify.get('/users?id=' + id);
     const tickets = purify.get('/tickets?id=' + getState().user.CustomerId);

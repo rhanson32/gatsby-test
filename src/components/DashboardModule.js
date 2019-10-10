@@ -35,24 +35,25 @@ class DashboardModule extends React.Component {
     }
 
     render() {
+
         return (
             <div className="dashboard-module">
                 <div className="dashboard-module-header">
                     <div className="dashboad-module-item">
-                        <div className="dashboard-module-item-header">Purify Score</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.PurifyScore}</div>
+                        <div className="dashboard-module-item-header">{this.props.filter === "all" ? 'Purify Score' : this.props.filter === 'security' ? 'Security Score' : this.props.filter === 'waste' ? 'Waste Score' : 'Configuration Score'}</div>
+                        <div className="dashboard-module-item-body">{this.props.filter === "all" ? this.props.metrics.PurifyScore : this.props.filter === 'security' ? this.props.metrics.SecurityScore : this.props.filter === 'waste' ? this.props.metrics.WasteScore : this.props.metrics.ConfigurationScore}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Violations</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.Security ? this.props.metrics.Security.Violations + this.props.metrics.Waste.Violations + this.props.metrics.Configuration.Violations : ''}</div>
+                        <div className="dashboard-module-item-body">{this.props.filter === "all" ? this.props.metrics.Security.Violations + this.props.metrics.Waste.Violations + this.props.metrics.Configuration.Violations : this.props.filter === 'security' ? this.props.metrics.Security.Violations : this.props.filter === 'waste' ? this.props.metrics.Waste.Violations : this.props.metrics.Configuration.Violations}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Evaluations</div>
-                        <div className="dashboard-module-item-body">{this.props.metrics.Security ? this.props.metrics.Security.Evaluations + this.props.metrics.Waste.Evaluations + this.props.metrics.Configuration.Evaluations : ''}</div>
+                        <div className="dashboard-module-item-body">{this.props.filter === "all" ? this.props.metrics.Security.Evaluations + this.props.metrics.Waste.Evaluations + this.props.metrics.Configuration.Evaluations : this.props.filter === 'security' ? this.props.metrics.Security.Evaluations : this.props.filter === 'waste' ? this.props.metrics.Waste.Evaluations : this.props.metrics.Configuration.Evaluations}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Active Rules</div>
-                        <div className="dashboard-module-item-body">{this.props.rules && this.props.rules.length > 0 ? this.props.rules.filter(rule => rule.Enabled).length : ''}</div>
+                        <div className="dashboard-module-item-body">{this.props.rules && this.props.rules.length > 0 ? this.props.filter === "all" ? this.props.rules.filter(rule => rule.Enabled).length : this.props.filter === 'security' ? this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Security').length : this.props.filter === 'waste' ? this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Waste').length : this.props.rules.filter(rule => rule.Enabled && rule.Category === 'Configuration').length  : ''}</div>
                     </div>
                     <div className="dashboad-module-item">
                         <div className="dashboard-module-item-header">Active Accounts</div>
@@ -62,10 +63,28 @@ class DashboardModule extends React.Component {
                 <div className="dashboard-module-body">
                     <div className="dashboard-module-body-sidebar">
                         <div className="dashboard-sidebar-header">
-                            New Violations
+                            Active Violations
                         </div>
                         <div className="dashboard-sidebar-body">
-                            35
+                            {this.props.rules.map(rule => {
+                                return rule.Violations.filter(violation => violation.Status === 'Active').map(violation => 1).reduce((sum, num) => sum + num, 0);
+                            }).reduce((sum, num) => sum + num, 0)}
+                        </div>
+                        <div className="dashboard-sidebar-header">
+                            Deferred Violations
+                        </div>
+                        <div className="dashboard-sidebar-body">
+                            {this.props.rules.map(rule => {
+                                return rule.Violations.filter(violation => violation.Status === 'Deferred').map(violation => 1).reduce((sum, num) => sum + num, 0);
+                            }).reduce((sum, num) => sum + num, 0)}
+                        </div>
+                        <div className="dashboard-sidebar-header">
+                            Exempt Violations
+                        </div>
+                        <div className="dashboard-sidebar-body">
+                            {this.props.rules.map(rule => {
+                                return rule.Violations.filter(violation => violation.Status === 'Exempt').map(violation => 1).reduce((sum, num) => sum + num, 0);
+                            }).reduce((sum, num) => sum + num, 0)}
                         </div>
                     </div>
                         <div className="dashboard-module-body-graph">

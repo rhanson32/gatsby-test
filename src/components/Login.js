@@ -4,7 +4,7 @@ import { setUser, setExpiration, isLoggedIn } from '../utils/auth'
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
-import { saveUser } from '../actions'
+import { saveUser, postHistory } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
 import { Icon } from 'tabler-react';
@@ -288,6 +288,8 @@ class Login extends React.Component {
           user
         });
 
+        this.props.postHistory({ })
+
         const userInfo = {
           ...user.attributes,
           username: user.username,
@@ -313,6 +315,8 @@ class Login extends React.Component {
           console.log("Navigating to new page...");
           navigate("/app/dashboard");
         }
+
+        this.props.postHistory({ CustomerId: this.props.user.CustomerId });
       }
     } catch (err) {
       this.setState({ error: err, loading: false, buttonText: 'Sign In' })
@@ -474,9 +478,10 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-      mobileMenu : state.mobile.mobileMenu
+      mobileMenu : state.mobile.mobileMenu,
+      user : state.user
   }
 }
   
-export default connect(mapStateToProps, { saveUser })(Login)
+export default connect(mapStateToProps, { saveUser, postHistory })(Login)
   

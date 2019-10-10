@@ -119,7 +119,7 @@ class RulesPage extends React.Component {
                     OFF
                 </Button>
                 <Button name="monitor" id={rule.RuleId} onClick={this.enableRule} type={rule.Enabled ? "primary": "default"} size="default">
-                    Monitor
+                    Enable
                 </Button>
             </Button.Group>,
                 description: rule.Description
@@ -227,7 +227,7 @@ class RulesPage extends React.Component {
                                     <div className="rules-bulk-switch">
                                         <ButtonGroup>
                                             <Button size="large" onClick={this.disableAll}>Disable All</Button>
-                                            <Button size="large" onClick={this.monitorAll}>Monitor All</Button>
+                                            <Button size="large" onClick={this.monitorAll}>Enable All</Button>
                                         </ButtonGroup>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from '@reach/router'
 import { Button } from 'antd';
+import { postHistory } from '../actions';
 import { logout, isLoggedIn } from "../utils/auth"
 import { Auth } from 'aws-amplify';
 import { Avatar } from 'tabler-react';
@@ -9,6 +10,11 @@ import logo from '../../static/PurifyWhiteLogo_2.png';
 
 
 class Header extends React.Component {
+
+    signOut = () => {
+        this.props.postHistory({ Event: 'Logout', EventData: { User: { S: this.props.user.email } } }).catch(err => console.log(err));
+        Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))
+    }
 
     render() {
         return (
@@ -39,7 +45,7 @@ class Header extends React.Component {
                         isLoggedIn() && this.props.user.email && (
                             <Button
                                 type="default"
-                                onClick={() => Auth.signOut().then(logout(() => navigate('/app/login'))).catch(err => console.log('error:', err))}
+                                onClick={this.signOut}
                             >
                                 Sign Out
                             </Button>
@@ -57,4 +63,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, { postHistory })(Header);
