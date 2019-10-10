@@ -763,6 +763,7 @@ export const getHistory = (user) => async dispatch => {
     const historyResponse = await purify.get('/history?id=' + CustomerId).catch(err => console.log(err));
 
     const Items = historyResponse ? historyResponse.data.map(item => {
+
         return {
             CustomerId: item.CustomerId.S,
             EventTime: parseInt(item.EventTime.N) * 1000,
@@ -786,7 +787,12 @@ export const disableRule = (id, user) => async (dispatch, getState) => {
             {
                 myRequest.body = {
                     ...rule,
-                    Enabled: false
+                    Enabled: false,
+                    user: user.email,
+                    EventData: { 
+                        RuleId: {S: id },
+                        User: { S: user.email }
+                    }
                 };
 
                 purify.put('/rules', myRequest).catch(err => console.log(err));
@@ -809,7 +815,9 @@ export const enableRule = (id, user) => async (dispatch, getState) => {
     const prevState = getState();
     let myRequest = {
         body: { }
-    }
+    };
+
+    console.log(user);
 
     let newRules = prevState.rules.map(rule => {
 
@@ -817,7 +825,12 @@ export const enableRule = (id, user) => async (dispatch, getState) => {
             {
                 myRequest.body = {
                     ...rule,
-                    Enabled: true
+                    Enabled: true,
+                    user: user.email,
+                    EventData: { 
+                        RuleId: {S: id },
+                        User: { S: user.email }
+                    }
                 };
 
                 purify.put('/rules', myRequest).catch(err => console.log(err));
@@ -848,7 +861,8 @@ export const toggleRule = (id, user) => async (dispatch, getState) => {
             {
                 myRequest.body = {
                     ...rule,
-                    Enabled: !rule.Enabled
+                    Enabled: !rule.Enabled,
+                    user: user.email
                 };
 
                 purify.put('/rules', myRequest).catch(err => console.log(err));

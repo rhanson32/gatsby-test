@@ -127,11 +127,13 @@ class RuleItem extends React.Component {
                     <div className="rules-drawer-configuration">
                         
                         <div className="notification-add-input">
-                        <div className="notification-add-input-vertical">
-                        <label style={{ width: "100%" }}>Add Notification Email</label>
-                        <Input name="email" placeholder="email address" value={this.state.email} onChange={this.handleUpdate} />
-                        </div>
-                        <Button type="primary" onClick={this.addNotification}>Add</Button>
+                            <div className="notification-add-input-vertical">
+                                <label style={{ width: "100%" }}>Add Notification Email</label>
+                            </div>
+                            <div className="notification-add-input-bottom">
+                                <Input name="email" placeholder="email address" value={this.state.email} onChange={this.handleUpdate} />
+                                <Button type="primary" onClick={this.addNotification}>Add</Button>
+                            </div>
                         </div>
                     </div>
                 )} 

@@ -1473,6 +1473,18 @@ input  {
     padding: 0 1rem;
 }
 
+.notification-add-input-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rules-drawer-top {
+    width: 100%;
+    padding-top: 2rem;
+}
+
 .rules-drawer-bottom {
     display: flex;
     justify-content: flex-end;
@@ -2793,7 +2805,8 @@ th, td {
 .notification-add-input-vertical {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
+    padding-top: 1rem;
 }
 
 .rule-detail-item {
@@ -2853,6 +2866,7 @@ th, td {
 
 .notification-add-input {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     align-items: center;
     border-top: 1px solid #CCC;
