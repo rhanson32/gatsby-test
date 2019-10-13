@@ -37,7 +37,7 @@ class DocsMenu extends React.Component {
                 </div>
                 <div className="docs-menu-item">
                     <button className="docs-menu-link" onClick={this.showWorks}>
-                        How It Works
+                        How Purify Works
                     </button>
                 </div>
                 <div className="docs-menu-item">

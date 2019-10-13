@@ -90,6 +90,7 @@ input  {
 
 .features-header {
     display: flex;
+    flex-direction: column;
     padding: 3rem 0 2rem 0;
     width: 90%;
     justify-content: center;
@@ -1625,7 +1626,7 @@ input  {
     width: 15%;
     padding: 5rem 0.5rem;
     height: 100vh;
-    background-color: #2d3436;
+    background-color: rgba(45, 52, 54, 1);
 }
 
 .docs-menu-item {
@@ -1651,7 +1652,7 @@ input  {
 .docs-section {
     width: 85%;
     padding: 3rem 6rem;
-    background-color: #F3F3F3;
+    background-color: #F5F7FB;
 }
 
 .docs-section ul, .docs-section h2, .docs-section h3 {
@@ -1665,6 +1666,7 @@ input  {
 
 .docs-section p {
     line-height: 140%;
+    font-size: 16px;
 }
 
 .docs-architecture {
@@ -1675,6 +1677,7 @@ input  {
 
 .docs-architecture img {
     max-width: 80%;
+    background-color: white;
 }
 
 .sign-up-link {
@@ -1747,6 +1750,10 @@ input  {
     justify-content: center;
 }
 
+.docs-page {
+    background-color: #F5F7FB;
+}
+
 /********************* Pricing Page ***********************/
 
 .pricing-page, .features-page, .home, .docs-page {
@@ -1757,7 +1764,7 @@ input  {
 
 .pricing-main {
     width: 100%;
-    background-color: #dfe6e9;
+    background-color: #f5f7fb;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -1772,6 +1779,7 @@ input  {
     margin-top: 2rem;
     padding: 1rem 0;
     border-radius: 5px;
+    border: 1px solid #eee;
 }
 
 .pricing-header-new {
@@ -1804,7 +1812,6 @@ input  {
     margin: 2rem 0;
     width: 100%;
     max-width: 1000px;
-    background-color: #dfe6e9;
 }
 
 .feature-teaser {
@@ -1906,6 +1913,25 @@ input  {
     color: white;
 }
 
+.features-header-top-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: #0984e3;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.features-header-bottom-text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    color: #0984e3;
+    font-size: 32px;
+    font-weight: 700;
+}
+
 .internal-footer {
     width: 100%;
     background-color: #2d3436;
@@ -1913,7 +1939,6 @@ input  {
     padding: 1rem;
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
 }
 
 /**************** Login Page *************************/

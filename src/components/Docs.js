@@ -7,6 +7,7 @@ import Prerequisites from './Prerequisites';
 import SigningUp from './SigningUp';
 import AddingUsers from './AddingUsers';
 import Works from './Works';
+import Footer from './Footer';
 
 class Docs extends React.Component {
     state = {
@@ -35,6 +36,7 @@ class Docs extends React.Component {
                         this.props.documentation === 'HowItWorks' && <Works />
                     }
                 </div>
+                <Footer />
                 
             </div>
         )

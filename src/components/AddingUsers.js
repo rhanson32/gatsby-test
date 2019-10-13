@@ -3,6 +3,7 @@ import React from 'react';
 const AddingUsers = () => (
     <div className="docs-section">
         <h1>Adding Additional Users</h1>
+        <h3>Purify Users</h3>
         <p>
             To add additional users to your Purify account, follow these steps:
             <ol>
@@ -12,6 +13,8 @@ const AddingUsers = () => (
                 <li>Fill out the Add Users form and Submit.</li>
             </ol>
         </p>
+        <h3>Federated Users</h3>
+        <p>Add federated users to your Purify enterprise app in Azure AD.</p>
     </div>
 )
 

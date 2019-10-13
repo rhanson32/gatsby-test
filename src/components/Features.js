@@ -8,7 +8,7 @@ import agreement from '../../static/undraw_agreement.svg';
 import cloud from '../../static/undraw_cloud_hosting.svg';
 import list from '../../static/undraw_to_do_list.svg';
 import dashboard from '../../static/undraw_dashboard.svg';
-import cleanup from '../../static/CleanUp.png';
+import cleanup from '../../static/CleanUp2.svg';
 import team from '../../static/undraw_team_page.svg';
 import ExternalHeader from './ExternalHeader';
 import SiteMap from './SiteMap';
@@ -23,8 +23,10 @@ class Features extends React.Component {
             <div className="features-page">
                 <ExternalHeader />
                 <div className="features-header">
+                    <div className="features-header-top-text"><div>From this...</div><div>To this...</div></div>
                     <a name="Top">&nbsp;</a>
                     <img src={cleanup} alt="Clean up your cloud, and keep it clean. With Purify." />
+                    <div className="features-header-bottom-text">...with Purify cloud governance.</div>
                 </div>
                 <div className="feature-header-description">
                     Features

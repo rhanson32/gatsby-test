@@ -10,7 +10,7 @@ const Prerequisites = () => (
             To simplify the deployment of necessary permissions for Purify to work, we provide a CloudFormation template with the necessary permissions inside the Purify application. Upon first login, you will be given the opportunity to download this template for your use.
         </p>
         <p>
-        If you cannot locate this template, please email support[at]purify[dot]cloud from the email address used to create your Purify account and we will provide a direct link.
+        If you cannot locate this template, please email support [at] purify [dot] cloud from the email address used to create your Purify account and we will provide a direct link.
         </p>
         <h3>Key Permissions (non-exhaustive)</h3>
         <ul>
