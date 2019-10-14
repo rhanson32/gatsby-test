@@ -3,6 +3,7 @@ import { Card, Button, Modal, Input, Icon, Tag, notification } from 'antd';
 import { connect } from 'react-redux';
 import { Auth, Storage } from 'aws-amplify';
 import AWSAccount from './AWSAccount';
+import SwitchWrapSSO from './SwitchWrapSSO';
 import { Form } from 'tabler-react';
 import { testSaml, updateCustomerStatus, downgradeSubscription, addGlobalNotification, removeGlobalNotification, enableSaml, disableSaml, uploadMetadata, enableMFA, disableMFA } from '../actions';
 import { navigate } from '@reach/router';
@@ -498,7 +499,10 @@ class TabsCard extends React.Component {
                 <div className="settings-row">
                     <div className="settings-header">AWS Master Account</div>
                     <div className="settings-subscription">
-                        <div className="settings-lines"><div className="settings-left-header">Master Account: </div><div>{this.props.accounts.find(account => account.Type === 'Master').AccountId || "Not Found"}</div></div>
+                        <div className="settings-lines">
+                            <div className="settings-left-header">Master Account: </div>
+                            <div>{this.props.accounts.find(account => account.Type === 'Master').AccountId || "Not Found"}</div>
+                        </div>
                         <div className="settings-lines"><div className="settings-left-header">Account Status: </div><div>{this.props.accounts.find(account => account.Type === 'Master').Status || "Not Found"}</div></div>
                         <div className="settings-lines"><div className="settings-left-header">Role Name: </div><div>{this.props.accounts.find(account => account.Type === 'Master').RoleName || "Not Found"}</div></div>
                     </div>
@@ -515,53 +519,28 @@ class TabsCard extends React.Component {
                 </div>
             )
         } 
-        {/* <div className="settings-row">
-            <RegionsForm />
-        </div>  
-        <div className="settings-row">
-            <ServicesForm />
-        </div>   */}
       </div>,
       SSO: <div>
       {
-          this.props.scanComplete && !this.props.settings.saml && (
+          this.props.scanComplete && (
               <div className="settings-row">
                 <div className="settings-header">
                     Single Sign-On
                 </div>
                 <div className="settings-subscription">
                     <div className="settings-lines">
-                        <div className="settings-left-header">SSO Status: </div>Disabled
-                        <Button type="link" onClick={this.enableSaml}>
-                            <Icon type="x" style={{ color: "red", fontSize: "30px" }} />
-                            Enable SSO
-                        </Button>
+                        <div className="settings-left-header">SSO Status: </div>
+                        <SwitchWrapSSO checked={this.props.settings.saml} />
                     </div>
-                </div>
-              </div>
-          )
-      }
-      {
-          this.props.scanComplete && this.props.settings.saml && (
-              <div className="settings-row">
-                <div className="settings-header">
-                    Single Sign-On
-                </div>
-                <div className="settings-subscription">
-                    <div className="settings-lines">
-                        <div className="settings-left-header">SSO Status: </div> Enabled
-                        <div className="settings-sso-status">
-                            <Button type="link" onClick={this.disableSaml}>
-                                Disable SSO
-                            </Button>
+                    {this.props.settings.saml && (
+                        <div className="settings-lines">
+                            <div className="settings-left-header">Upload Metadata:</div> 
+                            <div className="metadata-upload">
+                                <Form.FileInput onChange={(e) => this.onChange(e)} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="settings-lines">
-                        <div className="settings-left-header">Metadata File:</div> None 
-                        <div className="metadata-upload">
-                            <Form.FileInput onChange={(e) => this.onChange(e)} />
-                        </div>
-                    </div>
+                    )}
+                    
                 </div>
               </div>
           )
@@ -634,12 +613,6 @@ class TabsCard extends React.Component {
                             </ol>
                         </div>
                     </div>
-                    <div className="settings-lines">
-                        <div className="settings-left-header">&nbsp;</div> 
-                        <div className="metadata-upload">
-                            &nbsp;
-                        </div>
-                    </div>
                 </div>
               </div>
           )
@@ -650,7 +623,7 @@ class TabsCard extends React.Component {
     return (
         <div className="settings-div">
             {this.props.user && this.props.user.Type && (<Card
-                style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px" }}
+                style={{ width: '100%', minHeight: "60vh", boxShadow: "0 0 8px 2px #ddd", borderRadius: "3px", marginBottom: "2rem" }}
                 tabList={tabListNoTitle}
                 activeTabKey={this.state.noTitleKey}
                 onTabChange={key => {
