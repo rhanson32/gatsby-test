@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify'
 
 const purify = axios.create({
     baseURL: process.env.GATSBY_API_URL,
-    timeout: 8000,
+    timeout: 10000,
     headers: { 'X-Api-Key': process.env.GATSBY_API_KEY }
 });
 
@@ -190,7 +190,9 @@ export const fetchDashboardData = (id) => async (dispatch, getState) => {
                 dispatch({ type: 'FETCH_ACCOUNTS', payload: accountItems });
             }
 
-        }));
+        })).catch(err => {
+            console.log(err);
+        });
 
     axios.all([settings, users, tickets])
         .then(axios.spread((settingsResponse, usersResponse, ticketsResponse) => {
@@ -241,7 +243,7 @@ export const fetchDashboardData = (id) => async (dispatch, getState) => {
             
                 dispatch({ type: 'FETCH_TICKETS', payload: items });
             }
-        }));
+        })).catch(err => console.log(err));
 }
 
 export const removeGlobalNotification = (recipient) => async (dispatch, getState) => {

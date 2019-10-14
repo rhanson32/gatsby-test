@@ -1659,6 +1659,11 @@ input  {
 .docs-section ul, .docs-section h2, .docs-section h3 {
     margin: 2rem;
     line-height: 140%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.docs-section h1 {
+    font-family: 'Open Sans', sans-serif;
 }
 
 .docs-section li {
@@ -1862,6 +1867,12 @@ input  {
     color: black;
 }
 
+.pricing-card-header-new {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .pricing-card-price {
     font-size: 2rem;
     display: flex;
@@ -1980,6 +1991,7 @@ input  {
     color: #0984e3;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .login-header {
@@ -2020,8 +2032,26 @@ input  {
     max-width: 400px;
 }
 
+.login-container label {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .login-container button, .login-container a, .signup-container button, .signup-container a {
     margin: 1rem 0;
+}
+
+.rules-header h1, .support-screen-header h1 {
+    font-family: 'Open Sans', sans-serif;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 40px;
+}
+
+.settings-header {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.dashboard-title-short, .dashboard-trends-title {
+    font-family: 'Open Sans', sans-serif;
 }
 
 .login-area {
@@ -2288,6 +2318,7 @@ input  {
 .site-map-logo {
     font-size: 5rem;
     font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
     height: 100%;
     display: flex;
     width: 50%;
@@ -2306,6 +2337,7 @@ input  {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .site-map-item {

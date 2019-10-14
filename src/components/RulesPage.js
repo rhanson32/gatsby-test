@@ -52,7 +52,7 @@ class RulesPage extends React.Component {
         else {
             this.props.getRules(this.props.User);
         }
-        if(!this.props.metrics || this.props.metrics.PurifyScore)
+        if(!this.props.metrics || !this.props.metrics.PurifyScore)
         {
             this.props.getMetrics(this.props.User.CustomerId);
         }

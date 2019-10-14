@@ -89,7 +89,7 @@ class Dashboard extends React.Component {
                 }
                     
                 this.setState({ loadingProgress: 25 });
-                this.props.fetchDashboardData(this.props.user.CustomerId);
+                await this.props.fetchDashboardData(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 50 });
                 this.setState({ loadingProgress: 75 });
                 this.setState({ loadingProgress: 100 });
@@ -113,7 +113,7 @@ class Dashboard extends React.Component {
             try
             {
                 this.setState({ loadingProgress: 25 });
-                this.props.fetchDashboardData(this.props.user.CustomerId);
+                await this.props.fetchDashboardData(this.props.user.CustomerId);
                 this.setState({ loadingProgress: 75 });
             }
             catch(err)
@@ -126,8 +126,6 @@ class Dashboard extends React.Component {
             if(this.props.user.Status === "Cancelled")
                 this.setState({ visible: true })
         }
-
-        console.log("Account age (Days):", moment().diff(moment(parseInt(this.props.user.CreateDate)*1000), 'days'));
 
         this.setState({ interval: setInterval( async () => {
             this.props.fetchDashboardData(this.props.user.CustomerId);
@@ -304,7 +302,7 @@ class Dashboard extends React.Component {
                             )}
                             <div className="dashboard-max">
                                 <div className="dashboard-top">
-                                    {this.props.metrics && this.props.metrics['last3Days'] && <div className="dashboard-title-short">Dashboard</div>}
+                                    {!this.state.showWelcomeScreen && this.props.metrics && this.props.metrics['last3Days'] && <div className="dashboard-title-short">Dashboard</div>}
                                     {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (
                                         <div className="dashboard-filters">
                                             <div style={{ paddingRight: "1rem" }}>Filters: </div>
@@ -337,7 +335,7 @@ class Dashboard extends React.Component {
                                     <DashboardModule filter={this.state.showAll ? 'all' : this.state.showSecurity ? 'security' : this.state.showWaste ? 'waste' : 'configuration'} selected={this.state.selectedChart} />
                                 </div>
                             )}
-                            {   this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (
+                            {!this.state.showWelcomeScreen && this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (
                                     <div className="dashboard-rule-detail-section">
                                         <div className="dashboard-trends-title">Rule Detail</div>
                                         <div className="rule-list-header">

@@ -33,7 +33,7 @@ class Pricing extends React.Component {
                 <div  className="pricing-card-new">
                 <PricingCard active={true}>
                     <PricingCard.Category>
-                        Free
+                        <div className="pricing-card-header-new">Free</div>
                     </PricingCard.Category>
                     <PricingCard.Price>
                         $0
@@ -84,7 +84,7 @@ class Pricing extends React.Component {
                 <div  className="pricing-card-new">
                 <PricingCard>
                     <PricingCard.Category>
-                        Standard
+                        <div className="pricing-card-header-new">Standard</div>
                     </PricingCard.Category>
                     <PricingCard.Price>
                         $299
