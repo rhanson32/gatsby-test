@@ -1,11 +1,14 @@
 import React from "react"
 import { navigate } from "@reach/router"
 import { connect } from 'react-redux';
+import { setUser, setExpiration } from '../utils/auth';
+import { saveUser } from '../actions';
 import Error from './Error'
 import { Auth } from 'aws-amplify'
 import { validateCompany } from '../actions'
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
+import moment from 'moment';
 import welcome from '../../static/undraw_welcome.svg';
 
 const initialState = {
@@ -37,38 +40,36 @@ class SignUp extends React.Component {
       let signUpResponse;
       try {
         this.setState({ error: null });
-        signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.replace(/ /g, '-') }}).catch(err => {
-          console.log(err);
-          if(err.code === 'UsernameExistsException')
-          {
-            this.setState({
-              error: { message: 'Username already exists. Please use a unique email to sign up.' }
-            });
-          }
-          else
-          {
-            this.setState({
-              error: 'An error occurred. Please try again.'
-            });
-          }
-          this.setState({ loading: false, buttonText: 'Sign Up' });
-        });
-
-        if(signUpResponse)
+        response = await validateCompany(this.state).catch(err => console.log(err));
+        if(response && response.statusCode !== 200)
         {
-            response = await validateCompany(this.state).catch(err => console.log(err));
-            if(response && response.statusCode !== 200)
+          this.setState({ error: { message: response.error }, loading: false, buttonText: 'Sign Up' })
+        }
+        else
+        {
+          signUpResponse = await Auth.signUp({ username: email, password, attributes: { email, "custom:company" : company.replace(/ /g, '-') }}).catch(err => {
+            console.log(err);
+            if(err.code === 'UsernameExistsException')
             {
-              this.setState({ error: { message: response.error }, loading: false, buttonText: 'Sign Up' })
+              this.setState({
+                error: { message: 'Username already exists. Please use a unique email to sign up.' }
+              });
             }
             else
             {
-              this.setState({ stage: 1, buttonText: 'Confirm Sign Up' });
-              notification.success({
-                message: 'Account Created',
-                description: 'Account created successfully.'
+              this.setState({
+                error: 'An error occurred. Please try again.'
               });
             }
+            this.setState({ loading: false, buttonText: 'Sign Up' });
+          });
+          console.log("Sign Up Response:", signUpResponse);
+
+          this.setState({ stage: 1, buttonText: 'Confirm Sign Up' });
+          notification.success({
+            message: 'Account Created',
+            description: 'Account created successfully.'
+          });
         }
       } catch (err) {
         this.setState({ 
@@ -129,10 +130,23 @@ class SignUp extends React.Component {
           
           console.log(user);
 
-          if(user)
+          if(user !== undefined)
           {
-              setTimeout(async () => {
-                navigate('/app/dashboard');
+
+            const userInfo = {
+              ...user.attributes,
+              username: user.username,
+              expiration: moment().add(12, 'hours').toISOString()
+            }
+
+            setUser(userInfo);
+            setExpiration(moment().add(12, 'hours').toISOString());
+            await this.props.saveUser(userInfo);
+
+            console.log(userInfo);
+
+            setTimeout(async () => {
+              navigate('/app/dashboard');
             }, 1000); 
           }
           else
@@ -228,4 +242,4 @@ const mapStateToProps = state => {
   }
 }
   
-export default connect(mapStateToProps, null)(SignUp);
+export default connect(mapStateToProps, { saveUser })(SignUp);

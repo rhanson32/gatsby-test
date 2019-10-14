@@ -132,13 +132,16 @@ export const addGlobalNotification = (recipient) => async (dispatch, getState) =
 
 export const fetchDashboardData = (id) => async (dispatch, getState) => {
 
+    console.log("Fetching dashboard data...");
     const settings = purify.get('/settings?id=' + id);
     const users = purify.get('/users?id=' + id);
     const tickets = purify.get('/tickets?id=' + getState().user.CustomerId);
 
     axios.all([purify.get('/rules?id=' + id), purify.get('/metrics?id=' + id), purify.get('/accounts?id=' + id)])
         .then(axios.spread((rules, metrics, accounts) => {
-
+            console.log("Rules:", rules);
+            console.log('Metrics:', metrics);
+            console.log('Accounts:', accounts);
             if(rules)
             {
                 let Items = rules.data.map(item => {
@@ -264,8 +267,9 @@ export const removeGlobalNotification = (recipient) => async (dispatch, getState
 
 export const fetchUsers = (id) => async (dispatch, getState) => {
 
+    console.log(id);
     const usersResponse = await purify.get('/users?id=' + id).catch(err => console.log(err));
-
+    console.log(usersResponse);
     if(usersResponse)
     {
         dispatch({ type: 'FETCH_USERS', payload: usersResponse.data });
@@ -532,10 +536,10 @@ export const addDefaultGroup = (token) => async dispatch => {
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
 
-    if(purifyUser.type === 'federated')
+    if(purifyUser.Type && purifyUser.Type === 'federated')
     {
         const customerResponse = await purify.get('/customers?client=' + purifyUser.client).catch(err => console.log(err));
-
+        console.log(customerResponse);
         const userInfo = {
             CustomerId: (customerResponse.data.length > 0 && customerResponse.data[0].CustomerId.S) || "None",
             Key: (customerResponse.data.length > 0 && customerResponse.data[0].ApiKey.S) || "None",
@@ -560,6 +564,7 @@ export const getCurrentUser = () => async dispatch => {
         const customerResponse = await purify.get('/customers?company=' + user.attributes["custom:company"]).catch(err => {
             console.log(err);
         });
+
         if(customerResponse && user)
         {
             const userInfo = {
@@ -573,9 +578,10 @@ export const getCurrentUser = () => async dispatch => {
                 Status: customerResponse.data[0].Status ? customerResponse.data[0].Status.S : 'Unknown',
                 CreateDate: customerResponse.data[0].CreateDate.N,
                 Type: 'Native',
-                Group: user.signInUserSession.idToken.payload['cognito:groups'][0],
+                Group: user.signInUserSession.idToken.payload['cognito:groups'] ? user.signInUserSession.idToken.payload['cognito:groups'][0] : null,
                 MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
             }
+            
     
             dispatch({ type: 'STORE_USER', payload: userInfo });
         }
@@ -603,6 +609,8 @@ export const validateCompany = async (user) => {
 
     let queryString = '?company=' + user.company;
     const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
+
+    console.log(customerResponse);
 
     if(customerResponse.data.length === 0)
     {

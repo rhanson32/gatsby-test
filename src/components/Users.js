@@ -18,7 +18,7 @@ class Users extends React.Component {
     }
 
     componentDidMount = async () => {
-        const user = await getCurrentUser();
+        const user = await this.props.getCurrentUser();
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -37,8 +37,12 @@ class Users extends React.Component {
                 }, 2000); 
             }
         }
-        await this.props.getCurrentUser();
-        this.props.fetchUsers(this.props.user.CustomerId);
+        else
+        {
+            this.props.fetchUsers(this.props.user.CustomerId);
+        }
+        
+        
     }
 
     makeAuditor = (e) => {

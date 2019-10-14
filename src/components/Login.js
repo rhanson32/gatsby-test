@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import { setUser, setExpiration } from '../utils/auth'
+import { setUser, setExpiration } from '../utils/auth';
 import { connect } from 'react-redux'
 import Error from './Error'
 import Amplify, { Auth } from 'aws-amplify'
