@@ -238,6 +238,16 @@ const mobileReducer = (state = { mobileMenu: true }, action) => {
     }
 }
 
+const welcomeReducer = (state = false, action) => {
+    switch(action.type)
+    {
+        case 'TOGGLE_WELCOME':
+            return action.payload
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     accounts: accountReducer,
     rules: ruleReducer,
@@ -252,5 +262,6 @@ export default combineReducers({
     documentation: documentationReducer,
     users: usersReducer,
     history: historyReducer,
-    metrics: metricReducer
+    metrics: metricReducer,
+    welcomeScreen: welcomeReducer
 });

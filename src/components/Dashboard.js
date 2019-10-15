@@ -12,7 +12,7 @@ import Header from './Header';
 import { Link } from '@reach/router';
 import Footer from './Footer';
 import WelcomeScreen from './WelcomeScreen';
-import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount } from '../actions';
+import { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount, toggleWelcomeScreen } from '../actions';
 import RuleListItem from './RuleListItem';
 import moment from 'moment';
 import DashboardModule from './DashboardModule';
@@ -218,7 +218,8 @@ class Dashboard extends React.Component {
     showWelcomeScreen = () => {
         this.setState({
             showWelcomeScreen: true
-        })
+        });
+        this.props.toggleWelcomeScreen();
     }
 
     handleCancel = () => {
@@ -287,12 +288,12 @@ class Dashboard extends React.Component {
                     <div className="dashboard">
                     {this.props.user && ( 
                         <div className="dashboard-addition">
-                            {(this.props.user.Status === 'New' || moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days'))) && !this.state.showWelcomeScreen && (
+                            {(this.props.user.Status === 'New' || moment(parseInt(this.props.user.CreateDate)* 1000).isAfter(moment().subtract(7, 'days'))) && !this.props.welcomeScreen && (
                                 <div className="alert-wrapper">
                                     <Alert type="info" closable description={<div style={{ width: "100%" }}>Check out our<Button onClick={this.showWelcomeScreen} type="link">Getting Started</Button>guide for tips on how to configure Purify for your AWS accounts.</div>} message="Need help getting started?" banner />
                                 </div>
                             )}
-                            {this.state.showWelcomeScreen && <WelcomeScreen />}
+                            {this.props.welcomeScreen && <WelcomeScreen />}
                             {!this.state.scanComplete && (
                             <div className="alert-banner">
                                 <Alert type="info" description={<Progress>
@@ -302,8 +303,8 @@ class Dashboard extends React.Component {
                             )}
                             <div className="dashboard-max">
                                 <div className="dashboard-top">
-                                    {!this.state.showWelcomeScreen && this.props.metrics && this.props.metrics['last3Days'] && <div className="dashboard-title-short">Dashboard</div>}
-                                    {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (
+                                    {!this.props.welcomeScreen && this.props.metrics && this.props.metrics['last3Days'] && <div className="dashboard-title-short">Dashboard</div>}
+                                    {!this.props.welcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (
                                         <div className="dashboard-filters">
                                             <div style={{ paddingRight: "1rem" }}>Filters: </div>
                                             <Button.Group>
@@ -324,18 +325,18 @@ class Dashboard extends React.Component {
                                     )}
                                 </div>
                                 
-                                {this.props.user.Status === 'New' && !this.state.showWelcomeScreen && (
+                                {this.props.user.Status === 'New' && !this.props.welcomeScreen && (
                                     <div className="headlines-empty">
                                         AWS Master account has not been configured. Please &nbsp;<Link to="/app/accounts">add your organization's master account</Link>&nbsp; to continue.
                                     </div>
                                 )}
                             
-                             {!this.state.showWelcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (   
+                             {!this.props.welcomeScreen && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days'] && (   
                                 <div className="dashboard-trends">
                                     <DashboardModule filter={this.state.showAll ? 'all' : this.state.showSecurity ? 'security' : this.state.showWaste ? 'waste' : 'configuration'} selected={this.state.selectedChart} />
                                 </div>
                             )}
-                            {!this.state.showWelcomeScreen && this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (
+                            {!this.props.welcomeScreen && this.props.user && this.props.user.Status === 'Active' && this.props.metrics && this.props.metrics['last3Days']  && (
                                     <div className="dashboard-rule-detail-section">
                                         <div className="dashboard-trends-title">Rule Detail</div>
                                         <div className="rule-list-header">
@@ -377,8 +378,9 @@ const mapStateToProps = state => {
         rules: state.rules,
         accounts: state.accounts,
         history: state.history,
-        metrics: state.metrics
+        metrics: state.metrics,
+        welcomeScreen: state.welcomeScreen
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentUser, getRules, getAccounts, getMetrics, fetchUsers, fetchDashboardData, fetchTickets, getSettings, updateCustomerStatus, postAccount, toggleWelcomeScreen })(Dashboard);

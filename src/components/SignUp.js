@@ -5,7 +5,7 @@ import { setUser, setExpiration } from '../utils/auth';
 import { saveUser } from '../actions';
 import Error from './Error'
 import { Auth } from 'aws-amplify'
-import { validateCompany } from '../actions'
+import { validateCompany, putUserAdmin } from '../actions';
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
 import moment from 'moment';
@@ -65,6 +65,8 @@ class SignUp extends React.Component {
           });
           console.log("Sign Up Response:", signUpResponse);
 
+          this.props.putUserAdmin(signUpResponse.userSub, this.state.company);
+
           this.setState({ stage: 1, buttonText: 'Confirm Sign Up' });
           notification.success({
             message: 'Account Created',
@@ -96,7 +98,7 @@ class SignUp extends React.Component {
           {
               notification.success({
                 message: 'Account confirmed',
-                description: 'Account has been confirmed. Now attempting to log in.'
+                description: 'Account has been confirmed. Now attempting to log in...'
               });
 
               user = await Auth.signIn(email, password).catch(err => {
@@ -242,4 +244,4 @@ const mapStateToProps = state => {
   }
 }
   
-export default connect(mapStateToProps, { saveUser })(SignUp);
+export default connect(mapStateToProps, { saveUser, putUserAdmin })(SignUp);

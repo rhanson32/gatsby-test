@@ -99,6 +99,15 @@ export const updateUser = (user) => async dispatch => {
     await purify.patch('/users', myRequest).catch(err => console.log(err));
 }
 
+export const toggleWelcomeScreen = () => async (dispatch, getState) => {
+    
+    const currentState = getState().welcomeScreen;
+    console.log(currentState);
+    console.log(!currentState);
+    
+    dispatch({ type: 'TOGGLE_WELCOME', payload: !currentState })
+}
+
 export const updateAccount = (account, role) => async (dispatch, getState) => {
 
     let RoleArn = 'arn:aws:iam::' + account.AccountId + ':role/' + role;
@@ -139,9 +148,7 @@ export const fetchDashboardData = (id) => async (dispatch, getState) => {
 
     axios.all([purify.get('/rules?id=' + id), purify.get('/metrics?id=' + id), purify.get('/accounts?id=' + id)])
         .then(axios.spread((rules, metrics, accounts) => {
-            console.log("Rules:", rules);
-            console.log('Metrics:', metrics);
-            console.log('Accounts:', accounts);
+            
             if(rules)
             {
                 let Items = rules.data.map(item => {
@@ -263,6 +270,21 @@ export const removeGlobalNotification = (recipient) => async (dispatch, getState
 
     dispatch({ type: 'REMOVE_NOTIFICATION', payload: Notifications });
     await purify.patch('/settings', myRequest).catch(err => console.log(err));
+}
+
+export const putUserAdmin = (user, company) => async dispatch => {
+    let myRequest = {
+        body: {
+            user,
+            company
+        }
+    };
+
+    console.log(user);
+    console.log(company);
+
+    const response = await purify.put('/admin', myRequest).catch(err => console.log(err));
+    console.log(response);
 }
 
 export const fetchUsers = (id) => async (dispatch, getState) => {

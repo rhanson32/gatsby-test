@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import { updateCustomerStatus } from '../actions';
+import { updateCustomerStatus, toggleWelcomeScreen } from '../actions';
 import { Button } from 'antd';
 import template from '../../static/PurifyControllerTemplate.png';
 import deploy from '../../static/DeployPurifyTemplate.png';
@@ -14,6 +14,7 @@ class WelcomeScreen extends React.Component {
     handleDismiss = () => {
         // this.props.updateCustomerStatus("Active");
         this.setState({ welcomeScreen: false });
+        this.props.toggleWelcomeScreen();
     }
 
     handleSubmit = () => {
@@ -107,8 +108,7 @@ class WelcomeScreen extends React.Component {
                                         <AWSAccount />
                                     </div>
                                     <div className="new-account-modal-footer">
-                                        <Button type="danger" onClick={this.handleDismiss}>Dismiss</Button>
-                                        <Button type="primary" onClick={this.handleSubmit}>Finish</Button>
+                                        <Button type="primary" onClick={this.handleDismiss}>Finish</Button>
                                     </div>
                                 </div>
                             )
@@ -124,4 +124,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus })(WelcomeScreen);
+export default connect(mapStateToProps, { updateCustomerStatus, toggleWelcomeScreen })(WelcomeScreen);
