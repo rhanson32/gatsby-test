@@ -664,10 +664,13 @@ export const getCustomer = async (user) => {
 
 export const getToken = (inputs) => async dispatch => {
 
+    console.log("Inputs:", inputs);
     const tokenResponse = await purify.get('/tokens?code=' + inputs.code + '&' + 'client_id=' + inputs.client_id)
     .catch(err => {
         console.log(err);
     });
+
+    console.log("Response:", tokenResponse);
 
     if(tokenResponse)
     {
