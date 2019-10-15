@@ -26,7 +26,7 @@ class SAML extends React.Component {
 
         if(result.client_id && result.code)
         {
-            token = await this.props.getToken(result);
+            token = await this.props.getToken(result).catch(err => console.log(err));
             console.log(token);
             if(token)
             {
@@ -38,7 +38,7 @@ class SAML extends React.Component {
                     client: token.data.aud
                 }));
                 
-                if(token.data["cognito:groups"].length === 1 && token.data["cognito:groups"].find(group => group.includes('SSO')))
+                if(token.data["cognito:groups"] && token.data["cognito:groups"].length === 1 && token.data["cognito:groups"].find(group => group.includes('SSO')))
                 {
                     await this.props.addDefaultGroup(token.data);
                 }
