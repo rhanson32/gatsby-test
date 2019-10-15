@@ -21,9 +21,6 @@ class Pricing extends React.Component {
                 <div className="pricing-header-new">
                     Pricing
                 </div>
-                <div className="pricing-description">
-                    All prices shown are monthly subscription prices.
-                </div>
                 <div className="pricing-note">
                     All Standard subscriptions come with an automatic 30 day free trial.
                 </div>

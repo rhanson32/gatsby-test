@@ -19,9 +19,9 @@ class Home extends React.Component {
             <div className="home">
                 <ExternalHeader />
                 <Splash mobileMenu={this.props.mobile.mobileMenu} />
-                <FeatureFocus title="Unlimited Accounts. One View." description="See one view of all your accounts, no matter how many you have. View everything at once, and take action on any account with just a few clicks." image={dashboard} />
-                <FeatureFocus title="Standards-based Rule Sets" description="Leverage our industry standard-based rule sets (from CIS and others) to quickly align yourself with proven best practices." image={list} reverse={true} />
-                <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. And no percentage costs that grow as your cloud usage grows. Just flat, transparent monthly prices." image={agreement} />
+                <FeatureFocus title="One View of Everything." description="See one consolidated view of every cloud account, no matter how many you have. View everything at once, and take action with just a few clicks." image={dashboard} />
+                <FeatureFocus title="Best Practices. Out of the Box." description="Align your accounts with accepted best practices with just a few clicks. No configuration required." image={list} reverse={true} />
+                <FeatureFocus title="Transparent Pricing" description="No contracts. No upfront commitments. No volume requirements for discounts. Just flat, transparent monthly pricing." image={agreement} />
                 <div className="feature-teaser">
                     <Link to="/app/features#Top">See the rest of our features <Icon name="arrow-right" /></Link>
                     <div className="feature-questions">Questions? Email us at info@purify.cloud.</div>
