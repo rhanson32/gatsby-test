@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import { updateCustomerStatus, toggleWelcomeScreen } from '../actions';
+import { updateCustomerStatus, toggleWelcomeScreen, getCurrentUser } from '../actions';
 import { Button } from 'antd';
 import template from '../../static/PurifyControllerTemplate.png';
 import deploy from '../../static/DeployPurifyTemplate.png';
@@ -9,6 +9,10 @@ import AWSAccount from './AWSAccount';
 class WelcomeScreen extends React.Component {
     state = {
         previewScreen: 'download'
+    }
+
+    componentDidMount() {
+        this.props.getCurrentUser();
     }
 
     handleDismiss = () => {
@@ -124,4 +128,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { updateCustomerStatus, toggleWelcomeScreen })(WelcomeScreen);
+export default connect(mapStateToProps, { updateCustomerStatus, toggleWelcomeScreen, getCurrentUser })(WelcomeScreen);
