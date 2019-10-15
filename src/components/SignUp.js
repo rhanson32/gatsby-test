@@ -5,7 +5,7 @@ import { setUser, setExpiration } from '../utils/auth';
 import { saveUser } from '../actions';
 import Error from './Error'
 import { Auth } from 'aws-amplify'
-import { validateCompany, putUserAdmin } from '../actions';
+import { validateCompany, putUserAdmin, getCustomer } from '../actions';
 import ExternalHeader from './ExternalHeader';
 import { Input, Button, notification } from 'antd';
 import moment from 'moment';
@@ -124,6 +124,11 @@ class SignUp extends React.Component {
                   this.setState({ loading: false, buttonText: 'Sign In' });
                 }
               });
+              if(user)
+              {
+                this.props.saveUser(user);
+              }
+              
     
               this.setState({
                 loading: false,
@@ -245,4 +250,4 @@ const mapStateToProps = state => {
   }
 }
   
-export default connect(mapStateToProps, { saveUser, putUserAdmin })(SignUp);
+export default connect(mapStateToProps, { saveUser, putUserAdmin, getCustomer })(SignUp);

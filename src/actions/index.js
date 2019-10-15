@@ -521,9 +521,10 @@ export const saveUser = (user) => async (dispatch, getState) => {
         user.Status = customerResponse.data[0].Status.S;
         user.Plan = customerResponse.data[0].Plan.S;
         user.CreateDate = customerResponse.data[0].CreateDate.N;
-    }
+        user.SignedUrl = customerResponse.data[0].SignedUrl.S;
 
-    dispatch({ type: 'STORE_USER', payload: user });
+        dispatch({ type: 'STORE_USER', payload: user });
+    }
 }
 
 export const addDefaultGroup = (token) => async dispatch => {
@@ -542,8 +543,8 @@ export const addDefaultGroup = (token) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const purifyUser = JSON.parse(localStorage.getItem('purifyUser'));
-
-    if(purifyUser.Type && purifyUser.Type === 'federated')
+    console.log(purifyUser);
+    if(purifyUser.type && purifyUser.type === 'federated')
     {
         const customerResponse = await purify.get('/customers?client=' + purifyUser.client).catch(err => console.log(err));
   
@@ -590,7 +591,6 @@ export const getCurrentUser = () => async dispatch => {
                 MFA: user.preferredMFA === 'SOFTWARE_TOKEN_MFA' ? true : false
             }
             
-    
             dispatch({ type: 'STORE_USER', payload: userInfo });
         }
         
@@ -640,6 +640,26 @@ export const validateCompany = async (user) => {
             error: 'Company record already exists.'
         }
     }
+};
+
+export const getCustomer = async (user) => {
+
+    let myRequest = {
+        body:   { 
+                email: user.email, 
+                company: user.company.trim().replace(/ /g, "-"),
+                userName: user.username
+            }
+    };
+
+    let queryString = '?company=' + user.company;
+    const customerResponse = await purify.get('/customers' + queryString).catch(err => console.log(err));
+    console.log(customerResponse);
+    if(customerResponse)
+    {
+        //dispatch({ type: 'STORE_USER', payload: })
+    }
+
 };
 
 export const getToken = (inputs) => async dispatch => {

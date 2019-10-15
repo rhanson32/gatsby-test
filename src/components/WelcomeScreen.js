@@ -58,8 +58,8 @@ class WelcomeScreen extends React.Component {
                                     <div className="new-account-modal-main">
                                         <div className="new-account-modal-main-text">
                                             <div>Download the &nbsp;<a href={this.props.user.SignedUrl ? this.props.user.SignedUrl : "#"}>PurifyController</a> &nbsp; CloudFormation template.</div>
-                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetAdministrationRole.yml">AWSCloudFormationStackSetAdministrationRole</a> &nbsp; CloudFormation template.</div>
-                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetExecutionRole.yml">AWSCloudFormationStackSetExecutionRole</a> &nbsp; CloudFormation template.</div>
+                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetAdministrationRole.yml">AWS CloudFormation StackSet Administration Role</a> &nbsp; template.</div>
+                                            <div>Download the &nbsp;<a href="https://s3.amazonaws.com/cloudformation-stackset-sample-templates-us-east-1/AWSCloudFormationStackSetExecutionRole.yml">AWS CloudFormation StackSet Execution Role</a> &nbsp; template.</div>
                                         </div>
                                         <div>
                                             <img width="350" src={template} alt="CloudFormation Template screenshot" />
@@ -106,10 +106,8 @@ class WelcomeScreen extends React.Component {
                                         </h2>
                                     </div>
                                     <div className="new-account-modal-main">
-                                        {/* <div className="new-account-modal-main-text">
-                                            Enter your AWS Master Account Id
-                                        </div> */}
-                                        <AWSAccount />
+                                        {this.props.accounts.length === 0 && <AWSAccount />}
+                                        {this.props.accounts.length > 0 && "Thank you for submitting your AWS master account. You may now close this screen."}
                                     </div>
                                     <div className="new-account-modal-footer">
                                         <Button type="primary" onClick={this.handleDismiss}>Finish</Button>
@@ -124,7 +122,8 @@ class WelcomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        accounts: state.accounts
     }
 }
 

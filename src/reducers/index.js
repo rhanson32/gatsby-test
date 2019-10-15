@@ -149,7 +149,7 @@ const userReducer = (state = {}, action) => {
     switch(action.type)
     {
         case 'STORE_USER':
-            return action.payload
+            return { ...state, ...action.payload }
         case 'UPDATE_STATUS':
             return { ...state, Status: action.payload }
         case 'UPDATE_PLAN':
