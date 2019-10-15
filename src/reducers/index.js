@@ -175,7 +175,7 @@ const flagReducer = (state = { AddAccount: false }, action) => {
     }
 }
 
-const documentationReducer = (state = 'Prerequisites', action) => {
+const documentationReducer = (state = 'HowItWorks', action) => {
     
     switch(action.type)
     {
