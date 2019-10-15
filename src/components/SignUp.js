@@ -94,6 +94,8 @@ class SignUp extends React.Component {
               });
           });
 
+          console.log("User confirmed.");
+
           if(confirmResponse)
           {
               notification.success({
@@ -116,7 +118,7 @@ class SignUp extends React.Component {
                 {
                   notification.error({
                     message: 'Unknown Error',
-                    description: 'Please try to log on again.'
+                    description: 'Please try to log in again.'
                   });
         
                   this.setState({ loading: false, buttonText: 'Sign In' });
@@ -134,7 +136,6 @@ class SignUp extends React.Component {
 
           if(user !== undefined)
           {
-
             const userInfo = {
               ...user.attributes,
               username: user.username,
