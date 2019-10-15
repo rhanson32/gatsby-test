@@ -3158,8 +3158,70 @@ th, td {
         max-width: 325px;
     }
 
+    .dashboard-sidebar-header {
+        font-size: 14px;
+        width: 20%;
+    }
+
+    .dashboard-module-body-sidebar {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .dashboard-module-body-graph {
+        width: 100%;
+    }
+
+    .dashboard-trends-title {
+        width: 90%;
+    }
+
+    .rule-list-header-container-wide {
+        width: 30%;
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .rule-list-header-container {
+        width: 22%;
+        font-size: 0.8rem;
+        padding: 0 0.5rem;
+    }
+
+    .dashboard-module-header {
+        flex-wrap: wrap;
+    }
+
     .dashboard-module-item {
+        width: 30%;
         font-size: 10px;
+    }
+
+    .rule-list-item {
+        font-size: 12px;
+    }
+
+    .header-user-name {
+        font-size: 14px;
+    }
+
+    .dashboard-module-item-header {
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .dashboard-module-item-body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .rule-list-item-container-wide {
+        padding: 1rem 0.5rem;
+    }
+
+    .dashboard-module-body {
+        flex-direction: column;
     }
 
     .feature-card-new {
@@ -3175,7 +3237,7 @@ th, td {
         width: 70%;
         justify-content: center;
         padding: 0.5rem 0;
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .settings-notifications {
@@ -3191,11 +3253,18 @@ th, td {
 
     .settings-lines {
         flex-direction: column;
+        align-items: center;
     }
 
     .settings-header {
         justify-content: center;
         padding: 0;
+        font-size: 1.1rem;
+    }
+
+    .settings-sso-status {
+        width: 100%;
+        font-size: 10px;
     }
 
     .footer-button button {
@@ -3304,6 +3373,10 @@ th, td {
 
     .settings-subscription {
         width: 100%;
+    }
+
+    .settings-subscription a {
+        font-size: 8px;
     }
 
     .add-notifications button {
@@ -3443,6 +3516,7 @@ th, td {
     .settings-row {
         flex-direction: column;
         justify-content: center;
+        padding: 1rem 0;
     }
 
     .settings-left-side, .settings-switch {
@@ -3581,13 +3655,31 @@ th, td {
     }
 
     .dashboard {
-        padding: 1rem 0;
         width: 100%;
+    }
+
+    .dashboard-filters {
+        padding-top: 1rem;
     }
 
     .dashboard-card-header {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .rule-detail-line-header {
+        font-size: 18px;
+        width: 50%;
+    }
+
+    .notification-group {
+        width: 100%;
+        padding: 0 1rem 1rem 1rem;
+        align-items: center;
+    }
+
+    .notifications-modify {
+        width: 100%;
     }
 
     .dashboard-item {
@@ -4333,6 +4425,18 @@ th, td {
 
     .feature-focus-header {
         font-size: 1.5rem;
+    }
+
+    .dashboard-sidebar-header {
+        font-size: 18px;
+    }
+
+    .dashboard-sidebar-body {
+        font-size: 54px;
+    }
+
+    .dashboard-module-header {
+        padding-left: 1rem;
     }
 
     .users-max {
