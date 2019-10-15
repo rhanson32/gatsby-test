@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
     
 
     componentDidMount = async () => {
-        const user = await getCurrentUser();
+        const user = await this.props.getCurrentUser();
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
