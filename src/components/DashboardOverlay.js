@@ -1,8 +1,11 @@
 import React from 'react';
+import { Loader } from 'tabler-react';
 
 const DashboardOverlay = () => (
     <div className="dashboard-overlay">
-        Loading...
+        <Loader />
+        <div style={{ fontSize: '32px' }}>Loading...</div>
+        
     </div>
 );
 

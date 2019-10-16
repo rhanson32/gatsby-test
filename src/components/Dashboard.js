@@ -53,6 +53,11 @@ class Dashboard extends React.Component {
     
 
     componentDidMount = async () => {
+
+        if(this.props.rules.length > 0 && this.props.metrics && this.props.metrics['last3Days'] && this.props.accounts.length > 0)
+        {
+            this.setState({ scanComplete: true });
+        }
         const user = await this.props.getCurrentUser();
         if(moment(getExpiration()) < moment())
         {
@@ -366,8 +371,7 @@ class Dashboard extends React.Component {
                     </div>
                     )}
                 </div>
-                
-                {this.state.scanComplete && <Footer />}
+                <Footer />
             </div>
         )
     } 

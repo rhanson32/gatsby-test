@@ -10,11 +10,13 @@ import Header from './Header';
 import Footer from './Footer';
 import AddUserForm from './AddUserForm';
 import moment from 'moment';
+import DashboardOverlay from './DashboardOverlay';
 
 class Users extends React.Component {
 
     state = {
-        visible: false
+        visible: false,
+        scanComplete: false
     }
 
     componentDidMount = async () => {
@@ -39,9 +41,10 @@ class Users extends React.Component {
         }
         else
         {
-            this.props.fetchUsers(this.props.user.CustomerId);
+            await this.props.fetchUsers(this.props.user.CustomerId);
         }
         
+        this.setState({ scanComplete: true });
         
     }
 
@@ -148,28 +151,34 @@ class Users extends React.Component {
                 <Header />
                 <TopMenu />
                 <div className="users-main">
-                    <div className="users-max">
-                        <div className="users-header">
-                            <div className="rules-header">
-                                <h1>User List</h1>
-                            </div>
-                            <div className="rules-options">
-                                {!this.state.visible && <Button type="primary" onClick={this.showDrawer}>Add User</Button>}
-                                {this.state.visible && <Button type="primary" onClick={this.onClose}>Close User Form</Button>}
-                            </div>
-                        </div>
-                        {this.state.visible && <AddUserForm />}
-                        {
-                            this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
-                        }
-                        {
-                            this.props.users.length !== 0 && (
-                                <div className="web-users">
-                                    <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0" }} dataSource={dataSource} columns={columns} />
+                    {this.state.scanComplete && (
+                        <div className="users-max">
+                            <div className="users-header">
+                                <div className="rules-header">
+                                    <h1>User List</h1>
                                 </div>
-                            )
-                        }
-                    </div>
+                                <div className="rules-options">
+                                    {!this.state.visible && <Button type="primary" onClick={this.showDrawer}>Add User</Button>}
+                                    {this.state.visible && <Button type="primary" onClick={this.onClose}>Close User Form</Button>}
+                                </div>
+                            </div>
+                            {this.state.visible && <AddUserForm />}
+                            {
+                                this.props.users.length === 0 && <Spin tip="Loading..." style={{ margin: "auto" }} size="large" />
+                            }
+                            {
+                                this.props.users.length !== 0 && (
+                                    <div className="web-users">
+                                        <Table pagination={this.props.users.length < 10 ? false : { position: "top" }} style={{ width: "100%", maxWidth: "900px", margin: "2rem 0" }} dataSource={dataSource} columns={columns} />
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )}
+                    {
+                        !this.state.scanComplete && <DashboardOverlay />
+                    }
+                    
                 </div>   
                 <Footer />
             </div>

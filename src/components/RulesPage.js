@@ -11,6 +11,7 @@ import Footer from './Footer';
 import { getRules, getCurrentUser, getAccounts, getHistory, getMetrics, fetchUsers, fetchTickets, enableRule, disableRule, modifyRules } from '../actions';
 import RuleItem from './RuleItem';
 import TopMenu from './TopMenu';
+import DashboardOverlay from './DashboardOverlay';
 
 class RulesPage extends React.Component {
 
@@ -21,10 +22,15 @@ class RulesPage extends React.Component {
         visible: false,
         description: ``,
         title: ``,
-        ruleId: null
+        ruleId: null,
+        scanComplete: false
     }
 
     componentDidMount = async () => {
+        if(this.props.Rules.length > 0)
+        {
+            this.setState({ scanComplete: true });
+        }
         const user = await getCurrentUser();
         if(moment(getExpiration()) < moment())
         {
@@ -47,11 +53,13 @@ class RulesPage extends React.Component {
         if(!this.props.User.email)
         {
             await this.props.getCurrentUser();
-            this.props.getRules(this.props.User);
+            await this.props.getRules(this.props.User);
         }
-        else {
-            this.props.getRules(this.props.User);
+        else 
+        {
+            await this.props.getRules(this.props.User);
         }
+        this.setState({ scanComplete: true });
         if(!this.props.metrics || !this.props.metrics.PurifyScore)
         {
             this.props.getMetrics(this.props.User.CustomerId);
@@ -209,7 +217,8 @@ class RulesPage extends React.Component {
             <div className="rules-page">
                 <Header />  
                 <TopMenu />
-                    <div className="rules">
+                {this.state.scanComplete && (
+                     <div className="rules">
                         <div className="rules-max">
                         {
                             this.props.Rules.length === 0 && <Spin tip="Loading..." style={{ margin: "auto", width: "100%", fontSize: "2rem" }} size="large" />
@@ -252,7 +261,9 @@ class RulesPage extends React.Component {
                         >
                             {this.state.ruleId !== null && <RuleItem ruleId={this.state.ruleId} />}
                         </Modal>
-                    </div> 
+                    </div>
+                )}
+                 {!this.state.scanComplete && <DashboardOverlay />}   
                   <Footer />  
             </div>
         )

@@ -319,13 +319,13 @@ input  {
 }
 
 .dashboard-overlay {
-    opacity: 0.4;
-    background-color: black;
-    color: white;
+    background-color: #F5F7FB;
+    color: darkgray;
     z-index: 1000;
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -605,7 +605,7 @@ input  {
 
 .dashboard-sidebar-body {
     color: white;
-    font-size: 40px;
+    font-size: 48px;
     font-weight:700;
 }
 
@@ -614,7 +614,7 @@ input  {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #DADADA;
-    padding: 1rem 0;
+    padding: 1rem;
 }
 
 .rule-container {

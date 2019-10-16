@@ -10,6 +10,7 @@ import Header from './Header';
 import Footer from './Footer';
 import moment from 'moment';
 import { message } from 'antd';
+import DashboardOverlay from './DashboardOverlay';
 
 class Settings extends React.Component {
 
@@ -28,6 +29,10 @@ class Settings extends React.Component {
     };
 
     componentDidMount = async () => {
+        if(this.props.settings && this.props.settings.Notifications)
+        {
+            this.setState({ scanComplete: true });
+        }
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -61,7 +66,7 @@ class Settings extends React.Component {
         }
         this.setState({
             scanComplete: true
-        })
+        });
     }
 
     toggleAWSState = () => {
@@ -79,14 +84,20 @@ class Settings extends React.Component {
             <div className="settings-page">
                 <Header />
                 <TopMenu />
-                <div className="support-right-side">
-                    <div className="support-screen-header">
-                            <h1>Settings</h1>
+                {this.state.scanComplete && (
+                    <div className="support-right-side">
+                        <div className="support-screen-header">
+                                <h1>Settings</h1>
+                            </div>
+                        <div className="settings-main">
+                            <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
                         </div>
-                    <div className="settings-main">
-                        <TabsCard accountsError={this.state.accountsError} scanComplete={this.state.scanComplete} />
                     </div>
-                </div>
+                )}
+                {
+                    !this.state.scanComplete && <DashboardOverlay />
+                }
+                
                 <Footer />
             </div>
         )

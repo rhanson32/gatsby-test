@@ -10,10 +10,20 @@ import { message } from 'antd';
 import { Table } from 'antd';
 import { getExpiration } from '../utils/auth';
 import { getHistory, getCurrentUser } from '../actions';
+import DashboardOverlay from './DashboardOverlay';
 
 class History extends React.Component {
 
+    state = {
+        scanComplete: false
+    }
+
     componentDidMount = async () => {
+
+        if(this.props.history.length > 0)
+        {
+            this.setState({ scanComplete: true });
+        }
         if(moment(getExpiration()) < moment())
         {
             console.log("User session has expired");
@@ -36,11 +46,13 @@ class History extends React.Component {
         if(!this.props.user.email)
         {
             await this.props.getCurrentUser();
-            this.props.getHistory(this.props.user);
+            await this.props.getHistory(this.props.user);
         }
         else {
-            this.props.getHistory(this.props.user);
+            await this.props.getHistory(this.props.user);
         }
+
+        this.setState({ scanComplete: true });
     }
 
     render() {
@@ -92,12 +104,15 @@ class History extends React.Component {
                 <Header />
                 <TopMenu />
                 <div className="history-main">
-                    <div className="history-max">
-                        <div className="support-screen-header">
-                            <h1>Audit Log</h1>
+                    {this.state.scanComplete && (
+                         <div className="history-max">
+                            <div className="support-screen-header">
+                                <h1>Audit Log</h1>
+                            </div>
+                            <Table pagination={{ position: "bottom", pageSize: 8 }} dataSource={dataSource} columns={columns} />
                         </div>
-                        <Table pagination={{ position: "bottom", pageSize: 8 }} dataSource={dataSource} columns={columns} />
-                    </div>
+                    )}
+                   {!this.state.scanComplete && <DashboardOverlay />}
                 </div> 
                 <Footer />   
             </div>
